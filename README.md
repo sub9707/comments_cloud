@@ -1,2 +1,2 @@
-# comments_cloud
-Youtube API + 워드 클라우드 활용 웹서비스
+# 트러뷸 슈터
+개인 에러 관리 + 공유 웹 서비스
