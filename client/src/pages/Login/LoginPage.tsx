@@ -30,14 +30,9 @@ import {
   LoginFormValues,
   RegisterFormValues,
 } from "../../types/react-hook-form";
-import { ErrorMessage } from "@hookform/error-message";
 
 export default function LoginPage() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormValues>();
+  const { register, handleSubmit } = useForm<LoginFormValues>();
 
   const { register: registerReg, handleSubmit: handleSubmitReg } =
     useForm<RegisterFormValues>();
