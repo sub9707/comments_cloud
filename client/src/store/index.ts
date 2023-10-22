@@ -7,7 +7,6 @@ import { persistReducer } from "redux-persist";
 // reducer 결합
 const reducers = combineReducers({
   user: userReducer,
-  authToken: tokenReducer,
 });
 
 const persistConfig = {
@@ -18,7 +17,7 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 export default configureStore({
-  reducer: persistedReducer,
+  reducer: { persistedReducer, authToken: tokenReducer },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }),
 });
