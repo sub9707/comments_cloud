@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import { DELETE_TOKEN } from "../../store/Auth";
 import { removeCookieToken } from "../../store/Cookie";
+import { persistor } from "../../store";
 
 export default function Logout() {
   const dispatch = useDispatch();
@@ -13,17 +14,17 @@ export default function Logout() {
   async function logout() {
     dispatch(DELETE_TOKEN());
     removeCookieToken();
+    await persistor.purge();
     return navigate("/");
   }
 
   useEffect(() => {
-    alert("로그아웃");
     logout();
   }, []);
 
   return (
     <>
-      <Link to="/login" />
+      <Link to="/" />
     </>
   );
 }

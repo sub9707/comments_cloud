@@ -2,7 +2,16 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import tokenReducer from "./Auth";
 import userReducer from "./User";
 import storage from "redux-persist/lib/storage";
-import { persistReducer } from "redux-persist";
+import {
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+  persistReducer,
+  persistStore,
+} from "redux-persist";
 
 // reducer 결합
 const reducers = combineReducers({
@@ -18,8 +27,14 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
-export default configureStore({
+export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({ serializableCheck: false }),
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
+
+export const persistor = persistStore(store);
