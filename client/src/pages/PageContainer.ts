@@ -53,9 +53,18 @@ export const ToolWrapper = styled.div`
 `;
 
 export const LogBox = styled.div`
-  width: 10%;
+  width: 20%;
   display: flex;
   justify-content: center;
   font-size: large;
   margin-left: 2%;
+  @media (max-width: 1200px) {
+    width: 20%;
+  }
+  @media (max-width: 800px) {
+    width: 20%;
+  }
+  @media (max-width: 500px) {
+    width: 30%;
+  }
 `;
