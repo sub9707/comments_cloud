@@ -1,19 +1,38 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const userSlice = createSlice({
+export type userStateType = {
+  user: {
+    data: {
+      name: string;
+      email: string;
+    };
+  };
+};
+
+export const userSlice = createSlice({
   name: "user",
   initialState: {
-    user: null,
+    data: {
+      name: "",
+      email: "",
+    },
   },
   reducers: {
     setUser: (state, action) => {
-      state.user = action.payload;
+      state.data = action.payload;
     },
     clearUser: (state) => {
-      state.user = null;
+      state.data = {
+        name: "",
+        email: "",
+      };
     },
   },
 });
 
-export const { setUser, clearUser } = userSlice.actions;
+// Define selectors using createSlice
+export const selectUserName = (state: userStateType) => state.user.data.name;
+export const selectUserEmail = (state: userStateType) => state.user.data.email;
+
 export default userSlice.reducer;
+export const { setUser, clearUser } = userSlice.actions;

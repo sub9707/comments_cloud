@@ -55,6 +55,7 @@ export const ToolWrapper = styled.div`
 export const LogBox = styled.div`
   width: 10%;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   font-size: large;
+  margin-left: 2%;
 `;

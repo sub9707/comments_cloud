@@ -1,4 +1,15 @@
+// import { getCookieToken } from "../store/Cookie";
 import axios from "./axios";
+
+// const access_token = getCookieToken();
+// const refresh_token = getCookieToken();
+
+// // JWT Interceptor
+// axios.interceptors.request.use(function (config) {
+//   config.headers.common["Authorization"] = access_token;
+//   config.headers.common["Refresh-Token"] = refresh_token;
+//   return config;
+// });
 
 /**
  * @method POST
@@ -27,15 +38,15 @@ export default registerUser;
  */
 export const loginUser = async (email: string, password: string) => {
   const data = { email, password };
-  try {
-    const response = await axios.post(`/login`, data);
-    if (response.status === 200) {
-      return response.data;
-    } else {
-      // 오류 응답 처리
-      throw new Error(response.data.message);
-    }
-  } catch (error) {
-    console.error("로그인 중 에러 발생 [Client Error: Login]");
+  console.log("login data: ", data);
+  const response = await axios.post(`/login`, data);
+  if (response.status === 200) {
+    return response.data;
+  } else if (response.status === 401) {
+    // Unauthorized Error: 로그인 정보 일치하지 않음
+    throw new Error("로그인 정보가 일치하지 않습니다.");
+  } else {
+    // 기타 서버 오류 처리
+    throw new Error("서버 오류");
   }
 };

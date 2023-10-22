@@ -258,6 +258,11 @@ const SignupButton = styled(SubmitButton)`
   transform: translateX(30%);
 `;
 
+const ErrorPrint = styled.p`
+  color: red;
+  font-size: large;
+`;
+
 export {
   FormsSection,
   SectionTitle,
@@ -273,4 +278,5 @@ export {
   Input,
   LoginButton,
   SignupButton,
+  ErrorPrint,
 };

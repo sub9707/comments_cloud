@@ -5,6 +5,7 @@ import {
   PageContainer,
 } from "../PageContainer";
 import {
+  ErrorPrint,
   Fieldsets,
   Form,
   FormWrapper,
@@ -30,28 +31,41 @@ import {
   LoginFormValues,
   RegisterFormValues,
 } from "../../types/react-hook-form";
+import axios from "axios";
+import { setUser } from "../../store/User";
 
 export default function LoginPage() {
   const { register, handleSubmit } = useForm<LoginFormValues>();
 
   const { register: registerReg, handleSubmit: handleSubmitReg } =
     useForm<RegisterFormValues>();
-  // register Info
+  // 패널 state
   const [activeForm, setActiveForm] = useState<string>("login");
+  // error 문 state
+  const [loginError, setLoginError] = useState<string>("");
 
   const onSubmitLogin: SubmitHandler<LoginFormValues> = async (data) => {
+    console.log("client data: ", data);
     try {
       setIsLoading(true);
       const result = await loginUser(data.email, data.password);
       if (result) {
+        console.log("로그인 성공:", result.user);
         setRefreshToken(result.refreshToken);
         dispatch(SET_TOKEN(result.accessToken));
+        dispatch(setUser({ name: result.user.name, email: result.user.email }));
+        navigate("/");
+      } else {
+        console.log("로그인 실패:", result);
       }
-      console.log("로그인 성공:", result);
+
       setIsLoading(false);
-      navigate("/");
     } catch (error) {
-      console.error("회원가입 실패:", error);
+      if (axios.isAxiosError(error)) {
+        console.error("로그인 중 에러 발생:", error);
+        setLoginError(error.response?.data);
+        setIsLoading(false);
+      }
     }
   };
   const onSubmitReg: SubmitHandler<RegisterFormValues> = async (data) => {
@@ -63,6 +77,7 @@ export default function LoginPage() {
       setIsLoading(false);
     } catch (error) {
       console.error("회원가입 실패:", error);
+      setIsLoading(false);
     }
   };
 
@@ -110,7 +125,7 @@ export default function LoginPage() {
                       <Input
                         id="login-email"
                         type="email"
-                        {...(register("email"), { required: true })}
+                        {...register("email", { required: true })}
                       />
                     </InputBlock>
                     <InputBlock>
@@ -118,15 +133,17 @@ export default function LoginPage() {
                       <Input
                         id="login-password"
                         type="password"
-                        {...(register("password"), { required: true })}
+                        {...register("password", { required: true })}
                       />
                     </InputBlock>
                   </Fieldsets>
+                  {loginError && <ErrorPrint>{loginError}</ErrorPrint>}
+
                   <LoginButton
                     type="submit"
                     className="btn-login"
                     disabled={isLoading}>
-                    로그인
+                    {isLoading ? "로그인 중" : "로그인"}
                   </LoginButton>
                 </Form>
               </FormWrapper>

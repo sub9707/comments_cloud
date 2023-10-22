@@ -20,3 +20,5 @@ export const getCookieToken = () => {
 export const removeCookieToken = () => {
   return cookies.remove("refresh_token", { sameSite: "strict", path: "/" });
 };
+
+export const isLoggedIn = () => !!getCookieToken();
