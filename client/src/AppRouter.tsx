@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/Login/LoginPage";
-import MainPage from "./pages/PageLayout";
 import Logout from "./pages/Logout/Logout";
 import { isLoggedIn } from "./store/Cookie";
 import React, { Suspense } from "react";
@@ -19,6 +18,8 @@ const AdminPageLayout = React.lazy(
 );
 // Pages
 const PageNotFound = React.lazy(() => import("./pages/NotFoundPage"));
+//Main
+const MainComp = React.lazy(() => import("./pages/MainPage/MainPage"));
 //Admin
 const AdminMain = React.lazy(() => import("./pages/Admin/AdminMainPage"));
 const AdminUser = React.lazy(() => import("./pages/Admin/AdminUserPage"));
@@ -32,10 +33,13 @@ export default function AppRouter() {
         <Routes>
           <Route
             path="/login"
-            element={isLoggedIn() ? <MainPage /> : <LoginPage />}
+            element={isLoggedIn() ? <MainComp /> : <LoginPage />}
           />
           <Route path="/logout" element={<Logout />} />
-          <Route path="/" element={<DefaultLayout />} />
+          <Route path="/" element={<DefaultLayout />}>
+            <Route index element={<MainComp />} />
+          </Route>
+          // Admin Page
           <Route path="/admin" element={<AdminPageLayout />}>
             <Route index element={<AdminMain />} />
             <Route path="user" element={<AdminUser />} />
