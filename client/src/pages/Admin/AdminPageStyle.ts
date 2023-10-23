@@ -39,3 +39,11 @@ export const PageHeader = styled.h1`
   font-weight: 700;
 `;
 // UserPage
+export const UserTableBox = styled.div`
+  width: 100%;
+  min-height: 100vh;
+  margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
