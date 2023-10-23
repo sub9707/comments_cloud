@@ -4,11 +4,12 @@ import MainPage from "./pages/PageLayout";
 import Logout from "./pages/Logout/Logout";
 import { isLoggedIn } from "./store/Cookie";
 import React, { Suspense } from "react";
+import { Spinner } from "react-bootstrap";
 
 const loading = (
-  <div>
-    <p>임시 스피너</p>
-  </div>
+  <>
+    <Spinner animation="grow" />
+  </>
 );
 
 // Container
@@ -33,9 +34,9 @@ export default function AppRouter() {
             element={isLoggedIn() ? <MainPage /> : <LoginPage />}
           />
           <Route path="/logout" element={<Logout />} />
-          <Route path="*" element={<DefaultLayout />} />
+          <Route path="/" element={<DefaultLayout />} />
           <Route path="/admin" element={<AdminPageLayout />}>
-            <Route path="main" element={<AdminMain />} />
+            <Route index element={<AdminMain />} />
             <Route path="user" element={<AdminUser />} />
             <Route path="board" element={<AdminBoard />} />
             <Route path="notice" element={<AdminNotice />} />
