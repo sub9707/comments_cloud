@@ -6,7 +6,6 @@ export const PageContainer = styled.div`
   width: 100%;
   min-height: 100vh;
   height: auto;
-  background-color: aliceblue;
   display: flex;
   justify-content: center;
   background: #3b4465;
