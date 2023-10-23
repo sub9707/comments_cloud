@@ -1,12 +1,20 @@
 import { Outlet } from "react-router-dom";
 import AdminNav from "../../components/AdminNav";
-import { PageContainer } from "./AdminMain/AdminPageStyle";
+import {
+  Page1440Container,
+  Page1920Container,
+  PageContainer,
+} from "./AdminPageStyle";
 
 export default function AdminPageLayout() {
   return (
     <PageContainer>
       <AdminNav />
-      <Outlet />
+      <Page1920Container>
+        <Page1440Container>
+          <Outlet />
+        </Page1440Container>
+      </Page1920Container>
     </PageContainer>
   );
 }
