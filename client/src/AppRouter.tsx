@@ -18,6 +18,7 @@ const AdminPageLayout = React.lazy(
   () => import("./pages/Admin/AdminPageLayout")
 );
 // Pages
+const PageNotFound = React.lazy(() => import("./pages/NotFoundPage"));
 //Admin
 const AdminMain = React.lazy(() => import("./pages/Admin/AdminMainPage"));
 const AdminUser = React.lazy(() => import("./pages/Admin/AdminUserPage"));
@@ -41,6 +42,8 @@ export default function AppRouter() {
             <Route path="board" element={<AdminBoard />} />
             <Route path="notice" element={<AdminNotice />} />
           </Route>
+          // 404 page 유도
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Suspense>
     </BrowserRouter>
