@@ -6,10 +6,10 @@ export default function UserTable() {
       <tbody>
         <tr>
           <th style={{ width: "5%", textAlign: "center" }}>권한</th>
-          <th style={{ width: "35%", textAlign: "center" }}>Email</th>
+          <th style={{ width: "45%", textAlign: "center" }}>Email</th>
           <th style={{ width: "10%", textAlign: "center" }}>이름</th>
           <th style={{ width: "20%", textAlign: "center" }}>가입일자</th>
-          <th style={{ width: "30%", textAlign: "center" }}>
+          <th style={{ width: "20%", textAlign: "center" }}>
             최근 로그인 시간
           </th>
         </tr>
