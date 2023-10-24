@@ -25,6 +25,24 @@ const ColStyle = {
 };
 
 export default function MainPage() {
+  const tempData = [
+    {
+      title: "서비스 소개",
+      content: "트러블 슈터의 소개입니다",
+    },
+    {
+      title: "공지사항",
+      content: "",
+    },
+    {
+      title: "내 에러 노트",
+      content: "에러를 기록하고 관리하세요",
+    },
+    {
+      title: "모두의 에러 노트",
+      content: "다른 사람과 에러를 공유하고 생각을 나누세요",
+    },
+  ];
   const [showElements, setShowElements] = useState(window.innerWidth <= 500);
 
   const updateVisibility = () => {
@@ -41,27 +59,27 @@ export default function MainPage() {
     <MainContainer>
       {showElements ? (
         <MobileContainer>
-          <PlainCard />
-          <PlainCard />
-          <PlainCard />
-          <PlainCard />
+          <PlainCard {...tempData[0]} />
+          <PlainCard {...tempData[1]} />
+          <PlainCard {...tempData[2]} />
+          <PlainCard {...tempData[3]} />
         </MobileContainer>
       ) : (
         <>
           <Row style={{ height: "50%" }}>
             <Col style={ColStyle}>
-              <ImageCard />
+              <ImageCard {...tempData[0]} ImgUrl="/images/Note.png" />
             </Col>
             <Col style={ColStyle}>
-              <ImageCard />
+              <ImageCard {...tempData[1]} ImgUrl="/images/notice.png" />
             </Col>
           </Row>
           <Row style={{ height: "50%" }}>
             <Col style={ColStyle}>
-              <ImageCard />
+              <ImageCard {...tempData[2]} ImgUrl="" />
             </Col>
             <Col style={ColStyle}>
-              <ImageCard />
+              <ImageCard {...tempData[3]} ImgUrl="" />
             </Col>
           </Row>
         </>
