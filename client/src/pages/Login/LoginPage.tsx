@@ -16,6 +16,7 @@ import {
   Label,
   Legend,
   LoginButton,
+  NoLogin,
   SectionTitle,
   SignupButton,
   Switcher,
@@ -215,6 +216,7 @@ export default function LoginPage() {
                 </Form>
               </FormWrapper>
             </FormsWrapper>
+            <NoLogin onClick={() => navigate("/")}>로그인없이 이용하기</NoLogin>
           </FormsSection>
         </LoginPageContainer>
       </PageActualWrapper>

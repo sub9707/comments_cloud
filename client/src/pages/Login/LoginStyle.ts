@@ -262,6 +262,16 @@ const ErrorPrint = styled.p`
   color: red;
   font-size: large;
 `;
+const NoLogin = styled.p`
+  color: white;
+  opacity: 0.5;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: opacity 0.2s ease-out;
+  &:hover {
+    opacity: 1;
+  }
+`;
 
 export {
   FormsSection,
@@ -279,4 +289,5 @@ export {
   LoginButton,
   SignupButton,
   ErrorPrint,
+  NoLogin,
 };
