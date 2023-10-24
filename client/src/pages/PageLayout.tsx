@@ -4,7 +4,7 @@ import {
   PageActualWrapper,
   PageAreaDesign,
   PageContainer,
-} from "./PageContainer";
+} from "../styles/PageContainer";
 
 export default function PageLayout() {
   return (

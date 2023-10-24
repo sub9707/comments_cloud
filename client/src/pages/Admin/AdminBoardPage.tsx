@@ -1,4 +1,4 @@
-import { PageBox, PageHeader } from "./AdminPageStyle";
+import { PageBox, PageHeader } from "../../styles/AdminPageStyle";
 
 export default function AdminBoardPage() {
   return (

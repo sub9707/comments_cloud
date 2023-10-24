@@ -4,7 +4,7 @@ import {
   Page1440Container,
   Page1920Container,
   PageContainer,
-} from "./AdminPageStyle";
+} from "../../styles/AdminPageStyle";
 
 export default function AdminPageLayout() {
   return (

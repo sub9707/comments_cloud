@@ -1,3 +1,5 @@
+import { MainContainer } from "../../styles/PageContainer";
+
 export default function NoticePage() {
-  return <>공지사항임</>;
+  return <MainContainer>공지사항임</MainContainer>;
 }

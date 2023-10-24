@@ -1,4 +1,4 @@
-import { PageBox, PageHeader, UserTableBox } from "./AdminPageStyle";
+import { PageBox, PageHeader, UserTableBox } from "../../styles/AdminPageStyle";
 import UserTable from "../../components/UserTable/UserTable";
 import PaginationComp from "../../components/Pagination";
 

@@ -3,7 +3,7 @@ import {
   LoginPageContainer,
   PageActualWrapper,
   PageContainer,
-} from "../PageContainer";
+} from "../../styles/PageContainer";
 import {
   ErrorPrint,
   Fieldsets,
@@ -21,7 +21,7 @@ import {
   SignupButton,
   Switcher,
   Underline,
-} from "./LoginStyle";
+} from "../../styles/LoginStyle";
 import registerUser, { loginUser } from "../../api/user";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";

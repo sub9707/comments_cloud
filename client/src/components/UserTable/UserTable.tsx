@@ -1,4 +1,4 @@
-import { Table } from "./UserTableStyle";
+import { Table } from "../../styles/UserTableStyle";
 
 export default function UserTable() {
   return (

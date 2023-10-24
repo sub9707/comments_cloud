@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { LogBox, PageNavBox, ToolWrapper } from "../pages/PageContainer";
+import { LogBox, PageNavBox, ToolWrapper } from "../styles/PageContainer";
 import { isLoggedIn } from "../store/Cookie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

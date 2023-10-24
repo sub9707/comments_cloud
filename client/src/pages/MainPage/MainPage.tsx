@@ -80,10 +80,10 @@ export default function MainPage() {
           </Row>
           <Row style={{ height: "50%" }}>
             <Col style={ColStyle}>
-              <ImageCard {...tempData[2]} ImgUrl="" />
+              <ImageCard {...tempData[2]} ImgUrl="/images/MyError.png" />
             </Col>
             <Col style={ColStyle}>
-              <ImageCard {...tempData[3]} ImgUrl="" />
+              <ImageCard {...tempData[3]} ImgUrl="/images/Board.png" />
             </Col>
           </Row>
         </>

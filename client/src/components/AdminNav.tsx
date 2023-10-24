@@ -19,7 +19,7 @@ export default function AdminNav() {
   return (
     <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
       <Container>
-        <Navbar.Brand as={Link} to="/admin/main">
+        <Navbar.Brand as={Link} to="/admin">
           관리자 페이지
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
