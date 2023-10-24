@@ -1,6 +1,7 @@
 import Card from "react-bootstrap/Card";
 import { useState } from "react";
 import { DesktopCardDataType } from "../../types/Components-type";
+import { useNavigate } from "react-router-dom";
 
 const CardImageStyle = {
   width: "100%",
@@ -20,8 +21,12 @@ const boxShadowed =
 const plainBox = "rgba(0, 0, 0, 0.24) 0px 3px 8px";
 
 export default function ImageCard(props: DesktopCardDataType) {
-  const { title, content, ImgUrl } = props;
+  const router = useNavigate();
+  const { title, content, ImgUrl, link } = props;
   const [mouseHovered, setMouseHovered] = useState<boolean>(false);
+  const ClickRouteHandler = () => {
+    router(link);
+  };
   return (
     <Card
       style={{
@@ -29,7 +34,8 @@ export default function ImageCard(props: DesktopCardDataType) {
         boxShadow: mouseHovered ? boxShadowed : plainBox,
       }}
       onMouseOver={() => setMouseHovered(true)}
-      onMouseOut={() => setMouseHovered(false)}>
+      onMouseOut={() => setMouseHovered(false)}
+      onClick={ClickRouteHandler}>
       <Card.Img
         variant="top"
         src={ImgUrl}

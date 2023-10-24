@@ -29,18 +29,22 @@ export default function MainPage() {
     {
       title: "서비스 소개",
       content: "트러블 슈터의 소개입니다",
+      link: "/service",
     },
     {
       title: "공지사항",
       content: "",
+      link: "/notice",
     },
     {
       title: "내 에러 노트",
       content: "에러를 기록하고 관리하세요",
+      link: "/myError",
     },
     {
       title: "모두의 에러 노트",
       content: "다른 사람과 에러를 공유하고 생각을 나누세요",
+      link: "/board",
     },
   ];
   const [showElements, setShowElements] = useState(window.innerWidth <= 500);

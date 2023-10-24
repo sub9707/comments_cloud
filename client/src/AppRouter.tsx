@@ -20,6 +20,10 @@ const AdminPageLayout = React.lazy(
 const PageNotFound = React.lazy(() => import("./pages/NotFoundPage"));
 //Main
 const MainComp = React.lazy(() => import("./pages/MainPage/MainPage"));
+const NoticePage = React.lazy(() => import("./pages/Notice/NoticePage"));
+const BoardPage = React.lazy(() => import("./pages/Board/BoardPage"));
+const MyError = React.lazy(() => import("./pages/myError/MyErrorPage"));
+const Service = React.lazy(() => import("./pages/Service/ServicePage"));
 //Admin
 const AdminMain = React.lazy(() => import("./pages/Admin/AdminMainPage"));
 const AdminUser = React.lazy(() => import("./pages/Admin/AdminUserPage"));
@@ -38,6 +42,10 @@ export default function AppRouter() {
           <Route path="/logout" element={<Logout />} />
           <Route path="/" element={<DefaultLayout />}>
             <Route index element={<MainComp />} />
+            <Route path="/service" element={<Service />} />
+            <Route path="/notice" element={<NoticePage />} />
+            <Route path="/board" element={<BoardPage />} />
+            <Route path="/myError" element={<MyError />} />
           </Route>
           // Admin Page
           <Route path="/admin" element={<AdminPageLayout />}>
