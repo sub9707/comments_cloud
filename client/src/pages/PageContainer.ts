@@ -48,7 +48,7 @@ export const ToolWrapper = styled.div`
   top: -40px;
   color: white;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 `;
 
 export const LogBox = styled.div`
@@ -66,4 +66,11 @@ export const LogBox = styled.div`
   @media (max-width: 500px) {
     width: 30%;
   }
+`;
+
+export const PageNavBox = styled.div`
+  width: 10%;
+  display: flex;
+  justify-content: space-around;
+  margin-left: 2em;
 `;

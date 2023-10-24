@@ -1,19 +1,43 @@
-import { Link } from "react-router-dom";
-import { LogBox, ToolWrapper } from "../pages/PageContainer";
+import { Link, useNavigate } from "react-router-dom";
+import { LogBox, PageNavBox, ToolWrapper } from "../pages/PageContainer";
 import { isLoggedIn } from "../store/Cookie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faHouse,
+  faLeftLong,
   faPowerOff,
   faRightFromBracket,
+  faRightLong,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { userStateType } from "../store/User";
 
 export default function NavMenu() {
   const user = useSelector((state: userStateType) => state.user.data);
+  const navigate = useNavigate();
   console.log(user);
   return (
     <ToolWrapper>
+      <PageNavBox>
+        <FontAwesomeIcon
+          icon={faLeftLong}
+          size="2x"
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate(-1)}
+        />
+        <FontAwesomeIcon
+          icon={faHouse}
+          size="xl"
+          style={{ cursor: "pointer", marginTop: "2%", marginInline: "5%" }}
+          onClick={() => navigate("/")}
+        />
+        <FontAwesomeIcon
+          icon={faRightLong}
+          size="2x"
+          style={{ cursor: "pointer" }}
+          onClick={() => navigate(1)}
+        />
+      </PageNavBox>
       <LogBox>
         {isLoggedIn() ? (
           <>
