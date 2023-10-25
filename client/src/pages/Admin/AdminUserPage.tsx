@@ -10,10 +10,14 @@ export default function AdminUserPage() {
   const [loading, setLoading] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 10;
-  // pagenation
+  // pagination
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = data.slice(indexOfFirstItem, indexOfLastItem);
+  const totalItems = Math.ceil(data.length / itemsPerPage);
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
   // userFetching
   const fetchData = async () => {
     try {
@@ -30,9 +34,13 @@ export default function AdminUserPage() {
     <PageBox>
       <PageHeader>유저페이지</PageHeader>
       <UserTableBox>
-        <UserTable data={data} />
+        <UserTable data={currentItems} />
         <br />
-        <PaginationComp />
+        <PaginationComp
+          active={currentPage}
+          totalItems={totalItems}
+          onPageChange={handlePageChange}
+        />
       </UserTableBox>
     </PageBox>
   );

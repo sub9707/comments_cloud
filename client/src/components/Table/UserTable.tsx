@@ -11,7 +11,7 @@ export default function UserTable(props: UserTableProps) {
           <th style={{ width: "10%", textAlign: "center" }}>이름</th>
           <th style={{ width: "20%", textAlign: "center" }}>가입일자</th>
           <th style={{ width: "20%", textAlign: "center" }}>
-            최근 로그인 시간
+            마지막 로그인 시간
           </th>
         </tr>
         {props.data.map((user, _idx) => (

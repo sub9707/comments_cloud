@@ -10,3 +10,9 @@ export type DesktopCardDataType = {
   ImgUrl: string;
   link: string;
 };
+
+export type PaginationCompProps = {
+  active: number;
+  totalItems: number;
+  onPageChange: (pageNumber: number) => void;
+};
