@@ -16,12 +16,17 @@ import axios from "./axios";
  *  사용자 회원가입
  */
 const registerUser = async (name: string, email: string, password: string) => {
+  const today = new Date();
+  const registerDate = `${today.getFullYear()}.${today.getMonth()}.${today.getDay()}`;
   try {
+    console.log("in");
     const response = await axios.post("/user/register", {
       name: name,
       email: email,
       password: password,
+      registerDate: registerDate,
     });
+    console.log(response.data);
 
     return response.data;
   } catch (error) {

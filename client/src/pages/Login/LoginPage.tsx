@@ -168,16 +168,12 @@ export default function LoginPage() {
                   }`}
                   onSubmit={handleSubmitReg(onSubmitReg)}>
                   <Fieldsets>
-                    <Legend>
-                      Please, enter your email, password, and password
-                      confirmation for sign up.
-                    </Legend>
                     <InputBlock>
                       <Label htmlFor="signup-email">이메일</Label>
                       <Input
                         id="signup-email"
                         type="email"
-                        {...(registerReg("email"), { required: true })}
+                        {...registerReg("email", { required: true })}
                       />
                     </InputBlock>
                     <InputBlock>
@@ -185,8 +181,10 @@ export default function LoginPage() {
                       <Input
                         id="signup-name"
                         type="text"
-                        {...(registerReg("name"),
-                        { required: true, maxLength: 20 })}
+                        {...registerReg("name", {
+                          required: true,
+                          maxLength: 20,
+                        })}
                       />
                     </InputBlock>
                     <InputBlock>
@@ -194,8 +192,10 @@ export default function LoginPage() {
                       <Input
                         id="signup-password"
                         type="password"
-                        {...(registerReg("password"),
-                        { required: true, minLength: 10 })}
+                        {...registerReg("password", {
+                          required: true,
+                          minLength: 10,
+                        })}
                       />
                     </InputBlock>
                     <InputBlock>
@@ -205,8 +205,10 @@ export default function LoginPage() {
                       <Input
                         id="signup-password-confirm"
                         type="password"
-                        {...(registerReg("passwordConfirm"),
-                        { required: true, minLength: 10 })}
+                        {...registerReg("passwordConfirm", {
+                          required: true,
+                          minLength: 10,
+                        })}
                       />
                     </InputBlock>
                   </Fieldsets>

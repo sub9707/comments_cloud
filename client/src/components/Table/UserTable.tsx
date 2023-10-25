@@ -26,7 +26,7 @@ export default function UserTable(props: UserTableProps) {
               {user?.name}
             </td>
             <td style={{ textAlign: "center" }} data-th="가입일자">
-              06/25/2016
+              {user?.registerDate}
             </td>
             <td style={{ textAlign: "center" }} data-th="최근 로그인">
               06/25/2016

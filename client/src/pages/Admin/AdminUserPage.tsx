@@ -4,10 +4,11 @@ import PaginationComp from "../../components/Pagination";
 import { useEffect, useState } from "react";
 import axios from "../../api/axios";
 import { UserData } from "../../types/users";
+import { Spinner } from "react-bootstrap";
 
 export default function AdminUserPage() {
   const [data, setData] = useState<UserData[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 10;
   // pagination
@@ -21,8 +22,10 @@ export default function AdminUserPage() {
   // userFetching
   const fetchData = async () => {
     try {
+      setLoading(true);
       const response = await axios.get("/users");
       setData(response.data);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -34,13 +37,19 @@ export default function AdminUserPage() {
     <PageBox>
       <PageHeader>유저페이지</PageHeader>
       <UserTableBox>
-        <UserTable data={currentItems} />
-        <br />
-        <PaginationComp
-          active={currentPage}
-          totalItems={totalItems}
-          onPageChange={handlePageChange}
-        />
+        {loading ? (
+          <Spinner animation="border" variant="secondary" />
+        ) : (
+          <>
+            <UserTable data={currentItems} />
+            <br />
+            <PaginationComp
+              active={currentPage}
+              totalItems={totalItems}
+              onPageChange={handlePageChange}
+            />
+          </>
+        )}
       </UserTableBox>
     </PageBox>
   );
