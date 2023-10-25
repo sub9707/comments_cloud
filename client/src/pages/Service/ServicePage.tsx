@@ -1,3 +1,10 @@
+import { MainContainer } from "../../styles/PageContainer";
+import { PageHeader } from "../../styles/TextStyle";
+
 export default function ServicePage() {
-  return <>서비스페이지임</>;
+  return (
+    <MainContainer>
+      <PageHeader>서비스 소개</PageHeader>
+    </MainContainer>
+  );
 }

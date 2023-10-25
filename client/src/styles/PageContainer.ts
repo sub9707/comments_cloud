@@ -4,8 +4,8 @@ export const PageContainer = styled.div`
   position: absolute;
   margin: 0;
   width: 100%;
-  min-height: 100vh;
-  height: auto;
+  height: 100vh;
+
   display: flex;
   justify-content: center;
   background: #3b4465;
@@ -81,5 +81,15 @@ export const PageNavBox = styled.div`
 export const MainContainer = styled.div`
   width: 95%;
   height: 100%;
-  background-color: beige;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none; /* Chrome , Safari , Opera */
+  }
+`;
+
+export const ContentBox = styled.div`
+  width: 100%;
+  min-height: 100%;
+  height: auto;
+  margin-top: 3em;
 `;

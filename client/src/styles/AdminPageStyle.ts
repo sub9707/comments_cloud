@@ -41,7 +41,8 @@ export const PageHeader = styled.h1`
 // UserPage
 export const UserTableBox = styled.div`
   width: 100%;
-  min-height: 100vh;
+  min-height: 80vh;
+  height: auto;
   margin-top: 2em;
   display: flex;
   flex-direction: column;

@@ -5,6 +5,7 @@ const { check } = require("express-validator");
 const { verifyToken } = require("../config/JWT_middleware");
 
 router.get("/", (req, res, next) => {
+  console.log("Handling the / route");
   res.send("hi");
 });
 

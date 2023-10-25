@@ -1,5 +1,10 @@
-import { MainContainer } from "../../styles/PageContainer";
+import { MainContainer } from "styles/PageContainer";
+import { PageHeader } from "styles/TextStyle";
 
 export default function BoardPage() {
-  return <MainContainer>1</MainContainer>;
+  return (
+    <MainContainer>
+      <PageHeader>board</PageHeader>
+    </MainContainer>
+  );
 }
