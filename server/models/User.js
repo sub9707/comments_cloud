@@ -27,14 +27,15 @@ class UserModel {
       );
     });
   }
-  static async registerUser(name, email, password) {
+  static async registerUser(name, email, password, registerDate) {
     return new Promise((resolve) => {
       db.query(
-        "insert into users (name, email, password) values(?,?,?)",
-        [name, email, password],
+        "insert into users (name, email, password, registerDate) values(?,?,?,?)",
+        [name, email, password, registerDate],
         (error, result) => {
-          if (!error) resolve(true);
-          else resolve(false);
+          if (!error) {
+            resolve(true);
+          } else resolve(false);
         }
       );
     });

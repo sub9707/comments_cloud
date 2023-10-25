@@ -31,8 +31,14 @@ class UserController {
    */
   static registerUser = async (req, res) => {
     try {
-      const { name, email, password } = req.body;
-      let results = await userModel.registerUser(name, email, password);
+      const { name, email, password, registerDate } = req.body;
+
+      let results = await userModel.registerUser(
+        name,
+        email,
+        password,
+        registerDate
+      );
       if (results) res.send("유저 등록 성공! [Controller]");
     } catch (error) {
       console.error(error);
