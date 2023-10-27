@@ -9,10 +9,41 @@ import ReactQuill from "react-quill";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../store/Modal";
+import { useForm } from "react-hook-form";
+import { NoticeWriteValues } from "../../types/react-hook-form";
+import { useEffect, useState } from "react";
+import writeNotice from "../../api/notice";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminNoticeWrite() {
-  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  // use-hook-form Data 변수
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { register, handleSubmit, setValue, watch } =
+    useForm<NoticeWriteValues>();
+  const editorContent = watch("content");
+  const onEditorStateChange = (editorState: string) => {
+    setValue("content", editorState);
+  };
+  const onSubmit = async (data: NoticeWriteValues) => {
+    try {
+      setIsLoading(true);
+      const result = await writeNotice(data.title, data.content);
+      console.log("공지 등록 성공:", result);
+      setIsLoading(false);
+      alert("공지가 등록되었습니다.");
+      navigate("/admin/notice");
+    } catch (error) {
+      console.error("공지 등록 실패:", error);
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
+    register("content", { required: false });
+  }, [register]);
 
+  // modal 관련 변수
+  const dispatch = useDispatch();
   const handleWriteCancel = () => {
     dispatch(openModal({ modalType: "WriteModal", isOpen: true }));
   };
@@ -29,7 +60,11 @@ export default function AdminNoticeWrite() {
                 <Label>공지 제목</Label>
               </LeftCell>
               <RightCell>
-                <Input type="text" maxLength={100} />
+                <Input
+                  type="text"
+                  maxLength={100}
+                  {...register("title", { required: true })}
+                />
               </RightCell>
             </TableRow>
             <TableRow>
@@ -40,6 +75,8 @@ export default function AdminNoticeWrite() {
                 <ReactQuill
                   style={{ width: "100%", height: "60vh" }}
                   modules={modules}
+                  value={editorContent}
+                  onChange={onEditorStateChange}
                 />
               </ContentCell>
             </TableRow>
@@ -54,8 +91,14 @@ export default function AdminNoticeWrite() {
           </tbody>
         </Table>
         <ButtonCenter>
-          <Button variant="primary" size="lg" style={{ marginRight: "1em" }}>
-            게시글 등록
+          <Button
+            variant="primary"
+            size="lg"
+            style={{ marginRight: "1em" }}
+            type="submit"
+            onClick={handleSubmit(onSubmit)}
+            disabled={isLoading}>
+            {isLoading ? "등록 중" : "게시글 등록"}
           </Button>
           <Button variant="outline-dark" size="lg" onClick={handleWriteCancel}>
             작성 취소

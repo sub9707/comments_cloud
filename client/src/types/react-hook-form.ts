@@ -8,3 +8,8 @@ export type RegisterFormValues = {
   password: string;
   passwordConfirm: string;
 };
+
+export type NoticeWriteValues = {
+  title: string;
+  content: string;
+};
