@@ -1,6 +1,7 @@
 import { Table } from "../../styles/UserTableStyle";
+import { NoticeTableProps } from "../../types/TableTypes";
 
-export default function AdminBoardTable() {
+export default function AdminBoardTable(props: NoticeTableProps) {
   return (
     <Table style={{ marginTop: "2em" }}>
       <tbody>
@@ -9,19 +10,19 @@ export default function AdminBoardTable() {
           <th style={{ width: "70%", textAlign: "center" }}>제목</th>
           <th style={{ width: "25%", textAlign: "center" }}>작성일자</th>
         </tr>
-        {/* {props.data.map((user, _idx) => (
+        {props.data.map((notice, _idx) => (
           <tr key={_idx}>
             <td style={{ textAlign: "center" }} data-th="#">
-              {user?.id}
+              {_idx + 1}
             </td>
             <td style={{ textAlign: "center" }} data-th="제목">
-              {user?.name}
+              {notice?.title}
             </td>
             <td style={{ textAlign: "center" }} data-th="작성일자">
-              {user?.registerDate}
+              {notice?.createDate}
             </td>
           </tr>
-        ))} */}
+        ))}
       </tbody>
     </Table>
   );
