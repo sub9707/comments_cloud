@@ -4,15 +4,9 @@ const router = express.Router();
 const { check } = require("express-validator");
 const { verifyToken } = require("../config/JWT_middleware");
 
-router.get("/", (req, res, next) => {
-  console.log("Handling the / route");
-  res.send("hi");
-});
-
-router.get("/users", usercontroller.getalluser);
-router.post("/user/register", usercontroller.registerUser);
+router.post("/register", usercontroller.registerUser);
 router.delete(
-  "/user/delete",
+  "/delete",
   [
     check("id")
       .exists()
@@ -23,6 +17,6 @@ router.delete(
   usercontroller.deleteUser
 );
 router.post("/login", usercontroller.loginUser);
-router.post("/user/update", usercontroller.updateUser);
+router.post("/update", usercontroller.updateUser);
 
 module.exports = router;

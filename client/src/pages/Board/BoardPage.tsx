@@ -1,5 +1,5 @@
-import { MainContainer } from "styles/PageContainer";
-import { PageHeader } from "styles/TextStyle";
+import { MainContainer } from "../../styles/PageContainer";
+import { PageHeader } from "../../styles/TextStyle";
 
 export default function BoardPage() {
   return (
