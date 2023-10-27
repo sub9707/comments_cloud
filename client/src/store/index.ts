@@ -1,6 +1,7 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import tokenReducer from "./Auth";
 import userReducer from "./User";
+import modalReducer from "./Modal";
 import storage from "redux-persist/lib/storage";
 import {
   FLUSH,
@@ -17,12 +18,13 @@ import {
 const reducers = combineReducers({
   user: userReducer,
   authToken: tokenReducer,
+  modal: modalReducer,
 });
 
 const persistConfig = {
   key: "root",
   storage,
-  blacklist: ["authToken"],
+  blacklist: ["authToken", "modal"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

@@ -7,8 +7,16 @@ import {
 } from "../../styles/AdminPageStyle";
 import ReactQuill from "react-quill";
 import { Button } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { openModal } from "../../store/Modal";
 
 export default function AdminNoticeWrite() {
+  const dispatch = useDispatch();
+
+  const handleWriteCancel = () => {
+    dispatch(openModal({ modalType: "WriteModal", isOpen: true }));
+  };
+
   return (
     <PageBox>
       <PageHeader>공지사항 작성</PageHeader>
@@ -49,7 +57,7 @@ export default function AdminNoticeWrite() {
           <Button variant="primary" size="lg" style={{ marginRight: "1em" }}>
             게시글 등록
           </Button>
-          <Button variant="outline-dark" size="lg">
+          <Button variant="outline-dark" size="lg" onClick={handleWriteCancel}>
             작성 취소
           </Button>
         </ButtonCenter>

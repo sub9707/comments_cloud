@@ -4,6 +4,7 @@ import Logout from "./pages/Logout/Logout";
 import { isLoggedIn } from "./store/Cookie";
 import React, { Suspense } from "react";
 import { Spinner } from "react-bootstrap";
+import GlobalModal from "./components/GlobalModal";
 
 const loading = (
   <>
@@ -37,6 +38,7 @@ export default function AppRouter() {
   return (
     <BrowserRouter>
       <Suspense fallback={loading}>
+        <GlobalModal />
         <Routes>
           <Route
             path="/login"
