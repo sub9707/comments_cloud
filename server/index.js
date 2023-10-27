@@ -4,6 +4,7 @@ const bodyparser = require("body-parser");
 const cors = require("cors");
 const userRouter = require("./routes/user");
 const tokenRouter = require("./routes/token");
+const noticeRouter = require("./routes/notice");
 const usercontroller = require("./controllers/UserController");
 
 const app = express();
@@ -15,8 +16,9 @@ app.use(cors());
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use("/user", userRouter);
-app.use("/token", tokenRouter);
 app.get("/users", usercontroller.getalluser);
+app.use("/token", tokenRouter);
+app.use("/notice", noticeRouter);
 
 app.listen(PORT, () => {
   console.log("Server is running on", PORT);
