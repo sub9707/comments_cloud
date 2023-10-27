@@ -1,4 +1,4 @@
-import { PageBox, PageHeader, UserTableBox } from "../../styles/AdminPageStyle";
+import { PageBox, PageHeader, PageWrapper } from "../../styles/AdminPageStyle";
 import UserTable from "../../components/Table/UserTable";
 import PaginationComp from "../../components/Pagination";
 import { useEffect, useState } from "react";
@@ -36,7 +36,7 @@ export default function AdminUserPage() {
   return (
     <PageBox>
       <PageHeader>유저페이지</PageHeader>
-      <UserTableBox>
+      <PageWrapper>
         {loading ? (
           <Spinner animation="border" variant="secondary" />
         ) : (
@@ -50,7 +50,7 @@ export default function AdminUserPage() {
             />
           </>
         )}
-      </UserTableBox>
+      </PageWrapper>
     </PageBox>
   );
 }

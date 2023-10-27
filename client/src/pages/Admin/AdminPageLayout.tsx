@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import AdminNav from "../../components/AdminNav";
+import AdminNav from "../../components/Admin/AdminNav";
 import {
   Page1440Container,
   Page1920Container,

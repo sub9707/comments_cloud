@@ -37,9 +37,15 @@ export const PageHeader = styled.h1`
   font-size: 2em;
   color: gray;
   font-weight: 700;
+  &::before {
+    content: "|";
+    color: rgb(94, 101, 202);
+    margin-right: 0.5em;
+    opacity: 0.8;
+  }
 `;
 // UserPage
-export const UserTableBox = styled.div`
+export const PageWrapper = styled.div`
   width: 100%;
   min-height: 80vh;
   height: auto;
@@ -47,4 +53,16 @@ export const UserTableBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+export const ButtonCenter = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;
+
+export const ButtonRight = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 `;
