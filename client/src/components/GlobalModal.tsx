@@ -1,19 +1,24 @@
 import { Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import WriteModal from "./Modals/WriteConfirm";
-import { selectModal } from "../store/Modal";
+import { closeModal, selectModal } from "../store/Modal";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
+import NoticeContentModal from "./Modals/NoticeContentModal";
+import { clearData } from "../store/NoticeModal";
 
 const MODAL_TYPES = {
   WriteModal: "WriteModal",
+  NoticeModal: "NoticeModal",
 };
 
 const MODAL_COMPONENTS = [
   {
     type: MODAL_TYPES.WriteModal,
     component: <WriteModal />,
+  },
+  {
+    type: MODAL_TYPES.NoticeModal,
+    component: <NoticeContentModal />,
   },
 ];
 
@@ -27,28 +32,20 @@ export default function GlobalModal() {
     return modal.type === modalType;
   });
 
+  // 바깥 영역 클릭하면 닫히도록 설정
+  const backgroundClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      dispatch(closeModal());
+      dispatch(clearData());
+    }
+  };
   const renderModal = () => {
     return findModal?.component;
   };
   return (
-    <BlackBackground>
+    <BlackBackground onClick={backgroundClick}>
       <Container>
         <Modal.Dialog>
-          <Modal.Header>
-            <Modal.Title style={{ fontSize: "1.4em" }}>
-              <FontAwesomeIcon
-                icon={faTriangleExclamation}
-                size="sm"
-                style={{ marginRight: "0.5em" }}
-              />
-              주의
-              <FontAwesomeIcon
-                icon={faTriangleExclamation}
-                size="sm"
-                style={{ marginLeft: "0.5em" }}
-              />
-            </Modal.Title>
-          </Modal.Header>
           <Modal.Body>{renderModal()}</Modal.Body>
         </Modal.Dialog>
       </Container>

@@ -1,7 +1,15 @@
+import { useDispatch } from "react-redux";
 import { Table } from "../../styles/UserTableStyle";
 import { NoticeTableProps } from "../../types/TableTypes";
+import { openModal } from "../../store/Modal";
+import { setData } from "../../store/NoticeModal";
 
 export default function AdminBoardTable(props: NoticeTableProps) {
+  const dispatch = useDispatch();
+  const handleOpenModal = (title: string, content: string) => {
+    dispatch(setData({ title: title, content: content }));
+    dispatch(openModal({ modalType: "NoticeModal", isOpen: true }));
+  };
   return (
     <Table style={{ marginTop: "2em" }}>
       <tbody>
@@ -15,7 +23,10 @@ export default function AdminBoardTable(props: NoticeTableProps) {
             <td style={{ textAlign: "center" }} data-th="#">
               {_idx + 1}
             </td>
-            <td style={{ textAlign: "center" }} data-th="제목">
+            <td
+              style={{ textAlign: "center", cursor: "pointer" }}
+              data-th="제목"
+              onClick={() => handleOpenModal(notice?.title, notice?.content)}>
               {notice?.title}
             </td>
             <td style={{ textAlign: "center" }} data-th="작성일자">
