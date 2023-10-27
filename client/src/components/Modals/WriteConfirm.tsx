@@ -16,12 +16,12 @@ export default function WriteModal() {
   };
   return (
     <>
-      <h4 style={{ marginBottom: "1em" }}>
+      <h4 style={{ marginBottom: "1em", marginTop: "0.5em" }}>
         이 페이지를 벗어나면 작성한 내용이 사라집니다.
       </h4>
       <ButtonRight>
         <Button style={{ marginRight: "1em" }} onClick={handleModalConfirm}>
-          확인
+          목록으로
         </Button>
         <Button variant="outline-primary" onClick={handleModalClose}>
           계속 작성

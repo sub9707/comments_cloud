@@ -35,7 +35,7 @@ export default function GlobalModal() {
       <Container>
         <Modal.Dialog>
           <Modal.Header>
-            <Modal.Title>
+            <Modal.Title style={{ fontSize: "1.4em" }}>
               <FontAwesomeIcon
                 icon={faTriangleExclamation}
                 size="sm"
