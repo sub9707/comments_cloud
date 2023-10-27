@@ -1,5 +1,5 @@
 // 날짜 포맷팅
-export const getTodayFormat = () => {
+const getTodayFormat = () => {
   const today = new Date();
   const year = today.getFullYear();
   const month = String(today.getMonth() + 1).padStart(2, "0");
@@ -8,3 +8,5 @@ export const getTodayFormat = () => {
   const formattedDate = `${year}.${month}.${day}`;
   return formattedDate;
 };
+
+module.exports = getTodayFormat;

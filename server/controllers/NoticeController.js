@@ -1,4 +1,5 @@
 const NoticeModel = require("../models/Notices");
+const getTodayFormat = require("../config/Calculation");
 
 class NoticeController {
   /**
@@ -29,7 +30,8 @@ class NoticeController {
    */
   static writeNotice = async (req, res) => {
     try {
-      const { title, content, createDate, imgUrls } = req.body;
+      const createDate = getTodayFormat();
+      const { title, content, imgUrls } = req.body;
 
       let results = await NoticeModel.writeNotice(
         title,
