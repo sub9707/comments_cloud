@@ -8,6 +8,7 @@ import {
   faPowerOff,
   faRightFromBracket,
   faRightLong,
+  faScrewdriverWrench,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { userStateType } from "../store/User";
@@ -15,7 +16,9 @@ import { userStateType } from "../store/User";
 export default function NavMenu() {
   const user = useSelector((state: userStateType) => state.user.data);
   const navigate = useNavigate();
-  console.log(user);
+  const handleAdminClick = () => {
+    navigate("/admin");
+  };
   return (
     <ToolWrapper>
       <PageNavBox>
@@ -38,6 +41,14 @@ export default function NavMenu() {
           onClick={() => navigate(1)}
         />
       </PageNavBox>
+      <div
+        style={{ display: "flex", cursor: "pointer" }}
+        onClick={handleAdminClick}>
+        <FontAwesomeIcon icon={faScrewdriverWrench} size="2x" />
+        <p style={{ fontSize: "1.3em", marginLeft: "1em" }}>
+          관리자 페이지 (임시버튼)
+        </p>
+      </div>
       <LogBox>
         {isLoggedIn() ? (
           <>
