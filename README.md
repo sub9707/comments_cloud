@@ -27,3 +27,5 @@ npm run dev
 ```
 npm start
 ```
+
+## 진행 상황 ##
