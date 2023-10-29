@@ -73,3 +73,10 @@ a:hover {
   --bs-btn-hover-bg: rgb(60, 60, 136) !important;
   --bs-btn-hover-border-color: #957af7 !important;
 }
+
+.btn-outline-primary {
+  --bs-btn-color: rgb(90, 90, 185) !important;
+  --bs-btn-border-color: #957af7 !important;
+  --bs-btn-hover-bg: rgb(60, 60, 136) !important;
+  --bs-btn-hover-border-color: #957af7 !important;
+}

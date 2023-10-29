@@ -5,13 +5,30 @@ import { closeModal } from "../../store/Modal";
 import styled from "styled-components";
 import { RootState } from "../../store";
 import { clearData } from "../../store/NoticeModal";
+import { useState } from "react";
+import { deleteNotice } from "../../api/notice";
 
 export default function NoticeContentModal() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const { title, content } = useSelector((state: RootState) => state.notice);
+  const { id, title, content } = useSelector(
+    (state: RootState) => state.notice
+  );
   const handleModalClose = () => {
     dispatch(closeModal());
     dispatch(clearData());
+  };
+  const handleDeleteNotice = async (id: number) => {
+    try {
+      setIsLoading(true);
+      const response = await deleteNotice(id);
+      console.log(response);
+      setIsLoading(false);
+      dispatch(closeModal());
+      dispatch(clearData());
+    } catch (error) {
+      console.error(error);
+    }
   };
   return (
     <ModalContainer>
@@ -23,6 +40,13 @@ export default function NoticeContentModal() {
       <ModalContent dangerouslySetInnerHTML={{ __html: content }} />
       <ButtonCenter>
         <Button style={{ marginRight: "1em" }}>공지 수정</Button>
+        <Button
+          variant="danger"
+          style={{ marginRight: "1em" }}
+          onClick={() => handleDeleteNotice(id)}
+          disabled={isLoading}>
+          {isLoading ? "삭제 중" : "공지 삭제"}
+        </Button>
         <Button variant="outline-primary" onClick={handleModalClose}>
           창닫기
         </Button>

@@ -6,8 +6,8 @@ import { setData } from "../../store/NoticeModal";
 
 export default function AdminBoardTable(props: NoticeTableProps) {
   const dispatch = useDispatch();
-  const handleOpenModal = (title: string, content: string) => {
-    dispatch(setData({ title: title, content: content }));
+  const handleOpenModal = (id: number, title: string, content: string) => {
+    dispatch(setData({ id: id, title: title, content: content }));
     dispatch(openModal({ modalType: "NoticeModal", isOpen: true }));
   };
   return (
@@ -18,6 +18,7 @@ export default function AdminBoardTable(props: NoticeTableProps) {
           <th style={{ width: "70%", textAlign: "center" }}>제목</th>
           <th style={{ width: "25%", textAlign: "center" }}>작성일자</th>
         </tr>
+
         {props.data.map((notice, _idx) => (
           <tr key={_idx}>
             <td style={{ textAlign: "center" }} data-th="#">
@@ -26,7 +27,9 @@ export default function AdminBoardTable(props: NoticeTableProps) {
             <td
               style={{ textAlign: "center", cursor: "pointer" }}
               data-th="제목"
-              onClick={() => handleOpenModal(notice?.title, notice?.content)}>
+              onClick={() =>
+                handleOpenModal(notice?.id, notice?.title, notice?.content)
+              }>
               {notice?.title}
             </td>
             <td style={{ textAlign: "center" }} data-th="작성일자">

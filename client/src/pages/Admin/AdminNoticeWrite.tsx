@@ -12,8 +12,8 @@ import { openModal } from "../../store/Modal";
 import { useForm } from "react-hook-form";
 import { NoticeWriteValues } from "../../types/react-hook-form";
 import { useEffect, useState } from "react";
-import writeNotice from "../../api/notice";
 import { useNavigate } from "react-router-dom";
+import { writeNotice } from "../../api/notice";
 
 export default function AdminNoticeWrite() {
   const navigate = useNavigate();

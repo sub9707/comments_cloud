@@ -4,7 +4,7 @@ import axios from "./axios";
  * @method POST
  *  공지사항 작성
  */
-const writeNotice = async (title: string, content: string) => {
+export const writeNotice = async (title: string, content: string) => {
   try {
     const response = await axios.post("/notice/write", {
       title: title,
@@ -17,4 +17,16 @@ const writeNotice = async (title: string, content: string) => {
   }
 };
 
-export default writeNotice;
+/**
+ * @method DELETE
+ *  공지사항 삭제
+ */
+export const deleteNotice = async (id: number) => {
+  try {
+    const response = await axios.delete(`/notice?id=${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("공지 삭제 실패:", error);
+    throw error;
+  }
+};

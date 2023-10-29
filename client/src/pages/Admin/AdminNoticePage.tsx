@@ -5,8 +5,11 @@ import AdminBoardTable from "../../components/Table/AdminBoardTable";
 import { useEffect, useState } from "react";
 import { NoticeTablePropType } from "../../types/TableTypes";
 import axios from "../../api/axios";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store";
 
 export default function AdminNoticePage() {
+  const { isOpen } = useSelector((state: RootState) => state.modal);
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<NoticeTablePropType[]>([]);
   const navigate = useNavigate();
@@ -30,7 +33,8 @@ export default function AdminNoticePage() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+    console.log("fetched");
+  }, [isOpen]);
   return (
     <PageBox>
       <PageHeader>공지사항 관리 페이지</PageHeader>
