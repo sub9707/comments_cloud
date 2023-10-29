@@ -21,5 +21,16 @@ class NoticeModel {
       );
     });
   }
+  static async deleteNotice(id) {
+    return new Promise((resolve) => {
+      db.query("DELETE FROM notice WHERE id = ?", [id], (error, result) => {
+        if (!error) {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      });
+    });
+  }
 }
 module.exports = NoticeModel;

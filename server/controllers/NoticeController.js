@@ -45,6 +45,20 @@ class NoticeController {
       res.status(500).send("Internal Server Error:[공지 등록 Controller]");
     }
   };
+
+  static deleteNotice = async (req, res) => {
+    try {
+      const id = req.query.id;
+      if (!id) {
+        return res.status(400).send("id가 존재하지 않습니다.");
+      }
+      let result = await NoticeModel.deleteNotice(id);
+      if (result) res.send("공지 삭제 성공! [Controller]]");
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error:[공지 삭제 Controller]");
+    }
+  };
 }
 
 module.exports = NoticeController;

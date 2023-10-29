@@ -3,5 +3,6 @@ const router = express.Router();
 const noticeController = require("../controllers/NoticeController");
 
 router.post("/write", noticeController.writeNotice);
+router.delete("/", noticeController.deleteNotice);
 router.get("/notices", noticeController.getAllNotices);
 module.exports = router;
