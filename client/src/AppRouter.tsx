@@ -3,12 +3,12 @@ import LoginPage from "./pages/Login/LoginPage";
 import Logout from "./pages/Logout/Logout";
 import { isLoggedIn } from "./store/Cookie";
 import React, { Suspense } from "react";
-import { Spinner } from "react-bootstrap";
 import GlobalModal from "./components/GlobalModal";
+import LoadingPage from "./pages/LoadingPage";
 
 const loading = (
   <>
-    <Spinner animation="grow" />
+    <LoadingPage />
   </>
 );
 

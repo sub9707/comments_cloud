@@ -4,7 +4,7 @@ import { PageHeader } from "../../styles/TextStyle";
 import { useEffect, useState } from "react";
 import { NoticeTablePropType } from "../../types/TableTypes";
 import axios from "../../api/axios";
-import SpinnerOne from "../../components/Spinner";
+import LoadingPage from "../LoadingPage";
 
 export default function NoticePage() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -29,7 +29,7 @@ export default function NoticePage() {
     <MainContainer>
       <PageHeader>공지사항</PageHeader>
       <ContentBox>
-        {loading ? <SpinnerOne /> : <BoardTable data={data} />}
+        {loading ? <LoadingPage /> : <BoardTable data={data} />}
       </ContentBox>
     </MainContainer>
   );
