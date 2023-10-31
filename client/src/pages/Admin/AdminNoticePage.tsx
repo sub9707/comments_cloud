@@ -37,7 +37,9 @@ export default function AdminNoticePage() {
   }, [isOpen]);
   return (
     <PageBox>
-      <PageHeader>공지사항 관리 페이지</PageHeader>
+      <PageHeader style={{ marginBottom: "1em" }}>
+        공지사항 관리 페이지
+      </PageHeader>
       <ButtonRight>
         <Button
           style={{ marginRight: "1em" }}
