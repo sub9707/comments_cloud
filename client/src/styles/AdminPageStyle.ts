@@ -66,3 +66,61 @@ export const ButtonRight = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
+
+// input table
+export const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #d6cfdb;
+  margin-bottom: 2em;
+`;
+
+export const TableRow = styled.tr``;
+
+export const LeftCell = styled.td`
+  background-color: #d6cfdb;
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #d6cfdb;
+`;
+
+export const RightCell = styled.td`
+  padding: 10px;
+  border: 1px solid #d6cfdb;
+`;
+
+export const CheckBoxArea = styled.td`
+  width: 100%;
+  margin-bottom: 1em;
+`;
+
+export const ContentCell = styled.td`
+  height: auto;
+  padding: 10px;
+  padding-bottom: 4em;
+  border: 1px solid #d6cfdb;
+`;
+
+export const Label = styled.label`
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+`;
+
+export const Input = styled.input`
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #d6cfdb;
+`;
+export const modules = {
+  toolbar: {
+    container: [
+      ["image"],
+      [{ header: [1, 2, 3, 4, 5, false] }],
+      ["bold", "underline", "italic"],
+      ["link"],
+      [{ color: [] }, { background: [] }],
+      [{ align: [] }],
+    ],
+  },
+};

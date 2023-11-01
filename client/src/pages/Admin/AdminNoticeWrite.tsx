@@ -1,9 +1,16 @@
-import styled from "styled-components";
 import {
   ButtonCenter,
+  ContentCell,
+  Input,
+  Label,
+  LeftCell,
   PageBox,
   PageHeader,
   PageWrapper,
+  RightCell,
+  Table,
+  TableRow,
+  modules,
 } from "../../styles/AdminPageStyle";
 import ReactQuill from "react-quill";
 import { Button } from "react-bootstrap";
@@ -100,7 +107,10 @@ export default function AdminNoticeWrite() {
             disabled={isLoading}>
             {isLoading ? "등록 중" : "게시글 등록"}
           </Button>
-          <Button variant="outline-dark" size="lg" onClick={handleWriteCancel}>
+          <Button
+            variant="outline-primary"
+            size="lg"
+            onClick={handleWriteCancel}>
             작성 취소
           </Button>
         </ButtonCenter>
@@ -108,55 +118,3 @@ export default function AdminNoticeWrite() {
     </PageBox>
   );
 }
-
-const modules = {
-  toolbar: {
-    container: [
-      ["image"],
-      [{ header: [1, 2, 3, 4, 5, false] }],
-      ["bold", "underline", "italic"],
-      ["link"],
-      [{ color: [] }, { background: [] }],
-      [{ align: [] }],
-    ],
-  },
-};
-const Table = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  border: 1px solid #d6cfdb;
-  margin-bottom: 2em;
-`;
-
-const TableRow = styled.tr``;
-
-const LeftCell = styled.td`
-  background-color: #d6cfdb;
-  padding: 10px;
-  text-align: center;
-  border: 1px solid #d6cfdb;
-`;
-
-const RightCell = styled.td`
-  padding: 10px;
-  border: 1px solid #d6cfdb;
-`;
-
-const ContentCell = styled.td`
-  height: auto;
-  padding: 10px;
-  padding-bottom: 4em;
-  border: 1px solid #d6cfdb;
-`;
-
-const Label = styled.label`
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  padding: 5px;
-  border: 1px solid #d6cfdb;
-`;

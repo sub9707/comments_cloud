@@ -17,15 +17,14 @@ const DefaultLayout = React.lazy(() => import("./pages/PageLayout"));
 const AdminPageLayout = React.lazy(
   () => import("./pages/Admin/AdminPageLayout")
 );
-// Pages
+// Util Pages
 const PageNotFound = React.lazy(() => import("./pages/NotFoundPage"));
-//Main
+// Main
 const MainComp = React.lazy(() => import("./pages/MainPage/MainPage"));
 const NoticePage = React.lazy(() => import("./pages/Notice/NoticePage"));
 const BoardPage = React.lazy(() => import("./pages/Board/BoardPage"));
-const MyError = React.lazy(() => import("./pages/myError/MyErrorPage"));
 const Service = React.lazy(() => import("./pages/Service/ServicePage"));
-//Admin
+// Admin
 const AdminMain = React.lazy(() => import("./pages/Admin/AdminMainPage"));
 const AdminUser = React.lazy(() => import("./pages/Admin/AdminUserPage"));
 const AdminBoard = React.lazy(() => import("./pages/Admin/AdminBoardPage"));
@@ -33,6 +32,9 @@ const AdminNotice = React.lazy(() => import("./pages/Admin/AdminNoticePage"));
 const AdminNoticeWrite = React.lazy(
   () => import("./pages/Admin/AdminNoticeWrite")
 );
+// MyError
+const MyError = React.lazy(() => import("./pages/myError/MyErrorPage"));
+const ErrorWrite = React.lazy(() => import("./pages/myError/ErrorWrite"));
 
 export default function AppRouter() {
   return (
@@ -51,6 +53,7 @@ export default function AppRouter() {
             <Route path="notice" element={<NoticePage />} />
             <Route path="board" element={<BoardPage />} />
             <Route path="myError" element={<MyError />} />
+            <Route path="ErrorWrite" element={<ErrorWrite />} />
           </Route>
           // Admin Page
           <Route path="/admin" element={<AdminPageLayout />}>
