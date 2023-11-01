@@ -2,6 +2,7 @@ import { Button, InputGroup } from "react-bootstrap";
 import {
   ButtonCenter,
   CheckBoxArea,
+  ContentCell,
   Input,
   Label,
   LeftCell,
@@ -9,10 +10,12 @@ import {
   RightCell,
   Table,
   TableRow,
+  modules,
 } from "../../styles/AdminPageStyle";
 import { MainContainer } from "../../styles/PageContainer";
 import { PageHeader } from "../../styles/TextStyle";
 import TagInputs from "../../components/Table/TagInputs";
+import ReactQuill from "react-quill";
 
 export default function ErrorWrite() {
   return (
@@ -42,33 +45,45 @@ export default function ErrorWrite() {
               <LeftCell>
                 <Label>에러 상황</Label>
               </LeftCell>
-              <RightCell>
-                <Input type="text" maxLength={100} />
-              </RightCell>
+              <ContentCell>
+                <ReactQuill
+                  style={{ width: "100%", height: "20vh" }}
+                  modules={modules}
+                />
+              </ContentCell>
             </TableRow>
             <TableRow>
               <LeftCell>
                 <Label>에러 원인</Label>
               </LeftCell>
-              <RightCell>
-                <Input type="text" maxLength={100} />
-              </RightCell>
+              <ContentCell>
+                <ReactQuill
+                  style={{ width: "100%", height: "20vh" }}
+                  modules={modules}
+                />
+              </ContentCell>
             </TableRow>
             <TableRow>
               <LeftCell>
                 <Label>해결 과정</Label>
               </LeftCell>
-              <RightCell>
-                <Input type="text" maxLength={100} />
-              </RightCell>
+              <ContentCell>
+                <ReactQuill
+                  style={{ width: "100%", height: "20vh" }}
+                  modules={modules}
+                />
+              </ContentCell>
             </TableRow>
             <TableRow>
               <LeftCell>
                 <Label>결과</Label>
               </LeftCell>
-              <RightCell>
-                <Input type="text" maxLength={100} />
-              </RightCell>
+              <ContentCell>
+                <ReactQuill
+                  style={{ width: "100%", height: "20vh" }}
+                  modules={modules}
+                />
+              </ContentCell>
             </TableRow>
           </tbody>
         </Table>

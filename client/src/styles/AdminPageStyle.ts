@@ -59,6 +59,7 @@ export const ButtonCenter = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-bottom: 3em;
 `;
 
 export const ButtonRight = styled.div`
@@ -78,6 +79,7 @@ export const Table = styled.table`
 export const TableRow = styled.tr``;
 
 export const LeftCell = styled.td`
+  width: 20%;
   background-color: #d6cfdb;
   padding: 10px;
   text-align: center;
@@ -85,6 +87,7 @@ export const LeftCell = styled.td`
 `;
 
 export const RightCell = styled.td`
+  width: 80%;
   padding: 10px;
   border: 1px solid #d6cfdb;
 `;
@@ -116,11 +119,18 @@ export const modules = {
   toolbar: {
     container: [
       ["image"],
-      [{ header: [1, 2, 3, 4, 5, false] }],
+      [{ header: "1" }, { header: "2" }],
+      [{ size: [] }],
       ["bold", "underline", "italic"],
       ["link"],
       [{ color: [] }, { background: [] }],
       [{ align: [] }],
+      [
+        { list: "ordered" },
+        { list: "bullet" },
+        { indent: "-1" },
+        { indent: "+1" },
+      ],
     ],
   },
 };
