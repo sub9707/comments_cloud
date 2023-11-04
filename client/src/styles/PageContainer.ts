@@ -5,7 +5,6 @@ export const PageContainer = styled.div`
   margin: 0;
   width: 100%;
   height: 100vh;
-
   display: flex;
   justify-content: center;
   background: #3b4465;
@@ -34,7 +33,7 @@ export const LoginPageContainer = styled.div`
 export const PageAreaDesign = styled.div`
   position: relative;
   width: 80%;
-  height: 80%;
+  height: 85%;
   background-color: #fff;
   border-radius: 15px;
   box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,

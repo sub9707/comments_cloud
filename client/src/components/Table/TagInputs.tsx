@@ -7,11 +7,16 @@ import {
   Details,
   InputWrapper,
 } from "../../styles/tagInputStyle";
-import { useState, KeyboardEvent } from "react";
+import { useState, KeyboardEvent, Dispatch, SetStateAction } from "react";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 
-export default function TagInputs() {
-  const [tags, setTags] = useState<string[]>([]);
+type stateType = {
+  tags: string[];
+  setTags: Dispatch<SetStateAction<string[]>>;
+};
+
+export default function TagInputs(props: stateType) {
+  const { tags, setTags } = props;
   const [inputValue, setInputValue] = useState<string>("");
   const [maxTags] = useState<number>(10);
 

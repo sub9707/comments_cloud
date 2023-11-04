@@ -87,3 +87,10 @@ export const RuleHead = styled.th`
   width: 5%;
   text-align: center;
 `;
+
+export const SolvedArea = styled.div`
+  display: flex;
+  width: 20%;
+  margin-left: 1em;
+  align-items: center;
+`;

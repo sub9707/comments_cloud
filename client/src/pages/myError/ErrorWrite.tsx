@@ -1,4 +1,10 @@
-import { Button, InputGroup } from "react-bootstrap";
+import {
+  Button,
+  Form,
+  InputGroup,
+  OverlayTrigger,
+  Stack,
+} from "react-bootstrap";
 import {
   ButtonCenter,
   CheckBoxArea,
@@ -16,13 +22,51 @@ import { MainContainer } from "../../styles/PageContainer";
 import { PageHeader } from "../../styles/TextStyle";
 import TagInputs from "../../components/Table/TagInputs";
 import ReactQuill from "react-quill";
+import { useForm } from "react-hook-form";
+import { ErrorWriteFormValues } from "../../types/react-hook-form";
+import { SolvedArea } from "../../styles/UserTableStyle";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
+import PopoverCard from "../../components/Cards/PopoverCard";
+import { useState } from "react";
 
 export default function ErrorWrite() {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [tags, setTags] = useState<string[]>([]);
+  const { register, handleSubmit, setValue, trigger } =
+    useForm<ErrorWriteFormValues>({
+      mode: "onChange",
+    });
+  const submitHandler = (data) => {
+    // 글 작성
+    try {
+      setIsLoading(true);
+      setIsLoading(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  const handleStateChange = (value: string) => {
+    setValue("error_state", value === "<p><br></p>" ? "" : value);
+    trigger("error_state");
+  };
+  const handleCauseChange = (value: string) => {
+    setValue("error_cause", value === "<p><br></p>" ? "" : value);
+    trigger("error_cause");
+  };
+  const handleProcessChange = (value: string) => {
+    setValue("error_process", value === "<p><br></p>" ? "" : value);
+    trigger("error_process");
+  };
+  const handleResultChange = (value: string) => {
+    setValue("error_result", value === "<p><br></p>" ? "" : value);
+    trigger("error_result");
+  };
+
   return (
     <MainContainer>
       <PageHeader>나의 에러 기록</PageHeader>
       <PageWrapper>
-        {" "}
         <Table>
           <tbody>
             <TableRow>
@@ -30,7 +74,31 @@ export default function ErrorWrite() {
                 <Label>에러명 (에러코드)</Label>
               </LeftCell>
               <RightCell>
-                <Input type="text" maxLength={100} />
+                <Stack direction="horizontal" gap={2}>
+                  <Input
+                    type="text"
+                    maxLength={100}
+                    {...register("title", { required: true })}
+                  />
+                  <SolvedArea>
+                    <Form.Check
+                      type="checkbox"
+                      label="해결 여부"
+                      {...register("error_solved")}
+                    />
+                    <OverlayTrigger
+                      trigger="hover"
+                      overlay={PopoverCard(
+                        "작성한 에러가 해결된 에러인지 체크"
+                      )}
+                      placement="right">
+                      <FontAwesomeIcon
+                        icon={faCircleQuestion}
+                        style={{ marginLeft: "1em" }}
+                      />
+                    </OverlayTrigger>
+                  </SolvedArea>
+                </Stack>
               </RightCell>
             </TableRow>
             <TableRow>
@@ -38,7 +106,7 @@ export default function ErrorWrite() {
                 <Label>태그 분류</Label>
               </LeftCell>
               <RightCell>
-                <TagInputs />
+                <TagInputs tags={tags} setTags={setTags} />
               </RightCell>
             </TableRow>
             <TableRow>
@@ -49,6 +117,7 @@ export default function ErrorWrite() {
                 <ReactQuill
                   style={{ width: "100%", height: "20vh" }}
                   modules={modules}
+                  onChange={handleStateChange}
                 />
               </ContentCell>
             </TableRow>
@@ -60,6 +129,7 @@ export default function ErrorWrite() {
                 <ReactQuill
                   style={{ width: "100%", height: "20vh" }}
                   modules={modules}
+                  onChange={handleCauseChange}
                 />
               </ContentCell>
             </TableRow>
@@ -71,6 +141,7 @@ export default function ErrorWrite() {
                 <ReactQuill
                   style={{ width: "100%", height: "20vh" }}
                   modules={modules}
+                  onChange={handleProcessChange}
                 />
               </ContentCell>
             </TableRow>
@@ -82,17 +153,23 @@ export default function ErrorWrite() {
                 <ReactQuill
                   style={{ width: "100%", height: "20vh" }}
                   modules={modules}
+                  onChange={handleResultChange}
                 />
               </ContentCell>
             </TableRow>
           </tbody>
         </Table>
         <CheckBoxArea>
-          <InputGroup
-            className="mb-3"
-            style={{ display: "flex", justifyContent: "center" }}>
-            <InputGroup.Checkbox aria-label="Checkbox for error state" />
-            <InputGroup.Text>에러 기록을 공개합니다.</InputGroup.Text>
+          <InputGroup style={{ display: "flex", justifyContent: "center" }}>
+            <InputGroup.Text>
+              {" "}
+              <input
+                type="checkbox"
+                {...register("publicCheck")}
+                style={{ marginRight: "1em" }}
+              />
+              에러 기록을 공개합니다.
+            </InputGroup.Text>
           </InputGroup>
         </CheckBoxArea>
         <ButtonCenter>
@@ -100,8 +177,10 @@ export default function ErrorWrite() {
             variant="primary"
             size="lg"
             style={{ marginRight: "1em" }}
-            type="submit">
-            게시글 등록
+            type="submit"
+            onClick={handleSubmit(submitHandler)}
+            disabled={isLoading}>
+            {isLoading ? "등록 중" : "게시글 등록"}
           </Button>
           <Button variant="outline-primary" size="lg">
             작성 취소
