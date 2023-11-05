@@ -52,6 +52,7 @@ class ErrorsController {
       const write_date = getTodayTimeFormat();
       const {
         title,
+        tags,
         error_state,
         error_cause,
         error_process,
@@ -62,6 +63,7 @@ class ErrorsController {
       } = req.body;
       let results = await ErrorsModel.writeError(
         title,
+        tags,
         error_state,
         error_cause,
         error_process,

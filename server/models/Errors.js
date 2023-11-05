@@ -26,6 +26,7 @@ class ErrorsModel {
   }
   static async writeError(
     title,
+    tags,
     error_state,
     error_cause,
     error_process,
@@ -37,9 +38,10 @@ class ErrorsModel {
   ) {
     return new Promise((resolve) => {
       db.query(
-        "insert into error_contents (title,error_state,error_cause,error_process,error_solved,error_result,write_date,writer_id,publicCheck) values(?,?,?,?,?,?,?,?,?)",
+        "insert into error_contents (title,tags, error_state,error_cause,error_process,error_solved,error_result,write_date,writer_id,publicCheck) values(?,?,?,?,?,?,?,?,?,?)",
         [
           title,
+          JSON.stringify(tags),
           error_state,
           error_cause,
           error_process,
