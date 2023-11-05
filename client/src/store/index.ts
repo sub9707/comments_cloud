@@ -3,6 +3,7 @@ import tokenReducer from "./Auth";
 import userReducer from "./User";
 import modalReducer from "./Modal";
 import noticeReducer from "./NoticeModal";
+import alertReducer from "./Alert";
 import storage from "redux-persist/lib/storage";
 import {
   FLUSH,
@@ -21,6 +22,7 @@ const reducers = combineReducers({
   authToken: tokenReducer,
   modal: modalReducer,
   notice: noticeReducer,
+  alert: alertReducer,
 });
 
 export type RootState = ReturnType<typeof reducers>;

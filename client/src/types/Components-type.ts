@@ -16,3 +16,8 @@ export type PaginationCompProps = {
   totalItems: number;
   onPageChange: (pageNumber: number) => void;
 };
+
+export type PublicBadgeType = {
+  ispublic: string;
+  setTemp: React.Dispatch<React.SetStateAction<boolean>>;
+};

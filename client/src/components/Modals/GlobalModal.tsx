@@ -1,10 +1,10 @@
 import { Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import WriteModal from "./Modals/WriteConfirm";
-import { closeModal, selectModal } from "../store/Modal";
+import WriteModal from "./WriteConfirm";
+import { closeModal, selectModal } from "../../store/Modal";
 import styled from "styled-components";
-import NoticeContentModal from "./Modals/NoticeContentModal";
-import { clearData } from "../store/NoticeModal";
+import NoticeContentModal from "./NoticeContentModal";
+import { clearData } from "../../store/NoticeModal";
 
 const MODAL_TYPES = {
   WriteModal: "WriteModal",

@@ -88,7 +88,17 @@ export const MainContainer = styled.div`
 
 export const ContentBox = styled.div`
   width: 100%;
-  min-height: 100%;
+  min-height: 10%;
   height: auto;
-  margin-top: 3em;
+  margin-block: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const TableCard = styled.div`
+  width: 99%;
+  height: auto;
+  border-radius: 13px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 `;

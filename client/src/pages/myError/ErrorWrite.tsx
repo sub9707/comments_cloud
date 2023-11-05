@@ -24,7 +24,7 @@ import TagInputs from "../../components/Table/TagInputs";
 import ReactQuill from "react-quill";
 import { useForm } from "react-hook-form";
 import { ErrorWriteFormValues } from "../../types/react-hook-form";
-import { SolvedArea } from "../../styles/UserTableStyle";
+import { SolvedArea } from "../../styles/TableStyle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import PopoverCard from "../../components/Cards/PopoverCard";

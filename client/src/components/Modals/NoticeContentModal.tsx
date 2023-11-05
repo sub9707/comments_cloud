@@ -2,11 +2,11 @@ import { Button, Modal } from "react-bootstrap";
 import { ButtonCenter } from "../../styles/AdminPageStyle";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../store/Modal";
-import styled from "styled-components";
 import { RootState } from "../../store";
 import { clearData } from "../../store/NoticeModal";
 import { useState } from "react";
 import { deleteNotice } from "../../api/notice";
+import { ModalContainer, ModalContent } from "../../styles/ModalStyle";
 
 export default function NoticeContentModal() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -54,14 +54,3 @@ export default function NoticeContentModal() {
     </ModalContainer>
   );
 }
-
-const ModalContainer = styled.div`
-  width: 50vw;
-  height: 80vh;
-`;
-const ModalContent = styled.div`
-  height: 60vh;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  margin-block: 2em;
-`;

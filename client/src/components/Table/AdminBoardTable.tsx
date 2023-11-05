@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { Table } from "../../styles/UserTableStyle";
+import { Table } from "../../styles/TableStyle";
 import { NoticeTableProps } from "../../types/TableTypes";
 import { openModal } from "../../store/Modal";
 import { setData } from "../../store/NoticeModal";

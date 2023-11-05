@@ -94,3 +94,36 @@ export const SolvedArea = styled.div`
   margin-left: 1em;
   align-items: center;
 `;
+export const ErrorTableHead = styled.th`
+  text-align: center;
+  font-weight: 200 !important;
+  color: #9a9c9a !important;
+  &:nth-child(1) {
+    width: 20%;
+  }
+  &:nth-child(2),
+  &:nth-child(4) {
+    width: 5%;
+  }
+  &:nth-child(3) {
+    width: 5%;
+  }
+  &:nth-child(5),
+  &:nth-child(6),
+  &:nth-child(7) {
+    width: 2%;
+  }
+`;
+
+export const ErrorTableData = styled.td`
+  text-align: center;
+  font-weight: 200 !important;
+  &:nth-child(4) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &:nth-child(5) {
+    padding-left: 1.5em;
+  }
+`;

@@ -3,8 +3,9 @@ import LoginPage from "./pages/Login/LoginPage";
 import Logout from "./pages/Logout/Logout";
 import { isLoggedIn } from "./store/Cookie";
 import React, { Suspense } from "react";
-import GlobalModal from "./components/GlobalModal";
+import GlobalModal from "./components/Modals/GlobalModal";
 import LoadingPage from "./pages/LoadingPage";
+import GlobalAlert from "./components/Modals/GlobalAlert";
 
 const loading = (
   <>
@@ -41,6 +42,7 @@ export default function AppRouter() {
     <BrowserRouter>
       <Suspense fallback={loading}>
         <GlobalModal />
+        <GlobalAlert />
         <Routes>
           <Route
             path="/login"

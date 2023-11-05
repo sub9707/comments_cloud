@@ -1,4 +1,4 @@
-import { Table } from "../../styles/UserTableStyle";
+import { Table } from "../../styles/TableStyle";
 import { UserTableProps } from "../../types/users";
 
 export default function UserTable(props: UserTableProps) {
