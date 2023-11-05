@@ -21,6 +21,25 @@ class ErrorsController {
     }
   };
   /**
+   * 특정 사용자 에러게시물 가져오기
+   *
+   * @param {request}
+   * @param {response}
+   * @method GET
+   *
+   * @returns {array}
+   */
+  static getUserErrors = async (req, res) => {
+    const userId = req.query.userId;
+    try {
+      let results = await ErrorsModel.getAllErrors();
+      if (results) res.send(results);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+    }
+  };
+  /**
    * 에러 게시물 등록
    *
    * @param {request}

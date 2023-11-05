@@ -8,6 +8,22 @@ class ErrorsModel {
       });
     });
   }
+  static async getUserErrors(userId) {
+    return new Promise((resolve) => {
+      db.query(
+        "select * error_contents WHERE writer_id = ?",
+        [userId],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            console.error("에러 발생:", error); // 에러 메시지를 출력
+            resolve(false);
+          }
+        }
+      );
+    });
+  }
   static async writeError(
     title,
     error_state,
@@ -35,7 +51,7 @@ class ErrorsModel {
         ],
         (error, result) => {
           if (!error) {
-            resolve(true);
+            resolve(result);
           } else {
             console.error("에러 발생:", error); // 에러 메시지를 출력
             resolve(false);
