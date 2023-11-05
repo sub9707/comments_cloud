@@ -1,4 +1,4 @@
-import { OverlayTrigger, Table } from "react-bootstrap";
+import { Button, OverlayTrigger, Table } from "react-bootstrap";
 import {
   ContentBox,
   MainContainer,
@@ -17,11 +17,13 @@ import LoadingPage from "../LoadingPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTags } from "@fortawesome/free-solid-svg-icons";
 import PopoverCard from "../../components/Cards/PopoverCard";
+import { ButtonRight } from "../../styles/AdminPageStyle";
+import { useNavigate } from "react-router-dom";
 
 export default function MyErrorPage() {
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<MyErrorTablePropType[]>([]);
-
+  const navigate = useNavigate();
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -45,12 +47,20 @@ export default function MyErrorPage() {
       return "Error parsing input data";
     }
   };
+  const handleRouteWrite = () => {
+    navigate("/errorWrite");
+  };
   useEffect(() => {
     fetchData();
   }, []);
   return (
     <MainContainer>
       <PageHeader>나의 에러 관리</PageHeader>
+      <ButtonRight>
+        <Button variant="primary" onClick={handleRouteWrite}>
+          새 글 작성
+        </Button>
+      </ButtonRight>
       <ContentBox>
         {loading ? (
           <LoadingPage />
