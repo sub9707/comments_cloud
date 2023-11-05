@@ -32,7 +32,7 @@ class ErrorsController {
   static getUserErrors = async (req, res) => {
     const userId = req.query.userId;
     try {
-      let results = await ErrorsModel.getAllErrors();
+      let results = await ErrorsModel.getUserErrors(parseInt(userId));
       if (results) res.send(results);
     } catch (error) {
       console.error(error);

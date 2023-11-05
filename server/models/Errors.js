@@ -11,7 +11,7 @@ class ErrorsModel {
   static async getUserErrors(userId) {
     return new Promise((resolve) => {
       db.query(
-        "select * error_contents WHERE writer_id = ?",
+        "select * from error_contents WHERE writer_id = ?",
         [userId],
         (error, result) => {
           if (!error) {
