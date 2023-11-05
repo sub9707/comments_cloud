@@ -1,22 +1,22 @@
 import styled from "styled-components";
 import { PublicBadgeType } from "../../types/Components-type";
-import { useDispatch } from "react-redux";
-import { addMessage } from "../../store/Alert";
+// import { useDispatch } from "react-redux";
+// import { addMessage } from "../../store/Alert";
 
 export default function PublicBadge(props: PublicBadgeType) {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const handleClickPublic = () => {
-    if (props.ispublic === "true") props.setTemp(false);
-    else props.setTemp(true);
-    dispatch(
-      addMessage({
-        id: "unique_id",
-        text: `게시글이 ${
-          props.ispublic === "true" ? "비공개" : "공개"
-        }로 전환되었습니다.`,
-        type: "success",
-      })
-    );
+    // if (props.ispublic === "true") props.setTemp(false);
+    // else props.setTemp(true);
+    // dispatch(
+    //   addMessage({
+    //     id: "unique_id",
+    //     text: `게시글이 ${
+    //       props.ispublic === "true" ? "비공개" : "공개"
+    //     }로 전환되었습니다.`,
+    //     type: "success",
+    //   })
+    // );
   };
   return (
     <BadgeBox ispublic={props.ispublic} onClick={handleClickPublic}>

@@ -1,4 +1,4 @@
-import { Table } from "react-bootstrap";
+import { OverlayTrigger, Table } from "react-bootstrap";
 import {
   ContentBox,
   MainContainer,
@@ -8,15 +8,17 @@ import { PageHeader } from "../../styles/TextStyle";
 import { ErrorTableData, ErrorTableHead } from "../../styles/TableStyle";
 import SolvedBadge from "../../components/Badges/SolvedTag";
 import PublicBadge from "../../components/Badges/PublicTag";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import "react-toastify/dist/ReactToastify.css";
 import { MyErrorTablePropType } from "../../types/TableTypes";
 import axios from "../../api/axios";
 import LoadingPage from "../LoadingPage";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTags } from "@fortawesome/free-solid-svg-icons";
+import PopoverCard from "../../components/Cards/PopoverCard";
 
 export default function MyErrorPage() {
-  const [temp, setTemp] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<MyErrorTablePropType[]>([]);
 
@@ -30,10 +32,22 @@ export default function MyErrorPage() {
       console.log(error);
     }
   };
+  const concatTagData = (str: string) => {
+    try {
+      const jsonArray = JSON.parse(str);
+      if (Array.isArray(jsonArray)) {
+        const resultString = jsonArray.join(", ");
+        return resultString;
+      } else {
+        return "등록된 태그가 없습니다";
+      }
+    } catch (error) {
+      return "Error parsing input data";
+    }
+  };
   useEffect(() => {
     fetchData();
   }, []);
-  console.log(data);
   return (
     <MainContainer>
       <PageHeader>나의 에러 관리</PageHeader>
@@ -57,20 +71,33 @@ export default function MyErrorPage() {
               <tbody>
                 {data.map((board, _idx) => (
                   <tr key={_idx}>
-                    <ErrorTableData>{board.title}</ErrorTableData>
-                    <ErrorTableData>{board.write_date}</ErrorTableData>
-                    <ErrorTableData>버튼</ErrorTableData>
+                    <ErrorTableData>{board?.title}</ErrorTableData>
+                    <ErrorTableData>{board?.write_date}</ErrorTableData>
                     <ErrorTableData>
-                      <SolvedBadge solved={"해결"} />
+                      <OverlayTrigger
+                        trigger="hover"
+                        overlay={PopoverCard({
+                          headerText: "태그 정보",
+                          bodyText: `${concatTagData(board?.tags)}`,
+                        })}
+                        placement="right">
+                        <FontAwesomeIcon icon={faTags} cursor={"pointer"} />
+                      </OverlayTrigger>
+                    </ErrorTableData>
+                    <ErrorTableData>
+                      <SolvedBadge
+                        solved={`${
+                          board?.error_solved === 1 ? "해결" : "미해결"
+                        }`}
+                      />
                     </ErrorTableData>
                     <ErrorTableData>
                       <PublicBadge
-                        ispublic={temp.toString()}
-                        setTemp={setTemp}
+                        ispublic={board?.publicCheck === 1 ? "true" : "false"}
                       />
                     </ErrorTableData>
-                    <ErrorTableData>{board.likes}</ErrorTableData>
-                    <ErrorTableData>{board.views}</ErrorTableData>
+                    <ErrorTableData>{board?.likes}</ErrorTableData>
+                    <ErrorTableData>{board?.views}</ErrorTableData>
                   </tr>
                 ))}
               </tbody>

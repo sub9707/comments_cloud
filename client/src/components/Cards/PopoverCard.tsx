@@ -1,9 +1,15 @@
 import Popover from "react-bootstrap/Popover";
 
-export default function PopoverCard(bodyText: string) {
+type PopoverType = {
+  headerText: string;
+  bodyText: string;
+};
+
+export default function PopoverCard(props: PopoverType) {
+  const { headerText, bodyText } = props;
   return (
     <Popover id="popover-basic">
-      <Popover.Header as="h3">정보</Popover.Header>
+      <Popover.Header as="h3">{headerText}</Popover.Header>
       <Popover.Body>{bodyText}</Popover.Body>
     </Popover>
   );

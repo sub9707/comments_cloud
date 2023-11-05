@@ -105,9 +105,10 @@ export default function ErrorWrite() {
                     />
                     <OverlayTrigger
                       trigger="hover"
-                      overlay={PopoverCard(
-                        "작성한 에러가 해결된 에러인지 체크"
-                      )}
+                      overlay={PopoverCard({
+                        headerText: "정보",
+                        bodyText: "작성한 에러가 해결된 에러인지 체크",
+                      })}
                       placement="right">
                       <FontAwesomeIcon
                         icon={faCircleQuestion}

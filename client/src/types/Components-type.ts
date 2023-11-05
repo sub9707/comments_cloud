@@ -19,5 +19,4 @@ export type PaginationCompProps = {
 
 export type PublicBadgeType = {
   ispublic: string;
-  setTemp: React.Dispatch<React.SetStateAction<boolean>>;
 };

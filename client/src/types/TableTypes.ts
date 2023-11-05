@@ -12,14 +12,17 @@ export type NoticeTableProps = {
 export type MyErrorTablePropType = {
   id: number;
   title: string;
+  tags: string;
   error_state: string;
   error_cause: string;
   error_process: string;
   error_result: string;
+  error_solved: number;
   likes: number;
   views: number;
   write_date: string;
   writer_id: number;
+  publicCheck: number;
 };
 export type MyErrorTableProps = {
   data: MyErrorTablePropType[];
