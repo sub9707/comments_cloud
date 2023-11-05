@@ -111,7 +111,7 @@ export const ErrorTableHead = styled.th`
   &:nth-child(5),
   &:nth-child(6),
   &:nth-child(7) {
-    width: 2%;
+    width: 3%;
   }
 `;
 
@@ -124,6 +124,6 @@ export const ErrorTableData = styled.td`
     align-items: center;
   }
   &:nth-child(5) {
-    padding-left: 1.5em;
+    padding-left: 2.5em;
   }
 `;

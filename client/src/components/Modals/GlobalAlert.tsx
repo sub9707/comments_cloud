@@ -33,7 +33,7 @@ export default function GlobalAlert() {
 
   return (
     <ToastContainer
-      position="top-center"
+      position="bottom-left"
       autoClose={1500}
       hideProgressBar={false}
       closeOnClick

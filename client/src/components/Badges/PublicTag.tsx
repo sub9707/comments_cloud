@@ -11,7 +11,9 @@ export default function PublicBadge(props: PublicBadgeType) {
     dispatch(
       addMessage({
         id: "unique_id",
-        text: "게시글 공개 여부가 변경되었습니다.",
+        text: `게시글이 ${
+          props.ispublic === "true" ? "비공개" : "공개"
+        }로 전환되었습니다.`,
         type: "success",
       })
     );
