@@ -1,17 +1,19 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../store/Modal";
 import { ButtonRight } from "../../styles/AdminPageStyle";
 import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { RootState } from "../../store";
 
 export default function WriteModal() {
   const dispatch = useDispatch();
   const naviagate = useNavigate();
+  const { locate } = useSelector((state: RootState) => state.modal);
   const handleModalConfirm = () => {
     dispatch(closeModal());
-    naviagate("/admin/notice");
+    naviagate(locate);
   };
   const handleModalClose = () => {
     dispatch(closeModal());

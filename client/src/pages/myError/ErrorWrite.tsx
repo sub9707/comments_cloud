@@ -30,6 +30,8 @@ import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import PopoverCard from "../../components/Cards/PopoverCard";
 import { useState } from "react";
 import { writeError } from "../../api/ErrorBoard";
+import { openModal } from "../../store/Modal";
+import { useDispatch } from "react-redux";
 
 export default function ErrorWrite() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -38,6 +40,8 @@ export default function ErrorWrite() {
     useForm<ErrorWriteFormValues>({
       mode: "onChange",
     });
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const submitHandler = async (data) => {
     // 글 작성
     try {
@@ -48,6 +52,16 @@ export default function ErrorWrite() {
     } catch (error) {
       console.error(error);
     }
+  };
+  const dispatch = useDispatch();
+  const handleWriteCancel = () => {
+    dispatch(
+      openModal({
+        modalType: "WriteModal",
+        locate: "/myError",
+        isOpen: true,
+      })
+    );
   };
   const handleStateChange = (value: string) => {
     setValue("error_state", value === "<p><br></p>" ? "" : value);
@@ -185,7 +199,10 @@ export default function ErrorWrite() {
             disabled={isLoading}>
             {isLoading ? "등록 중" : "게시글 등록"}
           </Button>
-          <Button variant="outline-primary" size="lg">
+          <Button
+            variant="outline-primary"
+            size="lg"
+            onClick={handleWriteCancel}>
             작성 취소
           </Button>
         </ButtonCenter>

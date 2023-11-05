@@ -52,7 +52,13 @@ export default function AdminNoticeWrite() {
   // modal 관련 변수
   const dispatch = useDispatch();
   const handleWriteCancel = () => {
-    dispatch(openModal({ modalType: "WriteModal", isOpen: true }));
+    dispatch(
+      openModal({
+        modalType: "WriteModal",
+        locate: "/admin/notice",
+        isOpen: true,
+      })
+    );
   };
 
   return (
