@@ -29,6 +29,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import PopoverCard from "../../components/Cards/PopoverCard";
 import { useState } from "react";
+import { writeError } from "../../api/ErrorBoard";
 
 export default function ErrorWrite() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -37,10 +38,12 @@ export default function ErrorWrite() {
     useForm<ErrorWriteFormValues>({
       mode: "onChange",
     });
-  const submitHandler = (data) => {
+  const submitHandler = async (data) => {
     // 글 작성
     try {
       setIsLoading(true);
+      const result = await writeError({ ...data, tags, writer_id: 1 });
+      console.log("게시글 등록 완료: ", result);
       setIsLoading(false);
     } catch (error) {
       console.error(error);
