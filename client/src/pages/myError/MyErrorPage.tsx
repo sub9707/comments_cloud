@@ -39,7 +39,7 @@ export default function MyErrorPage() {
         const resultString = jsonArray.join(", ");
         return resultString;
       } else {
-        return "등록된 태그가 없습니다";
+        return "등록된 태그가 없습니다.";
       }
     } catch (error) {
       return "Error parsing input data";
