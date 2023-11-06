@@ -3,12 +3,13 @@ import {
   ContentBox,
   MainContainer,
   TableCard,
+  WidthMaxCenter,
 } from "../../styles/PageContainer";
 import { PageHeader } from "../../styles/TextStyle";
 import { ErrorTableData, ErrorTableHead } from "../../styles/TableStyle";
 import SolvedBadge from "../../components/Badges/SolvedTag";
 import PublicBadge from "../../components/Badges/PublicTag";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 import "react-toastify/dist/ReactToastify.css";
 import { MyErrorTablePropType } from "../../types/TableTypes";
@@ -19,17 +20,42 @@ import { faTags } from "@fortawesome/free-solid-svg-icons";
 import PopoverCard from "../../components/Cards/PopoverCard";
 import { ButtonRight } from "../../styles/AdminPageStyle";
 import { useNavigate } from "react-router-dom";
+import LoadButton from "../../components/CustomButtons/DataLoadButton";
+import { getMyErrorCount } from "../../api/ErrorBoard";
 
 export default function MyErrorPage() {
   const [loading, setLoading] = useState<boolean>(false);
+  const [plusLoading, setPlusLoading] = useState<boolean>(false);
   const [data, setData] = useState<MyErrorTablePropType[]>([]);
+  const [totalCount, setTotalCount] = useState<number>();
+  const [offset, setOffset] = useState<number>(0);
+  const [dataEnd, setDataEnd] = useState<boolean>(false);
   const navigate = useNavigate();
+
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("/error?userId=1");
+      const response = await axios.get(`/error?userId=1&offset=${offset}`);
+      const totalData = await getMyErrorCount(1);
+      setTotalCount(totalData[0].errorsTotal);
       setData(response.data);
       setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const LoadData = async () => {
+    try {
+      setPlusLoading(true);
+      const response = await axios.get(`/error?userId=1&offset=${offset}`);
+      if (response.data.length === 0) {
+        // 만약 더 이상 데이터가 없으면 dataEnd를 true로 설정
+        setDataEnd(true);
+      } else {
+        setData((prev) => [...prev, ...response.data]);
+        setOffset(offset + 12);
+      }
+      setPlusLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -50,9 +76,19 @@ export default function MyErrorPage() {
   const handleRouteWrite = () => {
     navigate("/errorWrite");
   };
+
   useEffect(() => {
     fetchData();
+    setOffset(offset + 12);
   }, []);
+
+  useEffect(() => {
+    if (totalCount !== undefined && data.length >= totalCount) {
+      // 만약 데이터를 모두 가져왔다면 dataEnd를 true로 설정
+      setDataEnd(true);
+    }
+  }, [totalCount, data]);
+
   return (
     <MainContainer>
       <PageHeader>나의 에러 관리</PageHeader>
@@ -112,6 +148,21 @@ export default function MyErrorPage() {
                 ))}
               </tbody>
             </Table>
+            <WidthMaxCenter>
+              {dataEnd ? (
+                <p>가져올 데이터가 없습니다.</p>
+              ) : (
+                <div
+                  style={{
+                    width: "17em",
+                    height: "3em",
+                    marginBottom: "1em",
+                  }}
+                  onClick={LoadData}>
+                  <LoadButton isLoading={plusLoading} />
+                </div>
+              )}
+            </WidthMaxCenter>
           </TableCard>
         )}
       </ContentBox>

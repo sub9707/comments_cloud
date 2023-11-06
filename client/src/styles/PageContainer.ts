@@ -88,7 +88,7 @@ export const MainContainer = styled.div`
 
 export const ContentBox = styled.div`
   width: 100%;
-  min-height: 10%;
+  min-height: 68vh;
   height: auto;
   margin-block: 2em;
   display: flex;
@@ -101,4 +101,18 @@ export const TableCard = styled.div`
   height: auto;
   border-radius: 13px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+`;
+
+export const ScrollTarget = styled.div`
+  width: 100%;
+  height: 50px;
+  margin-top: calc(100% - 85%);
+  background-color: red;
+`;
+
+export const WidthMaxCenter = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
 `;
