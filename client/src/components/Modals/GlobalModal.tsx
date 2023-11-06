@@ -5,10 +5,12 @@ import { closeModal, selectModal } from "../../store/Modal";
 import styled from "styled-components";
 import NoticeContentModal from "./NoticeContentModal";
 import { clearData } from "../../store/NoticeModal";
+import MyErrorView from "./MyErrorViewModal";
 
 const MODAL_TYPES = {
   WriteModal: "WriteModal",
   NoticeModal: "NoticeModal",
+  MyErrorModal: "MyErrorModal",
 };
 
 const MODAL_COMPONENTS = [
@@ -19,6 +21,10 @@ const MODAL_COMPONENTS = [
   {
     type: MODAL_TYPES.NoticeModal,
     component: <NoticeContentModal />,
+  },
+  {
+    type: MODAL_TYPES.MyErrorModal,
+    component: <MyErrorView />,
   },
 ];
 

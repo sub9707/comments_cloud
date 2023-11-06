@@ -22,6 +22,9 @@ import { ButtonRight } from "../../styles/AdminPageStyle";
 import { useNavigate } from "react-router-dom";
 import LoadButton from "../../components/CustomButtons/DataLoadButton";
 import { getMyErrorCount, getMyErrors } from "../../api/ErrorBoard";
+import { useDispatch } from "react-redux";
+import { openModal } from "../../store/Modal";
+import { setMyErrorData } from "../../store/MyErrorModal";
 
 export default function MyErrorPage() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -31,6 +34,7 @@ export default function MyErrorPage() {
   const [offset, setOffset] = useState<number>(0);
   const [dataEnd, setDataEnd] = useState<boolean>(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const fetchData = async () => {
     try {
@@ -76,6 +80,10 @@ export default function MyErrorPage() {
   const handleRouteWrite = () => {
     navigate("/errorWrite");
   };
+  const handleModalOpen = (board: MyErrorTablePropType) => {
+    dispatch(setMyErrorData(board));
+    dispatch(openModal({ modalType: "MyErrorModal", isOpen: true }));
+  };
 
   useEffect(() => {
     fetchData();
@@ -84,7 +92,7 @@ export default function MyErrorPage() {
 
   useEffect(() => {
     if (totalCount !== undefined && data.length >= totalCount) {
-      // 만약 데이터를 모두 가져왔다면 dataEnd를 true로 설정
+      // 만약 데이터를 모두 가져왔다면 dataEnd를 true로
       setDataEnd(true);
     }
   }, [totalCount, data]);
@@ -117,7 +125,9 @@ export default function MyErrorPage() {
               <tbody>
                 {data.map((board, _idx) => (
                   <tr key={_idx}>
-                    <ErrorTableData>{board?.title}</ErrorTableData>
+                    <ErrorTableData onClick={() => handleModalOpen(board)}>
+                      {board?.title}
+                    </ErrorTableData>
                     <ErrorTableData>{board?.write_date}</ErrorTableData>
                     <ErrorTableData>
                       <OverlayTrigger
