@@ -16,6 +16,21 @@ export const writeError = async (props: ErrorWriteFormValues) => {
 };
 /**
  * @method GET
+ *  개인 게시물 불러오기
+ */
+export const getMyErrors = async (userId: number, offset: number) => {
+  try {
+    const response = await axios.get(
+      `/error?userId=${userId}&offset=${offset}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("개인 에러 불러오기 실패:", error);
+    throw error;
+  }
+};
+/**
+ * @method GET
  *  게시물 개수
  */
 export const getMyErrorCount = async (userId: number) => {

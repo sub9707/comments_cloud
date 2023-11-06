@@ -21,7 +21,7 @@ import PopoverCard from "../../components/Cards/PopoverCard";
 import { ButtonRight } from "../../styles/AdminPageStyle";
 import { useNavigate } from "react-router-dom";
 import LoadButton from "../../components/CustomButtons/DataLoadButton";
-import { getMyErrorCount } from "../../api/ErrorBoard";
+import { getMyErrorCount, getMyErrors } from "../../api/ErrorBoard";
 
 export default function MyErrorPage() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -35,10 +35,10 @@ export default function MyErrorPage() {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`/error?userId=1&offset=${offset}`);
+      const response = await await getMyErrors(1, offset);
       const totalData = await getMyErrorCount(1);
       setTotalCount(totalData[0].errorsTotal);
-      setData(response.data);
+      setData(response);
       setLoading(false);
     } catch (error) {
       console.log(error);
