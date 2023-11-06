@@ -1,7 +1,7 @@
 import Card from "react-bootstrap/Card";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { DesktopCardDataType } from "types/Components-type";
+import { DesktopCardDataType } from "../../types/Components-type";
 
 export default function ImageCard(props: DesktopCardDataType) {
   const router = useNavigate();
