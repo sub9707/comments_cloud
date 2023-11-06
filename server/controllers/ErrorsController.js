@@ -31,8 +31,31 @@ class ErrorsController {
    */
   static getUserErrors = async (req, res) => {
     const userId = req.query.userId;
+    const offset = req.query.offset;
     try {
-      let results = await ErrorsModel.getUserErrors(parseInt(userId));
+      let results = await ErrorsModel.getUserErrors(
+        parseInt(userId),
+        parseInt(offset)
+      );
+      if (results) res.send(results);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+    }
+  };
+  /**
+   * 특정 사용자 에러게시물 개수
+   *
+   * @param {request}
+   * @param {response}
+   * @method GET
+   *
+   * @returns {array}
+   */
+  static getUserErrorsCount = async (req, res) => {
+    const userId = req.query.userId;
+    try {
+      let results = await ErrorsModel.getUserErrorsCount(parseInt(userId));
       if (results) res.send(results);
     } catch (error) {
       console.error(error);

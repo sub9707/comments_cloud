@@ -8,17 +8,33 @@ class ErrorsModel {
       });
     });
   }
-  static async getUserErrors(userId) {
+  static async getUserErrors(userId, offset) {
     return new Promise((resolve) => {
       db.query(
-        "select * from error_contents WHERE writer_id = ?",
-        [userId],
+        "select * from error_contents WHERE writer_id = ? LIMIT 12 OFFSET ?",
+        [userId, offset],
         (error, result) => {
           if (!error) {
             resolve(result);
           } else {
             console.error("에러 발생:", error); // 에러 메시지를 출력
             resolve(false);
+          }
+        }
+      );
+    });
+  }
+  static async getUserErrorsCount(userId) {
+    return new Promise((resolve) => {
+      db.query(
+        "SELECT COUNT(*) AS errorsTotal FROM error_contents WHERE writer_id = ?",
+        [userId],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            console.error("에러 발생:", error);
+            resolve(0);
           }
         }
       );

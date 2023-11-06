@@ -6,5 +6,6 @@ router.get("/errorlist", errorsController.getAllErrors);
 router.post("/write", errorsController.writeError);
 router.delete("/", errorsController.deleteError);
 router.get("/", errorsController.getUserErrors);
+router.get("/count", errorsController.getUserErrorsCount);
 
 module.exports = router;
