@@ -15,21 +15,27 @@ import DOMPurify from "dompurify";
 import { CloseButton } from "react-bootstrap";
 import { closeModal } from "../../store/Modal";
 import SharePopOver from "../Cards/SharePopOverCard";
+import { useState } from "react";
 
 export default function MyErrorView() {
   const dispatch = useDispatch();
+  const [toggleSharePop, setToggleSharePop] = useState<boolean>(false);
   const { data } = useSelector((state: RootState) => state.myError);
+  const handleToggleDefault = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget && toggleSharePop === true)
+      setToggleSharePop(false);
+  };
   return (
-    <ModalContainer>
+    <ModalContainer onClick={handleToggleDefault}>
       <CloseButton
-        style={{ position: "absolute", top: 0, right: 0 }}
+        style={{ position: "fixed", top: "10%", right: "24%" }}
         onClick={() => dispatch(closeModal())}
       />
       <TitleHeader>
         #{data?.id}&nbsp;
         {data?.title}
       </TitleHeader>
-      <ContentInfoWrapper>
+      <ContentInfoWrapper onClick={handleToggleDefault}>
         <ContentInfoLeft>
           <DateInfo>
             <FontAwesomeIcon icon={faCalendarDays} />
@@ -39,8 +45,11 @@ export default function MyErrorView() {
           <ControlInfo>수정</ControlInfo>
           <ControlInfo>삭제</ControlInfo>
           <ControlInfo>
-            <FontAwesomeIcon icon={faShareFromSquare} />
-            <SharePopOver />
+            <FontAwesomeIcon
+              icon={faShareFromSquare}
+              onClick={() => setToggleSharePop(!toggleSharePop)}
+            />
+            {toggleSharePop && <SharePopOver setisopen={setToggleSharePop} />}
           </ControlInfo>
         </ContentInfoLeft>
         <ContentInfoRight>
@@ -54,7 +63,7 @@ export default function MyErrorView() {
         </ContentInfoRight>
       </ContentInfoWrapper>
       <DottedDivision />
-      <SubTitleHeader>에러 상황</SubTitleHeader>
+      <SubTitleHeader onClick={handleToggleDefault}>에러 상황</SubTitleHeader>
       <ContentViewArea
         dangerouslySetInnerHTML={{
           __html: DOMPurify.sanitize(data?.error_state || ""),

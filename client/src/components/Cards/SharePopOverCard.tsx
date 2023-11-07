@@ -1,11 +1,16 @@
 import { faClone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRef } from "react";
+import { Dispatch, SetStateAction, useRef } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { addMessage } from "../../store/Alert";
+import { CloseButton } from "react-bootstrap";
 
-export default function SharePopOver() {
+type propstype = {
+  setisopen: Dispatch<SetStateAction<boolean>>;
+};
+
+export default function SharePopOver(props: propstype) {
   const inputRef = useRef(null);
   const dispatch = useDispatch();
   const handleCopyToClipboard = () => {
@@ -22,15 +27,20 @@ export default function SharePopOver() {
       })
     );
   };
+
   return (
     <SharePopBox>
+      <CloseButton
+        style={{ position: "absolute", top: 0, right: 0, scale: "0.7" }}
+        onClick={() => props.setisopen(false)}
+      />
       <HeaderText>공유하기</HeaderText>
       <InputLabel>URL</InputLabel>
       <InputTagBox>
         <ShareInput
           ref={inputRef}
           type="text"
-          value={"www.naver.comcccccccccccccccccccccccccccc"}
+          value={"www.example.coooooooooooooooooooooom"}
           readOnly
         />
         <FontAwesomeIcon
