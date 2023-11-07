@@ -28,7 +28,7 @@ export default function MainPage() {
   const tempData = [
     {
       title: "서비스 소개",
-      content: "트러블 슈터의 소개입니다",
+      content: "트러블 슈터 서비스의 소개입니다",
       link: "/service",
     },
     {

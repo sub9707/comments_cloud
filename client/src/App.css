@@ -88,3 +88,21 @@ a:hover {
   --bs-btn-hover-bg: rgb(60, 60, 136) !important;
   --bs-btn-hover-border-color: #957af7 !important;
 }
+
+/*Animations*/
+.rotate-animation {
+  animation: rotateAnimation 3s infinite ease-in-out;
+  transform-style: preserve-3d;
+}
+
+@keyframes rotateAnimation {
+  0% {
+    transform: perspective(600px) rotateY(20deg);
+  }
+  50% {
+    transform: perspective(600px) rotateY(-20deg); /* 중간 지점에서 180도 회전으로 전환합니다. */
+  }
+  100% {
+    transform: perspective(600px) rotateY(20deg);
+  }
+}

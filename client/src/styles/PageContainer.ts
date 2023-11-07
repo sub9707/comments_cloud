@@ -33,7 +33,7 @@ export const LoginPageContainer = styled.div`
 export const PageAreaDesign = styled.div`
   position: relative;
   width: 80%;
-  height: 85%;
+  height: 90%;
   background-color: #fff;
   border-radius: 15px;
   box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px,
@@ -42,6 +42,7 @@ export const PageAreaDesign = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 4em;
 `;
 
 export const ToolWrapper = styled.div`
@@ -90,7 +91,7 @@ export const ContentBox = styled.div`
   width: 100%;
   min-height: 68vh;
   height: auto;
-  margin-block: 2em;
+  margin-block: 1.5em;
   display: flex;
   flex-direction: column;
   align-items: center;
