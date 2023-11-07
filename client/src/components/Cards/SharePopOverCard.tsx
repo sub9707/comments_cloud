@@ -1,17 +1,47 @@
 import { faClone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRef } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { addMessage } from "../../store/Alert";
 
 export default function SharePopOver() {
+  const inputRef = useRef(null);
+  const dispatch = useDispatch();
+  const handleCopyToClipboard = () => {
+    if (inputRef.current) {
+      navigator.clipboard.writeText(
+        (inputRef.current as HTMLInputElement).value
+      );
+    }
+    dispatch(
+      addMessage({
+        id: "unique_id",
+        text: `클립보드에 복사되었습니다.`,
+        type: "info",
+      })
+    );
+  };
   return (
     <SharePopBox>
       <HeaderText>공유하기</HeaderText>
       <InputLabel>URL</InputLabel>
       <InputTagBox>
-        <ShareInput type="text" readOnly />
+        <ShareInput
+          ref={inputRef}
+          type="text"
+          value={"www.naver.comcccccccccccccccccccccccccccc"}
+          readOnly
+        />
         <FontAwesomeIcon
           icon={faClone}
-          style={{ position: "absolute", right: "0.5em", top: "0.4em" }}
+          style={{
+            position: "absolute",
+            right: "0.5em",
+            top: "0.4em",
+            cursor: "pointer",
+          }}
+          onClick={handleCopyToClipboard}
         />
       </InputTagBox>
     </SharePopBox>
@@ -19,6 +49,7 @@ export default function SharePopOver() {
 }
 
 const SharePopBox = styled.div`
+  cursor: default;
   position: absolute;
   display: block;
   height: auto;
@@ -44,6 +75,9 @@ const SharePopBox = styled.div`
     border-style: solid;
     border-color: #e7e7e7 transparent transparent transparent;
   }
+  &:hover {
+    font-weight: 100 !important;
+  }
 `;
 
 const HeaderText = styled.p`
@@ -58,7 +92,10 @@ const InputTagBox = styled.div`
   position: relative;
 `;
 const ShareInput = styled.input`
-  cursor: pointer;
+  width: 100%;
+  padding-right: 1.7em;
+  padding-left: 0.3em;
+  color: #868686;
   &:focus {
     outline: none;
   }
