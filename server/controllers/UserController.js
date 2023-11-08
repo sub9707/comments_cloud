@@ -80,18 +80,12 @@ class UserController {
    */
   static updateUser = async (req, res) => {
     try {
-      const { id, name, email, password } = req.body;
+      const { id, name } = req.body;
       const newName = name;
-      const newEmail = email;
-      const newPassword = password;
+      const Img = req.file;
 
       if (id) {
-        let results = await userModel.updateUser(
-          id,
-          newName,
-          newEmail,
-          newPassword
-        );
+        let results = await userModel.updateUser(id, newName, Img.location);
         if (results) res.send("유저정보 수정 성공! [Controller]");
       }
     } catch (error) {
@@ -156,6 +150,12 @@ class UserController {
       console.error(error);
       res.status(500).send("Internal Server Error: User Login");
     }
+  };
+
+  static imageTest = async (req, res, next) => {
+    const Img = req.file;
+    console.log("s3 Image URL: ", Img.location);
+    res.json({ s3ImageUrl: Img.location });
   };
 }
 

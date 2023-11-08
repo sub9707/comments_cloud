@@ -49,11 +49,11 @@ class UserModel {
       });
     });
   }
-  static async updateUser(id, name, email, password) {
+  static async updateUser(id, name, newProfileImg) {
     return new Promise((resolve, reject) => {
       db.query(
-        "UPDATE users SET name=?, email=?, password=? WHERE id=?",
-        [name, email, password, id],
+        "UPDATE users SET name=?, profileImg=? WHERE id=?",
+        [name, newProfileImg, id],
         (error, result) => {
           if (!error) {
             if (result.affectedRows > 0) {

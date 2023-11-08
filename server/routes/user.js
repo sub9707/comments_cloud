@@ -3,6 +3,7 @@ const usercontroller = require("../controllers/UserController");
 const router = express.Router();
 const { check } = require("express-validator");
 const { verifyToken } = require("../config/JWT_middleware");
+const { upload } = require("../config/s3");
 
 router.post("/register", usercontroller.registerUser);
 router.delete(
@@ -17,6 +18,7 @@ router.delete(
   usercontroller.deleteUser
 );
 router.post("/login", usercontroller.loginUser);
-router.post("/update", usercontroller.updateUser);
+router.post("/update", upload.single("userImg"), usercontroller.updateUser);
+router.post("/ImgTest", upload.single("testImg"), usercontroller.imageTest);
 
 module.exports = router;
