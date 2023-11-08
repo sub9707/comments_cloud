@@ -16,6 +16,7 @@ import { CloseButton } from "react-bootstrap";
 import { closeModal } from "../../store/Modal";
 import SharePopOver from "../Cards/SharePopOverCard";
 import { useState } from "react";
+import CommentCard from "../Cards/CommentCard";
 
 export default function MyErrorView() {
   const dispatch = useDispatch();
@@ -87,6 +88,12 @@ export default function MyErrorView() {
           __html: DOMPurify.sanitize(data?.error_result || ""),
         }}
       />
+      <br />
+      <DottedDivision />
+      <SubHeader>댓글(10)</SubHeader>
+      <CommentArea>
+        <CommentCard />
+      </CommentArea>
     </ModalContainer>
   );
 }
@@ -101,6 +108,12 @@ const SubTitleHeader = styled.h3`
   color: #777777;
   font-weight: 600;
   margin-block: 0.7em;
+`;
+const SubHeader = styled.h4`
+  color: #3d3d3d;
+  font-weight: 600;
+  margin-block: 0.7em;
+  font-size: large;
 `;
 
 const ContentInfoWrapper = styled.div`
@@ -140,4 +153,9 @@ const ContentInfoRight = styled.div`
   display: flex;
   align-items: center;
   gap: 1em;
+`;
+const CommentArea = styled.div`
+  display: block;
+  width: 100%;
+  height: auto;
 `;
