@@ -28,6 +28,7 @@ export default function MyErrorView() {
     if (e.target === e.currentTarget && toggleSharePop === true)
       setToggleSharePop(false);
   };
+  console.log(data);
   return (
     <ModalContainer onClick={handleToggleDefault}>
       <CloseButton
