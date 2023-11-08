@@ -93,5 +93,20 @@ class ErrorsModel {
       );
     });
   }
+  static async getErrorReplies(boardId) {
+    return new Promise((resolve) => {
+      db.query(
+        "SELECT ecc.id, ecc.content, ecc.write_date, ecc.writer_id, ecc.likes, ecc.content_id, u.email, u.profileImg FROM error_content_comments ecc JOIN users u ON ecc.writer_id = u.id WHERE ecc.content_id = ?",
+        [boardId],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(result);
+          }
+        }
+      );
+    });
+  }
 }
 module.exports = ErrorsModel;

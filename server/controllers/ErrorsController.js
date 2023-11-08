@@ -104,6 +104,15 @@ class ErrorsController {
         .send("Internal Server Error:[게시물 등록 ErrorsController]");
     }
   };
+  /**
+   * 특정 게시물 삭제
+   *
+   * @param {request}
+   * @param {response}
+   * @method DELETE
+   *
+   * @returns {array}
+   */
   static deleteError = async (req, res) => {
     try {
       const id = req.query.id;
@@ -115,6 +124,30 @@ class ErrorsController {
     } catch (error) {
       console.error(error);
       res.status(500).send("Internal Server Error:[게시물 삭제 Controller]");
+    }
+  };
+  /**
+   * 특정 게시물 댓글목록
+   *
+   * @param {request}
+   * @param {response}
+   * @method GET
+   *
+   * @returns {array}
+   */
+  static getErrorsReplies = async (req, res) => {
+    try {
+      const boardId = req.query.boardId;
+      if (!boardId) {
+        return res.status(400).send("BoardId가 존재하지 않습니다.");
+      }
+      let result = await ErrorsModel.getErrorReplies(boardId);
+      if (result) res.send(result);
+    } catch (error) {
+      console.error(error);
+      res
+        .status(500)
+        .send("Internal Server Error:[게시물 댓글 load Controller]");
     }
   };
 }
