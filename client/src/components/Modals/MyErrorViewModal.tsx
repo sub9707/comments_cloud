@@ -15,20 +15,37 @@ import DOMPurify from "dompurify";
 import { CloseButton } from "react-bootstrap";
 import { closeModal } from "../../store/Modal";
 import SharePopOver from "../Cards/SharePopOverCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CommentCard from "../Cards/CommentCard";
+import { ReplyData } from "../../types/BoardTypes";
+import { getMyErrorReplies } from "../../api/ErrorBoard";
 
 export default function MyErrorView() {
   const dispatch = useDispatch();
   const [toggleSharePop, setToggleSharePop] = useState<boolean>(false);
+  const [toggleComment, setToggleComments] = useState<boolean>(false);
   const [toggleAddComment, setToggleComment] = useState<boolean>(false);
   const { data } = useSelector((state: RootState) => state.myError);
+  const [repliesData, setRepliesData] = useState<ReplyData[]>();
 
   const handleToggleDefault = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget && toggleSharePop === true)
       setToggleSharePop(false);
   };
-  console.log(data);
+  const fetchCommentsData = async (boardId: number) => {
+    try {
+      const result = await getMyErrorReplies(boardId);
+      setRepliesData(result);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    if (data) {
+      fetchCommentsData(data?.id);
+    }
+  }, [data]);
+  console.log(repliesData);
   return (
     <ModalContainer onClick={handleToggleDefault}>
       <CloseButton
@@ -115,16 +132,28 @@ export default function MyErrorView() {
           </CommentSubmitBtnGroup>
         </AddCommentArea>
       )}
-
       <br />
       <DottedDivision />
-      <SubHeader>댓글(10)</SubHeader>
-      <CommentArea>
-        <CommentCard />
-      </CommentArea>
-      <MoreComments>
-        <p>댓글 더보기</p>
-      </MoreComments>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <SubHeader>댓글({repliesData?.length})</SubHeader>
+        <p
+          style={{ marginTop: "0.5em", cursor: "pointer" }}
+          onClick={() => setToggleComments(!toggleComment)}>
+          {toggleComment ? "접기" : "펼치기"}
+        </p>
+      </div>
+      {toggleComment && (
+        <>
+          <CommentArea>
+            {repliesData?.map((reply, _idx) => (
+              <CommentCard {...reply} key={_idx} />
+            ))}
+          </CommentArea>
+          <MoreComments>
+            <p>댓글 더보기</p>
+          </MoreComments>
+        </>
+      )}
     </ModalContainer>
   );
 }

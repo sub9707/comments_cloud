@@ -42,3 +42,19 @@ export const getMyErrorCount = async (userId: number) => {
     throw error;
   }
 };
+
+/**
+ * @method GET
+ *  게시물 댓글 불러오기
+ */
+export const getMyErrorReplies = async (boardId: number) => {
+  try {
+    const response = await axios.get(
+      `/error/errorlist/replies?boardId=${boardId}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error("댓글 load 실패:", error);
+    throw error;
+  }
+};

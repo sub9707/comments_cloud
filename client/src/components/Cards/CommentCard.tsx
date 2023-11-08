@@ -1,12 +1,26 @@
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
+import { ReplyData } from "../../types/BoardTypes";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { closeModal } from "../../store/Modal";
 
-export default function CommentCard() {
+export default function CommentCard(props: ReplyData) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { content, email, likes, profileImg, write_date, writer_id } = props;
+  const handleProfileClick = () => {
+    navigate(`/user/${writer_id}`);
+    dispatch(closeModal());
+  };
   return (
     <CardContainer>
       <CardLeft>
-        <CardProfile />
+        <CardProfile
+          src={profileImg || "/images/Default_ProfileImg.png"}
+          alt="프로필 Img"
+        />
         <CommentLikes>
           <FontAwesomeIcon
             icon={faThumbsUp}
@@ -14,21 +28,25 @@ export default function CommentCard() {
             color="grey"
             style={{ marginBlock: "0.3em", cursor: "pointer" }}
           />
-          <LikeNum>0</LikeNum>
+          <LikeNum>{likes}</LikeNum>
         </CommentLikes>
       </CardLeft>
       <CardRight>
         <CardInfoArea>
           <WriterWrapper>
-            <InfoText>이메일</InfoText>
-            <InfoText>날짜</InfoText>
+            <InfoText
+              onClick={handleProfileClick}
+              style={{ cursor: "pointer" }}>
+              {email}
+            </InfoText>
+            <InfoText>{write_date}</InfoText>
           </WriterWrapper>
           <ControlWrapper>
             <InfoText>수정</InfoText>
             <InfoText>삭제</InfoText>
           </ControlWrapper>
         </CardInfoArea>
-        <CommentArea>1</CommentArea>
+        <CommentArea>{content}</CommentArea>
       </CardRight>
     </CardContainer>
   );
@@ -39,6 +57,7 @@ const CardContainer = styled.div`
   min-height: 3em;
   height: auto;
   display: flex;
+  margin-bottom: 1em;
 `;
 
 const CardLeft = styled.div`
