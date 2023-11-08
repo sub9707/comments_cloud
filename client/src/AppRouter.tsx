@@ -36,6 +36,10 @@ const AdminNoticeWrite = React.lazy(
 // MyError
 const MyError = React.lazy(() => import("./pages/myError/MyErrorPage"));
 const ErrorWrite = React.lazy(() => import("./pages/myError/ErrorWrite"));
+// UserProfile
+const UserProfileFixPage = React.lazy(
+  () => import("./pages/Profile/UserProfileFix")
+);
 
 export default function AppRouter() {
   return (
@@ -56,6 +60,9 @@ export default function AppRouter() {
             <Route path="board" element={<BoardPage />} />
             <Route path="myError" element={<MyError />} />
             <Route path="ErrorWrite" element={<ErrorWrite />} />
+            <Route path="user">
+              <Route path=":userId" element={<UserProfileFixPage />} />
+            </Route>
           </Route>
           // Admin Page
           <Route path="/admin" element={<AdminPageLayout />}>
