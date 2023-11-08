@@ -21,7 +21,9 @@ import CommentCard from "../Cards/CommentCard";
 export default function MyErrorView() {
   const dispatch = useDispatch();
   const [toggleSharePop, setToggleSharePop] = useState<boolean>(false);
+  const [toggleAddComment, setToggleComment] = useState<boolean>(false);
   const { data } = useSelector((state: RootState) => state.myError);
+
   const handleToggleDefault = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget && toggleSharePop === true)
       setToggleSharePop(false);
@@ -88,12 +90,40 @@ export default function MyErrorView() {
           __html: DOMPurify.sanitize(data?.error_result || ""),
         }}
       />
+      <MoreComments>
+        <p onClick={() => setToggleComment(!toggleAddComment)}>
+          {toggleAddComment ? "댓글 달기" : "접기"}
+        </p>
+      </MoreComments>
+      {!toggleAddComment && (
+        <AddCommentArea>
+          <CommentInput />
+          <CommentSubmitBtnGroup>
+            <CommentSubmitBtn
+              style={{ backgroundColor: "#8782d6", color: "white" }}>
+              등록하기
+            </CommentSubmitBtn>
+            <CommentSubmitBtn
+              style={{
+                backgroundColor: "#ffffff",
+                border: "1px solid #8782d6",
+                color: "#8782d6",
+              }}>
+              초기화
+            </CommentSubmitBtn>
+          </CommentSubmitBtnGroup>
+        </AddCommentArea>
+      )}
+
       <br />
       <DottedDivision />
       <SubHeader>댓글(10)</SubHeader>
       <CommentArea>
         <CommentCard />
       </CommentArea>
+      <MoreComments>
+        <p>댓글 더보기</p>
+      </MoreComments>
     </ModalContainer>
   );
 }
@@ -158,4 +188,58 @@ const CommentArea = styled.div`
   display: block;
   width: 100%;
   height: auto;
+`;
+const MoreComments = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin-top: 2em;
+  p {
+    margin: 0;
+    width: auto;
+    color: grey;
+    cursor: pointer;
+    font-weight: 500;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+`;
+
+const AddCommentArea = styled.div`
+  width: 100%;
+  height: 7em;
+  margin-top: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5em;
+`;
+const CommentInput = styled.textarea`
+  position: relative;
+  width: 80%;
+  height: 90%;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+    rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+  outline: none;
+`;
+const CommentSubmitBtnGroup = styled.div`
+  width: 12%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  padding-top: 0.3em;
+`;
+
+const CommentSubmitBtn = styled.button`
+  width: 100%;
+  height: 2em;
+  border: 1px solid #bebebe;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  &:active {
+    box-shadow: none;
+  }
 `;

@@ -1,3 +1,5 @@
+import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 
 export default function CommentCard() {
@@ -5,7 +7,15 @@ export default function CommentCard() {
     <CardContainer>
       <CardLeft>
         <CardProfile />
-        <CommentLikes></CommentLikes>
+        <CommentLikes>
+          <FontAwesomeIcon
+            icon={faThumbsUp}
+            size="2x"
+            color="grey"
+            style={{ marginBlock: "0.3em", cursor: "pointer" }}
+          />
+          <LikeNum>0</LikeNum>
+        </CommentLikes>
       </CardLeft>
       <CardRight>
         <CardInfoArea>
@@ -54,16 +64,24 @@ const CommentLikes = styled.div`
   width: 100%;
   min-height: 5em;
   height: auto;
-  background-color: #313131;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.5em;
 `;
 
+const LikeNum = styled.p`
+  font-size: large;
+  margin: 0;
+  font-weight: 700;
+`;
 const CardInfoArea = styled.div`
   width: 100%;
   height: 2em;
   display: flex;
   justify-content: space-between;
   padding-inline: 1em;
+  margin-left: 1em;
 `;
 const InfoText = styled.p`
   font-size: medium;
@@ -80,8 +98,10 @@ const ControlWrapper = styled.div`
   gap: 1em;
 `;
 const CommentArea = styled.div`
-  width: 100%;
+  width: 92%;
   height: auto;
-  background-color: aqua;
-  padding: 1em;
+  background-color: #f7f5e7;
+  padding-block: 1em;
+  padding-inline: 1.5em;
+  margin-left: 1em;
 `;
