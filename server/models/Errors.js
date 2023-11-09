@@ -117,8 +117,101 @@ class ErrorsModel {
           if (!error) {
             resolve(result);
           } else {
-            console.error("에러 발생:", error); // 에러 메시지를 출력
+            console.error("에러 발생:", error);
             resolve(false);
+          }
+        }
+      );
+    });
+  }
+  static async deleteReply(id) {
+    return new Promise((resolve) => {
+      db.query(
+        "DELETE FROM error_content_comments WHERE id = ?",
+        [id],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
+  static async updateReply(id, content) {
+    return new Promise((resolve) => {
+      db.query(
+        "UPDATE error_content_comments SET content = ? WHERE id = ?",
+        [content, id],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
+  static async getComments(id) {
+    return new Promise((resolve) => {
+      db.query(
+        "SELECT error_comments_replies.*, users.nickname " +
+          "FROM error_comments_replies " +
+          "JOIN users ON error_comments_replies.writer_id = users.id " +
+          "WHERE error_comments_replies.comment_id = ?",
+        [id],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
+  static async writeComment(content, replyId, writerId, write_date) {
+    return new Promise((resolve) => {
+      db.query(
+        "insert into error_comments_replies (content, comment_id, writer_id, write_date) values(?,?,?,?)",
+        [content, replyId, writerId, write_date],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
+  static async updateComment(replyId, content) {
+    return new Promise((resolve) => {
+      db.query(
+        "UPDATE error_comments_replies SET content = ? WHERE id = ?",
+        [content, replyId],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
+  static async deleteComment(id) {
+    return new Promise((resolve) => {
+      db.query(
+        "DELETE FROM error_comments_replies WHERE id = ?",
+        [id],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
           }
         }
       );
