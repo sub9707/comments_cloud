@@ -58,7 +58,7 @@ const ReplyWriter = styled.div`
 const ReplyControl = styled.div`
   font-size: small;
   display: flex;
-  gap: 0.5em;
+  gap: 1em;
   p {
     margin: 0;
   }

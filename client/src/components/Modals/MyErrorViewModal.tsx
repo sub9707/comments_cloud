@@ -24,7 +24,6 @@ export default function MyErrorView() {
   const dispatch = useDispatch();
   const [toggleSharePop, setToggleSharePop] = useState<boolean>(false);
   const [toggleComment, setToggleComments] = useState<boolean>(true);
-  const [toggleAddComment, setToggleComment] = useState<boolean>(false);
   const { data } = useSelector((state: RootState) => state.myError);
   const [repliesData, setRepliesData] = useState<ReplyData[]>();
   const [replyClickData, setReplyClickData] = useState<number>(-1);
@@ -109,30 +108,7 @@ export default function MyErrorView() {
           __html: DOMPurify.sanitize(data?.error_result || ""),
         }}
       />
-      <MoreComments>
-        <p onClick={() => setToggleComment(!toggleAddComment)}>
-          {toggleAddComment ? "댓글 달기" : "접기"}
-        </p>
-      </MoreComments>
-      {!toggleAddComment && (
-        <AddCommentArea>
-          <CommentInput />
-          <CommentSubmitBtnGroup>
-            <CommentSubmitBtn
-              style={{ backgroundColor: "#8782d6", color: "white" }}>
-              등록하기
-            </CommentSubmitBtn>
-            <CommentSubmitBtn
-              style={{
-                backgroundColor: "#ffffff",
-                border: "1px solid #8782d6",
-                color: "#8782d6",
-              }}>
-              초기화
-            </CommentSubmitBtn>
-          </CommentSubmitBtnGroup>
-        </AddCommentArea>
-      )}
+
       <br />
       <DottedDivision />
       <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -177,6 +153,24 @@ export default function MyErrorView() {
         </>
       )}
       <br />
+
+      <AddCommentArea>
+        <CommentInput />
+        <CommentSubmitBtnGroup>
+          <CommentSubmitBtn
+            style={{ backgroundColor: "#8782d6", color: "white" }}>
+            등록하기
+          </CommentSubmitBtn>
+          <CommentSubmitBtn
+            style={{
+              backgroundColor: "#ffffff",
+              border: "1px solid #8782d6",
+              color: "#8782d6",
+            }}>
+            초기화
+          </CommentSubmitBtn>
+        </CommentSubmitBtnGroup>
+      </AddCommentArea>
     </ModalContainer>
   );
 }
