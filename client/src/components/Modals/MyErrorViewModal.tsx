@@ -15,23 +15,49 @@ import DOMPurify from "dompurify";
 import { Button, CloseButton, Form, InputGroup } from "react-bootstrap";
 import { closeModal } from "../../store/Modal";
 import SharePopOver from "../Cards/SharePopOverCard";
-import { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import CommentCard from "../Cards/CommentCard";
 import { ReplyData } from "../../types/BoardTypes";
-import { getMyErrorReplies } from "../../api/ErrorBoard";
+import { getMyErrorReplies, writeReply } from "../../api/ErrorBoard";
 
 export default function MyErrorView() {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState<boolean>(false);
   const [toggleSharePop, setToggleSharePop] = useState<boolean>(false);
   const [toggleComment, setToggleComments] = useState<boolean>(true);
   const { data } = useSelector((state: RootState) => state.myError);
   const [repliesData, setRepliesData] = useState<ReplyData[]>();
   const [replyClickData, setReplyClickData] = useState<number>(-1);
+  const [replyWrite, setReplyWrite] = useState<string>("");
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setReplyWrite(e.target.value);
+  };
+
+  const handleReplySubmit = async () => {
+    try {
+      setLoading(true);
+      if (data) {
+        await writeReply({
+          content: replyWrite,
+          writer_id: 3,
+          content_id: data?.id,
+        });
+      }
+      setLoading(false);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      alert("댓글이 등록되었습니댜.");
+      setReplyWrite("");
+    }
+  };
 
   const handleToggleDefault = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget && toggleSharePop === true)
       setToggleSharePop(false);
   };
+
   const fetchCommentsData = async (boardId: number) => {
     try {
       const result = await getMyErrorReplies(boardId);
@@ -40,12 +66,12 @@ export default function MyErrorView() {
       console.error(err);
     }
   };
+
   useEffect(() => {
     if (data) {
       fetchCommentsData(data?.id);
     }
-  }, [data]);
-  console.log(repliesData);
+  }, [data, loading]);
   return (
     <ModalContainer onClick={handleToggleDefault}>
       <CloseButton
@@ -123,13 +149,8 @@ export default function MyErrorView() {
         <>
           <CommentArea>
             {repliesData?.map((reply, _idx) => (
-              <>
-                <CommentCard
-                  {...reply}
-                  setIdx={setReplyClickData}
-                  cur={_idx}
-                  key={_idx}
-                />
+              <React.Fragment key={_idx}>
+                <CommentCard {...reply} setIdx={setReplyClickData} cur={_idx} />
 
                 {replyClickData === _idx && (
                   <CommentReplyArea>
@@ -144,7 +165,7 @@ export default function MyErrorView() {
                     </InputGroup>
                   </CommentReplyArea>
                 )}
-              </>
+              </React.Fragment>
             ))}
           </CommentArea>
           <MoreComments>
@@ -153,12 +174,12 @@ export default function MyErrorView() {
         </>
       )}
       <br />
-
       <AddCommentArea>
-        <CommentInput />
+        <CommentInput value={replyWrite} onChange={handleInputChange} />
         <CommentSubmitBtnGroup>
           <CommentSubmitBtn
-            style={{ backgroundColor: "#8782d6", color: "white" }}>
+            style={{ backgroundColor: "#8782d6", color: "white" }}
+            onClick={handleReplySubmit}>
             등록하기
           </CommentSubmitBtn>
           <CommentSubmitBtn

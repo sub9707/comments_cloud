@@ -7,3 +7,9 @@ export type ReplyData = {
   email: string;
   profileImg: string;
 };
+
+export type ErrorReplyType = {
+  content: string;
+  writer_id: number;
+  content_id: number;
+};

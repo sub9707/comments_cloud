@@ -1,3 +1,4 @@
+import { ErrorReplyType } from "../types/BoardTypes";
 import { ErrorWriteFormValues } from "../types/react-hook-form";
 import axios from "./axios";
 
@@ -55,6 +56,20 @@ export const getMyErrorReplies = async (boardId: number) => {
     return response.data;
   } catch (error) {
     console.error("댓글 load 실패:", error);
+    throw error;
+  }
+};
+
+/**
+ * @method POST
+ *  게시물 댓글 작성
+ */
+export const writeReply = async (props: ErrorReplyType) => {
+  try {
+    const response = await axios.post("/error/errorlist/replies", props);
+    return response.data;
+  } catch (error) {
+    console.error("개인 에러 등록 실패:", error);
     throw error;
   }
 };
