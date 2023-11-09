@@ -46,7 +46,7 @@ export default function NavMenu() {
         onClick={handleAdminClick}>
         <FontAwesomeIcon icon={faScrewdriverWrench} size="2x" />
         <p style={{ fontSize: "1.3em", marginLeft: "1em" }}>
-          관리자 페이지 (임시버튼)
+          관리페이지 (임시)
         </p>
       </div>
       <LogBox>

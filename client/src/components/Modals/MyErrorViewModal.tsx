@@ -12,7 +12,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { formatRelativeTime } from "../../utils/Calculation";
 import DOMPurify from "dompurify";
-import { CloseButton } from "react-bootstrap";
+import { Button, CloseButton, Form, InputGroup } from "react-bootstrap";
 import { closeModal } from "../../store/Modal";
 import SharePopOver from "../Cards/SharePopOverCard";
 import { useEffect, useState } from "react";
@@ -23,10 +23,11 @@ import { getMyErrorReplies } from "../../api/ErrorBoard";
 export default function MyErrorView() {
   const dispatch = useDispatch();
   const [toggleSharePop, setToggleSharePop] = useState<boolean>(false);
-  const [toggleComment, setToggleComments] = useState<boolean>(false);
+  const [toggleComment, setToggleComments] = useState<boolean>(true);
   const [toggleAddComment, setToggleComment] = useState<boolean>(false);
   const { data } = useSelector((state: RootState) => state.myError);
   const [repliesData, setRepliesData] = useState<ReplyData[]>();
+  const [replyClickData, setReplyClickData] = useState<number>(-1);
 
   const handleToggleDefault = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget && toggleSharePop === true)
@@ -146,7 +147,28 @@ export default function MyErrorView() {
         <>
           <CommentArea>
             {repliesData?.map((reply, _idx) => (
-              <CommentCard {...reply} key={_idx} />
+              <>
+                <CommentCard
+                  {...reply}
+                  setIdx={setReplyClickData}
+                  cur={_idx}
+                  key={_idx}
+                />
+
+                {replyClickData === _idx && (
+                  <CommentReplyArea>
+                    <InputGroup>
+                      <Form.Control placeholder="댓글 입력" />
+                      <Button variant="primary">등록</Button>
+                      <Button
+                        variant="outline-primary"
+                        onClick={() => setReplyClickData(-1)}>
+                        취소
+                      </Button>
+                    </InputGroup>
+                  </CommentReplyArea>
+                )}
+              </>
             ))}
           </CommentArea>
           <MoreComments>
@@ -154,6 +176,7 @@ export default function MyErrorView() {
           </MoreComments>
         </>
       )}
+      <br />
     </ModalContainer>
   );
 }
@@ -272,4 +295,9 @@ const CommentSubmitBtn = styled.button`
   &:active {
     box-shadow: none;
   }
+`;
+const CommentReplyArea = styled.div`
+  width: 90%;
+  margin-left: 5em;
+  margin-bottom: 2em;
 `;

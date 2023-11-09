@@ -132,7 +132,6 @@ export const ProfileLeft = styled.div`
 `;
 export const ProfileRight = styled.div`
   width: 75%;
-  background-color: grey;
 `;
 
 export const ProfileImgArea = styled.div`

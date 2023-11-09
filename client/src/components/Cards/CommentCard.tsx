@@ -5,11 +5,25 @@ import { ReplyData } from "../../types/BoardTypes";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { closeModal } from "../../store/Modal";
+import CommentReplyCard from "./CommentReplyCard";
 
-export default function CommentCard(props: ReplyData) {
+type CommentCardStateTpye = {
+  cur: number;
+  setIdx: React.Dispatch<React.SetStateAction<number>>;
+};
+export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { content, email, likes, profileImg, write_date, writer_id } = props;
+  const {
+    content,
+    email,
+    likes,
+    profileImg,
+    write_date,
+    writer_id,
+    setIdx,
+    cur,
+  } = props;
   const handleProfileClick = () => {
     navigate(`/user/${writer_id}`);
     dispatch(closeModal());
@@ -26,7 +40,7 @@ export default function CommentCard(props: ReplyData) {
             icon={faThumbsUp}
             size="2x"
             color="grey"
-            style={{ marginBlock: "0.3em", cursor: "pointer" }}
+            style={{ cursor: "pointer", scale: "0.8", opacity: 0.5 }}
           />
           <LikeNum>{likes}</LikeNum>
         </CommentLikes>
@@ -47,6 +61,20 @@ export default function CommentCard(props: ReplyData) {
           </ControlWrapper>
         </CardInfoArea>
         <CommentArea>{content}</CommentArea>
+        <CommentContol>
+          <InfoText
+            style={{ marginLeft: "1em", marginTop: "1em", cursor: "pointer" }}
+            onClick={() => setIdx(cur)}>
+            답글달기
+          </InfoText>
+          <InfoText
+            style={{ marginLeft: "1em", marginTop: "1em", cursor: "pointer" }}>
+            답글보기
+          </InfoText>
+        </CommentContol>
+        <CommentReplyArea>
+          <CommentReplyCard />
+        </CommentReplyArea>
       </CardRight>
     </CardContainer>
   );
@@ -64,7 +92,6 @@ const CardLeft = styled.div`
   width: 5%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 `;
 const CardRight = styled.div`
@@ -123,4 +150,16 @@ const CommentArea = styled.div`
   padding-block: 1em;
   padding-inline: 1.5em;
   margin-left: 1em;
+  word-break: break-all;
+`;
+const CommentContol = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const CommentReplyArea = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: flex-end;
 `;

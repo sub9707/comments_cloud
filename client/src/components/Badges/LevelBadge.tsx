@@ -62,7 +62,7 @@ const BadgeGlow = styled.div<BadgeBoxProps>`
   z-index: 1;
   height: 100%;
   width: 100%;
-  transform: scale(1.5) translateZ(0);
+  transform: scale(1.3) translateZ(0);
   filter: blur(15px);
   background: ${({ level }) => {
     if (level >= 3) {

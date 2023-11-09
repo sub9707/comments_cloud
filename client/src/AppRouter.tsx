@@ -40,6 +40,7 @@ const ErrorWrite = React.lazy(() => import("./pages/myError/ErrorWrite"));
 const UserProfileFixPage = React.lazy(
   () => import("./pages/Profile/UserProfileFix")
 );
+const UserProfilePage = React.lazy(() => import("./pages/Profile/UserProfile"));
 
 export default function AppRouter() {
   return (
@@ -61,7 +62,8 @@ export default function AppRouter() {
             <Route path="myError" element={<MyError />} />
             <Route path="ErrorWrite" element={<ErrorWrite />} />
             <Route path="user">
-              <Route path=":userId" element={<UserProfileFixPage />} />
+              <Route path=":userId" element={<UserProfilePage />} />
+              <Route path="update/:userId" element={<UserProfileFixPage />} />
             </Route>
           </Route>
           // Admin Page
