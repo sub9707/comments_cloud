@@ -7,7 +7,7 @@ router.delete("/", errorsController.deleteError);
 
 router.get("/errorlist", errorsController.getAllErrors);
 router.get("/errorlist/replies", errorsController.getErrorsReplies);
-router.post();
+router.post("/errorlist/replies", errorsController.writeReply);
 
 router.post("/write", errorsController.writeError);
 router.get("/count", errorsController.getUserErrorsCount);

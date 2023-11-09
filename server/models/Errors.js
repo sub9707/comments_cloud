@@ -108,5 +108,21 @@ class ErrorsModel {
       );
     });
   }
+  static async writeReply(content, writer_id, content_id, write_date) {
+    return new Promise((resolve) => {
+      db.query(
+        "insert into error_content_comments (content, write_date, writer_id, content_id) values(?,?,?,?)",
+        [content, write_date, writer_id, content_id],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            console.error("에러 발생:", error); // 에러 메시지를 출력
+            resolve(false);
+          }
+        }
+      );
+    });
+  }
 }
 module.exports = ErrorsModel;

@@ -150,6 +150,33 @@ class ErrorsController {
         .send("Internal Server Error:[게시물 댓글 load Controller]");
     }
   };
+
+  /**
+   * 에러 게시물 댓글 등록
+   *
+   * @param {request}
+   * @param {response}
+   * @method POST
+   *
+   */
+  static writeReply = async (req, res) => {
+    try {
+      const write_date = getTodayTimeFormat();
+      const { content, writer_id, content_id } = req.body;
+      let results = await ErrorsModel.writeReply(
+        content,
+        writer_id,
+        content_id,
+        write_date
+      );
+      if (results) res.send("게시물 답글 등록 성공! [ErrorsController]]");
+    } catch (error) {
+      console.error(error);
+      res
+        .status(500)
+        .send("Internal Server Error:[게시물 답글 등록 ErrorsController]");
+    }
+  };
 }
 
 module.exports = ErrorsController;
