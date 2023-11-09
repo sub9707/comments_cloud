@@ -12,10 +12,17 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { formatRelativeTime } from "../../utils/Calculation";
 import DOMPurify from "dompurify";
-import { Button, CloseButton, Form, InputGroup } from "react-bootstrap";
+import {
+  Button,
+  CloseButton,
+  Form,
+  InputGroup,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 import { closeModal } from "../../store/Modal";
 import SharePopOver from "../Cards/SharePopOverCard";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CommentCard from "../Cards/CommentCard";
 import { ReplyData } from "../../types/BoardTypes";
 import { getMyErrorReplies, writeReply } from "../../api/ErrorBoard";
@@ -79,8 +86,18 @@ export default function MyErrorView() {
         onClick={() => dispatch(closeModal())}
       />
       <TitleHeader>
-        #{data?.id}&nbsp;
-        {data?.title}
+        <p>
+          #{data?.id}&nbsp;
+          {data?.title}
+        </p>
+
+        {data?.error_solved === 1 && (
+          <OverlayTrigger
+            placement="right"
+            overlay={<Tooltip>해결된 에러노트</Tooltip>}>
+            <img src="/images/success_badge.png" alt="해결 뱃지" />
+          </OverlayTrigger>
+        )}
       </TitleHeader>
       <ContentInfoWrapper onClick={handleToggleDefault}>
         <ContentInfoLeft>
@@ -88,7 +105,7 @@ export default function MyErrorView() {
             <FontAwesomeIcon icon={faCalendarDays} />
             &nbsp; {formatRelativeTime(data?.write_date || "")}
           </DateInfo>
-          <PublicInfo>공개됨</PublicInfo>
+          <PublicInfo>{data?.publicCheck === 1 ? "공개" : "비공개"}</PublicInfo>
           <ControlInfo>수정</ControlInfo>
           <ControlInfo>삭제</ControlInfo>
           <ControlInfo>
@@ -196,10 +213,23 @@ export default function MyErrorView() {
   );
 }
 
-const TitleHeader = styled.h1`
+const TitleHeader = styled.div`
+  width: 100%;
   margin-top: 1em;
   margin-bottom: 0.5em;
   font-weight: 600;
+  display: flex;
+  align-items: center;
+  p {
+    font-size: 2.3em;
+  }
+  img {
+    width: 3em;
+    height: 3em;
+    margin-left: 0.5em;
+    object-fit: cover;
+    margin-bottom: 1em;
+  }
 `;
 
 const SubTitleHeader = styled.h3`
