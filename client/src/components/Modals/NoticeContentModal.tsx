@@ -6,7 +6,10 @@ import { RootState } from "../../store";
 import { clearData } from "../../store/NoticeModal";
 import { useState } from "react";
 import { deleteNotice } from "../../api/notice";
-import { ModalContainer, ModalContent } from "../../styles/ModalStyle";
+import {
+  ModalContainer,
+  ModalContent,
+} from "../../styles/ModalStyle/ModalStyle";
 
 export default function NoticeContentModal() {
   const [isLoading, setIsLoading] = useState<boolean>(false);

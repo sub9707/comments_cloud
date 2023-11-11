@@ -1,4 +1,4 @@
-import { ModalContainer } from "../../styles/ModalStyle";
+import { ModalContainer } from "../../styles/ModalStyle/ModalStyle";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import styled from "styled-components";
@@ -41,6 +41,12 @@ export default function MyErrorView() {
   const [commentData, setCommentData] = useState<string>("");
   const [replyClickData, setReplyClickData] = useState<number>(-1);
   const [replyWrite, setReplyWrite] = useState<string>("");
+  const sections = [
+    { title: "에러 상황", content: data?.error_state },
+    { title: "에러 원인", content: data?.error_cause },
+    { title: "해결 과정", content: data?.error_process },
+    { title: "결과", content: data?.error_result },
+  ];
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setReplyWrite(e.target.value);
@@ -53,6 +59,7 @@ export default function MyErrorView() {
         await writeReply({
           content: replyWrite,
           writer_id: 3,
+
           content_id: data?.id,
         });
       }
@@ -81,8 +88,10 @@ export default function MyErrorView() {
 
   const submitCommentData = async (commentId: number) => {
     try {
+      setLoading(true);
       await writeComment(commentId, 3, commentData);
       alert("댓글이 등록되었습니다.");
+      setLoading(false);
     } catch (err) {
       console.error(err);
     }
@@ -108,7 +117,6 @@ export default function MyErrorView() {
           #{data?.id}&nbsp;
           {data?.title}
         </p>
-
         {data?.error_solved === 1 && (
           <OverlayTrigger
             placement="right"
@@ -119,13 +127,13 @@ export default function MyErrorView() {
       </TitleHeader>
       <ContentInfoWrapper onClick={handleToggleDefault}>
         <ContentInfoLeft>
-          <DateInfo>
+          <p>
             <FontAwesomeIcon icon={faCalendarDays} />
             &nbsp; {formatRelativeTime(data?.write_date || "")}
-          </DateInfo>
-          <PublicInfo>{data?.publicCheck === 1 ? "공개" : "비공개"}</PublicInfo>
-          <ControlInfo>수정</ControlInfo>
-          <ControlInfo>삭제</ControlInfo>
+          </p>
+          <p>{data?.publicCheck === 1 ? "공개" : "비공개"}</p>
+          <p>수정</p>
+          <p>삭제</p>
           <ControlInfo>
             <FontAwesomeIcon
               icon={faShareFromSquare}
@@ -135,42 +143,29 @@ export default function MyErrorView() {
           </ControlInfo>
         </ContentInfoLeft>
         <ContentInfoRight>
-          <ViewInfo>
+          <p>
             <FontAwesomeIcon icon={faEye} />
             &nbsp;{data?.views}
-          </ViewInfo>
-          <LikeInfo>
+          </p>
+          <p>
             <FontAwesomeIcon icon={faThumbsUp} /> &nbsp;{data?.likes}
-          </LikeInfo>
+          </p>
         </ContentInfoRight>
       </ContentInfoWrapper>
       <DottedDivision />
-      <SubTitleHeader onClick={handleToggleDefault}>에러 상황</SubTitleHeader>
-      <ContentViewArea
-        dangerouslySetInnerHTML={{
-          __html: DOMPurify.sanitize(data?.error_state || ""),
-        }}
-      />
-      <SubTitleHeader>에러 원인</SubTitleHeader>
-      <ContentViewArea
-        dangerouslySetInnerHTML={{
-          __html: DOMPurify.sanitize(data?.error_cause || ""),
-        }}
-      />
-      <SubTitleHeader>해결 과정</SubTitleHeader>
-      <ContentViewArea
-        dangerouslySetInnerHTML={{
-          __html: DOMPurify.sanitize(data?.error_process || ""),
-        }}
-      />
-      <SubTitleHeader>결과</SubTitleHeader>
-      <ContentViewArea
-        dangerouslySetInnerHTML={{
-          __html: DOMPurify.sanitize(data?.error_result || ""),
-        }}
-      />
-
+      {/*본문 HTML 컨텐츠 영역*/}
+      {sections.map((section, index) => (
+        <div key={index}>
+          <SubTitleHeader>{section.title}</SubTitleHeader>
+          <ContentViewArea
+            dangerouslySetInnerHTML={{
+              __html: DOMPurify.sanitize(section.content || ""),
+            }}
+          />
+        </div>
+      ))}
       <br />
+      {/*댓글 영역*/}
       <DottedDivision />
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <SubHeader>댓글({repliesData?.length})</SubHeader>
@@ -198,11 +193,6 @@ export default function MyErrorView() {
                         value={commentData}
                         onChange={(e) => setCommentData(e.target.value)}
                         placeholder="댓글 입력"
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") {
-                            handleReplySubmit();
-                          }
-                        }}
                       />
                       <Button
                         variant="primary"
@@ -296,10 +286,6 @@ const ContentViewArea = styled.div`
   box-shadow: rgb(114, 114, 114) 0px 0px 5px 2px inset;
   padding: 1em;
 `;
-const ViewInfo = styled.p``;
-const LikeInfo = styled.p``;
-const DateInfo = styled.p``;
-const PublicInfo = styled.p``;
 const ControlInfo = styled.p`
   position: relative;
   cursor: pointer;
