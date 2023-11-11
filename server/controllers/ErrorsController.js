@@ -272,7 +272,7 @@ class ErrorsController {
     }
   };
   /**
-   * 특정 게시물 대댓글 수정
+   * 게시물 대댓글 수정
    *
    * @param {request}
    * @param {response}
@@ -291,7 +291,7 @@ class ErrorsController {
     }
   };
   /**
-   * 특정 게시물 댓글 삭제
+   * 게시물 대댓글 삭제
    *
    * @param {request}
    * @param {response}
@@ -305,6 +305,28 @@ class ErrorsController {
         return res.status(400).send("id가 존재하지 않습니다.");
       }
       let result = await ErrorsModel.deleteComment(commentId);
+      if (result) res.send("게시글 댓글 삭제 성공! [Controller]]");
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error:[게시물 삭제 Controller]");
+    }
+  };
+
+  /**
+   * 답글 연관 대댓글 삭제
+   *
+   * @param {request}
+   * @param {response}
+   * @method DELETE
+   *
+   */
+  static deleteCommentsAll = async (req, res) => {
+    try {
+      const replyId = req.query.replyId;
+      if (!replyId) {
+        return res.status(400).send("id가 존재하지 않습니다.");
+      }
+      let result = await ErrorsModel.deleteCommentsAll(replyId);
       if (result) res.send("게시글 댓글 삭제 성공! [Controller]]");
     } catch (error) {
       console.error(error);

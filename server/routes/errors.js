@@ -18,5 +18,6 @@ router.get("/errorlist/comments", errorsController.getErrorsComments);
 router.post("/errorlist/comments", errorsController.writeComment);
 router.put("/errorlist/comments", errorsController.updateComment);
 router.delete("/errorlist/comments", errorsController.deleteComment);
+router.delete("/errorlist/commentsall", errorsController.deleteCommentsAll);
 
 module.exports = router;

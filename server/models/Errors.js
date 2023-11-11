@@ -217,5 +217,20 @@ class ErrorsModel {
       );
     });
   }
+  static async deleteCommentsAll(id) {
+    return new Promise((resolve) => {
+      db.query(
+        "DELETE FROM error_content_comments WHERE content_id = ?",
+        [id],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
 }
 module.exports = ErrorsModel;
