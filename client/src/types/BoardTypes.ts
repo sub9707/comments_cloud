@@ -13,3 +13,12 @@ export type ErrorReplyType = {
   writer_id: number;
   content_id: number;
 };
+
+export type CommentData = {
+  id: number;
+  content: string;
+  comment_id: number;
+  writer_id: number;
+  write_date: string;
+  nickname: string;
+};

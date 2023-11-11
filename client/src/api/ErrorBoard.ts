@@ -73,3 +73,82 @@ export const writeReply = async (props: ErrorReplyType) => {
     throw error;
   }
 };
+/**
+ * @method DELETE
+ *  게시물 댓글 삭제
+ */
+export const deleteReply = async (replyId: number) => {
+  try {
+    const result = await axios.delete(
+      `/error/errorlist/replies?commentId=${replyId}`
+    );
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
+/**
+ * @method DELETE
+ *  댓글과 연관된 대댓글 모두 삭제
+ */
+export const deleteCommentAll = async (replyId: number) => {
+  try {
+    const result = await axios.delete(
+      `/error/errorlist/commentsall?replyId=${replyId}`
+    );
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
+/**
+ * @method UPDATE
+ *  게시물 댓글 수정
+ */
+export const updateReply = async (replyId: number, content: string) => {
+  try {
+    const result = await axios.put(
+      `/error/errorlist/replies?commentId=${replyId}`,
+      { content: content }
+    );
+    return result;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+/**
+ * @method GET
+ *  게시물 댓글 불러오기
+ */
+export const getAllReplyComments = async (commentId: number) => {
+  try {
+    const results = await axios.get(
+      `/error/errorlist/comments?commentId=${commentId}`
+    );
+    return results.data;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+/**
+ * @method POST
+ *  게시물 대댓글 작성
+ */
+export const writeComment = async (
+  commentId: number,
+  writerId: number,
+  commentData: string
+) => {
+  try {
+    const response = await axios.post(
+      `/error/errorlist/comments?writerId=${writerId}&replyId=${commentId}`,
+      { content: commentData }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("개인 에러 등록 실패:", error);
+    throw error;
+  }
+};

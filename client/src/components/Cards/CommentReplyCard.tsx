@@ -1,22 +1,24 @@
-import React from "react";
 import styled from "styled-components";
+import { CommentData } from "../../types/BoardTypes";
+import { formatRelativeTime } from "../../utils/Calculation";
 
-export default function CommentReplyCard() {
+export default function CommentReplyCard(props: CommentData) {
+  const { id, content, write_date, nickname } = props;
   return (
     <CardBox>
       <CardProfile src={"/images/Default_ProfileImg.png"} />
       <ReplyBox>
         <ReplyInfoWrapper>
           <ReplyWriter>
-            <p>@temp-name</p>
-            <p>12일 전</p>
+            <p>{nickname}</p>
+            <p>{formatRelativeTime(write_date)}</p>
           </ReplyWriter>
           <ReplyControl>
             <p>수정</p>
             <p>삭제</p>
           </ReplyControl>
         </ReplyInfoWrapper>
-        <ReplyContent>내용임</ReplyContent>
+        <ReplyContent>{content}</ReplyContent>
       </ReplyBox>
     </CardBox>
   );
@@ -27,6 +29,7 @@ const CardBox = styled.div`
   min-height: 3em;
   height: auto;
   display: flex;
+  margin-bottom: 0.8em;
 `;
 const CardProfile = styled.img`
   width: 2em;
@@ -51,8 +54,14 @@ const ReplyWriter = styled.div`
   font-size: small;
   display: flex;
   gap: 0.5em;
+  margin-left: 0.5em;
   p {
     margin: 0;
+  }
+  p:nth-child(2) {
+    color: grey;
+    font-size: smaller;
+    margin-top: 0.1em;
   }
 `;
 const ReplyControl = styled.div`
@@ -65,6 +74,7 @@ const ReplyControl = styled.div`
 `;
 const ReplyContent = styled.div`
   height: auto;
-  padding: 0.5em;
+  padding-inline: 0.5em;
+  padding-block: 0.3em;
   word-break: break-all;
 `;
