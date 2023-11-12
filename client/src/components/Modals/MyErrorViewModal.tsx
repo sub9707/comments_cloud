@@ -25,9 +25,10 @@ import SharePopOver from "../Cards/SharePopOverCard";
 import React, { useEffect, useState } from "react";
 import CommentCard from "../Cards/CommentCard";
 import { writeComment, writeReply } from "../../api/ErrorBoard";
-import { fetchReplies } from "../../store/DataThunk/RepliesSlice";
+import { addReply, fetchReplies } from "../../store/DataThunk/RepliesSlice";
 import { AnyAction } from "redux";
 import { ThunkDispatch } from "redux-thunk";
+import { ErrorReplyType } from "../../types/BoardTypes";
 
 export default function MyErrorView() {
   const { data } = useSelector((state: RootState) => state.myError);
@@ -49,24 +50,17 @@ export default function MyErrorView() {
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setReplyWrite(e.target.value);
   };
-
-  const handleReplySubmit = async () => {
-    try {
-      setLoading(true);
-      if (data) {
-        await writeReply({
-          content: replyWrite,
-          writer_id: 3,
-          content_id: data?.id,
-        });
-      }
-      setLoading(false);
-    } catch (err) {
-      console.error(err);
-    } finally {
+  const handleAddReply = () => {
+    if (data) {
+      const props: ErrorReplyType = {
+        content: replyWrite,
+        content_id: data?.id,
+        writer_id: 2,
+      };
+      dispatch(addReply(props));
       alert("댓글이 등록되었습니댜.");
-      setReplyWrite("");
     }
+    setReplyWrite("");
   };
 
   const handleToggleDefault = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -208,7 +202,7 @@ export default function MyErrorView() {
         <CommentSubmitBtnGroup>
           <CommentSubmitBtn
             style={{ backgroundColor: "#8782d6", color: "white" }}
-            onClick={handleReplySubmit}>
+            onClick={handleAddReply}>
             등록하기
           </CommentSubmitBtn>
           <CommentSubmitBtn
