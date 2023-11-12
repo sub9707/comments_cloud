@@ -5,7 +5,7 @@ import modalReducer from "./Modal";
 import noticeReducer from "./NoticeModal";
 import alertReducer from "./Alert";
 import myErrorReducer from "./MyErrorModal";
-import ReplyDataSlice from "./DataCRUD/ReplyData";
+import ReplyDataSlice from "./DataThunk/RepliesSlice";
 import storage from "redux-persist/lib/storage";
 import {
   FLUSH,
@@ -17,6 +17,7 @@ import {
   persistReducer,
   persistStore,
 } from "redux-persist";
+import thunk from "redux-thunk";
 
 // reducer 결합
 const reducers = combineReducers({
@@ -46,7 +47,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(thunk),
 });
 
 export const persistor = persistStore(store);

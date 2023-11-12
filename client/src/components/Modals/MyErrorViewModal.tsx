@@ -24,20 +24,17 @@ import { closeModal } from "../../store/Modal";
 import SharePopOver from "../Cards/SharePopOverCard";
 import React, { useEffect, useState } from "react";
 import CommentCard from "../Cards/CommentCard";
-import { ReplyData } from "../../types/BoardTypes";
-import {
-  getMyErrorReplies,
-  writeComment,
-  writeReply,
-} from "../../api/ErrorBoard";
+import { writeComment, writeReply } from "../../api/ErrorBoard";
+import { fetchReplies } from "../../store/DataThunk/RepliesSlice";
+import { AnyAction } from "redux";
+import { ThunkDispatch } from "redux-thunk";
 
 export default function MyErrorView() {
-  const dispatch = useDispatch();
+  const { data } = useSelector((state: RootState) => state.myError);
+  const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>();
   const [loading, setLoading] = useState<boolean>(false);
   const [toggleSharePop, setToggleSharePop] = useState<boolean>(false);
   const [toggleComment, setToggleComments] = useState<boolean>(true);
-  const { data } = useSelector((state: RootState) => state.myError);
-  const [repliesData, setRepliesData] = useState<ReplyData[]>();
   const [commentData, setCommentData] = useState<string>("");
   const [replyClickData, setReplyClickData] = useState<number>(-1);
   const [replyWrite, setReplyWrite] = useState<string>("");
@@ -47,6 +44,7 @@ export default function MyErrorView() {
     { title: "해결 과정", content: data?.error_process },
     { title: "결과", content: data?.error_result },
   ];
+  const replies = useSelector((state: RootState) => state.replies);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setReplyWrite(e.target.value);
@@ -59,7 +57,6 @@ export default function MyErrorView() {
         await writeReply({
           content: replyWrite,
           writer_id: 3,
-
           content_id: data?.id,
         });
       }
@@ -75,15 +72,6 @@ export default function MyErrorView() {
   const handleToggleDefault = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget && toggleSharePop === true)
       setToggleSharePop(false);
-  };
-
-  const fetchCommentsData = async (boardId: number) => {
-    try {
-      const result = await getMyErrorReplies(boardId);
-      setRepliesData(result);
-    } catch (err) {
-      console.error(err);
-    }
   };
 
   const submitCommentData = async (commentId: number) => {
@@ -102,10 +90,9 @@ export default function MyErrorView() {
   };
 
   useEffect(() => {
-    if (data) {
-      fetchCommentsData(data?.id);
-    }
-  }, [data, loading]);
+    if (data) dispatch(fetchReplies(data?.id));
+  }, [dispatch, data]);
+
   return (
     <ModalContainer onClick={handleToggleDefault}>
       <CloseButton
@@ -168,7 +155,7 @@ export default function MyErrorView() {
       {/*댓글 영역*/}
       <DottedDivision />
       <div style={{ display: "flex", justifyContent: "space-between" }}>
-        <SubHeader>댓글({repliesData?.length})</SubHeader>
+        <SubHeader>댓글({replies?.length})</SubHeader>
         <p
           style={{ marginTop: "0.5em", cursor: "pointer" }}
           onClick={() => setToggleComments(!toggleComment)}>
@@ -178,7 +165,7 @@ export default function MyErrorView() {
       {toggleComment && (
         <>
           <CommentArea>
-            {repliesData?.map((reply, _idx) => (
+            {replies?.map((reply, _idx) => (
               <React.Fragment key={_idx}>
                 <CommentCard
                   {...reply}
