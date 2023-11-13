@@ -36,8 +36,6 @@ export default function MyErrorView() {
   const [loading, setLoading] = useState<boolean>(false);
   const [toggleSharePop, setToggleSharePop] = useState<boolean>(false);
   const [toggleComment, setToggleComments] = useState<boolean>(true);
-  const [commentData, setCommentData] = useState<string>("");
-  const [replyClickData, setReplyClickData] = useState<number>(-1);
   const [replyWrite, setReplyWrite] = useState<string>("");
   const sections = [
     { title: "에러 상황", content: data?.error_state },
@@ -50,6 +48,7 @@ export default function MyErrorView() {
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setReplyWrite(e.target.value);
   };
+
   const handleAddReply = () => {
     if (data) {
       const props: ErrorReplyType = {
@@ -67,21 +66,6 @@ export default function MyErrorView() {
   const handleToggleDefault = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget && toggleSharePop === true)
       setToggleSharePop(false);
-  };
-
-  const submitCommentData = async (commentId: number) => {
-    try {
-      setLoading(true);
-      await writeComment(commentId, 3, commentData);
-      alert("댓글이 등록되었습니다.");
-      setLoading(false);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  const handleCancelComment = () => {
-    setCommentData("");
-    setReplyClickData(-1);
   };
 
   useEffect(() => {
@@ -165,33 +149,10 @@ export default function MyErrorView() {
                 {data && (
                   <CommentCard
                     {...reply}
-                    setIdx={setReplyClickData}
                     setLoad={setLoading}
                     cur={_idx}
                     board={data?.id}
                   />
-                )}
-
-                {replyClickData === _idx && (
-                  <CommentReplyArea>
-                    <InputGroup>
-                      <Form.Control
-                        value={commentData}
-                        onChange={(e) => setCommentData(e.target.value)}
-                        placeholder="댓글 입력"
-                      />
-                      <Button
-                        variant="primary"
-                        onClick={() => submitCommentData(reply?.id)}>
-                        등록
-                      </Button>
-                      <Button
-                        variant="outline-primary"
-                        onClick={handleCancelComment}>
-                        취소
-                      </Button>
-                    </InputGroup>
-                  </CommentReplyArea>
                 )}
               </React.Fragment>
             ))}

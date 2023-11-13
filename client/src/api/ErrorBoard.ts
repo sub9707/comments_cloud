@@ -62,7 +62,7 @@ export const deleteCommentAll = async (replyId: number) => {
  * @method GET
  *  게시물 댓글 불러오기
  */
-export const getAllReplyComments = async (commentId: number) => {
+export const getAllComments = async (commentId: number) => {
   try {
     const results = await axios.get(
       `/error/errorlist/comments?commentId=${commentId}`
@@ -91,5 +91,35 @@ export const writeComment = async (
   } catch (error) {
     console.error("개인 에러 등록 실패:", error);
     throw error;
+  }
+};
+/**
+ * @method GET
+ *  대댓글 개수
+ */
+export const getCommentsCount = async (replyId: number) => {
+  try {
+    const response = await axios.get(
+      `/error/errorlist/comments/count?replyId=${replyId}`
+    );
+    return response.data[0].count;
+  } catch (error) {
+    console.error("대댓글 개수 실패:", error);
+    throw error;
+  }
+};
+
+/**
+ * @method DELETE
+ *  댓글 대댓글 삭제
+ */
+export const deleteComment = async (commentId: number) => {
+  try {
+    const result = await axios.delete(
+      `/error/errorlist/comments?commentId=${commentId}`
+    );
+    return result;
+  } catch (error) {
+    console.error(error);
   }
 };

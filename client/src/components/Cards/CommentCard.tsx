@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { closeModal } from "../../store/Modal";
 import CommentReplyCard from "./CommentReplyCard";
 import { addMessage } from "../../store/Alert";
-import { ChangeEvent, useMemo, useState } from "react";
+import { ChangeEvent, useMemo, useState, useEffect } from "react";
 import {
   updateReply,
   deleteReply,
@@ -15,17 +15,25 @@ import {
 } from "../../store/DataThunk/RepliesSlice";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
+import {
+  getAllComments,
+  getCommentsCount,
+  writeComment,
+} from "../../api/ErrorBoard";
+import { Button, Form, InputGroup } from "react-bootstrap";
 
 type CommentCardStateTpye = {
   cur: number;
   board: number;
-  setIdx: React.Dispatch<React.SetStateAction<number>>;
   setLoad: React.Dispatch<React.SetStateAction<boolean>>;
 };
 export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
   const [toggleUpdate, setToggleUpdate] = useState<number>(-1);
-  const [toggleMoreComments, setToggleMoreComments] = useState<boolean>(false);
   const [commentsData, setCommentsData] = useState<CommentData[]>([]);
+  const [commentsCount, setCommentsCount] = useState<number>(0);
+  const [viewComments, setviewComments] = useState<boolean>(false);
+  const [commentInput, setCommentInput] = useState<string>("");
+  const [replyClickData, setReplyClickData] = useState<number>(-1);
   const navigate = useNavigate();
   const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>();
   const {
@@ -35,7 +43,6 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
     profileImg,
     write_date,
     writer_id,
-    setIdx,
     cur,
     id,
     board,
@@ -88,14 +95,35 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
   };
 
   const handleViewReplies = async () => {
+    const result = await getAllComments(id);
+    setCommentsData(result);
+    setviewComments(true);
+  };
+
+  const getCountFunc = async (contentId: number) => {
+    const result = await getCommentsCount(contentId);
+    setCommentsCount(result);
+  };
+
+  const submitCommentData = async () => {
     try {
-      // const data = await getAllReplyComments(id);
-      // setCommentsData(data);
-      // setToggleMoreComments(true);
+      await writeComment(id, 3, commentInput);
+      alert("댓글이 등록되었습니다.");
+      setCommentInput("");
     } catch (err) {
       console.error(err);
+    } finally {
+      handleViewReplies();
     }
   };
+  const handleCancelComment = () => {
+    setCommentInput("");
+    setReplyClickData(-1);
+  };
+
+  useEffect(() => {
+    getCountFunc(id);
+  }, [id]);
 
   return (
     <CardContainer>
@@ -132,7 +160,6 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
               onClick={
                 toggleUpdate === -1 ? handleDeleteFunc : handleUpdateFunc
               }>
-              {" "}
               {toggleUpdate === -1 ? "삭제" : "완료"}
             </InfoText>
           </ControlWrapper>
@@ -151,20 +178,48 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
         <CommentContol>
           <InfoText
             style={{ marginLeft: "1em", marginTop: "1em", cursor: "pointer" }}
-            onClick={() => setIdx(cur)}>
+            onClick={() => setReplyClickData(cur)}>
             답글달기
           </InfoText>
-          <InfoText
-            style={{ marginLeft: "1em", marginTop: "1em", cursor: "pointer" }}
-            onClick={handleViewReplies}>
-            {toggleMoreComments ? "" : "답글보기"}
-          </InfoText>
+          {commentsCount > 0 ? (
+            <InfoText
+              style={{
+                marginLeft: "1em",
+                marginTop: "1em",
+                cursor: "pointer",
+                display: viewComments ? "none" : "flex",
+              }}
+              onClick={handleViewReplies}>
+              답글보기({commentsCount})
+            </InfoText>
+          ) : null}
         </CommentContol>
         <CommentReplyArea>
           {commentsData?.map((data, _idx) => (
-            <CommentReplyCard key={_idx} {...data} />
+            <CommentReplyCard
+              key={_idx}
+              {...data}
+              handleViewReplies={handleViewReplies}
+            />
           ))}
         </CommentReplyArea>
+        {cur === replyClickData ? (
+          <CommentReplyArea>
+            <InputGroup>
+              <Form.Control
+                value={commentInput}
+                onChange={(e) => setCommentInput(e.target.value)}
+                placeholder="댓글 입력"
+              />
+              <Button variant="primary" onClick={submitCommentData}>
+                등록
+              </Button>
+              <Button variant="outline-primary" onClick={handleCancelComment}>
+                취소
+              </Button>
+            </InputGroup>
+          </CommentReplyArea>
+        ) : null}
       </CardRight>
     </CardContainer>
   );

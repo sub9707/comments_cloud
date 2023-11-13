@@ -1,9 +1,25 @@
 import styled from "styled-components";
 import { CommentData } from "../../types/BoardTypes";
 import { formatRelativeTime } from "../../utils/Calculation";
+import { deleteComment } from "../../api/ErrorBoard";
 
-export default function CommentReplyCard(props: CommentData) {
-  const { id, content, write_date, nickname } = props;
+interface CommentReplyCardProps {
+  handleViewReplies: () => Promise<void>;
+}
+
+export default function CommentReplyCard(
+  props: CommentData & CommentReplyCardProps
+) {
+  const { id, content, write_date, nickname, handleViewReplies } = props;
+  const handleDeleteFunc = async () => {
+    try {
+      await deleteComment(id);
+      alert("삭제완료[dev]");
+      handleViewReplies();
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <CardBox>
       <CardProfile src={"/images/Default_ProfileImg.png"} />
@@ -15,7 +31,7 @@ export default function CommentReplyCard(props: CommentData) {
           </ReplyWriter>
           <ReplyControl>
             <p>수정</p>
-            <p>삭제</p>
+            <p onClick={handleDeleteFunc}>삭제</p>
           </ReplyControl>
         </ReplyInfoWrapper>
         <ReplyContent>{content}</ReplyContent>
@@ -70,6 +86,7 @@ const ReplyControl = styled.div`
   gap: 1em;
   p {
     margin: 0;
+    cursor: pointer;
   }
 `;
 const ReplyContent = styled.div`
