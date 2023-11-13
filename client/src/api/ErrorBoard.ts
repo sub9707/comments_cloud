@@ -1,4 +1,3 @@
-import { ErrorReplyType } from "../types/BoardTypes";
 import { ErrorWriteFormValues } from "../types/react-hook-form";
 import axios from "./axios";
 
@@ -45,49 +44,6 @@ export const getMyErrorCount = async (userId: number) => {
 };
 
 /**
- * @method GET
- *  게시물 댓글 불러오기
- */
-export const getMyErrorReplies = async (boardId: number) => {
-  try {
-    const response = await axios.get(
-      `/error/errorlist/replies?boardId=${boardId}`
-    );
-    return response.data;
-  } catch (error) {
-    console.error("댓글 load 실패:", error);
-    throw error;
-  }
-};
-
-/**
- * @method POST
- *  게시물 댓글 작성
- */
-export const writeReply = async (props: ErrorReplyType) => {
-  try {
-    const response = await axios.post("/error/errorlist/replies", props);
-    return response.data;
-  } catch (error) {
-    console.error("개인 에러 등록 실패:", error);
-    throw error;
-  }
-};
-/**
- * @method DELETE
- *  게시물 댓글 삭제
- */
-export const deleteReply = async (replyId: number) => {
-  try {
-    const result = await axios.delete(
-      `/error/errorlist/replies?commentId=${replyId}`
-    );
-    return result;
-  } catch (error) {
-    console.error(error);
-  }
-};
-/**
  * @method DELETE
  *  댓글과 연관된 대댓글 모두 삭제
  */
@@ -95,21 +51,6 @@ export const deleteCommentAll = async (replyId: number) => {
   try {
     const result = await axios.delete(
       `/error/errorlist/commentsall?replyId=${replyId}`
-    );
-    return result;
-  } catch (error) {
-    console.error(error);
-  }
-};
-/**
- * @method UPDATE
- *  게시물 댓글 수정
- */
-export const updateReply = async (replyId: number, content: string) => {
-  try {
-    const result = await axios.put(
-      `/error/errorlist/replies?commentId=${replyId}`,
-      { content: content }
     );
     return result;
   } catch (error) {

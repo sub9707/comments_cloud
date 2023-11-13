@@ -13,7 +13,9 @@ router.get("/errorlist/replies", errorsController.getErrorsReplies);
 router.post("/errorlist/replies", errorsController.writeReply);
 router.delete("/errorlist/replies", errorsController.deleteReply);
 router.put("/errorlist/replies", errorsController.updateReply);
+router.get("/errorlist/replies/count", errorsController.getRepliesCount);
 
+router.get("/errorlist/comments/count", errorsController.getCommentsCount);
 router.get("/errorlist/comments", errorsController.getErrorsComments);
 router.post("/errorlist/comments", errorsController.writeComment);
 router.put("/errorlist/comments", errorsController.updateComment);

@@ -6,12 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { closeModal } from "../../store/Modal";
 import CommentReplyCard from "./CommentReplyCard";
-// import {
-//   deleteCommentAll,
-//   deleteReply,
-//   getAllReplyComments,
-//   updateReply,
-// } from "../../api/ErrorBoard";
 import { addMessage } from "../../store/Alert";
 import { ChangeEvent, useMemo, useState } from "react";
 import {

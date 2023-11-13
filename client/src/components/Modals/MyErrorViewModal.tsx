@@ -24,7 +24,7 @@ import { closeModal } from "../../store/Modal";
 import SharePopOver from "../Cards/SharePopOverCard";
 import React, { useEffect, useState } from "react";
 import CommentCard from "../Cards/CommentCard";
-import { writeComment, writeReply } from "../../api/ErrorBoard";
+import { writeComment } from "../../api/ErrorBoard";
 import { addReply, fetchReplies } from "../../store/DataThunk/RepliesSlice";
 import { AnyAction } from "redux";
 import { ThunkDispatch } from "redux-thunk";

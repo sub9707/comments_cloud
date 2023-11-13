@@ -40,6 +40,21 @@ class ErrorsModel {
       );
     });
   }
+  static async getRepliesCount(id) {
+    return new Promise((resolve) => {
+      db.query(
+        "SELECT COUNT(*) AS count FROM error_content_comments WHERE content_id = ?",
+        [id],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
   static async writeError(
     title,
     tags,
@@ -144,6 +159,21 @@ class ErrorsModel {
       db.query(
         "UPDATE error_content_comments SET content = ? WHERE id = ?",
         [content, id],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
+  static async getCommentsCount(id) {
+    return new Promise((resolve) => {
+      db.query(
+        "SELECT COUNT(*) AS count FROM error_comments_replies WHERE comment_id = ?",
+        [id],
         (error, result) => {
           if (!error) {
             resolve(result);

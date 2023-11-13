@@ -219,6 +219,46 @@ class ErrorsController {
   };
 
   /**
+   *  댓글 개수
+   *
+   * @param {request}
+   * @param {response}
+   * @method GET
+   *
+   * @returns {array}
+   */
+  static getRepliesCount = async (req, res) => {
+    const contentId = req.query.contentId;
+    try {
+      let results = await ErrorsModel.getRepliesCount(parseInt(contentId));
+      if (results) res.send(results);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+    }
+  };
+
+  /**
+   * 특정 대댓글 개수
+   *
+   * @param {request}
+   * @param {response}
+   * @method GET
+   *
+   * @returns {array}
+   */
+  static getCommentsCount = async (req, res) => {
+    const replyId = req.query.replyId;
+    try {
+      let results = await ErrorsModel.getCommentsCount(parseInt(replyId));
+      if (results) res.send(results);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+    }
+  };
+
+  /**
    * 특정 게시물 댓글목록
    *
    * @param {request}

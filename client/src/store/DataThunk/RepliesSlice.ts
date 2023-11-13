@@ -4,11 +4,25 @@ import axios from "../../api/axios";
 
 const initialState: ReplyData[] = [];
 
+/**
+ * Reply State는 게시글마다 달린 답글 데이터입니다.
+ */
+
 export const fetchReplies = createAsyncThunk(
   "replies/fetchReplies",
   async (boardId: number) => {
     const response = await axios.get(
       `/error/errorlist/replies?boardId=${boardId}`
+    );
+    return response.data;
+  }
+);
+
+export const fetchRepliesCount = createAsyncThunk(
+  "replies/fetchReplies/count",
+  async (contentId: number) => {
+    const response = await axios.get(
+      `/errorlist/replies/count?contentId=${contentId}`
     );
     return response.data;
   }
@@ -56,6 +70,9 @@ const repliesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchReplies.fulfilled, (state, action) => {
+        return action.payload;
+      })
+      .addCase(fetchRepliesCount.fulfilled, (state, action) => {
         return action.payload;
       })
       .addCase(addReply.fulfilled, (state, action) => {
