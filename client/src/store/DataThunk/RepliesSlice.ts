@@ -29,7 +29,7 @@ export const updateReply = createAsyncThunk(
   "replies/updateReply",
   async ({ replyId, content }: { replyId: number; content: string }) => {
     const response = await axios.put(
-      `/error/errorlist/replies/${replyId}`,
+      `/error/errorlist/replies?commentId=${replyId}`,
       { content },
       {
         headers: {
@@ -44,10 +44,8 @@ export const updateReply = createAsyncThunk(
 export const deleteReply = createAsyncThunk(
   "replies/deleteReply",
   async (replyId: number) => {
-    const result = await axios.delete(
-      `/error/errorlist/replies?commentId=${replyId}`
-    );
-    return result.data;
+    await axios.delete(`/error/errorlist/replies?commentId=${replyId}`);
+    return replyId;
   }
 );
 
@@ -73,7 +71,13 @@ const repliesSlice = createSlice({
         }
       })
       .addCase(deleteReply.fulfilled, (state, action) => {
-        return state.filter((reply) => reply.id !== action.payload);
+        const deletedReplyId = action.payload;
+        const indexToDelete = state.findIndex(
+          (reply) => reply.id === deletedReplyId
+        );
+        if (indexToDelete !== -1) {
+          state.splice(indexToDelete, 1);
+        }
       });
   },
 });

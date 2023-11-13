@@ -6,17 +6,25 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { closeModal } from "../../store/Modal";
 import CommentReplyCard from "./CommentReplyCard";
-import {
-  deleteCommentAll,
-  deleteReply,
-  getAllReplyComments,
-  updateReply,
-} from "../../api/ErrorBoard";
+// import {
+//   deleteCommentAll,
+//   deleteReply,
+//   getAllReplyComments,
+//   updateReply,
+// } from "../../api/ErrorBoard";
 import { addMessage } from "../../store/Alert";
-import { ChangeEvent, useMemo, useRef, useState } from "react";
+import { ChangeEvent, useMemo, useState } from "react";
+import {
+  updateReply,
+  deleteReply,
+  fetchReplies,
+} from "../../store/DataThunk/RepliesSlice";
+import { ThunkDispatch } from "redux-thunk";
+import { AnyAction } from "redux";
 
 type CommentCardStateTpye = {
   cur: number;
+  board: number;
   setIdx: React.Dispatch<React.SetStateAction<number>>;
   setLoad: React.Dispatch<React.SetStateAction<boolean>>;
 };
@@ -25,7 +33,7 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
   const [toggleMoreComments, setToggleMoreComments] = useState<boolean>(false);
   const [commentsData, setCommentsData] = useState<CommentData[]>([]);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>();
   const {
     content,
     email,
@@ -36,7 +44,7 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
     setIdx,
     cur,
     id,
-    setLoad,
+    board,
   } = props;
   const [inputValue, setInputValue] = useState<string>(content);
   const memoizedContent = useMemo(() => {
@@ -55,7 +63,7 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
     }
   };
   const handleUpdateFunc = async () => {
-    await updateReply(id, inputValue);
+    dispatch(updateReply({ replyId: id, content: inputValue }));
     setToggleUpdate(-1);
     dispatch(
       addMessage({
@@ -70,9 +78,7 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
   };
   const handleDeleteFunc = async () => {
     try {
-      setLoad(true);
-      await deleteReply(id);
-      await deleteCommentAll(id);
+      dispatch(deleteReply(id));
       dispatch(
         addMessage({
           id: "unique_id",
@@ -80,17 +86,18 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
           type: "success",
         })
       );
-      setLoad(false);
     } catch (err) {
       console.error(err);
+    } finally {
+      dispatch(fetchReplies(board));
     }
   };
 
   const handleViewReplies = async () => {
     try {
-      const data = await getAllReplyComments(id);
-      setCommentsData(data);
-      setToggleMoreComments(true);
+      // const data = await getAllReplyComments(id);
+      // setCommentsData(data);
+      // setToggleMoreComments(true);
     } catch (err) {
       console.error(err);
     }

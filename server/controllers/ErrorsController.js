@@ -169,7 +169,7 @@ class ErrorsController {
         content_id,
         write_date
       );
-      if (results) res.send("게시물 답글 등록 성공! [ErrorsController]]");
+      if (results) return results;
     } catch (error) {
       console.error(error);
       res
@@ -199,7 +199,7 @@ class ErrorsController {
     }
   };
   /**
-   * 특정 게시물 댓글 삭제
+   * 특정 게시물 댓글 수정
    *
    * @param {request}
    * @param {response}

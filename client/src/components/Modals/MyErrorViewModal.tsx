@@ -61,6 +61,7 @@ export default function MyErrorView() {
       alert("댓글이 등록되었습니댜.");
     }
     setReplyWrite("");
+    if (data) dispatch(fetchReplies(data?.id));
   };
 
   const handleToggleDefault = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -161,12 +162,16 @@ export default function MyErrorView() {
           <CommentArea>
             {replies?.map((reply, _idx) => (
               <React.Fragment key={_idx}>
-                <CommentCard
-                  {...reply}
-                  setIdx={setReplyClickData}
-                  setLoad={setLoading}
-                  cur={_idx}
-                />
+                {data && (
+                  <CommentCard
+                    {...reply}
+                    setIdx={setReplyClickData}
+                    setLoad={setLoading}
+                    cur={_idx}
+                    board={data?.id}
+                  />
+                )}
+
                 {replyClickData === _idx && (
                   <CommentReplyArea>
                     <InputGroup>
