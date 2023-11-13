@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { CommentData } from "../../types/BoardTypes";
 import { formatRelativeTime } from "../../utils/Calculation";
-import { deleteComment } from "../../api/ErrorBoard";
+import { deleteComment, updateComment } from "../../api/ErrorBoard";
+import { useState, ChangeEvent } from "react";
 
 interface CommentReplyCardProps {
   handleViewReplies: () => Promise<void>;
@@ -11,6 +12,13 @@ export default function CommentReplyCard(
   props: CommentData & CommentReplyCardProps
 ) {
   const { id, content, write_date, nickname, handleViewReplies } = props;
+  const [inputData, setInputData] = useState<string>(content);
+  const [toggleUpdate, setToggleUpdate] = useState<boolean>(false);
+
+  const handleUpdateChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setInputData(e.target.value);
+  };
+
   const handleDeleteFunc = async () => {
     try {
       await deleteComment(id);
@@ -18,6 +26,16 @@ export default function CommentReplyCard(
       handleViewReplies();
     } catch (err) {
       console.error(err);
+    }
+  };
+  const handleUpdateFunc = async () => {
+    try {
+      await updateComment(id, inputData);
+      setToggleUpdate(!toggleUpdate);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      handleViewReplies();
     }
   };
   return (
@@ -30,11 +48,25 @@ export default function CommentReplyCard(
             <p>{formatRelativeTime(write_date)}</p>
           </ReplyWriter>
           <ReplyControl>
-            <p>수정</p>
-            <p onClick={handleDeleteFunc}>삭제</p>
+            {toggleUpdate ? (
+              <p onClick={handleUpdateFunc}>완료</p>
+            ) : (
+              <p onClick={() => setToggleUpdate(!toggleUpdate)}>수정</p>
+            )}
+            {toggleUpdate ? (
+              <p onClick={() => setToggleUpdate(!toggleUpdate)}>취소</p>
+            ) : (
+              <p onClick={handleDeleteFunc}>삭제</p>
+            )}
           </ReplyControl>
         </ReplyInfoWrapper>
-        <ReplyContent>{content}</ReplyContent>
+        <ReplyContent>
+          {toggleUpdate ? (
+            <input onChange={handleUpdateChange} value={inputData} />
+          ) : (
+            <p>{content}</p>
+          )}
+        </ReplyContent>
       </ReplyBox>
     </CardBox>
   );
@@ -94,4 +126,13 @@ const ReplyContent = styled.div`
   padding-inline: 0.5em;
   padding-block: 0.3em;
   word-break: break-all;
+  p {
+    margin: 0;
+  }
+  input {
+    border: none;
+    outline: none;
+    width: 100%;
+    word-break: break-all;
+  }
 `;

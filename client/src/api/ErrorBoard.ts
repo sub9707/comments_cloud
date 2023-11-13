@@ -123,3 +123,19 @@ export const deleteComment = async (commentId: number) => {
     console.error(error);
   }
 };
+/**
+ * @method PUT
+ *  댓글 대댓글 수정
+ */
+
+export const updateComment = async (commentId: number, content: string) => {
+  try {
+    const result = await axios.put(
+      `/error/errorlist/comments?commentId=${commentId}`,
+      { content }
+    );
+    return result;
+  } catch (err) {
+    console.log(err);
+  }
+};
