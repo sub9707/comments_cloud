@@ -6,6 +6,7 @@ export type ReplyData = {
   likes: number;
   email: string;
   profileImg: string;
+  nickname: string;
 };
 
 export type ErrorReplyType = {

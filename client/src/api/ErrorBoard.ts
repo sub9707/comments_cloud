@@ -139,3 +139,18 @@ export const updateComment = async (commentId: number, content: string) => {
     console.log(err);
   }
 };
+
+/**
+ * @method GET
+ *  댓글 좋아요 체크
+ */
+export const checkReplyCheck = async (replyId: number, userId: number) => {
+  try {
+    const result = await axios.get(
+      `/error/errorlist/replies/likeCheck?replyId=${replyId}&userId=${userId}`
+    );
+    return result.data;
+  } catch (err) {
+    console.log(err);
+  }
+};

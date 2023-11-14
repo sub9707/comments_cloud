@@ -16,6 +16,7 @@ import {
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import {
+  checkReplyCheck,
   getAllComments,
   getCommentsCount,
   writeComment,
@@ -28,6 +29,7 @@ type CommentCardStateTpye = {
   setLoad: React.Dispatch<React.SetStateAction<boolean>>;
 };
 export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
+  const [replyLiked, setReplyLiked] = useState<boolean>(false);
   const [toggleUpdate, setToggleUpdate] = useState<number>(-1);
   const [commentsData, setCommentsData] = useState<CommentData[]>([]);
   const [commentsCount, setCommentsCount] = useState<number>(0);
@@ -38,7 +40,6 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
   const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>();
   const {
     content,
-    email,
     likes,
     profileImg,
     write_date,
@@ -46,6 +47,7 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
     cur,
     id,
     board,
+    nickname,
   } = props;
   const [inputValue, setInputValue] = useState<string>(content);
   const memoizedContent = useMemo(() => {
@@ -120,10 +122,23 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
     setCommentInput("");
     setReplyClickData(-1);
   };
+  const checkLiked = async () => {
+    const response = await checkReplyCheck(id, 2);
+    if (response.isLiked) {
+      setReplyLiked(true);
+    } else {
+      setReplyLiked(false);
+    }
+  };
+  const handleLikeClick = () => {};
 
   useEffect(() => {
     getCountFunc(id);
   }, [id]);
+
+  useEffect(() => {
+    checkLiked();
+  }, []);
 
   return (
     <CardContainer>
@@ -136,8 +151,9 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
           <FontAwesomeIcon
             icon={faThumbsUp}
             size="2x"
-            color="grey"
-            style={{ cursor: "pointer", scale: "0.8", opacity: 0.5 }}
+            color={replyLiked ? "black" : "grey"}
+            style={{ cursor: "pointer", scale: "0.8", opacity: 0.8 }}
+            onClick={handleLikeClick}
           />
           <LikeNum>{likes}</LikeNum>
         </CommentLikes>
@@ -148,7 +164,7 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
             <InfoText
               onClick={handleProfileClick}
               style={{ cursor: "pointer" }}>
-              {email}
+              {nickname}
             </InfoText>
             <InfoText>{write_date}</InfoText>
           </WriterWrapper>

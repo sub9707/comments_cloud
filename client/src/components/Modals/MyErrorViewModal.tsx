@@ -71,7 +71,7 @@ export default function MyErrorView() {
   useEffect(() => {
     if (data) dispatch(fetchReplies(data?.id));
   }, [dispatch, data]);
-
+  console.log(replies);
   return (
     <ModalContainer onClick={handleToggleDefault}>
       <CloseButton
