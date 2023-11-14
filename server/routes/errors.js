@@ -14,6 +14,7 @@ router.post("/errorlist/replies", errorsController.writeReply);
 router.delete("/errorlist/replies", errorsController.deleteReply);
 router.put("/errorlist/replies", errorsController.updateReply);
 router.get("/errorlist/replies/count", errorsController.getRepliesCount);
+router.get("/errorlist/replies/likeCheck", errorsController.getReplyLikeCheck);
 
 router.get("/errorlist/comments/count", errorsController.getCommentsCount);
 router.get("/errorlist/comments", errorsController.getErrorsComments);

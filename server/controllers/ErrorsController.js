@@ -373,6 +373,30 @@ class ErrorsController {
       res.status(500).send("Internal Server Error:[게시물 삭제 Controller]");
     }
   };
+  /**
+   * 댓글 좋아요 체크
+   *
+   * @param {request}
+   * @param {response}
+   * @method GET
+   *
+   */
+  static getReplyLikeCheck = async (req, res) => {
+    try {
+      const replyId = req.query.replyId;
+      const userId = req.query.userId;
+      if (!replyId || !userId) {
+        return res.status(400).send("id가 존재하지 않습니다.");
+      }
+      let result = await ErrorsModel.checkUserReplyLiked(replyId, userId);
+      const isLiked =
+        Array.isArray(result) && result.length > 0 && result[0].count_likes > 0;
+      console.log(isLiked);
+      res.send({ isLiked });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 }
 
 module.exports = ErrorsController;

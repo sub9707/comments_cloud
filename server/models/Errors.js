@@ -111,7 +111,7 @@ class ErrorsModel {
   static async getErrorReplies(boardId) {
     return new Promise((resolve) => {
       db.query(
-        "SELECT ecc.id, ecc.content, ecc.write_date, ecc.writer_id, ecc.likes, ecc.content_id, u.email, u.profileImg FROM error_content_comments ecc JOIN users u ON ecc.writer_id = u.id WHERE ecc.content_id = ?",
+        "SELECT ecc.id, ecc.content, ecc.write_date, ecc.writer_id, ecc.likes, ecc.content_id, u.email, u.profileImg, u.nickname FROM error_content_comments ecc JOIN users u ON ecc.writer_id = u.id WHERE ecc.content_id = ?",
         [boardId],
         (error, result) => {
           if (!error) {
@@ -252,6 +252,21 @@ class ErrorsModel {
       db.query(
         "DELETE FROM error_content_comments WHERE content_id = ?",
         [id],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
+  static async checkUserReplyLiked(replyId, userId) {
+    return new Promise((resolve) => {
+      db.query(
+        "SELECT COUNT(*) AS count_likes FROM error_reply_likes WHERE reply_id = ? AND user_id = ?",
+        [replyId, userId],
         (error, result) => {
           if (!error) {
             resolve(result);
