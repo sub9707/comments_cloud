@@ -277,5 +277,65 @@ class ErrorsModel {
       );
     });
   }
+  static async postReplyLike(replyId) {
+    return new Promise((resolve) => {
+      db.query(
+        "UPDATE error_content_comments SET `like` = `like` + 1 WHERE replyId = ?",
+        [replyId],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
+  static async postReplyLikeUser(replyId, userId) {
+    return new Promise((resolve) => {
+      db.query(
+        "INSERT INTO error_reply_likes (replyId, userId) VALUES (?, ?)",
+        [replyId, userId],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
+  static async postReplyCancelLike(replyId) {
+    return new Promise((resolve) => {
+      db.query(
+        "UPDATE error_content_comments SET `like` = `like`- 1 WHERE replyId = ?",
+        [replyId],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
+  static async postReplyCancelLikeUser(userId) {
+    return new Promise((resolve) => {
+      db.query(
+        "DELETE FROM error_reply_likes WHERE userId = ?",
+        [userId],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
 }
 module.exports = ErrorsModel;

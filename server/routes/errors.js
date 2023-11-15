@@ -13,6 +13,11 @@ router.get("/errorlist/replies", errorsController.getErrorsReplies);
 router.post("/errorlist/replies", errorsController.writeReply);
 router.delete("/errorlist/replies", errorsController.deleteReply);
 router.put("/errorlist/replies", errorsController.updateReply);
+router.post("/errorlist/replies/like", errorsController.postReplyLike);
+router.post(
+  "/errorlist/replies/cancelLike",
+  errorsController.postReplyCancelLike
+);
 router.get("/errorlist/replies/count", errorsController.getRepliesCount);
 router.get("/errorlist/replies/likeCheck", errorsController.getReplyLikeCheck);
 

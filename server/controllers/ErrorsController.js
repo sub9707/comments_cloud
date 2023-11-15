@@ -397,6 +397,61 @@ class ErrorsController {
       console.error(err);
     }
   };
+  /**
+   * 댓글 좋아요 로직
+   *
+   * @param {request}
+   * @param {response}
+   * @method POST
+   *
+   */
+  static postReplyLike = async (req, res) => {
+    try {
+      const replyId = req.query.replyId;
+      const userId = req.query.userId;
+      if (!replyId || !userId) {
+        return res.status(400).send("id가 존재하지 않습니다.");
+      }
+      // like row + 1 적용
+      let resultLiked = await ErrorsModel.postReplyLike(replyId);
+      // like table 추가
+      let resultLikesPost = await ErrorsModel.postReplyLikeUser(
+        replyId,
+        userId
+      );
+      if (resultLiked && resultLikesPost)
+        res.send("게시글 댓글 삭제 성공! [Controller]]");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  /**
+   * 댓글 좋아요 취소 로직
+   *
+   * @param {request}
+   * @param {response}
+   * @method POST
+   *
+   */
+  static postReplyCancelLike = async (req, res) => {
+    try {
+      const replyId = req.query.replyId;
+      const userId = req.query.userId;
+      if (!replyId || !userId) {
+        return res.status(400).send("id가 존재하지 않습니다.");
+      }
+      // like row - 1 적용
+      let resultCancelLiked = await ErrorsModel.postReplyCancelLike(replyId);
+      // like table 삭제
+      let resultCancelLikesPost = await ErrorsModel.postReplyCancelLikeUser(
+        userId
+      );
+      if (resultLiked && resultLikesPost)
+        res.send("게시글 댓글 삭제 성공! [Controller]]");
+    } catch (error) {
+      console.error(error);
+    }
+  };
 }
 
 module.exports = ErrorsController;
