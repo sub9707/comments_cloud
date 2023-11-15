@@ -19,6 +19,8 @@ import {
   checkReplyCheck,
   getAllComments,
   getCommentsCount,
+  postReplyCancelLike,
+  postReplyLike,
   writeComment,
 } from "../../api/ErrorBoard";
 import { Button, Form, InputGroup } from "react-bootstrap";
@@ -49,6 +51,7 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
     board,
     nickname,
   } = props;
+  const [likesNum, setLikesNum] = useState<number>(likes);
   const [inputValue, setInputValue] = useState<string>(content);
   const memoizedContent = useMemo(() => {
     return inputValue;
@@ -122,23 +125,34 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
     setCommentInput("");
     setReplyClickData(-1);
   };
-  const checkLiked = async () => {
-    const response = await checkReplyCheck(id, 2);
-    if (response.isLiked) {
-      setReplyLiked(true);
-    } else {
+
+  const handleLikeClick = async () => {
+    if (replyLiked) {
+      await postReplyCancelLike(id, 2);
       setReplyLiked(false);
+      setLikesNum(likesNum - 1);
+    } else {
+      await postReplyLike(id, 2);
+      setReplyLiked(true);
+      setLikesNum(likesNum + 1);
     }
   };
-  const handleLikeClick = () => {};
 
   useEffect(() => {
     getCountFunc(id);
   }, [id]);
 
   useEffect(() => {
+    const checkLiked = async () => {
+      const response = await checkReplyCheck(id, 2);
+      if (response.isLiked) {
+        setReplyLiked(true);
+      } else {
+        setReplyLiked(false);
+      }
+    };
     checkLiked();
-  }, []);
+  }, [id]);
 
   return (
     <CardContainer>
@@ -155,7 +169,7 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
             style={{ cursor: "pointer", scale: "0.8", opacity: 0.8 }}
             onClick={handleLikeClick}
           />
-          <LikeNum>{likes}</LikeNum>
+          <LikeNum>{likesNum}</LikeNum>
         </CommentLikes>
       </CardLeft>
       <CardRight>

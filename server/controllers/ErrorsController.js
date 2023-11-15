@@ -420,7 +420,7 @@ class ErrorsController {
         userId
       );
       if (resultLiked && resultLikesPost)
-        res.send("게시글 댓글 삭제 성공! [Controller]]");
+        res.send("댓글 좋아요 완료 [Controller]]");
     } catch (error) {
       console.error(error);
     }
@@ -446,8 +446,8 @@ class ErrorsController {
       let resultCancelLikesPost = await ErrorsModel.postReplyCancelLikeUser(
         userId
       );
-      if (resultLiked && resultLikesPost)
-        res.send("게시글 댓글 삭제 성공! [Controller]]");
+      if (resultCancelLiked && resultCancelLikesPost)
+        res.send("댓글 좋아요 취소 완료 [Controller]]");
     } catch (error) {
       console.error(error);
     }

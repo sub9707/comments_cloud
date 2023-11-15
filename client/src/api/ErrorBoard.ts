@@ -154,3 +154,32 @@ export const checkReplyCheck = async (replyId: number, userId: number) => {
     console.log(err);
   }
 };
+
+/**
+ * @method POST
+ *  댓글 좋아요
+ */
+export const postReplyLike = async (replyId: number, userId: number) => {
+  try {
+    const result = await axios.post(
+      `/error/errorlist/replies/like?replyId=${replyId}&userId=${userId}`
+    );
+    return result.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+/**
+ * @method POST
+ *  댓글 좋아요 취소
+ */
+export const postReplyCancelLike = async (replyId: number, userId: number) => {
+  try {
+    const result = await axios.post(
+      `/error/errorlist/replies/cancelLike?replyId=${replyId}&userId=${userId}`
+    );
+    return result.data;
+  } catch (err) {
+    console.log(err);
+  }
+};

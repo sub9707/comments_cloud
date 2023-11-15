@@ -280,7 +280,7 @@ class ErrorsModel {
   static async postReplyLike(replyId) {
     return new Promise((resolve) => {
       db.query(
-        "UPDATE error_content_comments SET `like` = `like` + 1 WHERE replyId = ?",
+        "UPDATE error_content_comments SET likes = likes + 1 WHERE id = ?",
         [replyId],
         (error, result) => {
           if (!error) {
@@ -295,7 +295,7 @@ class ErrorsModel {
   static async postReplyLikeUser(replyId, userId) {
     return new Promise((resolve) => {
       db.query(
-        "INSERT INTO error_reply_likes (replyId, userId) VALUES (?, ?)",
+        "INSERT INTO error_reply_likes (reply_id, user_id) VALUES (?, ?)",
         [replyId, userId],
         (error, result) => {
           if (!error) {
