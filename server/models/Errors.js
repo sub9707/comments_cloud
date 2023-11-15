@@ -310,7 +310,7 @@ class ErrorsModel {
   static async postReplyCancelLike(replyId) {
     return new Promise((resolve) => {
       db.query(
-        "UPDATE error_content_comments SET `like` = `like`- 1 WHERE replyId = ?",
+        "UPDATE error_content_comments SET likes = likes - 1 WHERE id = ?",
         [replyId],
         (error, result) => {
           if (!error) {
@@ -325,7 +325,7 @@ class ErrorsModel {
   static async postReplyCancelLikeUser(userId) {
     return new Promise((resolve) => {
       db.query(
-        "DELETE FROM error_reply_likes WHERE userId = ?",
+        "DELETE FROM error_reply_likes WHERE user_id = ?",
         [userId],
         (error, result) => {
           if (!error) {
