@@ -6,6 +6,7 @@ export const ModalContainer = styled.div`
   height: 80vh;
   overflow-x: hidden;
   overflow-y: scroll;
+  scroll-behavior: smooth;
   &::-webkit-scrollbar {
     display: none;
   }

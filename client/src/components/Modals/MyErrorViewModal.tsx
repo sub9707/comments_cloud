@@ -2,10 +2,16 @@ import { ModalContainer } from "../../styles/ModalStyle/ModalStyle";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import styled from "styled-components";
-import { DottedDivision } from "../../styles/UtilityElements";
+import {
+  BottomButton,
+  DottedDivision,
+  TopButton,
+} from "../../styles/UtilityElements";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarDays,
+  faCaretDown,
+  faCaretUp,
   faEye,
   faShareFromSquare,
   faThumbsUp,
@@ -22,15 +28,15 @@ import {
 } from "react-bootstrap";
 import { closeModal } from "../../store/Modal";
 import SharePopOver from "../Cards/SharePopOverCard";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CommentCard from "../Cards/CommentCard";
-import { writeComment } from "../../api/ErrorBoard";
 import { addReply, fetchReplies } from "../../store/DataThunk/RepliesSlice";
 import { AnyAction } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { ErrorReplyType } from "../../types/BoardTypes";
 
 export default function MyErrorView() {
+  const scrollRef = useRef<HTMLDivElement>(null);
   const { data } = useSelector((state: RootState) => state.myError);
   const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>();
   const [loading, setLoading] = useState<boolean>(false);
@@ -71,13 +77,31 @@ export default function MyErrorView() {
   useEffect(() => {
     if (data) dispatch(fetchReplies(data?.id));
   }, [dispatch, data]);
-  console.log(replies);
+
+  const scrollToTop = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = 0;
+    }
+  };
+  const scrollToBottom = () => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  };
   return (
-    <ModalContainer onClick={handleToggleDefault}>
+    <ModalContainer onClick={handleToggleDefault} ref={scrollRef}>
       <CloseButton
         style={{ position: "fixed", top: "10%", right: "24%" }}
         onClick={() => dispatch(closeModal())}
       />
+      <TopButton onClick={scrollToTop}>
+        <FontAwesomeIcon icon={faCaretUp} />
+        <p>Top</p>
+      </TopButton>
+      <BottomButton onClick={scrollToBottom}>
+        <p>Btm</p>
+        <FontAwesomeIcon icon={faCaretDown} />
+      </BottomButton>
       <TitleHeader>
         <p>
           #{data?.id}&nbsp;
@@ -135,34 +159,13 @@ export default function MyErrorView() {
       <DottedDivision />
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <SubHeader>댓글({replies?.length})</SubHeader>
+
         <p
           style={{ marginTop: "0.5em", cursor: "pointer" }}
           onClick={() => setToggleComments(!toggleComment)}>
           {toggleComment ? "접기" : "펼치기"}
         </p>
       </div>
-      {toggleComment && (
-        <>
-          <CommentArea>
-            {replies?.map((reply, _idx) => (
-              <React.Fragment key={_idx}>
-                {data && (
-                  <CommentCard
-                    {...reply}
-                    setLoad={setLoading}
-                    cur={_idx}
-                    board={data?.id}
-                  />
-                )}
-              </React.Fragment>
-            ))}
-          </CommentArea>
-          <MoreComments>
-            <p>댓글 더보기</p>
-          </MoreComments>
-        </>
-      )}
-      <br />
       <AddCommentArea>
         <CommentInput value={replyWrite} onChange={handleInputChange} />
         <CommentSubmitBtnGroup>
@@ -181,6 +184,26 @@ export default function MyErrorView() {
           </CommentSubmitBtn>
         </CommentSubmitBtnGroup>
       </AddCommentArea>
+      <br />
+      {toggleComment && (
+        <>
+          <CommentArea>
+            {replies?.map((reply, _idx) => (
+              <React.Fragment key={_idx}>
+                {data && (
+                  <CommentCard
+                    {...reply}
+                    setLoad={setLoading}
+                    cur={_idx}
+                    board={data?.id}
+                  />
+                )}
+              </React.Fragment>
+            ))}
+          </CommentArea>
+        </>
+      )}
+      <br />
     </ModalContainer>
   );
 }

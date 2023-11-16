@@ -7,6 +7,8 @@ import NoticeContentModal from "./NoticeContentModal";
 import { clearData } from "../../store/NoticeModal";
 import MyErrorView from "./MyErrorViewModal";
 
+import { useRef } from "react";
+
 const MODAL_TYPES = {
   WriteModal: "WriteModal",
   NoticeModal: "NoticeModal",
@@ -29,9 +31,10 @@ const MODAL_COMPONENTS = [
 ];
 
 export default function GlobalModal() {
-  // modal type을 string 형태로 받습니다.
   const { modalType, isOpen } = useSelector(selectModal);
   const dispatch = useDispatch();
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   if (!isOpen) return;
 
   const findModal = MODAL_COMPONENTS.find((modal) => {
@@ -45,13 +48,14 @@ export default function GlobalModal() {
       dispatch(clearData());
     }
   };
+
   const renderModal = () => {
     return findModal?.component;
   };
   return (
     <BlackBackground onClick={backgroundClick}>
       <Container>
-        <Modal.Dialog>
+        <Modal.Dialog ref={scrollRef}>
           <Modal.Body>{renderModal()}</Modal.Body>
         </Modal.Dialog>
       </Container>

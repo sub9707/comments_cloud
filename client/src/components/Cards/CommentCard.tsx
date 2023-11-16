@@ -40,6 +40,7 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
   const [replyClickData, setReplyClickData] = useState<number>(-1);
   const navigate = useNavigate();
   const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>();
+
   const {
     content,
     likes,
