@@ -10,9 +10,9 @@ const initialState: ReplyData[] = [];
 
 export const fetchReplies = createAsyncThunk(
   "replies/fetchReplies",
-  async (boardId: number) => {
+  async ({ boardId, offset }: { boardId: number; offset: number }) => {
     const response = await axios.get(
-      `/error/errorlist/replies?boardId=${boardId}`
+      `/error/errorlist/replies?boardId=${boardId}&offset=${offset}`
     );
     return response.data;
   }
@@ -31,11 +31,25 @@ export const fetchRepliesCount = createAsyncThunk(
 export const addReply = createAsyncThunk(
   "replies/addReply",
   async (props: ErrorReplyType) => {
-    // 새로운 ReplyData를 추가
-    const response = await axios.post("/error/errorlist/replies", props, {
-      headers: { "Content-Type": "application/json" },
-    });
-    return response.data;
+    try {
+      const response = await axios.post(
+        "/error/errorlist/replies",
+        {
+          content: props.content,
+          writer_id: props.writer_id,
+          content_id: props.content_id,
+        },
+        {
+          headers: {
+            "content-type": "application/json",
+          },
+        }
+      );
+      return response.data;
+    } catch (error: any) {
+      console.error("답글 추가 중 오류 발생:", error);
+      throw error;
+    }
   }
 );
 
@@ -66,17 +80,23 @@ export const deleteReply = createAsyncThunk(
 const repliesSlice = createSlice({
   name: "replies",
   initialState,
-  reducers: {},
+  reducers: {
+    clearReplies: (state) => {
+      return initialState;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchReplies.fulfilled, (state, action) => {
-        return action.payload;
+        return [...state, ...action.payload];
       })
       .addCase(fetchRepliesCount.fulfilled, (state, action) => {
         return action.payload;
       })
       .addCase(addReply.fulfilled, (state, action) => {
-        state.push(action.payload);
+        const { data } = action.payload;
+        console.log(data);
+        return [...state, { ...data, nickname: "방금 작성한 댓글", likes: 0 }];
       })
       .addCase(updateReply.fulfilled, (state, action) => {
         const updatedReply = action.payload;
@@ -89,14 +109,22 @@ const repliesSlice = createSlice({
       })
       .addCase(deleteReply.fulfilled, (state, action) => {
         const deletedReplyId = action.payload;
-        const indexToDelete = state.findIndex(
-          (reply) => reply.id === deletedReplyId
-        );
-        if (indexToDelete !== -1) {
-          state.splice(indexToDelete, 1);
-        }
+
+        console.log("Original State:", state);
+        console.log("Deleted Reply ID:", deletedReplyId);
+
+        const updatedState = state.filter((reply) => {
+          console.log("Checking Reply ID:", reply.id);
+          return reply.id !== deletedReplyId;
+        });
+
+        console.log("Updated State:", updatedState);
+
+        state = updatedState;
+        return state;
       });
   },
 });
+export const { clearReplies } = repliesSlice.actions;
 
 export default repliesSlice.reducer;

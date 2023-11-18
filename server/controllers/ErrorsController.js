@@ -138,10 +138,11 @@ class ErrorsController {
   static getErrorsReplies = async (req, res) => {
     try {
       const boardId = req.query.boardId;
+      const offset = req.query.offset;
       if (!boardId) {
         return res.status(400).send("BoardId가 존재하지 않습니다.");
       }
-      let result = await ErrorsModel.getErrorReplies(boardId);
+      let result = await ErrorsModel.getErrorReplies(boardId, offset);
       if (result) res.send(result);
     } catch (error) {
       console.error(error);
@@ -169,7 +170,14 @@ class ErrorsController {
         content_id,
         write_date
       );
-      if (results) return results;
+      if (results) {
+        res.json({
+          data: { ...req.body, write_date },
+          message: "댓글 등록 성공! [ErrorsController]]",
+        });
+      } else {
+        res.status(500).send("댓글 등록 실패!");
+      }
     } catch (error) {
       console.error(error);
       res

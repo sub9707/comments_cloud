@@ -17,7 +17,6 @@ import {
   persistReducer,
   persistStore,
 } from "redux-persist";
-import thunk from "redux-thunk";
 
 // reducer 결합
 const reducers = combineReducers({
@@ -47,7 +46,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }).concat(thunk),
+    }),
 });
 
 export const persistor = persistStore(store);

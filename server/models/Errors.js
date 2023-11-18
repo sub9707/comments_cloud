@@ -108,16 +108,16 @@ class ErrorsModel {
       );
     });
   }
-  static async getErrorReplies(boardId) {
+  static async getErrorReplies(boardId, offset) {
     return new Promise((resolve) => {
       db.query(
-        "SELECT ecc.id, ecc.content, ecc.write_date, ecc.writer_id, ecc.likes, ecc.content_id, u.email, u.profileImg, u.nickname FROM error_content_comments ecc JOIN users u ON ecc.writer_id = u.id WHERE ecc.content_id = ?",
-        [boardId],
+        "SELECT ecc.id, ecc.content, ecc.write_date, ecc.writer_id, ecc.likes, ecc.content_id, u.email, u.profileImg, u.nickname FROM error_content_comments ecc JOIN users u ON ecc.writer_id = u.id WHERE ecc.content_id = ? ORDER BY ecc.likes DESC, ecc.write_date DESC LIMIT 5 OFFSET ?",
+        [boardId, parseInt(offset, 10)],
         (error, result) => {
           if (!error) {
             resolve(result);
           } else {
-            resolve(result);
+            resolve(error);
           }
         }
       );

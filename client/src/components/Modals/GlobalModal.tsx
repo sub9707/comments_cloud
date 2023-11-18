@@ -8,6 +8,7 @@ import { clearData } from "../../store/NoticeModal";
 import MyErrorView from "./MyErrorViewModal";
 
 import { useRef } from "react";
+import { clearReplies } from "../../store/DataThunk/RepliesSlice";
 
 const MODAL_TYPES = {
   WriteModal: "WriteModal",
@@ -46,6 +47,7 @@ export default function GlobalModal() {
     if (e.target === e.currentTarget) {
       dispatch(closeModal());
       dispatch(clearData());
+      dispatch(clearReplies());
     }
   };
 

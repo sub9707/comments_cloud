@@ -18,19 +18,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { formatRelativeTime } from "../../utils/Calculation";
 import DOMPurify from "dompurify";
-import {
-  Button,
-  CloseButton,
-  Form,
-  InputGroup,
-  OverlayTrigger,
-  Tooltip,
-} from "react-bootstrap";
+import { CloseButton, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { closeModal } from "../../store/Modal";
 import SharePopOver from "../Cards/SharePopOverCard";
 import React, { useEffect, useRef, useState } from "react";
 import CommentCard from "../Cards/CommentCard";
-import { addReply, fetchReplies } from "../../store/DataThunk/RepliesSlice";
+import {
+  addReply,
+  clearReplies,
+  fetchReplies,
+} from "../../store/DataThunk/RepliesSlice";
 import { AnyAction } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { ErrorReplyType } from "../../types/BoardTypes";
@@ -39,7 +36,6 @@ export default function MyErrorView() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { data } = useSelector((state: RootState) => state.myError);
   const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>();
-  const [loading, setLoading] = useState<boolean>(false);
   const [toggleSharePop, setToggleSharePop] = useState<boolean>(false);
   const [toggleComment, setToggleComments] = useState<boolean>(true);
   const [replyWrite, setReplyWrite] = useState<string>("");
@@ -56,17 +52,20 @@ export default function MyErrorView() {
   };
 
   const handleAddReply = () => {
-    if (data) {
-      const props: ErrorReplyType = {
-        content: replyWrite,
-        content_id: data?.id,
-        writer_id: 2,
-      };
-      dispatch(addReply(props));
-      alert("댓글이 등록되었습니댜.");
+    try {
+      if (data) {
+        const props: ErrorReplyType = {
+          content: replyWrite,
+          content_id: data?.id,
+          writer_id: 2,
+        };
+        dispatch(addReply(props));
+        alert("댓글이 등록되었습니다.");
+      }
+      setReplyWrite("");
+    } catch (err) {
+      console.error(err);
     }
-    setReplyWrite("");
-    if (data) dispatch(fetchReplies(data?.id));
   };
 
   const handleToggleDefault = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -75,7 +74,7 @@ export default function MyErrorView() {
   };
 
   useEffect(() => {
-    if (data) dispatch(fetchReplies(data?.id));
+    if (data) dispatch(fetchReplies({ boardId: data?.id, offset: 0 }));
   }, [dispatch, data]);
 
   const scrollToTop = () => {
@@ -88,11 +87,14 @@ export default function MyErrorView() {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   };
+
   return (
     <ModalContainer onClick={handleToggleDefault} ref={scrollRef}>
       <CloseButton
         style={{ position: "fixed", top: "10%", right: "24%" }}
-        onClick={() => dispatch(closeModal())}
+        onClick={() => {
+          dispatch(closeModal()), dispatch(clearReplies());
+        }}
       />
       <TopButton onClick={scrollToTop}>
         <FontAwesomeIcon icon={faCaretUp} />
@@ -185,21 +187,16 @@ export default function MyErrorView() {
         </CommentSubmitBtnGroup>
       </AddCommentArea>
       <br />
+      {/*댓글 목록*/}
       {toggleComment && (
         <>
           <CommentArea>
-            {replies?.map((reply, _idx) => (
+            <CommentCard />
+            {/* {replies?.map((reply, _idx) => (
               <React.Fragment key={_idx}>
-                {data && (
-                  <CommentCard
-                    {...reply}
-                    setLoad={setLoading}
-                    cur={_idx}
-                    board={data?.id}
-                  />
-                )}
+                {data && <CommentCard {...reply} cur={_idx} key={_idx} />}
               </React.Fragment>
-            ))}
+            ))} */}
           </CommentArea>
         </>
       )}

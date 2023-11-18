@@ -3,16 +3,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { CommentData, ReplyData } from "../../types/BoardTypes";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../store/Modal";
 import CommentReplyCard from "./CommentReplyCard";
 import { addMessage } from "../../store/Alert";
-import { ChangeEvent, useMemo, useState, useEffect } from "react";
-import {
-  updateReply,
-  deleteReply,
-  fetchReplies,
-} from "../../store/DataThunk/RepliesSlice";
+import React, { ChangeEvent, useMemo, useState, useEffect } from "react";
+import { updateReply, deleteReply } from "../../store/DataThunk/RepliesSlice";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import {
@@ -24,15 +20,10 @@ import {
   writeComment,
 } from "../../api/ErrorBoard";
 import { Button, Form, InputGroup } from "react-bootstrap";
+import { RootState } from "../../store";
 
-type CommentCardStateTpye = {
-  cur: number;
-  board: number;
-  setLoad: React.Dispatch<React.SetStateAction<boolean>>;
-};
-export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
+export default function CommentCard() {
   const [replyLiked, setReplyLiked] = useState<boolean>(false);
-  const [toggleUpdate, setToggleUpdate] = useState<number>(-1);
   const [commentsData, setCommentsData] = useState<CommentData[]>([]);
   const [commentsCount, setCommentsCount] = useState<number>(0);
   const [viewComments, setviewComments] = useState<boolean>(false);
@@ -40,38 +31,23 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
   const [replyClickData, setReplyClickData] = useState<number>(-1);
   const navigate = useNavigate();
   const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>();
-
-  const {
-    content,
-    likes,
-    profileImg,
-    write_date,
-    writer_id,
-    cur,
-    id,
-    board,
-    nickname,
-  } = props;
-  const [likesNum, setLikesNum] = useState<number>(likes);
-  const [inputValue, setInputValue] = useState<string>(content);
+  const replies = useSelector((state: RootState) => state.replies);
+  const { data } = useSelector((state: RootState) => state.myError);
+  const [toggleUpdate, setToggleUpdate] = useState<number>(-1);
+  const [inputValue, setInputValue] = useState<string>("");
   const memoizedContent = useMemo(() => {
     return inputValue;
   }, [inputValue]);
+
   const handleProfileClick = () => {
-    navigate(`/user/${writer_id}`);
+    if (!data) return;
+    navigate(`/user/${data?.writer_id}`);
     dispatch(closeModal());
   };
-  const handleUpdateToggle = () => {
-    if (toggleUpdate === cur) {
-      setToggleUpdate(-1);
-      setInputValue(content);
-    } else {
-      setToggleUpdate(cur);
-    }
-  };
+
   const handleUpdateFunc = async () => {
-    dispatch(updateReply({ replyId: id, content: inputValue }));
-    setToggleUpdate(-1);
+    if (!data) return;
+    dispatch(updateReply({ replyId: data?.id, content: inputValue }));
     dispatch(
       addMessage({
         id: "unique_id",
@@ -84,8 +60,9 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
     setInputValue(e.target.value);
   };
   const handleDeleteFunc = async () => {
+    if (!data) return;
     try {
-      dispatch(deleteReply(id));
+      dispatch(deleteReply(data?.id));
       dispatch(
         addMessage({
           id: "unique_id",
@@ -96,12 +73,13 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
     } catch (err) {
       console.error(err);
     } finally {
-      dispatch(fetchReplies(board));
+      // dispatch(fetchReplies({ boardId: id, offset: 0 }));
     }
   };
 
   const handleViewReplies = async () => {
-    const result = await getAllComments(id);
+    if (!data) return;
+    const result = await getAllComments(data?.id);
     setCommentsData(result);
     setviewComments(true);
   };
@@ -112,8 +90,9 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
   };
 
   const submitCommentData = async () => {
+    if (!data) return;
     try {
-      await writeComment(id, 3, commentInput);
+      await writeComment(data?.id, 3, commentInput);
       alert("댓글이 등록되었습니다.");
       setCommentInput("");
     } catch (err) {
@@ -128,24 +107,32 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
   };
 
   const handleLikeClick = async () => {
+    if (!data) return;
     if (replyLiked) {
-      await postReplyCancelLike(id, 2);
+      await postReplyCancelLike(data?.id, 2);
       setReplyLiked(false);
-      setLikesNum(likesNum - 1);
     } else {
-      await postReplyLike(id, 2);
+      await postReplyLike(data?.id, 2);
       setReplyLiked(true);
-      setLikesNum(likesNum + 1);
+    }
+  };
+
+  const handleUpdateToggle = (cur: number) => {
+    if (toggleUpdate === -1) {
+      setToggleUpdate(cur);
+    } else {
+      setToggleUpdate(-1);
     }
   };
 
   useEffect(() => {
-    getCountFunc(id);
-  }, [id]);
+    if (data) getCountFunc(data?.id);
+  }, [data]);
 
   useEffect(() => {
+    if (!data) return;
     const checkLiked = async () => {
-      const response = await checkReplyCheck(id, 2);
+      const response = await checkReplyCheck(data?.id, 2);
       if (response.isLiked) {
         setReplyLiked(true);
       } else {
@@ -153,106 +140,118 @@ export default function CommentCard(props: ReplyData & CommentCardStateTpye) {
       }
     };
     checkLiked();
-  }, [id]);
+  }, [data]);
 
   return (
-    <CardContainer>
-      <CardLeft>
-        <CardProfile
-          src={profileImg || "/images/Default_ProfileImg.png"}
-          alt="프로필 Img"
-        />
-        <CommentLikes>
-          <FontAwesomeIcon
-            icon={faThumbsUp}
-            size="2x"
-            color={replyLiked ? "black" : "grey"}
-            style={{ cursor: "pointer", scale: "0.8", opacity: 0.8 }}
-            onClick={handleLikeClick}
-          />
-          <LikeNum>{likesNum}</LikeNum>
-        </CommentLikes>
-      </CardLeft>
-      <CardRight>
-        <CardInfoArea>
-          <WriterWrapper>
-            <InfoText
-              onClick={handleProfileClick}
-              style={{ cursor: "pointer" }}>
-              {nickname}
-            </InfoText>
-            <InfoText>{write_date}</InfoText>
-          </WriterWrapper>
-          <ControlWrapper>
-            <InfoText onClick={handleUpdateToggle}>
-              {toggleUpdate === -1 ? "수정" : "취소"}
-            </InfoText>
-            <InfoText
-              onClick={
-                toggleUpdate === -1 ? handleDeleteFunc : handleUpdateFunc
-              }>
-              {toggleUpdate === -1 ? "삭제" : "완료"}
-            </InfoText>
-          </ControlWrapper>
-        </CardInfoArea>
-        {toggleUpdate === cur && (
-          <CommentArea>
-            <input
-              type="text"
-              value={inputValue}
-              onChange={handleUpdateChange}
-            />
-          </CommentArea>
-        )}
-        {toggleUpdate < 0 && <CommentArea>{memoizedContent}</CommentArea>}
-
-        <CommentContol>
-          <InfoText
-            style={{ marginLeft: "1em", marginTop: "1em", cursor: "pointer" }}
-            onClick={() => setReplyClickData(cur)}>
-            답글달기
-          </InfoText>
-          {commentsCount > 0 ? (
-            <InfoText
-              style={{
-                marginLeft: "1em",
-                marginTop: "1em",
-                cursor: "pointer",
-                display: viewComments ? "none" : "flex",
-              }}
-              onClick={handleViewReplies}>
-              답글보기({commentsCount})
-            </InfoText>
-          ) : null}
-        </CommentContol>
-        <CommentReplyArea>
-          {commentsData?.map((data, _idx) => (
-            <CommentReplyCard
-              key={_idx}
-              {...data}
-              handleViewReplies={handleViewReplies}
-            />
-          ))}
-        </CommentReplyArea>
-        {cur === replyClickData ? (
-          <CommentReplyArea>
-            <InputGroup>
-              <Form.Control
-                value={commentInput}
-                onChange={(e) => setCommentInput(e.target.value)}
-                placeholder="댓글 입력"
+    <>
+      {replies?.map((reply, _idx) => (
+        <React.Fragment key={_idx}>
+          <CardContainer>
+            <CardLeft>
+              <CardProfile
+                src={reply?.profileImg || "/images/Default_ProfileImg.png"}
+                alt="프로필 Img"
               />
-              <Button variant="primary" onClick={submitCommentData}>
-                등록
-              </Button>
-              <Button variant="outline-primary" onClick={handleCancelComment}>
-                취소
-              </Button>
-            </InputGroup>
-          </CommentReplyArea>
-        ) : null}
-      </CardRight>
-    </CardContainer>
+              <CommentLikes>
+                <FontAwesomeIcon
+                  icon={faThumbsUp}
+                  size="2x"
+                  color={replyLiked ? "black" : "grey"}
+                  style={{ cursor: "pointer", scale: "0.8", opacity: 0.8 }}
+                  onClick={handleLikeClick}
+                />
+                <LikeNum>{reply?.likes}</LikeNum>
+              </CommentLikes>
+            </CardLeft>
+            <CardRight>
+              <CardInfoArea>
+                <WriterWrapper>
+                  <InfoText
+                    onClick={handleProfileClick}
+                    style={{ cursor: "pointer" }}>
+                    {reply?.nickname}
+                  </InfoText>
+                  <InfoText>{reply?.write_date}</InfoText>
+                </WriterWrapper>
+                <ControlWrapper>
+                  <InfoText onClick={() => handleUpdateToggle(_idx)}>
+                    {toggleUpdate ? "수정" : "취소"}
+                  </InfoText>
+                  <InfoText
+                    onClick={
+                      toggleUpdate ? handleDeleteFunc : handleUpdateFunc
+                    }>
+                    {toggleUpdate === -1 ? "삭제" : "완료"}
+                  </InfoText>
+                </ControlWrapper>
+              </CardInfoArea>
+              {toggleUpdate === _idx && (
+                <CommentArea>
+                  <input
+                    type="text"
+                    value={inputValue}
+                    onChange={handleUpdateChange}
+                  />
+                </CommentArea>
+              )}
+              {toggleUpdate < 0 && <CommentArea>{memoizedContent}</CommentArea>}
+
+              <CommentContol>
+                <InfoText
+                  style={{
+                    marginLeft: "1em",
+                    marginTop: "1em",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => setReplyClickData(_idx)}>
+                  답글달기
+                </InfoText>
+                {commentsCount > 0 ? (
+                  <InfoText
+                    style={{
+                      marginLeft: "1em",
+                      marginTop: "1em",
+                      cursor: "pointer",
+                      display: viewComments ? "none" : "flex",
+                    }}
+                    onClick={handleViewReplies}>
+                    답글보기({commentsCount})
+                  </InfoText>
+                ) : null}
+              </CommentContol>
+              <CommentReplyArea>
+                {commentsData?.map((data, _idx) => (
+                  <CommentReplyCard
+                    key={_idx}
+                    {...data}
+                    handleViewReplies={handleViewReplies}
+                  />
+                ))}
+              </CommentReplyArea>
+              {_idx === replyClickData ? (
+                <CommentReplyArea>
+                  <InputGroup>
+                    <Form.Control
+                      value={commentInput}
+                      onChange={(e) => setCommentInput(e.target.value)}
+                      placeholder="댓글 입력"
+                    />
+                    <Button variant="primary" onClick={submitCommentData}>
+                      등록
+                    </Button>
+                    <Button
+                      variant="outline-primary"
+                      onClick={handleCancelComment}>
+                      취소
+                    </Button>
+                  </InputGroup>
+                </CommentReplyArea>
+              ) : null}
+            </CardRight>
+          </CardContainer>
+        </React.Fragment>
+      ))}
+    </>
   );
 }
 
