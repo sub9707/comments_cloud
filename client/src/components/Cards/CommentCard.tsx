@@ -26,6 +26,7 @@ export default function CommentCard() {
   const [replyLiked, setReplyLiked] = useState<boolean[]>([]);
   const [commentsData, setCommentsData] = useState<CommentData[]>([]);
   const [commentsCount, setCommentsCount] = useState<number>(0);
+  const [replyLikes, setReplyLikes] = useState<number[]>([]);
   const [viewComments, setviewComments] = useState<boolean>(false);
   const [commentInput, setCommentInput] = useState<string>("");
   const [replyClickData, setReplyClickData] = useState<number>(-1);
@@ -112,9 +113,24 @@ export default function CommentCard() {
     if (!data) return;
     if (replyLiked[idx]) {
       await postReplyCancelLike(replies[idx].id, 2);
+      setReplyLikes((prevReplyLikes) => {
+        const newReplyLikes = [...prevReplyLikes];
+        newReplyLikes[idx] = replyLikes[idx] - 1;
+        return newReplyLikes;
+      });
     } else {
       await postReplyLike(replies[idx].id, 2);
+      setReplyLikes((prevReplyLikes) => {
+        const newReplyLikes = [...prevReplyLikes];
+        newReplyLikes[idx] = replyLikes[idx] + 1;
+        return newReplyLikes;
+      });
     }
+    setReplyLiked((prevLikes) => {
+      const newLikes = [...prevLikes];
+      newLikes[idx] = !newLikes[idx];
+      return newLikes;
+    });
   };
 
   const handleUpdateToggle = (cur: number) => {
@@ -133,21 +149,24 @@ export default function CommentCard() {
       const newLikes = await Promise.all(
         replies.map(async (reply) => {
           const response = await checkReplyCheck(reply?.id, 2);
+          console.log(response);
           return response.isLiked;
         })
       );
 
       setReplyLiked(newLikes);
     };
-
     checkLikedForReplies();
+
+    const likesArray = replies.map((reply) => reply.likes || 0);
+    setReplyLikes(likesArray);
   }, [data, replies, setReplyLiked]);
 
   useEffect(() => {
     setInputValue(replies?.map((reply) => reply.content));
   }, [replies]);
 
-  console.log(inputValue);
+  console.log(replyLiked);
 
   return (
     <>
@@ -167,7 +186,7 @@ export default function CommentCard() {
                   style={{ cursor: "pointer", scale: "0.8", opacity: 0.8 }}
                   onClick={() => handleLikeClick(_idx)}
                 />
-                <LikeNum>{reply?.likes}</LikeNum>
+                <LikeNum>{replyLikes[_idx]}</LikeNum>
               </CommentLikes>
             </CardLeft>
             <CardRight>
