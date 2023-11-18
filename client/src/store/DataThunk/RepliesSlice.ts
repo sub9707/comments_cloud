@@ -112,11 +112,7 @@ const repliesSlice = createSlice({
       .addCase(deleteReply.fulfilled, (state, action) => {
         const deletedReplyId = action.payload;
 
-        console.log("Original State:", state);
-        console.log("Deleted Reply ID:", deletedReplyId);
-
         const updatedState = state.filter((reply) => {
-          console.log("Checking Reply ID:", reply.id);
           return reply.id !== deletedReplyId;
         });
 

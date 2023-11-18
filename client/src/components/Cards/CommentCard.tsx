@@ -63,10 +63,10 @@ export default function CommentCard() {
     updatedInputValue[idx] = e.target.value;
     setInputValue(updatedInputValue);
   };
-  const handleDeleteFunc = async () => {
+  const handleDeleteFunc = async (replyId: number) => {
     if (!data) return;
     try {
-      dispatch(deleteReply(data?.id));
+      dispatch(deleteReply(replyId));
       dispatch(
         addMessage({
           id: "unique_id",
@@ -204,7 +204,7 @@ export default function CommentCard() {
                   <InfoText
                     onClick={
                       toggleUpdate
-                        ? handleDeleteFunc
+                        ? () => handleDeleteFunc(reply?.id, _idx)
                         : () => handleUpdateFunc(reply?.id, _idx)
                     }>
                     {toggleUpdate !== _idx ? "삭제" : "완료"}
