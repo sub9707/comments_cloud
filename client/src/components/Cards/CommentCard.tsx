@@ -23,7 +23,7 @@ import { Button, Form, InputGroup } from "react-bootstrap";
 import { RootState } from "../../store";
 
 export default function CommentCard() {
-  const [replyLiked, setReplyLiked] = useState<boolean>(false);
+  const [replyLiked, setReplyLiked] = useState<boolean[]>([]);
   const [commentsData, setCommentsData] = useState<CommentData[]>([]);
   const [commentsCount, setCommentsCount] = useState<number>(0);
   const [viewComments, setviewComments] = useState<boolean>(false);
@@ -34,10 +34,7 @@ export default function CommentCard() {
   const replies = useSelector((state: RootState) => state.replies);
   const { data } = useSelector((state: RootState) => state.myError);
   const [toggleUpdate, setToggleUpdate] = useState<number>(-1);
-  const [inputValue, setInputValue] = useState<string>("");
-  const memoizedContent = useMemo(() => {
-    return inputValue;
-  }, [inputValue]);
+  const [inputValue, setInputValue] = useState<string[]>([]);
 
   const handleProfileClick = () => {
     if (!data) return;
@@ -47,7 +44,7 @@ export default function CommentCard() {
 
   const handleUpdateFunc = async () => {
     if (!data) return;
-    dispatch(updateReply({ replyId: data?.id, content: inputValue }));
+    // dispatch(updateReply({ replyId: data?.id, content: inputValue }));
     dispatch(
       addMessage({
         id: "unique_id",
@@ -56,8 +53,13 @@ export default function CommentCard() {
       })
     );
   };
-  const handleUpdateChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+  const handleUpdateChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    idx: number
+  ) => {
+    const updatedInputValue = [...inputValue];
+    updatedInputValue[idx] = e.target.value;
+    setInputValue(updatedInputValue);
   };
   const handleDeleteFunc = async () => {
     if (!data) return;
@@ -106,14 +108,12 @@ export default function CommentCard() {
     setReplyClickData(-1);
   };
 
-  const handleLikeClick = async () => {
+  const handleLikeClick = async (idx: number) => {
     if (!data) return;
-    if (replyLiked) {
-      await postReplyCancelLike(data?.id, 2);
-      setReplyLiked(false);
+    if (replyLiked[idx]) {
+      await postReplyCancelLike(replies[idx].id, 2);
     } else {
-      await postReplyLike(data?.id, 2);
-      setReplyLiked(true);
+      await postReplyLike(replies[idx].id, 2);
     }
   };
 
@@ -125,22 +125,29 @@ export default function CommentCard() {
     }
   };
 
-  useEffect(() => {
-    if (data) getCountFunc(data?.id);
-  }, [data]);
-
+  // 좋아요 체크
   useEffect(() => {
     if (!data) return;
-    const checkLiked = async () => {
-      const response = await checkReplyCheck(data?.id, 2);
-      if (response.isLiked) {
-        setReplyLiked(true);
-      } else {
-        setReplyLiked(false);
-      }
+
+    const checkLikedForReplies = async () => {
+      const newLikes = await Promise.all(
+        replies.map(async (reply) => {
+          const response = await checkReplyCheck(reply?.id, 2);
+          return response.isLiked;
+        })
+      );
+
+      setReplyLiked(newLikes);
     };
-    checkLiked();
-  }, [data]);
+
+    checkLikedForReplies();
+  }, [data, replies, setReplyLiked]);
+
+  useEffect(() => {
+    setInputValue(replies?.map((reply) => reply.content));
+  }, [replies]);
+
+  console.log(inputValue);
 
   return (
     <>
@@ -156,9 +163,9 @@ export default function CommentCard() {
                 <FontAwesomeIcon
                   icon={faThumbsUp}
                   size="2x"
-                  color={replyLiked ? "black" : "grey"}
+                  color={replyLiked[_idx] ? "black" : "grey"}
                   style={{ cursor: "pointer", scale: "0.8", opacity: 0.8 }}
-                  onClick={handleLikeClick}
+                  onClick={() => handleLikeClick(_idx)}
                 />
                 <LikeNum>{reply?.likes}</LikeNum>
               </CommentLikes>
@@ -175,13 +182,13 @@ export default function CommentCard() {
                 </WriterWrapper>
                 <ControlWrapper>
                   <InfoText onClick={() => handleUpdateToggle(_idx)}>
-                    {toggleUpdate ? "수정" : "취소"}
+                    {toggleUpdate !== _idx ? "수정" : "취소"}
                   </InfoText>
                   <InfoText
                     onClick={
                       toggleUpdate ? handleDeleteFunc : handleUpdateFunc
                     }>
-                    {toggleUpdate === -1 ? "삭제" : "완료"}
+                    {toggleUpdate !== _idx ? "삭제" : "완료"}
                   </InfoText>
                 </ControlWrapper>
               </CardInfoArea>
@@ -189,12 +196,14 @@ export default function CommentCard() {
                 <CommentArea>
                   <input
                     type="text"
-                    value={inputValue}
-                    onChange={handleUpdateChange}
+                    value={inputValue[_idx]}
+                    onChange={(e) => handleUpdateChange(e, _idx)}
                   />
                 </CommentArea>
               )}
-              {toggleUpdate < 0 && <CommentArea>{memoizedContent}</CommentArea>}
+              {toggleUpdate !== _idx && (
+                <CommentArea>{reply?.content}</CommentArea>
+              )}
 
               <CommentContol>
                 <InfoText
