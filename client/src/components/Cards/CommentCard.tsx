@@ -43,9 +43,9 @@ export default function CommentCard() {
     dispatch(closeModal());
   };
 
-  const handleUpdateFunc = async () => {
+  const handleUpdateFunc = async (replyId: number, idx: number) => {
     if (!data) return;
-    // dispatch(updateReply({ replyId: data?.id, content: inputValue }));
+    dispatch(updateReply({ replyId, content: inputValue[idx] }));
     dispatch(
       addMessage({
         id: "unique_id",
@@ -53,6 +53,7 @@ export default function CommentCard() {
         type: "success",
       })
     );
+    setToggleUpdate(-1);
   };
   const handleUpdateChange = (
     e: ChangeEvent<HTMLInputElement>,
@@ -149,7 +150,6 @@ export default function CommentCard() {
       const newLikes = await Promise.all(
         replies.map(async (reply) => {
           const response = await checkReplyCheck(reply?.id, 2);
-          console.log(response);
           return response.isLiked;
         })
       );
@@ -165,8 +165,6 @@ export default function CommentCard() {
   useEffect(() => {
     setInputValue(replies?.map((reply) => reply.content));
   }, [replies]);
-
-  console.log(replyLiked);
 
   return (
     <>
@@ -205,7 +203,9 @@ export default function CommentCard() {
                   </InfoText>
                   <InfoText
                     onClick={
-                      toggleUpdate ? handleDeleteFunc : handleUpdateFunc
+                      toggleUpdate
+                        ? handleDeleteFunc
+                        : () => handleUpdateFunc(reply?.id, _idx)
                     }>
                     {toggleUpdate !== _idx ? "삭제" : "완료"}
                   </InfoText>

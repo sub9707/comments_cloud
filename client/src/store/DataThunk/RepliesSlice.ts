@@ -99,13 +99,15 @@ const repliesSlice = createSlice({
         return [...state, { ...data, nickname: "방금 작성한 댓글", likes: 0 }];
       })
       .addCase(updateReply.fulfilled, (state, action) => {
-        const updatedReply = action.payload;
-        const existingReplyIndex = state.findIndex(
-          (reply) => reply.id === updatedReply.id
-        );
-        if (existingReplyIndex !== -1) {
-          state[existingReplyIndex] = updatedReply;
-        }
+        const { data } = action.payload;
+        const { commentId, content } = data;
+
+        return state.map((reply) => {
+          if (reply.id == commentId) {
+            return { ...reply, content };
+          }
+          return reply;
+        });
       })
       .addCase(deleteReply.fulfilled, (state, action) => {
         const deletedReplyId = action.payload;

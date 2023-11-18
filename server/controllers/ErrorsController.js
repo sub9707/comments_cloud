@@ -218,8 +218,15 @@ class ErrorsController {
     try {
       const commentId = req.query.commentId;
       const { content } = req.body;
-      let result = await ErrorsModel.updateReply(commentId, content);
-      if (result) res.send("게시글 댓글 수정 성공! [Controller]]");
+      let results = await ErrorsModel.updateReply(commentId, content);
+      if (results) {
+        res.json({
+          data: { content, commentId },
+          message: "댓글 수정 성공! [ErrorsController]]",
+        });
+      } else {
+        res.status(500).send("댓글 수정 실패!");
+      }
     } catch (error) {
       console.error(error);
       res.status(500).send("Internal Server Error:[게시물 삭제 Controller]");
@@ -399,7 +406,6 @@ class ErrorsController {
       let result = await ErrorsModel.checkUserReplyLiked(replyId, userId);
       const isLiked =
         Array.isArray(result) && result.length > 0 && result[0].count_likes > 0;
-      console.log(isLiked);
       res.send({ isLiked });
     } catch (err) {
       console.error(err);
