@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../store/Modal/Modal";
 import CommentReplyCard from "./CommentReplyCard";
-import { addMessage } from "../../store/Alert";
+import { addMessage } from "../../store/Utils/Alert";
 import React, { ChangeEvent, useMemo, useState, useEffect } from "react";
 import { updateReply, deleteReply } from "../../store/DataThunk/RepliesSlice";
 import { ThunkDispatch } from "redux-thunk";

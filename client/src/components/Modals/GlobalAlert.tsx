@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ToastContainer, toast, TypeOptions } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { removeMessage, selectAlertMessages } from "../../store/Alert";
+import { removeMessage, selectAlertMessages } from "../../store/Utils/Alert";
 
 const convertToToastType = (type: string): TypeOptions => {
   switch (type) {

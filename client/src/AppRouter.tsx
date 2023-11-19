@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/Login/LoginPage";
 import Logout from "./pages/Logout/Logout";
-import { isLoggedIn } from "./store/Cookie";
+import { isLoggedIn } from "./store/Utils/Cookie";
 import React, { Suspense } from "react";
 import GlobalModal from "./components/Modals/GlobalModal";
 import LoadingPage from "./pages/LoadingPage";

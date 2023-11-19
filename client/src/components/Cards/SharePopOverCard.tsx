@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dispatch, SetStateAction, useRef } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { addMessage } from "../../store/Alert";
+import { addMessage } from "../../store/Utils/Alert";
 import { CloseButton } from "react-bootstrap";
 
 type propstype = {

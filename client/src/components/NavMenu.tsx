@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { LogBox, PageNavBox, ToolWrapper } from "../styles/PageContainer";
-import { isLoggedIn } from "../store/Cookie";
+import { isLoggedIn } from "../store/Utils/Cookie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHouse,
@@ -11,7 +11,7 @@ import {
   faScrewdriverWrench,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
-import { userStateType } from "../store/User";
+import { userStateType } from "../store/Utils/User";
 
 export default function NavMenu() {
   const user = useSelector((state: userStateType) => state.user.data);

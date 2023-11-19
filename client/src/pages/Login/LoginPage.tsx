@@ -25,15 +25,15 @@ import {
 import registerUser, { loginUser } from "../../api/user";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setRefreshToken } from "../../store/Cookie";
-import { SET_TOKEN } from "../../store/Auth";
+import { setRefreshToken } from "../../store/Utils/Cookie";
+import { SET_TOKEN } from "../../store/Utils/Auth";
 import { useForm, SubmitHandler } from "react-hook-form";
 import {
   LoginFormValues,
   RegisterFormValues,
 } from "../../types/react-hook-form";
 import axios from "axios";
-import { setUser } from "../../store/User";
+import { setUser } from "../../store/Utils/User";
 
 export default function LoginPage() {
   const { register, handleSubmit } = useForm<LoginFormValues>();
