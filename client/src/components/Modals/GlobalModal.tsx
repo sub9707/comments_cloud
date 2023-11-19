@@ -1,10 +1,10 @@
 import { Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import WriteModal from "./WriteConfirm";
-import { closeModal, selectModal } from "../../store/Modal";
+import { closeModal, selectModal } from "../../store/Modal/Modal";
 import styled from "styled-components";
 import NoticeContentModal from "./NoticeContentModal";
-import { clearData } from "../../store/NoticeModal";
+import { clearData } from "../../store/Modal/NoticeModal";
 import MyErrorView from "./MyErrorViewModal";
 
 import { useRef } from "react";

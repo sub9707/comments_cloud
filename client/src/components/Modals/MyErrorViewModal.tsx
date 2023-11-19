@@ -19,7 +19,7 @@ import {
 import { formatRelativeTime } from "../../utils/Calculation";
 import DOMPurify from "dompurify";
 import { CloseButton, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { closeModal } from "../../store/Modal";
+import { closeModal } from "../../store/Modal/Modal";
 import SharePopOver from "../Cards/SharePopOverCard";
 import React, { useEffect, useRef, useState } from "react";
 import CommentCard from "../Cards/CommentCard";

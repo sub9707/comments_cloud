@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../store/Modal";
+import { closeModal } from "../../store/Modal/Modal";
 import { ButtonRight } from "../../styles/AdminPageStyle";
 import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";

@@ -16,15 +16,19 @@ import { MyErrorTablePropType } from "../../types/TableTypes";
 import axios from "../../api/axios";
 import LoadingPage from "../LoadingPage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTags } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowUpWideShort,
+  faMagnifyingGlass,
+  faTags,
+} from "@fortawesome/free-solid-svg-icons";
 import PopoverCard from "../../components/Cards/PopoverCard";
-import { ButtonRight } from "../../styles/AdminPageStyle";
 import { useNavigate } from "react-router-dom";
 import LoadButton from "../../components/CustomButtons/DataLoadButton";
 import { getMyErrorCount, getMyErrors } from "../../api/ErrorBoard";
 import { useDispatch } from "react-redux";
-import { openModal } from "../../store/Modal";
-import { setMyErrorData } from "../../store/MyErrorModal";
+import { openModal } from "../../store/Modal/Modal";
+import { setMyErrorData } from "../../store/Modal/MyErrorModal";
+import { JustifyBetween } from "../../styles/FlexBoxStlye";
 
 export default function MyErrorPage() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -100,11 +104,39 @@ export default function MyErrorPage() {
   return (
     <MainContainer>
       <PageHeader>나의 에러 관리</PageHeader>
-      <ButtonRight>
-        <Button variant="primary" onClick={handleRouteWrite}>
-          새 글 작성
-        </Button>
-      </ButtonRight>
+      <JustifyBetween style={{ marginTop: "1em" }}>
+        <div>
+          <Button
+            style={{ marginLeft: "1em" }}
+            variant="primary"
+            onClick={handleRouteWrite}>
+            새 글 작성
+          </Button>
+        </div>
+        <div>
+          <FontAwesomeIcon
+            icon={faMagnifyingGlass}
+            size="xl"
+            style={{
+              opacity: 0.4,
+              width: "2em",
+              marginTop: "0.2em",
+              cursor: "pointer",
+            }}
+            onClick={() => navigate("/myError/search")}
+          />
+          <FontAwesomeIcon
+            icon={faArrowUpWideShort}
+            size="xl"
+            style={{
+              opacity: 0.4,
+              width: "2em",
+              marginTop: "0.2em",
+              cursor: "pointer",
+            }}
+          />
+        </div>
+      </JustifyBetween>
       <ContentBox>
         {loading ? (
           <LoadingPage />

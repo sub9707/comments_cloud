@@ -1,8 +1,8 @@
 import { useDispatch } from "react-redux";
 import { Table } from "../../styles/TableStyle";
 import { NoticeTableProps } from "../../types/TableTypes";
-import { openModal } from "../../store/Modal";
-import { setData } from "../../store/NoticeModal";
+import { openModal } from "../../store/Modal/Modal";
+import { setData } from "../../store/Modal/NoticeModal";
 
 export default function AdminBoardTable(props: NoticeTableProps) {
   const dispatch = useDispatch();

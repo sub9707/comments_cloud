@@ -15,7 +15,7 @@ import {
 import ReactQuill from "react-quill";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { openModal } from "../../store/Modal";
+import { openModal } from "../../store/Modal/Modal";
 import { useForm } from "react-hook-form";
 import { NoticeWriteValues } from "../../types/react-hook-form";
 import { useEffect, useState } from "react";

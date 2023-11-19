@@ -1,10 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import tokenReducer from "./Auth";
 import userReducer from "./User";
-import modalReducer from "./Modal";
-import noticeReducer from "./NoticeModal";
+import modalReducer from "./Modal/Modal";
+import noticeReducer from "./Modal/NoticeModal";
 import alertReducer from "./Alert";
-import myErrorReducer from "./MyErrorModal";
+import myErrorReducer from "./Modal/MyErrorModal";
 import ReplyDataSlice from "./DataThunk/RepliesSlice";
 import storage from "redux-persist/lib/storage";
 import {

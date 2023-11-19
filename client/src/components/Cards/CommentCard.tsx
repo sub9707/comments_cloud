@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { CommentData, ReplyData } from "../../types/BoardTypes";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../store/Modal";
+import { closeModal } from "../../store/Modal/Modal";
 import CommentReplyCard from "./CommentReplyCard";
 import { addMessage } from "../../store/Alert";
 import React, { ChangeEvent, useMemo, useState, useEffect } from "react";
@@ -204,7 +204,7 @@ export default function CommentCard() {
                   <InfoText
                     onClick={
                       toggleUpdate
-                        ? () => handleDeleteFunc(reply?.id, _idx)
+                        ? () => handleDeleteFunc(reply?.id)
                         : () => handleUpdateFunc(reply?.id, _idx)
                     }>
                     {toggleUpdate !== _idx ? "삭제" : "완료"}

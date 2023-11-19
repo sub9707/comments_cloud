@@ -30,7 +30,7 @@ import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import PopoverCard from "../../components/Cards/PopoverCard";
 import { useState } from "react";
 import { writeError } from "../../api/ErrorBoard";
-import { openModal } from "../../store/Modal";
+import { openModal } from "../../store/Modal/Modal";
 import { useDispatch } from "react-redux";
 
 export default function ErrorWrite() {

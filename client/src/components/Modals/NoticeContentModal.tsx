@@ -1,9 +1,9 @@
 import { Button, Modal } from "react-bootstrap";
 import { ButtonCenter } from "../../styles/AdminPageStyle";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../store/Modal";
+import { closeModal } from "../../store/Modal/Modal";
 import { RootState } from "../../store";
-import { clearData } from "../../store/NoticeModal";
+import { clearData } from "../../store/Modal/NoticeModal";
 import { useState } from "react";
 import { deleteNotice } from "../../api/notice";
 import {

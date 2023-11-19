@@ -36,6 +36,8 @@ const AdminNoticeWrite = React.lazy(
 // MyError
 const MyError = React.lazy(() => import("./pages/myError/MyErrorPage"));
 const ErrorWrite = React.lazy(() => import("./pages/myError/ErrorWrite"));
+const MyErrorSearch = React.lazy(() => import("./pages/myError/MyErrorSearch"));
+const MyErrorEdit = React.lazy(() => import("./pages/myError/MyErrorEdit"));
 // UserProfile
 const UserProfileFixPage = React.lazy(
   () => import("./pages/Profile/UserProfileFix")
@@ -59,6 +61,11 @@ export default function AppRouter() {
             <Route path="service" element={<Service />} />
             <Route path="notice" element={<NoticePage />} />
             <Route path="board" element={<BoardPage />} />
+            <Route path="myError">
+              <Route index element={<MyError />} />
+              <Route path="search" element={<MyErrorSearch />} />
+              <Route path="edit" element={<MyErrorEdit />} />
+            </Route>
             <Route path="myError" element={<MyError />} />
             <Route path="ErrorWrite" element={<ErrorWrite />} />
             <Route path="user">
@@ -74,7 +81,7 @@ export default function AppRouter() {
             <Route path="notice" element={<AdminNotice />} />
             <Route path="notice/write" element={<AdminNoticeWrite />} />
           </Route>
-          // 404 page 유도
+          // 404 page
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Suspense>

@@ -32,7 +32,7 @@ export default function MainPage() {
       link: "/service",
     },
     {
-      title: "공지사항",
+      title: "공지사항 / FAQ",
       content: "",
       link: "/notice",
     },
