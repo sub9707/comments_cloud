@@ -1,6 +1,6 @@
 import { PageBox, PageHeader, PageWrapper } from "../../styles/AdminPageStyle";
 import UserTable from "../../components/Table/UserTable";
-import PaginationComp from "../../components/Pagination";
+import PaginationComp from "../../components/Utils/Pagination";
 import { useEffect, useState } from "react";
 import axios from "../../api/axios";
 import { UserData } from "../../types/users";

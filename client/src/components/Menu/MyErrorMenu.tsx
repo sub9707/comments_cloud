@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { JustifyBetween, JustifyCenter } from "../../styles/FlexBoxStlye";
 import { Button, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,8 +8,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilter } from "../../store/Toggle/MyErrorFilter";
+import {
+  clearFilter,
+  setFilter,
+  setPublic,
+  setSolved,
+} from "../../store/Toggle/MyErrorFilter";
 import { RootState } from "../../store";
+import { CheckBoxInput, CheckBoxLabel } from "../../styles/UtilityElements";
 
 function MyErrorMenu() {
   const navigate = useNavigate();
@@ -22,6 +29,19 @@ function MyErrorMenu() {
   const handleFilterClick = (sort: string) => {
     dispatch(setFilter(sort));
   };
+
+  const handleCheckBoxClick = (checkType: string) => {
+    dispatch(
+      checkType === "isPublic"
+        ? setPublic(!sortFilter.isPublic)
+        : setSolved(!sortFilter.isSolved)
+    );
+  };
+
+  useEffect(() => {
+    dispatch(clearFilter());
+  }, []);
+
   return (
     <>
       <JustifyBetween style={{ marginTop: "1em" }}>
@@ -46,6 +66,25 @@ function MyErrorMenu() {
               }}
               onClick={() => navigate("/myError/search")}
             />
+            <>
+              <CheckBoxInput
+                type="checkbox"
+                id="solved"
+                checked={sortFilter?.isSolved}
+                onChange={(e) => handleCheckBoxClick("isSolved")}
+              />
+              <CheckBoxLabel htmlFor="solved">해결글만 표시</CheckBoxLabel>
+            </>
+            <>
+              <CheckBoxInput
+                type="checkbox"
+                id="public"
+                checked={sortFilter?.isPublic}
+                onChange={() => handleCheckBoxClick("isPublic")}
+              />
+              <CheckBoxLabel htmlFor="public">공개글만 표시</CheckBoxLabel>
+            </>
+
             <Dropdown.Toggle
               variant="outline-primary"
               id="dropdown-custom-components"
@@ -53,6 +92,7 @@ function MyErrorMenu() {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+                marginLeft: "1em",
               }}>
               <JustifyCenter>
                 <p style={{ margin: 0, fontWeight: "600" }}>

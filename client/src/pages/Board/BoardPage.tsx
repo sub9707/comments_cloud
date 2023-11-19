@@ -1,4 +1,4 @@
-import TempView from "../../components/TempView";
+import TempView from "../../components/Utils/TempView";
 import { MainContainer } from "../../styles/PageContainer";
 import { PageHeader } from "../../styles/TextStyle";
 
