@@ -120,18 +120,31 @@ export const WidthMaxCenter = styled.div`
 
 export const ProfileBox = styled.div`
   width: 100%;
-  min-height: 80vh;
-  height: auto;
+  height: 78vh;
   display: flex;
+  box-sizing: border-box;
 `;
 export const ProfileLeft = styled.div`
   width: 25%;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: hidden;
 `;
 export const ProfileRight = styled.div`
   width: 75%;
+  height: auto;
+  display: block;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 10px;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+  }
 `;
 
 export const ProfileImgArea = styled.div`
