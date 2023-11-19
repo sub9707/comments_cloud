@@ -6,12 +6,21 @@ import {
   faMagnifyingGlass,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setFilter } from "../../store/Toggle/MyErrorFilter";
+import { RootState } from "../../store";
 
 function MyErrorMenu() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const sortFilter = useSelector((state: RootState) => state.myErrorFilter);
 
   const handleRouteWrite = () => {
     navigate("/errorWrite");
+  };
+
+  const handleFilterClick = (sort: string) => {
+    dispatch(setFilter(sort));
   };
   return (
     <>
@@ -46,7 +55,9 @@ function MyErrorMenu() {
                 alignItems: "center",
               }}>
               <JustifyCenter>
-                <p style={{ margin: 0, fontWeight: "600" }}>최신순</p>
+                <p style={{ margin: 0, fontWeight: "600" }}>
+                  {sortFilter?.filter}
+                </p>
                 <FontAwesomeIcon
                   icon={faArrowUpWideShort}
                   size="lg"
@@ -59,10 +70,20 @@ function MyErrorMenu() {
                 />
               </JustifyCenter>
             </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
-              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+            <Dropdown.Menu style={{ textAlign: "center" }}>
+              <Dropdown.Item onClick={() => handleFilterClick("최신순")}>
+                최신순
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => handleFilterClick("오래된순")}>
+                오래된순
+              </Dropdown.Item>
+              <Dropdown.Item onClick={() => handleFilterClick("인기순")}>
+                인기순
+              </Dropdown.Item>
+              <Dropdown.Item
+                onClick={() => handleFilterClick("높은 조회수부터")}>
+                높은 조회수
+              </Dropdown.Item>
             </Dropdown.Menu>
           </div>
         </Dropdown>

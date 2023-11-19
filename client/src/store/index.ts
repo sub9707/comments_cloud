@@ -6,6 +6,7 @@ import noticeReducer from "./Modal/NoticeModal";
 import alertReducer from "./Utils/Alert";
 import myErrorReducer from "./Modal/MyErrorModal";
 import ReplyDataSlice from "./DataThunk/RepliesSlice";
+import myErrorFilterReducer from "./Toggle/MyErrorFilter";
 import storage from "redux-persist/lib/storage";
 import {
   FLUSH,
@@ -27,6 +28,7 @@ const reducers = combineReducers({
   alert: alertReducer,
   myError: myErrorReducer,
   replies: ReplyDataSlice,
+  myErrorFilter: myErrorFilterReducer,
 });
 
 export type RootState = ReturnType<typeof reducers>;

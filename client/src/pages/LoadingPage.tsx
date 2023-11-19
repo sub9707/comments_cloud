@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Lottie from "lottie-react";
-import loadingLottie from "../lotties/Spinner.json";
+import loadingLottie from "../utils/lotties/Spinner.json";
 
 export default function LoadingPage() {
   return (
