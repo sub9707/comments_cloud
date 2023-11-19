@@ -88,8 +88,12 @@ a:hover {
   --bs-btn-hover-bg: rgb(60, 60, 136) !important;
   --bs-btn-hover-border-color: #957af7 !important;
   border: 2px solid #957af7 !important;
+  --bs-btn-active-bg: #5f5eb5 !important;
 }
-
+.btn-outline-primary:active {
+  box-shadow: none !important;
+  background-color: rgb(35, 35, 78) !important;
+}
 /*Animations*/
 .rotate-animation {
   animation: rotateAnimation 3s infinite ease-in-out;
