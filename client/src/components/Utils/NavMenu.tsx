@@ -8,7 +8,6 @@ import {
   faPowerOff,
   faRightFromBracket,
   faRightLong,
-  faScrewdriverWrench,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { userStateType } from "../../store/Utils/User";
@@ -16,9 +15,6 @@ import { userStateType } from "../../store/Utils/User";
 export default function NavMenu() {
   const user = useSelector((state: userStateType) => state.user.data);
   const navigate = useNavigate();
-  const handleAdminClick = () => {
-    navigate("/admin");
-  };
   const handleProfileClick = () => {
     const userPersist = localStorage.getItem("persist:root");
     const parsedUserPersist = JSON.parse(userPersist || "");

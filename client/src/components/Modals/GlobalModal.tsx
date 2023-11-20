@@ -9,11 +9,13 @@ import MyErrorView from "./MyErrorViewModal";
 
 import { useRef } from "react";
 import { clearReplies } from "../../store/DataThunk/RepliesSlice";
+import NeedLoginModal from "./NeedLoginModal";
 
 const MODAL_TYPES = {
   WriteModal: "WriteModal",
   NoticeModal: "NoticeModal",
   MyErrorModal: "MyErrorModal",
+  NeedLoginModal: "NeedLoginModal",
 };
 
 const MODAL_COMPONENTS = [
@@ -28,6 +30,10 @@ const MODAL_COMPONENTS = [
   {
     type: MODAL_TYPES.MyErrorModal,
     component: <MyErrorView />,
+  },
+  {
+    type: MODAL_TYPES.NeedLoginModal,
+    component: <NeedLoginModal />,
   },
 ];
 

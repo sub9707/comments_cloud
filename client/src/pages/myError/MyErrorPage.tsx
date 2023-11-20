@@ -7,12 +7,23 @@ import MyErrorMenu from "../../components/Menu/MyErrorMenu";
 import { JustifyBetween } from "../../styles/FlexBoxStlye";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { isLoggedIn } from "../../store/Utils/Cookie";
+import { useDispatch } from "react-redux";
+import { openModal } from "../../store/Modal/Modal";
 
 export default function MyErrorPage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const handleRouteWrite = () => {
     navigate("/errorWrite");
   };
+  useEffect(() => {
+    if (!isLoggedIn()) {
+      dispatch(openModal({ modalType: "NeedLoginModal", isOpen: true }));
+      navigate("/");
+    }
+  }, []);
   return (
     <MainContainer>
       <JustifyBetween>
