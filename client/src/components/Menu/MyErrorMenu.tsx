@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { JustifyBetween, JustifyCenter } from "../../styles/FlexBoxStlye";
+import { JustifyCenter, JustifyEnd } from "../../styles/FlexBoxStlye";
 import { Button, Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -22,10 +22,6 @@ function MyErrorMenu() {
   const dispatch = useDispatch();
   const sortFilter = useSelector((state: RootState) => state.myErrorFilter);
 
-  const handleRouteWrite = () => {
-    navigate("/errorWrite");
-  };
-
   const handleFilterClick = (sort: string) => {
     dispatch(setFilter(sort));
   };
@@ -44,15 +40,7 @@ function MyErrorMenu() {
 
   return (
     <>
-      <JustifyBetween style={{ marginTop: "1em" }}>
-        <div>
-          <Button
-            style={{ marginLeft: "1em" }}
-            variant="primary"
-            onClick={handleRouteWrite}>
-            새 글 작성
-          </Button>
-        </div>
+      <JustifyEnd style={{ marginTop: "1em" }}>
         <Dropdown>
           <div style={{ display: "flex" }}>
             <FontAwesomeIcon
@@ -127,7 +115,7 @@ function MyErrorMenu() {
             </Dropdown.Menu>
           </div>
         </Dropdown>
-      </JustifyBetween>
+      </JustifyEnd>
     </>
   );
 }

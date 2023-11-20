@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SolvedBadge from "../Badges/SolvedTag";
 import PublicBadge from "../Badges/PublicTag";
 import LoadButton from "../CustomButtons/DataLoadButton";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { MyErrorTablePropType } from "../../types/TableTypes";
 import { getMyErrorCount, getMyErrors } from "../../api/ErrorBoard";
 import { setMyErrorData } from "../../store/Modal/MyErrorModal";
@@ -15,6 +15,7 @@ import PopoverCard from "../Cards/PopoverCard";
 import { faTags } from "@fortawesome/free-solid-svg-icons";
 import axios from "../../api/axios";
 import LoadingPage from "../../pages/LoadingPage";
+import { userStateType } from "../../store/Utils/User";
 
 function MyErrorTable() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -24,12 +25,13 @@ function MyErrorTable() {
   const [offset, setOffset] = useState<number>(0);
   const [dataEnd, setDataEnd] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const user = useSelector((state: userStateType) => state.user.data);
 
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await await getMyErrors(1, offset);
-      const totalData = await getMyErrorCount(1);
+      const response = await await getMyErrors(user?.id, offset);
+      const totalData = await getMyErrorCount(user?.id);
       setTotalCount(totalData[0].errorsTotal);
       setData(response);
       setLoading(false);
