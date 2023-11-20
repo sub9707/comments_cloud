@@ -5,6 +5,7 @@ const { check } = require("express-validator");
 const { verifyToken } = require("../config/JWT_middleware");
 const { upload } = require("../config/s3");
 
+router.get("/", usercontroller.getUserInfo);
 router.post("/register", usercontroller.registerUser);
 router.delete(
   "/delete",

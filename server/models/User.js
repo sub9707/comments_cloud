@@ -1,4 +1,5 @@
 const db = require("../config/db");
+const bcrypt = require("bcrypt");
 
 class UserModel {
   static async getusers() {
@@ -8,7 +9,7 @@ class UserModel {
       });
     });
   }
-  static async getUserInfo(email) {
+  static async getUserInfoByEmail(email) {
     return new Promise((resolve, reject) => {
       db.query(
         "SELECT name, email FROM users WHERE email = ?",
@@ -28,14 +29,20 @@ class UserModel {
     });
   }
   static async registerUser(name, email, password, registerDate) {
+    const [id, domain] = email.split("@");
+    const maskedId =
+      id.substring(0, Math.ceil(id.length / 2)) +
+      "*".repeat(id.length - Math.ceil(id.length / 2));
+    const tempNickname = maskedId + "@" + domain;
+
     return new Promise((resolve) => {
       db.query(
-        "insert into users (name, email, password, registerDate) values(?,?,?,?)",
-        [name, email, password, registerDate],
+        "insert into users (name, email, password, registerDate, nickname) values(?,?,?,?,?)",
+        [name, email, password, registerDate, tempNickname],
         (error, result) => {
           if (!error) {
-            resolve(true);
-          } else resolve(false);
+            resolve(result);
+          } else console.log(error);
         }
       );
     });
@@ -44,8 +51,8 @@ class UserModel {
   static async deleteUser(id) {
     return new Promise((resolve) => {
       db.query("delete from users where id=?", [id], (error, result) => {
-        if (!error) resolve(true);
-        else resolve(false);
+        if (!error) resolve(result);
+        else resolve(error);
       });
     });
   }
@@ -71,13 +78,34 @@ class UserModel {
   static async authenticateUser(email, password) {
     return new Promise((resolve) => {
       db.query(
-        "SELECT * FROM users WHERE email = ? AND password = ?",
-        [email, password],
-        (error, result) => {
+        "SELECT * FROM users WHERE email = ?",
+        [email],
+        async (error, result) => {
           if (!error && result.length > 0) {
-            resolve(result[0]);
+            const user = result[0];
+            const passwordMatch = await bcrypt.compare(password, user.password);
+            if (passwordMatch) {
+              resolve(user);
+            } else {
+              resolve(error);
+            }
           } else {
-            resolve(null);
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
+  static async getUserInfoById(userId) {
+    return new Promise((resolve) => {
+      db.query(
+        "SELECT * FROM users WHERE id = ?",
+        [userId],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
           }
         }
       );

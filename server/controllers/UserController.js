@@ -1,6 +1,7 @@
 const userModel = require("../models/User");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 class UserController {
   /**
@@ -32,14 +33,21 @@ class UserController {
   static registerUser = async (req, res) => {
     try {
       const { name, email, password, registerDate } = req.body;
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const EmailCheck = await userModel.getUserInfoByEmail(email);
 
-      let results = await userModel.registerUser(
+      if (EmailCheck) {
+        return res.status(500).send("이미 사용 중인 이메일입니다.");
+      }
+      const results = await userModel.registerUser(
         name,
         email,
-        password,
+        hashedPassword,
         registerDate
       );
-      if (results) res.send("유저 등록 성공! [Controller]");
+      if (results) {
+        res.send("유저 등록 성공! [Controller]");
+      }
     } catch (error) {
       console.error(error);
       res.status(500).send("Internal Server Error:[유저 등록 Controller]");
@@ -105,10 +113,9 @@ class UserController {
     try {
       const { email, password } = req.body;
       const user = await userModel.authenticateUser(email, password);
-
       if (user) {
         // 유저 정보 GET
-        const userInfo = await userModel.getUserInfo(email);
+        const userInfo = await userModel.getUserInfoByEmail(email);
         // "access token" 발급
         const accessToken = jwt.sign(
           {
@@ -149,6 +156,18 @@ class UserController {
     } catch (error) {
       console.error(error);
       res.status(500).send("Internal Server Error: User Login");
+    }
+  };
+
+  static getUserInfo = async (req, res) => {
+    const userId = req.query.userId;
+    try {
+      const result = await userModel.getUserInfoById(userId);
+      if (result) res.send(result);
+      else res.send("유저 Info SQL Error");
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error:[유저 info Controller]");
     }
   };
 
