@@ -246,16 +246,24 @@ const SubmitButton = styled.button`
 `;
 
 const LoginButton = styled(SubmitButton)`
+  height: 2em;
   color: #fbfdff;
   background: #192d52;
   transform: translateX(-30%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const SignupButton = styled(SubmitButton)`
+  height: 2em;
   color: #192d52;
   background: white;
   box-shadow: inset 0 0 0 2px #192d52;
   transform: translateX(30%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const ErrorPrint = styled.p`

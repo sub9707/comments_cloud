@@ -32,11 +32,15 @@ import {
   LoginFormValues,
   RegisterFormValues,
 } from "../../types/react-hook-form";
-import axios from "axios";
 import { setUser } from "../../store/Utils/User";
+import SpinnerOne from "../../components/Utils/Spinner";
 
 export default function LoginPage() {
-  const { register, handleSubmit } = useForm<LoginFormValues>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors: loginErrors },
+  } = useForm<LoginFormValues>();
 
   const {
     register: registerReg,
@@ -55,23 +59,27 @@ export default function LoginPage() {
     try {
       setIsLoading(true);
       const result = await loginUser(data.email, data.password);
+      console.log(JSON.stringify(result));
       if (result) {
         console.log("로그인 성공:", result.user);
         setRefreshToken(result.refreshToken);
         dispatch(SET_TOKEN(result.accessToken));
-        dispatch(setUser({ name: result.user.name, email: result.user.email }));
+        dispatch(
+          setUser({
+            name: result.user.name,
+            email: result.user.email,
+            id: result.userId,
+          })
+        );
         navigate("/");
       } else {
         console.log("로그인 실패:", result);
       }
-
+    } catch (error: any) {
+      console.log("asd " + error.response.data);
+      setLoginError(error.response.data);
+    } finally {
       setIsLoading(false);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        console.error("로그인 중 에러 발생:", error);
-        setLoginError(error.response?.data);
-        setIsLoading(false);
-      }
     }
   };
   const onSubmitReg: SubmitHandler<RegisterFormValues> = async (data) => {
@@ -150,7 +158,12 @@ export default function LoginPage() {
                       <Input
                         id="login-email"
                         type="email"
-                        {...register("email", { required: true })}
+                        {...register("email", {
+                          required: {
+                            value: true,
+                            message: "Email을 입력해주세요.",
+                          },
+                        })}
                       />
                     </InputBlock>
                     <InputBlock>
@@ -158,17 +171,29 @@ export default function LoginPage() {
                       <Input
                         id="login-password"
                         type="password"
-                        {...register("password", { required: true })}
+                        {...register("password", {
+                          required: {
+                            value: true,
+                            message: "비밀번호를 입력해주세요.",
+                          },
+                        })}
                       />
                     </InputBlock>
                   </Fieldsets>
-                  {loginError && <ErrorPrint>{loginError}</ErrorPrint>}
-
+                  {loginError && activeForm === "login" && (
+                    <ErrorPrint>{loginError}</ErrorPrint>
+                  )}
+                  {loginErrors.email && (
+                    <ErrorPrint>{loginErrors.email.message}</ErrorPrint>
+                  )}
+                  {loginErrors.password && (
+                    <ErrorPrint>{loginErrors.password.message}</ErrorPrint>
+                  )}
                   <LoginButton
                     type="submit"
                     className="btn-login"
                     disabled={isLoading}>
-                    {isLoading ? "로그인 중" : "로그인"}
+                    {isLoading ? <SpinnerOne /> : "로그인"}
                   </LoginButton>
                 </Form>
               </FormWrapper>
@@ -245,7 +270,9 @@ export default function LoginPage() {
                       />
                     </InputBlock>
                   </Fieldsets>
-                  {registerError && <ErrorPrint>{registerError}</ErrorPrint>}
+                  {registerError && activeForm === "signup" && (
+                    <ErrorPrint>{registerError}</ErrorPrint>
+                  )}
                   {errors.password && (
                     <ErrorPrint>{errors.password.message}</ErrorPrint>
                   )}
@@ -256,7 +283,7 @@ export default function LoginPage() {
                     type="submit"
                     className="btn-signup"
                     disabled={isLoading}>
-                    회원가입
+                    {isLoading ? <SpinnerOne /> : "회원가입"}
                   </SignupButton>
                 </Form>
               </FormWrapper>

@@ -19,6 +19,23 @@ export default function NavMenu() {
   const handleAdminClick = () => {
     navigate("/admin");
   };
+  const handleProfileClick = () => {
+    const userPersist = localStorage.getItem("persist:root");
+    const parsedUserPersist = JSON.parse(userPersist || "");
+
+    if (parsedUserPersist && parsedUserPersist.user) {
+      const userData = JSON.parse(parsedUserPersist.user);
+
+      if (userData && userData.data && userData.data.id) {
+        const userId = userData.data.id;
+        navigate(`/user/${userId}`);
+      } else {
+        console.error("로컬스토리지에 유저 정보가 없습니다.");
+      }
+    } else {
+      console.error("로컬스토리지에 유저 정보가 없습니다.");
+    }
+  };
   return (
     <ToolWrapper>
       <PageNavBox>
@@ -47,13 +64,12 @@ export default function NavMenu() {
         <FontAwesomeIcon icon={faScrewdriverWrench} size="2x" />
         <p style={{ marginLeft: "1em" }}>관리페이지 (임시)</p>
       </div>
-      <div style={{ cursor: "pointer" }} onClick={() => navigate("/user/1")}>
-        프로필 페이지 (임시)
-      </div>
       <LogBox>
         {isLoggedIn() ? (
           <>
-            <p>{user.name}님</p>
+            <p style={{ cursor: "pointer" }} onClick={handleProfileClick}>
+              {user.name}님
+            </p>
             <Link
               to={"/logout"}
               style={{

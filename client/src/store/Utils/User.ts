@@ -4,6 +4,7 @@ import { PURGE } from "redux-persist";
 export type userStateType = {
   user: {
     data: {
+      id: number;
       name: string;
       email: string;
     };
@@ -12,6 +13,7 @@ export type userStateType = {
 
 const initialState = {
   data: {
+    id: 0,
     name: "",
     email: "",
   },
@@ -24,11 +26,8 @@ export const userSlice = createSlice({
     setUser: (state, action) => {
       state.data = action.payload;
     },
-    clearUser: (state) => {
-      state.data = {
-        name: "",
-        email: "",
-      };
+    clearUser: () => {
+      return initialState;
     },
   },
   extraReducers: (builder) => {

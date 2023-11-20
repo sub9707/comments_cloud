@@ -149,9 +149,10 @@ class UserController {
           accessToken,
           refreshToken,
           user: userInfo,
+          userId: user.id,
         });
       } else {
-        res.status(401).send("유효하지 않은 로그인 정보입니다.");
+        res.status(401).send("로그인 정보가 일치하지 않습니다.");
       }
     } catch (error) {
       console.error(error);

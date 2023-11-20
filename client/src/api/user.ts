@@ -40,15 +40,12 @@ export default registerUser;
  */
 export const loginUser = async (email: string, password: string) => {
   const data = { email, password };
-  console.log("login data: ", data);
-  const response = await axios.post(`/login`, data);
+  const response = await axios.post(`/user/login`, data);
   if (response.status === 200) {
     return response.data;
   } else if (response.status === 401) {
-    // Unauthorized Error: 로그인 정보 일치하지 않음
     throw new Error("로그인 정보가 일치하지 않습니다.");
   } else {
-    // 기타 서버 오류 처리
     throw new Error("서버 오류");
   }
 };
