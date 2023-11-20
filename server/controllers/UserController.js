@@ -124,7 +124,7 @@ class UserController {
           },
           process.env.JWT_SECRET,
           {
-            expiresIn: "15m", // 예: 15분
+            expiresIn: "15m",
             issuer: "Kim sub",
           }
         );
@@ -137,7 +137,7 @@ class UserController {
           },
           process.env.JWT_SECRET,
           {
-            expiresIn: "3d", // 예: 30일
+            expiresIn: "3d",
             issuer: "Kim sub",
           }
         );

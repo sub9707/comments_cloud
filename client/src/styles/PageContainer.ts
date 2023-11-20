@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const PageContainer = styled.div`
-  position: absolute;
+  position: relative;
   margin: 0;
   width: 100%;
   height: 100vh;

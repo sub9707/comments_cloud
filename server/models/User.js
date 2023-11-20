@@ -12,7 +12,7 @@ class UserModel {
   static async getUserInfoByEmail(email) {
     return new Promise((resolve, reject) => {
       db.query(
-        "SELECT name, email FROM users WHERE email = ?",
+        "SELECT name, email, rule FROM users WHERE email = ?",
         [email],
         (error, result) => {
           if (error) {

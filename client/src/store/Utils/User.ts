@@ -7,6 +7,7 @@ export type userStateType = {
       id: number;
       name: string;
       email: string;
+      rule: string;
     };
   };
 };
@@ -16,6 +17,7 @@ const initialState = {
     id: 0,
     name: "",
     email: "",
+    rule: "",
   },
 };
 

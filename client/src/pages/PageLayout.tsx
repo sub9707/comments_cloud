@@ -5,10 +5,15 @@ import {
   PageAreaDesign,
   PageContainer,
 } from "../styles/PageContainer";
+import AdminButton from "../components/Badges/AdminButton";
+import { userStateType } from "../store/Utils/User";
+import { useSelector } from "react-redux";
 
 export default function PageLayout() {
+  const user = useSelector((state: userStateType) => state.user.data);
   return (
     <PageContainer>
+      {user?.rule === "관리자" && <AdminButton />}
       <PageActualWrapper>
         <PageAreaDesign>
           <NavMenu />

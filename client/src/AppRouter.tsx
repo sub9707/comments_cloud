@@ -51,10 +51,7 @@ export default function AppRouter() {
         <GlobalModal />
         <GlobalAlert />
         <Routes>
-          <Route
-            path="/login"
-            element={isLoggedIn() ? <MainComp /> : <LoginPage />}
-          />
+          <Route path="/login" element={<LoginPage />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/" element={<DefaultLayout />}>
             <Route index element={<MainComp />} />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   LoginPageContainer,
   PageActualWrapper,
@@ -25,7 +25,7 @@ import {
 import registerUser, { loginUser } from "../../api/user";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setRefreshToken } from "../../store/Utils/Cookie";
+import { isLoggedIn, setRefreshToken } from "../../store/Utils/Cookie";
 import { SET_TOKEN } from "../../store/Utils/Auth";
 import { useForm, SubmitHandler } from "react-hook-form";
 import {
@@ -69,6 +69,7 @@ export default function LoginPage() {
             name: result.user.name,
             email: result.user.email,
             id: result.userId,
+            rule: result.user.rule,
           })
         );
         navigate("/");
@@ -122,6 +123,12 @@ export default function LoginPage() {
   const handleSwitchForm = (form: string) => {
     setActiveForm(form);
   };
+
+  useEffect(() => {
+    if (isLoggedIn()) {
+      navigate("/");
+    }
+  }, []);
 
   return (
     <PageContainer>

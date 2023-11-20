@@ -58,12 +58,7 @@ export default function NavMenu() {
           onClick={() => navigate(1)}
         />
       </PageNavBox>
-      <div
-        style={{ display: "flex", cursor: "pointer" }}
-        onClick={handleAdminClick}>
-        <FontAwesomeIcon icon={faScrewdriverWrench} size="2x" />
-        <p style={{ marginLeft: "1em" }}>관리페이지 (임시)</p>
-      </div>
+
       <LogBox>
         {isLoggedIn() ? (
           <>
