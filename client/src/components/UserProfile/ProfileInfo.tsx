@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { OverlayTrigger, ProgressBar, Tooltip } from "react-bootstrap";
 import LevelBadge from "../../components/Badges/LevelBadge";
@@ -8,18 +8,32 @@ import {
   ProfileImgArea,
   ProfileInfoArea,
 } from "../../styles/PageContainer";
+import { getUserInfo } from "../../api/user";
+import { UserInfoType } from "../../types/users";
 
-function ProfileInfo() {
+function ProfileInfo(props: { userId: string }) {
+  const { userId } = props;
+  const [userInfo, setUserInfo] = useState<UserInfoType>();
+
+  const fetchUserData = async (userId: string) => {
+    try {
+      const data = await getUserInfo(userId);
+      setUserInfo(data[0]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData(userId);
+  }, [userId]);
   return (
     <>
       <ProfileImgArea>
-        <ProfileCircle
-          src={`/images/Default_ProfileImg.png`}
-          alt="프로필 이미지"
-        />
+        <ProfileCircle src={`${userInfo?.profileImg}`} alt="프로필 이미지" />
       </ProfileImgArea>
       <ProfileInfoArea>
-        <Nickname>닉네임</Nickname>
+        <Nickname>{userInfo?.nickname}</Nickname>
         <LevelBadge level={5} />
         <OverlayTrigger
           placement="right"
@@ -42,11 +56,9 @@ function ProfileInfo() {
         <InfoText>총 에러노트 수: 000</InfoText>
         <InfoText>해결된 에러 수: 000</InfoText>
         <InfoText>총 받은 추천 수: 000</InfoText>
-        <InfoText>총 답변 수: 000</InfoText>
+        <InfoText>{userInfo?.registerDate} 가입</InfoText>
         <br />
-        <MessageArea>
-          aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-        </MessageArea>
+        <MessageArea>{userInfo?.profile_message}</MessageArea>
       </ProfileInfoArea>{" "}
     </>
   );
@@ -68,6 +80,7 @@ const Nickname = styled.p`
 const MessageArea = styled.div`
   width: 90%;
   height: 6em;
+  padding: 1em;
   background-color: #f5f5f5;
   margin-bottom: 1em;
   overflow-y: scroll;

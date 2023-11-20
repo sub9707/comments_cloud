@@ -38,12 +38,17 @@ import { setUser } from "../../store/Utils/User";
 export default function LoginPage() {
   const { register, handleSubmit } = useForm<LoginFormValues>();
 
-  const { register: registerReg, handleSubmit: handleSubmitReg } =
-    useForm<RegisterFormValues>();
+  const {
+    register: registerReg,
+    handleSubmit: handleSubmitReg,
+    formState: { errors },
+    getValues,
+  } = useForm<RegisterFormValues>();
   // 패널 state
   const [activeForm, setActiveForm] = useState<string>("login");
   // error 문 state
   const [loginError, setLoginError] = useState<string>("");
+  const [registerError, setRegisterError] = useState<string>("");
 
   const onSubmitLogin: SubmitHandler<LoginFormValues> = async (data) => {
     console.log("client data: ", data);
@@ -75,12 +80,30 @@ export default function LoginPage() {
       const result = await registerUser(data.email, data.name, data.password);
       console.log("회원가입 성공:", result);
       setActiveForm("login");
+      setRegisterError("");
       setIsLoading(false);
-    } catch (error) {
+    } catch (error: any) {
       console.error("회원가입 실패:", error);
+      if (error.response) {
+        setRegisterError(error.response.data);
+      } else {
+        setRegisterError("네트워크 오류가 발생했습니다.");
+      }
       setIsLoading(false);
     }
   };
+
+  const validatePassword = (value: string) => {
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/;
+    return (
+      passwordRegex.test(value) ||
+      "영문자, 숫자, 특수문자를 모두 포함해야 합니다."
+    );
+  };
+
+  const validatePasswordMatch = (value: string) =>
+    value === getValues("password") || "비밀번호가 일치하지 않습니다.";
 
   // settings Info
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -98,6 +121,7 @@ export default function LoginPage() {
         <LoginPageContainer>
           <FormsSection>
             <SectionTitle>트러블노트 (개발중)</SectionTitle>
+            {/* 로그인 FORM */}
             <FormsWrapper>
               <FormWrapper
                 className={activeForm === "login" ? "is-active" : ""}>
@@ -148,6 +172,9 @@ export default function LoginPage() {
                   </LoginButton>
                 </Form>
               </FormWrapper>
+
+              {/* 회원가입 FORM */}
+
               <FormWrapper
                 className={activeForm === "signup" ? "is-active" : ""}>
                 <Switcher
@@ -173,7 +200,9 @@ export default function LoginPage() {
                       <Input
                         id="signup-email"
                         type="email"
-                        {...registerReg("email", { required: true })}
+                        {...registerReg("email", {
+                          required: true,
+                        })}
                       />
                     </InputBlock>
                     <InputBlock>
@@ -194,7 +223,11 @@ export default function LoginPage() {
                         type="password"
                         {...registerReg("password", {
                           required: true,
-                          minLength: 10,
+                          minLength: {
+                            value: 10,
+                            message: "비밀번호는 10글자 이상으로 등록해주세요.",
+                          },
+                          validate: validatePassword,
                         })}
                       />
                     </InputBlock>
@@ -206,13 +239,23 @@ export default function LoginPage() {
                         id="signup-password-confirm"
                         type="password"
                         {...registerReg("passwordConfirm", {
-                          required: true,
-                          minLength: 10,
+                          required: "비밀번호를 다시 입력해주세요.",
+                          validate: validatePasswordMatch,
                         })}
                       />
                     </InputBlock>
                   </Fieldsets>
-                  <SignupButton type="submit" className="btn-signup">
+                  {registerError && <ErrorPrint>{registerError}</ErrorPrint>}
+                  {errors.password && (
+                    <ErrorPrint>{errors.password.message}</ErrorPrint>
+                  )}
+                  {errors.passwordConfirm && (
+                    <ErrorPrint>{errors.passwordConfirm.message}</ErrorPrint>
+                  )}
+                  <SignupButton
+                    type="submit"
+                    className="btn-signup"
+                    disabled={isLoading}>
                     회원가입
                   </SignupButton>
                 </Form>

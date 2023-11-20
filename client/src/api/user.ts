@@ -15,19 +15,16 @@ import axios from "./axios";
  * @method POST
  *  사용자 회원가입
  */
-const registerUser = async (name: string, email: string, password: string) => {
+const registerUser = async (email: string, name: string, password: string) => {
   const today = new Date();
   const registerDate = `${today.getFullYear()}.${today.getMonth()}.${today.getDay()}`;
   try {
-    console.log("in");
     const response = await axios.post("/user/register", {
       name: name,
       email: email,
       password: password,
       registerDate: registerDate,
     });
-    console.log(response.data);
-
     return response.data;
   } catch (error) {
     console.error("회원가입 실패:", error);
@@ -53,5 +50,19 @@ export const loginUser = async (email: string, password: string) => {
   } else {
     // 기타 서버 오류 처리
     throw new Error("서버 오류");
+  }
+};
+
+/**
+ * @method GET
+ *  사용자 정보 조회
+ */
+export const getUserInfo = async (userId: string) => {
+  try {
+    const response = await axios.get(`/user?userId=${userId}`);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    throw new Error("사용자 정보 조회 오류: AXIOS");
   }
 };

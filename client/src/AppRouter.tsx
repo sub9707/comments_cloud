@@ -70,7 +70,7 @@ export default function AppRouter() {
             <Route path="ErrorWrite" element={<ErrorWrite />} />
             <Route path="user">
               <Route path=":userId" element={<UserProfilePage />} />
-              <Route path="update/:userId" element={<UserProfileFixPage />} />
+              <Route path="edit/:userId" element={<UserProfileFixPage />} />
             </Route>
           </Route>
           // Admin Page

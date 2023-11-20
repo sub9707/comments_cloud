@@ -133,10 +133,11 @@ export const ProfileLeft = styled.div`
   overflow-y: hidden;
 `;
 export const ProfileRight = styled.div`
-  width: 75%;
+  width: 70%;
   height: auto;
   display: block;
   overflow-y: scroll;
+  margin-left: 4em;
   &::-webkit-scrollbar {
     width: 10px;
     background: transparent;

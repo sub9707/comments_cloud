@@ -260,7 +260,7 @@ const SignupButton = styled(SubmitButton)`
 
 const ErrorPrint = styled.p`
   color: red;
-  font-size: large;
+  font-size: medium;
 `;
 const NoLogin = styled.p`
   color: white;

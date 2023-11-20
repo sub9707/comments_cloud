@@ -45,9 +45,10 @@ export default function NavMenu() {
         style={{ display: "flex", cursor: "pointer" }}
         onClick={handleAdminClick}>
         <FontAwesomeIcon icon={faScrewdriverWrench} size="2x" />
-        <p style={{ fontSize: "1.3em", marginLeft: "1em" }}>
-          관리페이지 (임시)
-        </p>
+        <p style={{ marginLeft: "1em" }}>관리페이지 (임시)</p>
+      </div>
+      <div style={{ cursor: "pointer" }} onClick={() => navigate("/user/1")}>
+        프로필 페이지 (임시)
       </div>
       <LogBox>
         {isLoggedIn() ? (
