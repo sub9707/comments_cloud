@@ -20,6 +20,9 @@ const AdminPageLayout = React.lazy(
 );
 // Util Pages
 const PageNotFound = React.lazy(() => import("./pages/NotFoundPage"));
+const Unauthorized = React.lazy(
+  () => import("../src/components/Utils/Unauthorized")
+);
 // Main
 const MainComp = React.lazy(() => import("./pages/MainPage/MainPage"));
 const NoticePage = React.lazy(() => import("./pages/Notice/NoticePage"));
@@ -80,6 +83,7 @@ export default function AppRouter() {
           </Route>
           // 404 page
           <Route path="*" element={<PageNotFound />} />
+          <Route path="/unauthorized" element={<Unauthorized />} />
         </Routes>
       </Suspense>
     </BrowserRouter>
