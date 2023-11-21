@@ -36,6 +36,7 @@ class ErrorsController {
     const solvedOnly = req.query.solvedOnly === "true";
     const privateOnly = req.query.privateOnly === "true";
     const unsolvedOnly = req.query.unsolvedOnly === "true";
+    const filter = req.query.filter;
     try {
       let results = await ErrorsModel.getUserErrors(
         parseInt(userId),
@@ -43,7 +44,8 @@ class ErrorsController {
         publicOnly,
         solvedOnly,
         privateOnly,
-        unsolvedOnly
+        unsolvedOnly,
+        filter
       );
       if (results) res.send(results);
     } catch (error) {

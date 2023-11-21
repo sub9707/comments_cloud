@@ -14,9 +14,9 @@ class ErrorsModel {
     publicOnly,
     solvedOnly,
     privateOnly,
-    unsolvedOnly
+    unsolvedOnly,
+    filter
   ) {
-    console.log(privateOnly);
     return new Promise((resolve) => {
       let query = "SELECT * FROM error_contents WHERE writer_id = ?";
 
@@ -26,12 +26,30 @@ class ErrorsModel {
       if (privateOnly) {
         query += " AND publicCheck = 0";
       }
-
       if (solvedOnly) {
         query += " AND error_solved = 1";
       }
       if (unsolvedOnly) {
         query += " AND error_solved = 0";
+      }
+
+      switch (filter) {
+        case "최신순":
+          query += " ORDER BY STR_TO_DATE(write_date, '%Y.%m.%d %H:%i') DESC";
+          break;
+        case "오래된순":
+          query += " ORDER BY STR_TO_DATE(write_date, '%Y.%m.%d %H:%i') ASC";
+          break;
+        case "인기순":
+          query +=
+            " ORDER BY likes DESC, STR_TO_DATE(write_date, '%Y.%m.%d %H:%i') DESC";
+          break;
+        case "높은 조회수부터":
+          query +=
+            " ORDER BY views DESC, STR_TO_DATE(write_date, '%Y.%m.%d %H:%i') DESC";
+          break;
+        default:
+          query += " ORDER BY STR_TO_DATE(write_date, '%Y.%m.%d %H:%i') DESC";
       }
 
       query += " LIMIT 12 OFFSET ?";
