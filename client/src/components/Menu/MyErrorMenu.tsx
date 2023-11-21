@@ -11,11 +11,17 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   clearFilter,
   setFilter,
+  setPrivate,
   setPublic,
   setSolved,
+  setUnsolved,
 } from "../../store/Toggle/MyErrorFilter";
 import { RootState } from "../../store";
-import { CheckBoxInput, CheckBoxLabel } from "../../styles/UtilityElements";
+import {
+  CheckBoxInput,
+  CheckBoxLabel,
+  FilterButton,
+} from "../../styles/UtilityElements";
 
 function MyErrorMenu() {
   const navigate = useNavigate();
@@ -27,11 +33,26 @@ function MyErrorMenu() {
   };
 
   const handleCheckBoxClick = (checkType: string) => {
-    dispatch(
-      checkType === "isPublic"
-        ? setPublic(!sortFilter.isPublic)
-        : setSolved(!sortFilter.isSolved)
-    );
+    switch (checkType) {
+      case "solvedOnly":
+        dispatch(setSolved(true));
+        break;
+      case "unsolvendOnly":
+        dispatch(setUnsolved(true));
+        break;
+      case "publicOnly":
+        dispatch(setPublic(true));
+        break;
+      case "privateOnly":
+        dispatch(setPrivate(true));
+        break;
+
+      default:
+        break;
+    }
+  };
+  const handleFilterClear = () => {
+    dispatch(clearFilter());
   };
 
   useEffect(() => {
@@ -58,19 +79,45 @@ function MyErrorMenu() {
               <CheckBoxInput
                 type="checkbox"
                 id="solved"
-                checked={sortFilter?.isSolved}
-                onChange={(e) => handleCheckBoxClick("isSolved")}
+                checked={sortFilter?.solvedOnly}
+                onChange={(e) => handleCheckBoxClick("solvedOnly")}
               />
-              <CheckBoxLabel htmlFor="solved">해결글만 표시</CheckBoxLabel>
+              <CheckBoxLabel htmlFor="solved">해결만 표시</CheckBoxLabel>
             </>
             <>
               <CheckBoxInput
                 type="checkbox"
-                id="public"
-                checked={sortFilter?.isPublic}
-                onChange={() => handleCheckBoxClick("isPublic")}
+                id="unsolved"
+                checked={sortFilter?.unsolvendOnly}
+                onChange={(e) => handleCheckBoxClick("unsolvendOnly")}
               />
-              <CheckBoxLabel htmlFor="public">공개글만 표시</CheckBoxLabel>
+              <CheckBoxLabel htmlFor="unsolved">미해결만 표시</CheckBoxLabel>
+            </>
+            <>
+              <CheckBoxInput
+                type="checkbox"
+                id="publicOnly"
+                checked={sortFilter?.publicOnly}
+                onChange={(e) => handleCheckBoxClick("publicOnly")}
+              />
+              <CheckBoxLabel htmlFor="publicOnly">공개만 표시</CheckBoxLabel>
+            </>
+            <>
+              <CheckBoxInput
+                type="checkbox"
+                id="privateOnly"
+                checked={sortFilter?.privateOnly}
+                onChange={() => handleCheckBoxClick("privateOnly")}
+              />
+              <CheckBoxLabel htmlFor="privateOnly">미공개만 표시</CheckBoxLabel>
+            </>
+            <>
+              <FilterButton
+                type="button"
+                id="public"
+                onClick={handleFilterClear}
+              />
+              <CheckBoxLabel htmlFor="public">전체 표시</CheckBoxLabel>
             </>
 
             <Dropdown.Toggle

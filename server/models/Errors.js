@@ -8,20 +8,42 @@ class ErrorsModel {
       });
     });
   }
-  static async getUserErrors(userId, offset) {
+  static async getUserErrors(
+    userId,
+    offset,
+    publicOnly,
+    solvedOnly,
+    privateOnly,
+    unsolvedOnly
+  ) {
+    console.log(privateOnly);
     return new Promise((resolve) => {
-      db.query(
-        "select * from error_contents WHERE writer_id = ? LIMIT 12 OFFSET ?",
-        [userId, offset],
-        (error, result) => {
-          if (!error) {
-            resolve(result);
-          } else {
-            console.error("에러 발생:", error); // 에러 메시지를 출력
-            resolve(false);
-          }
+      let query = "SELECT * FROM error_contents WHERE writer_id = ?";
+
+      if (publicOnly) {
+        query += " AND publicCheck = 1";
+      }
+      if (privateOnly) {
+        query += " AND publicCheck = 0";
+      }
+
+      if (solvedOnly) {
+        query += " AND error_solved = 1";
+      }
+      if (unsolvedOnly) {
+        query += " AND error_solved = 0";
+      }
+
+      query += " LIMIT 12 OFFSET ?";
+      console.log(query);
+      db.query(query, [userId, offset], (error, result) => {
+        if (!error) {
+          resolve(result);
+        } else {
+          console.error("에러 발생:", error);
+          resolve(false);
         }
-      );
+      });
     });
   }
   static async getUserErrorsCount(userId) {

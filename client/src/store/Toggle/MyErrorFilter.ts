@@ -2,13 +2,17 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export type myErrorFilterState = {
   filter: string;
-  isPublic: boolean;
-  isSolved: boolean;
+  publicOnly: boolean;
+  privateOnly: boolean;
+  solvedOnly: boolean;
+  unsolvendOnly: boolean;
 };
 const initialState: myErrorFilterState = {
   filter: "최신순",
-  isPublic: false,
-  isSolved: false,
+  publicOnly: false,
+  solvedOnly: false,
+  privateOnly: false,
+  unsolvendOnly: false,
 };
 
 export const myErrorFilterSlice = createSlice({
@@ -20,12 +24,24 @@ export const myErrorFilterSlice = createSlice({
       state.filter = filter;
     },
     setPublic: (state, action) => {
-      const isPublic = action.payload;
-      state.isPublic = isPublic;
+      const publicOnly = action.payload;
+      state.privateOnly = false;
+      state.publicOnly = publicOnly;
     },
     setSolved: (state, action) => {
-      const isSolved = action.payload;
-      state.isSolved = isSolved;
+      const solvedOnly = action.payload;
+      state.unsolvendOnly = false;
+      state.solvedOnly = solvedOnly;
+    },
+    setPrivate: (state, action) => {
+      const privateOnly = action.payload;
+      state.publicOnly = false;
+      state.privateOnly = privateOnly;
+    },
+    setUnsolved: (state, action) => {
+      const unsolvendOnly = action.payload;
+      state.solvedOnly = false;
+      state.unsolvendOnly = unsolvendOnly;
     },
     clearFilter: () => {
       return initialState;
@@ -33,6 +49,12 @@ export const myErrorFilterSlice = createSlice({
   },
 });
 
-export const { setFilter, setPublic, setSolved, clearFilter } =
-  myErrorFilterSlice.actions;
+export const {
+  setFilter,
+  setPublic,
+  setSolved,
+  setPrivate,
+  setUnsolved,
+  clearFilter,
+} = myErrorFilterSlice.actions;
 export default myErrorFilterSlice.reducer;

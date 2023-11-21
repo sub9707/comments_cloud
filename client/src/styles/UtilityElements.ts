@@ -59,6 +59,24 @@ export const CheckBoxInput = styled.input`
     color: white;
   }
 `;
+
+export const FilterButton = styled.button`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+
+  &:checked + label {
+    background-color: rgb(90, 90, 185);
+    color: white;
+  }
+`;
+
 export const CheckBoxLabel = styled.label`
   padding: 0.5rem 1rem;
   height: 2.25rem;

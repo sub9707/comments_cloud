@@ -18,10 +18,17 @@ export const writeError = async (props: ErrorWriteFormValues) => {
  * @method GET
  *  개인 게시물 불러오기
  */
-export const getMyErrors = async (userId: number, offset: number) => {
+export const getMyErrors = async (
+  userId: number,
+  offset: number,
+  publicOnly: boolean,
+  privateOnly: boolean,
+  solvedOnly: boolean,
+  unsolvedOnly: boolean
+) => {
   try {
     const response = await axios.get(
-      `/error?userId=${userId}&offset=${offset}`
+      `/error?userId=${userId}&offset=${offset}&publicOnly=${publicOnly}&solvedOnly=${solvedOnly}&privateOnly=${privateOnly}&unsolvedOnly=${unsolvedOnly}`
     );
     return response.data;
   } catch (error) {

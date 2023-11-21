@@ -32,10 +32,18 @@ class ErrorsController {
   static getUserErrors = async (req, res) => {
     const userId = req.query.userId;
     const offset = req.query.offset;
+    const publicOnly = req.query.publicOnly === "true";
+    const solvedOnly = req.query.solvedOnly === "true";
+    const privateOnly = req.query.privateOnly === "true";
+    const unsolvedOnly = req.query.unsolvedOnly === "true";
     try {
       let results = await ErrorsModel.getUserErrors(
         parseInt(userId),
-        parseInt(offset)
+        parseInt(offset),
+        publicOnly,
+        solvedOnly,
+        privateOnly,
+        unsolvedOnly
       );
       if (results) res.send(results);
     } catch (error) {

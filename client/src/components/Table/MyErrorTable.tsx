@@ -16,6 +16,7 @@ import { faTags } from "@fortawesome/free-solid-svg-icons";
 import axios from "../../api/axios";
 import LoadingPage from "../../pages/LoadingPage";
 import { userStateType } from "../../store/Utils/User";
+import { RootState } from "../../store";
 
 function MyErrorTable() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -26,12 +27,23 @@ function MyErrorTable() {
   const [dataEnd, setDataEnd] = useState<boolean>(false);
   const dispatch = useDispatch();
   const user = useSelector((state: userStateType) => state.user.data);
+  const sortFilter = useSelector((state: RootState) => state.myErrorFilter);
 
   const fetchData = async () => {
+    setData([]);
+    setOffset(0);
     try {
       setLoading(true);
-      const response = await await getMyErrors(user?.id, offset);
+      const response = await await getMyErrors(
+        user?.id,
+        offset,
+        sortFilter.publicOnly,
+        sortFilter.privateOnly,
+        sortFilter.solvedOnly,
+        sortFilter.unsolvendOnly
+      );
       const totalData = await getMyErrorCount(user?.id);
+      if (response.length < 12) setDataEnd(true);
       setTotalCount(totalData[0].errorsTotal);
       setData(response);
       setLoading(false);
@@ -42,9 +54,10 @@ function MyErrorTable() {
   const LoadData = async () => {
     try {
       setPlusLoading(true);
-      const response = await axios.get(`/error?userId=1&offset=${offset}`);
+      const response = await axios.get(
+        `/error?userId=1&offset=${offset}&publicOnly=${sortFilter.publicOnly}&privateOnly=${sortFilter.privateOnly}&solvedOnly=${sortFilter.solvedOnly}&unsolvedOnly=${sortFilter.unsolvendOnly}`
+      );
       if (response.data.length === 0) {
-        // 만약 더 이상 데이터가 없으면 dataEnd를 true로 설정
         setDataEnd(true);
       } else {
         setData((prev) => [...prev, ...response.data]);
@@ -78,6 +91,11 @@ function MyErrorTable() {
     fetchData();
     setOffset(offset + 12);
   }, []);
+
+  useEffect(() => {
+    console.log("did");
+    fetchData();
+  }, [sortFilter]);
 
   useEffect(() => {
     if (totalCount !== undefined && data.length >= totalCount) {
