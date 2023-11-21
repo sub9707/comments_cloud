@@ -111,7 +111,7 @@ export const ErrorTableHead = styled.th`
   &:nth-child(5),
   &:nth-child(6),
   &:nth-child(7) {
-    width: 3%;
+    width: 4%;
   }
 `;
 

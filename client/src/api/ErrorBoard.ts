@@ -24,11 +24,12 @@ export const getMyErrors = async (
   publicOnly: boolean,
   privateOnly: boolean,
   solvedOnly: boolean,
-  unsolvedOnly: boolean
+  unsolvedOnly: boolean,
+  filter: string
 ) => {
   try {
     const response = await axios.get(
-      `/error?userId=${userId}&offset=${offset}&publicOnly=${publicOnly}&solvedOnly=${solvedOnly}&privateOnly=${privateOnly}&unsolvedOnly=${unsolvedOnly}`
+      `/error?userId=${userId}&offset=${offset}&publicOnly=${publicOnly}&solvedOnly=${solvedOnly}&privateOnly=${privateOnly}&unsolvedOnly=${unsolvedOnly}&filter=${filter}`
     );
     return response.data;
   } catch (error) {

@@ -18,7 +18,9 @@ function NeedLoginModal() {
           size="xl"
           style={{ marginTop: "0.2em", marginRight: "0.5em" }}
         />
-        <h2>로그인이 필요한 서비스입니다.</h2>
+        <h2 style={{ fontFamily: "Happiness-Sans-Bold" }}>
+          로그인이 필요한 서비스입니다.
+        </h2>
       </Modal.Body>
       <br />
       <Modal.Footer>

@@ -21,7 +21,13 @@
     url("//cdn.jsdelivr.net/korean-webfonts/1/corps/lottemart/LotteMartHappy/LotteMartHappyMedium.woff")
       format("woff");
 }
-
+@font-face {
+  font-family: "Happiness-Sans-Bold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/Happiness-Sans-Bold.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
 * {
   box-sizing: border-box;
   font-family: "NanumSquareRound";

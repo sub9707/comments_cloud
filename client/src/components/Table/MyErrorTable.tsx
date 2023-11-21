@@ -17,6 +17,7 @@ import axios from "../../api/axios";
 import LoadingPage from "../../pages/LoadingPage";
 import { userStateType } from "../../store/Utils/User";
 import { RootState } from "../../store";
+import { FlexColumn, JustifyCenter } from "../../styles/FlexBoxStlye";
 
 function MyErrorTable() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -40,7 +41,8 @@ function MyErrorTable() {
         sortFilter.publicOnly,
         sortFilter.privateOnly,
         sortFilter.solvedOnly,
-        sortFilter.unsolvendOnly
+        sortFilter.unsolvendOnly,
+        sortFilter.filter
       );
       const totalData = await getMyErrorCount(user?.id);
       if (response.length < 12) setDataEnd(true);
@@ -55,7 +57,7 @@ function MyErrorTable() {
     try {
       setPlusLoading(true);
       const response = await axios.get(
-        `/error?userId=1&offset=${offset}&publicOnly=${sortFilter.publicOnly}&privateOnly=${sortFilter.privateOnly}&solvedOnly=${sortFilter.solvedOnly}&unsolvedOnly=${sortFilter.unsolvendOnly}`
+        `/error?userId=1&offset=${offset}&publicOnly=${sortFilter.publicOnly}&privateOnly=${sortFilter.privateOnly}&solvedOnly=${sortFilter.solvedOnly}&unsolvedOnly=${sortFilter.unsolvendOnly}&filter=${sortFilter.filter}`
       );
       if (response.data.length === 0) {
         setDataEnd(true);
@@ -93,7 +95,6 @@ function MyErrorTable() {
   }, []);
 
   useEffect(() => {
-    console.log("did");
     fetchData();
   }, [sortFilter]);
 
@@ -107,67 +108,91 @@ function MyErrorTable() {
   else
     return (
       <TableCard>
-        <Table hover responsive borderless>
-          <thead>
-            <tr>
-              <ErrorTableHead>제목</ErrorTableHead>
-              <ErrorTableHead>작성일자</ErrorTableHead>
-              <ErrorTableHead>관련 태그</ErrorTableHead>
-              <ErrorTableHead>해결된 문제</ErrorTableHead>
-              <ErrorTableHead>공개여부</ErrorTableHead>
-              <ErrorTableHead>추천수</ErrorTableHead>
-              <ErrorTableHead>조회수</ErrorTableHead>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((board, _idx) => (
-              <tr key={_idx}>
-                <ErrorTableData onClick={() => handleModalOpen(board)}>
-                  {board?.title}
-                </ErrorTableData>
-                <ErrorTableData>{board?.write_date}</ErrorTableData>
-                <ErrorTableData>
-                  <OverlayTrigger
-                    trigger="hover"
-                    overlay={PopoverCard({
-                      headerText: "태그 정보",
-                      bodyText: `${concatTagData(board?.tags)}`,
-                    })}
-                    placement="right">
-                    <FontAwesomeIcon icon={faTags} cursor={"pointer"} />
-                  </OverlayTrigger>
-                </ErrorTableData>
-                <ErrorTableData>
-                  <SolvedBadge
-                    solved={`${board?.error_solved === 1 ? "해결" : "미해결"}`}
-                  />
-                </ErrorTableData>
-                <ErrorTableData>
-                  <PublicBadge
-                    ispublic={board?.publicCheck === 1 ? "true" : "false"}
-                  />
-                </ErrorTableData>
-                <ErrorTableData>{board?.likes}</ErrorTableData>
-                <ErrorTableData>{board?.views}</ErrorTableData>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-        <WidthMaxCenter>
-          {dataEnd ? (
-            <p>가져올 데이터가 없습니다.</p>
-          ) : (
-            <div
-              style={{
-                width: "17em",
-                height: "3em",
-                marginBottom: "1em",
-              }}
-              onClick={LoadData}>
-              <LoadButton isLoading={plusLoading} />
-            </div>
-          )}
-        </WidthMaxCenter>
+        {data.length === 0 ? (
+          <JustifyCenter style={{ height: "70vh" }}>
+            <FlexColumn style={{ alignItems: "center" }}>
+              <img
+                src="/images/noData.png"
+                alt="noData"
+                style={{ width: "50%", height: "80%", objectFit: "contain" }}
+              />
+              <p
+                style={{
+                  fontFamily: "Happiness-Sans-Bold",
+                  fontSize: "2em",
+                  opacity: 0.8,
+                }}>
+                작성한 에러가 없습니다
+              </p>
+            </FlexColumn>
+          </JustifyCenter>
+        ) : (
+          <>
+            <Table hover responsive borderless>
+              <thead>
+                <tr>
+                  <ErrorTableHead>제목</ErrorTableHead>
+                  <ErrorTableHead>작성일자</ErrorTableHead>
+                  <ErrorTableHead>관련 태그</ErrorTableHead>
+                  <ErrorTableHead>해결된 문제</ErrorTableHead>
+                  <ErrorTableHead>공개여부</ErrorTableHead>
+                  <ErrorTableHead>추천수</ErrorTableHead>
+                  <ErrorTableHead>조회수</ErrorTableHead>
+                </tr>
+              </thead>
+              <tbody>
+                {data.map((board, _idx) => (
+                  <tr key={_idx}>
+                    <ErrorTableData onClick={() => handleModalOpen(board)}>
+                      {board?.title}
+                    </ErrorTableData>
+                    <ErrorTableData>{board?.write_date}</ErrorTableData>
+                    <ErrorTableData>
+                      <OverlayTrigger
+                        trigger="hover"
+                        overlay={PopoverCard({
+                          headerText: "태그 정보",
+                          bodyText: `${concatTagData(board?.tags)}`,
+                        })}
+                        placement="right">
+                        <FontAwesomeIcon icon={faTags} cursor={"pointer"} />
+                      </OverlayTrigger>
+                    </ErrorTableData>
+                    <ErrorTableData>
+                      <SolvedBadge
+                        solved={`${
+                          board?.error_solved === 1 ? "해결" : "미해결"
+                        }`}
+                      />
+                    </ErrorTableData>
+                    <ErrorTableData>
+                      <PublicBadge
+                        ispublic={board?.publicCheck === 1 ? "true" : "false"}
+                      />
+                    </ErrorTableData>
+                    <ErrorTableData>{board?.likes}</ErrorTableData>
+                    <ErrorTableData>{board?.views}</ErrorTableData>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+            <WidthMaxCenter>
+              {dataEnd ? (
+                <p>가져올 데이터가 없습니다.</p>
+              ) : (
+                <div
+                  style={{
+                    width: "17em",
+                    height: "3em",
+                    marginBottom: "1em",
+                  }}
+                  onClick={LoadData}>
+                  <LoadButton isLoading={plusLoading} />
+                </div>
+              )}
+            </WidthMaxCenter>
+          </>
+        )}
       </TableCard>
     );
 }
