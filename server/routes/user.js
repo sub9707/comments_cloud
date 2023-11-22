@@ -6,6 +6,7 @@ const { verifyToken } = require("../config/JWT_middleware");
 const { upload } = require("../config/s3");
 
 router.get("/", usercontroller.getUserInfo);
+router.put("/", upload.single("profileImg"), usercontroller.updateUser);
 router.post("/register", usercontroller.registerUser);
 router.delete(
   "/delete",
@@ -19,7 +20,7 @@ router.delete(
   usercontroller.deleteUser
 );
 router.post("/login", usercontroller.loginUser);
-router.post("/update", upload.single("userImg"), usercontroller.updateUser);
+// router.post("/update", upload.single("userImg"), usercontroller.updateUser);
 router.post("/ImgTest", upload.single("testImg"), usercontroller.imageTest);
 
 module.exports = router;

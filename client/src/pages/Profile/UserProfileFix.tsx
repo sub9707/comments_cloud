@@ -43,6 +43,7 @@ export default function UserProfileFix() {
     }
     fetchUserData();
   }, []);
+
   return (
     <MainContainer>
       <PageHeader>프로필 수정</PageHeader>

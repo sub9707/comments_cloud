@@ -88,12 +88,21 @@ class UserController {
    */
   static updateUser = async (req, res) => {
     try {
-      const { id, name } = req.body;
-      const newName = name;
+      const userId = req.query.userId;
+      const { name, nickname, homepage, profile_message } = req.body;
       const Img = req.file;
+      const newDate = new Date();
 
       if (id) {
-        let results = await userModel.updateUser(id, newName, Img.location);
+        let results = await userModel.updateUser(
+          name,
+          nickname,
+          homepage,
+          profile_message,
+          Img.location,
+          newDate,
+          userId
+        );
         if (results) res.send("유저정보 수정 성공! [Controller]");
       }
     } catch (error) {

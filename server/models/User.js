@@ -56,11 +56,27 @@ class UserModel {
       });
     });
   }
-  static async updateUser(id, name, newProfileImg) {
+  static async updateUser(
+    name,
+    nickname,
+    homepage,
+    profile_message,
+    newProfileImg,
+    newDate,
+    userId
+  ) {
     return new Promise((resolve, reject) => {
       db.query(
-        "UPDATE users SET name=?, profileImg=? WHERE id=?",
-        [name, newProfileImg, id],
+        "UPDATE users SET name=?,nickname=?, homepage=?,profile_message=?, profileImg=?, nickname_change_date=? WHERE id=?",
+        [
+          name,
+          nickname,
+          homepage,
+          profile_message,
+          newProfileImg,
+          newDate,
+          userId,
+        ],
         (error, result) => {
           if (!error) {
             if (result.affectedRows > 0) {
