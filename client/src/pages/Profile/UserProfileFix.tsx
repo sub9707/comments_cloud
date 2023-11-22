@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   InfoText,
   MainContainer,
@@ -12,9 +12,20 @@ import {
 import { PageHeader } from "../../styles/TextStyle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
+import { userStateType } from "../../store/Utils/User";
+import { useEffect } from "react";
 
 export default function UserProfileFix() {
   const { userId } = useParams();
+  const navigate = useNavigate();
+  const user = useSelector((state: userStateType) => state.user.data);
+
+  useEffect(() => {
+    if (parseInt(userId || "") !== user?.id) {
+      navigate(`/user/edit/${user?.id}`);
+    }
+  }, []);
 
   return (
     <MainContainer>
@@ -41,7 +52,7 @@ export default function UserProfileFix() {
             </ProfileChangeButton>
           </ProfileImgArea>
         </ProfileLeft>
-        <ProfileRight>1</ProfileRight>
+        <ProfileRight>{userId}</ProfileRight>
       </ProfileBox>
     </MainContainer>
   );

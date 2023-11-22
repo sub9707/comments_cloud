@@ -12,21 +12,26 @@ import ActivityGraph from "../../components/UserProfile/ActivityGraph";
 import RecentErrors from "../myError/RecentErrors";
 import { JustifyBetween } from "../../styles/FlexBoxStlye";
 import { Button } from "react-bootstrap";
+import { userStateType } from "../../store/Utils/User";
+import { useSelector } from "react-redux";
 
 export default function UserProfile() {
   const { userId } = useParams();
+  const user = useSelector((state: userStateType) => state.user.data);
   const naviagte = useNavigate();
 
   return (
     <MainContainer>
       <JustifyBetween>
         <PageHeader>프로필 [userID: #{userId}]</PageHeader>
-        <Button
-          style={{ height: "2.5em", marginTop: "2em" }}
-          variant="outline-primary"
-          onClick={() => naviagte(`/user/edit/${userId}`)}>
-          프로필 수정
-        </Button>
+        {user?.id === parseInt(userId || "") && (
+          <Button
+            style={{ height: "2.5em", marginTop: "2em" }}
+            variant="outline-primary"
+            onClick={() => naviagte(`/user/edit/${userId}`)}>
+            프로필 수정
+          </Button>
+        )}
       </JustifyBetween>
       <ProfileBox>
         <ProfileLeft>
