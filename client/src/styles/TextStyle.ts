@@ -23,3 +23,8 @@ export const AccordionDate = styled.p`
   opacity: 0.7;
   font-size: 1em;
 `;
+
+export const HeaderFourth = styled.h4`
+  font-size: 1.5em;
+  font-weight: 700;
+`;

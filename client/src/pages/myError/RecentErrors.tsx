@@ -4,8 +4,13 @@ import React, { useState } from "react";
 import ItemsCarousel from "react-items-carousel";
 import CarouselCard from "../../components/UserProfile/CarouselCard";
 import EmptyCarouselCard from "../../components/UserProfile/EmptyCarouselCard";
+import { userStateType } from "../../store/Utils/User";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function RecentErrors() {
+  const { userId } = useParams();
+  const user = useSelector((state: userStateType) => state.user.data);
   const chevronWidth = 40;
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const buttonStyle = {
@@ -37,7 +42,8 @@ function RecentErrors() {
         }
         outsideChevron={false}
         chevronWidth={chevronWidth}>
-        <EmptyCarouselCard />
+        {parseInt(userId || "") === user?.id && <EmptyCarouselCard />}
+
         <CarouselCard />
         <CarouselCard />
         <CarouselCard />

@@ -5,7 +5,7 @@ import {
   ProfileLeft,
   ProfileRight,
 } from "../../styles/PageContainer";
-import { PageHeader } from "../../styles/TextStyle";
+import { HeaderFourth, PageHeader } from "../../styles/TextStyle";
 
 import ProfileInfo from "../../components/UserProfile/ProfileInfo";
 import ActivityGraph from "../../components/UserProfile/ActivityGraph";
@@ -38,13 +38,13 @@ export default function UserProfile() {
           <ProfileInfo userId={userId || ""} />
         </ProfileLeft>
         <ProfileRight>
-          <h4>노트 작성 추이</h4>
+          <HeaderFourth>노트 작성 추이</HeaderFourth>
           <ActivityGraph />
           <br />
-          <h4>최근 작성 노트</h4>
+          <HeaderFourth>최근 작성 노트</HeaderFourth>
           <RecentErrors />
           <br />
-          <h4>인기 작성 노트</h4>
+          <HeaderFourth>인기 작성 노트</HeaderFourth>
           <RecentErrors />
         </ProfileRight>
       </ProfileBox>
