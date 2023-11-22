@@ -12,7 +12,7 @@ class UserModel {
   static async getUserInfoByEmail(email) {
     return new Promise((resolve, reject) => {
       db.query(
-        "SELECT name, email, rule FROM users WHERE email = ?",
+        "SELECT name, email, rule  FROM users WHERE email = ?",
         [email],
         (error, result) => {
           if (error) {
@@ -99,7 +99,7 @@ class UserModel {
   static async getUserInfoById(userId) {
     return new Promise((resolve) => {
       db.query(
-        "SELECT * FROM users WHERE id = ?",
+        "SELECT id, name, email, registerDate, rule, profileImg, profile_message, nickname, nickname_change_date, homepage FROM users WHERE id = ?",
         [userId],
         (error, result) => {
           if (!error) {

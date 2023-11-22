@@ -8,6 +8,7 @@ export type userStateType = {
       name: string;
       email: string;
       rule: string;
+      profile_img: string;
     };
   };
 };
@@ -18,6 +19,7 @@ const initialState = {
     name: "",
     email: "",
     rule: "",
+    profile_img: "",
   },
 };
 
@@ -37,7 +39,6 @@ export const userSlice = createSlice({
   },
 });
 
-// Define selectors using createSlice
 export const selectUserName = (state: userStateType) => state.user.data.name;
 export const selectUserEmail = (state: userStateType) => state.user.data.email;
 

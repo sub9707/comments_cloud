@@ -153,12 +153,20 @@ export const ProfileImgArea = styled.div`
   width: 15em;
   height: 15em;
   margin-top: 1.5em;
+  display: flex;
+  justify-content: center;
+`;
+
+export const ProfileInfoForm = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const ProfileCircle = styled.img`
   position: absolute;
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
   border-radius: 50%;
   border: 8px solid white;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px,
@@ -170,8 +178,8 @@ export const ProfileChangeButton = styled.label`
   width: 3.5em;
   height: 3.5em;
   border-radius: 50%;
-  bottom: 1em;
-  right: 0;
+  bottom: 2em;
+  right: 2em;
   display: flex;
   justify-content: center;
   align-items: center;
