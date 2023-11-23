@@ -19,3 +19,10 @@ export type UserInfoType = {
   registerDate: string;
   homepage: string;
 };
+export type UpdateUserInfoType = {
+  name: string;
+  nickname: string;
+  profile_message: string;
+  homepage: string;
+  headers?: Record<string, string>;
+};

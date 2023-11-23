@@ -1,4 +1,6 @@
 // import { getCookieToken } from "../store/Cookie";
+import { UpdateFormValue } from "../types/react-hook-form";
+import { UpdateUserInfoType } from "../types/users";
 import axios from "./axios";
 
 // const access_token = getCookieToken();
@@ -69,18 +71,27 @@ export const getUserInfo = async (userId: string) => {
  */
 export const updateUserInfo = async (
   userId: number,
-  formData: FormData,
-  props: any
+  profileImage: File,
+  props: UpdateUserInfoType
 ) => {
   try {
+    const formData = new FormData();
+    formData.append("profileImg", profileImage);
+
+    formData.append("name", props.name);
+    formData.append("nickname", props.nickname);
+    formData.append("homepage", props.homepage);
+    formData.append("profile_message", props.profile_message);
+
     const response = await axios.put(`/user?userId=${userId}`, formData, {
-      ...props,
       headers: {
         "Content-Type": "multipart/form-data",
         ...props.headers,
       },
     });
+
     console.log(response.data);
+    return response.data;
   } catch (error) {
     console.error(error);
   }

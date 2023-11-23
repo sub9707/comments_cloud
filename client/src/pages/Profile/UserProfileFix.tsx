@@ -13,7 +13,7 @@ import { faHome, faWrench } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { userStateType } from "../../store/Utils/User";
 import { useEffect, useMemo, useState } from "react";
-import { getUserInfo } from "../../api/user";
+import { getUserInfo, updateUserInfo } from "../../api/user";
 import styled from "styled-components";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { JustifyCenter } from "../../styles/FlexBoxStlye";
@@ -80,10 +80,23 @@ export default function UserProfileFix() {
   };
 
   const handleSumbitClick = async (data: any) => {
-    console.log(data);
+    try {
+      const response = await updateUserInfo(data?.id, data?.profile_Image, {
+        name: data?.name,
+        nickname: data?.nickname,
+        profile_message: data?.profile_message,
+        homepage: data?.homepage,
+      });
+      console.log("result: ", response);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      navigate(`/user/${data?.id}`);
+    }
   };
 
   const handleNicknameChange = () => {
+    event?.preventDefault();
     if (nicknameChange === false) {
       setNicknameChange(true);
     }
@@ -149,7 +162,7 @@ export default function UserProfileFix() {
               />
               <ChangeButton
                 disabled={!nicknameValid}
-                onClick={handleNicknameChange}>
+                onClick={() => handleNicknameChange()}>
                 {nicknameChange ? (
                   <Lottie
                     animationData={checkLottie}
