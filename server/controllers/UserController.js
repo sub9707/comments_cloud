@@ -1,4 +1,5 @@
 const userModel = require("../models/User");
+const { s3 } = require("../config/s3");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -89,11 +90,31 @@ class UserController {
   static updateUser = async (req, res) => {
     try {
       const userId = req.query.userId;
-      const { name, nickname, homepage, profile_message } = req.body;
+      const { name, nickname, homepage, profile_message, curImageUrl } =
+        req.body;
       const Img = req.file;
       const newDate = new Date();
       console.log("body", JSON.stringify(req.body));
-      console.log("file" + req.file);
+      if (
+        curImageUrl !==
+        "https://trouble-shooting-dev.s3.ap-northeast-2.amazonaws.com/userProfile/1699423635934_Default_ProfileImg.png"
+      ) {
+        console.log("deleted");
+        const decodedUrl = decodeURIComponent(curImageUrl);
+        const filename = decodedUrl.split("/").pop();
+        const params = {
+          Bucket: process.env.BUCKET_NAME,
+          Key: `userProfile/${filename}`,
+        };
+        s3.deleteObject(params, (err, data) => {
+          if (err) {
+            console.error(err);
+            res.status(500).send("Error deleting file from S3");
+            return;
+          }
+          console.log("File deleted successfully from S3");
+        });
+      }
       let results = await userModel.updateUser(
         name,
         nickname,

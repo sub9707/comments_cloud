@@ -21,4 +21,7 @@ let upload = multer({
   }),
 });
 
-exports.upload = multer(upload);
+module.exports = {
+  upload,
+  s3,
+};
