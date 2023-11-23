@@ -9,10 +9,10 @@ import {
 } from "../../styles/PageContainer";
 import { PageHeader } from "../../styles/TextStyle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faHome, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faHome, faWrench } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { userStateType } from "../../store/Utils/User";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getUserInfo } from "../../api/user";
 import styled from "styled-components";
 import { Button, Form, InputGroup } from "react-bootstrap";
@@ -23,6 +23,8 @@ import { UpdateFormValue } from "../../types/react-hook-form";
 import { isInSevenDays } from "../../utils/Calculation";
 import Lottie from "lottie-react";
 import checkLottie from "../../utils/lotties/check.json";
+import { DevTool } from "@hookform/devtools";
+import { ErrorPrint } from "../../styles/LoginStyle";
 
 export default function UserProfileFix() {
   const { userId } = useParams();
@@ -31,8 +33,25 @@ export default function UserProfileFix() {
   const [userData, setUserData] = useState<UserInfoType>();
   const [nicknameValid, setNicknameValid] = useState<boolean>(false);
   const [nicknameChange, setNicknameChange] = useState<boolean>(false);
-  const { register, handleSubmit } = useForm<UpdateFormValue>();
-
+  const [imagePreview, setImagePreview] = useState<string>("");
+  const {
+    register,
+    handleSubmit,
+    control,
+    reset,
+    setValue,
+    formState: { errors, isDirty, isValid },
+  } = useForm<UpdateFormValue>({
+    defaultValues: useMemo(
+      () => ({
+        name: userData?.name,
+        nickname: userData?.nickname,
+        homepage: userData?.homepage,
+        profile_message: userData?.profile_message,
+      }),
+      [userData]
+    ),
+  });
   const fetchUserData = async () => {
     try {
       const result = await getUserInfo(user?.id.toString());
@@ -41,15 +60,33 @@ export default function UserProfileFix() {
       else if (isInSevenDays(result[0].nickname_change_date)) {
         setNicknameValid(true);
       }
+      setImagePreview(result[0].profileImg);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleSumbitClick = async (data: any) => {};
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (file) {
+      setValue("profile_Image", file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSumbitClick = async (data: any) => {
+    console.log(data);
+  };
 
   const handleNicknameChange = () => {
-    if (nicknameChange === false) setNicknameChange(true);
+    if (nicknameChange === false) {
+      setNicknameChange(true);
+    }
   };
   useEffect(() => {
     if (parseInt(userId || "") !== user?.id) {
@@ -58,24 +95,27 @@ export default function UserProfileFix() {
     fetchUserData();
   }, []);
 
+  useEffect(() => {
+    reset(userData);
+  }, [reset, userData]);
   return (
     <MainContainer>
       <PageHeader>프로필 수정</PageHeader>
       <ProfileBox>
         <ProfileEditForm onSubmit={handleSubmit(handleSumbitClick)}>
           <ProfileImgArea>
-            <ProfileCircle src={userData?.profileImg} alt="프로필 이미지" />
+            <ProfileCircle src={imagePreview} alt="프로필 이미지" />
             <ProfileChangeButton htmlFor="file">
               <FontAwesomeIcon
-                icon={faPlus}
+                icon={faWrench}
                 style={{ color: "white", cursor: "pointer" }}
                 size="2x"
               />
               <input
                 type="file"
-                name="file"
                 id="file"
                 style={{ display: "none" }}
+                {...register("profile_Image", { onChange: handleFileChange })}
               />
             </ProfileChangeButton>
           </ProfileImgArea>
@@ -84,29 +124,27 @@ export default function UserProfileFix() {
               <InputGroup.Text id="basic-addon1">Email</InputGroup.Text>
               <Form.Control
                 disabled
-                // value={userData?.email || ""}
-                aria-label="Email"
-                aria-describedby="basic-addon1"
+                value={userData?.email || ""}
                 style={{ backgroundColor: "#d1d1d1" }}
               />
             </InputGroup>
             <InputGroup className="mb-3">
               <InputGroup.Text id="basic-addon2">이름</InputGroup.Text>
               <Form.Control
-                // value={userData?.name || ""}
-                aria-label="Username"
-                aria-describedby="basic-addon2"
-                {...register("name")}
+                type="text"
+                {...register("name", {
+                  required: "이름을 입력하세요",
+                })}
               />
             </InputGroup>
+            <ErrorPrint>{errors.name?.message}</ErrorPrint>
             <InputGroup className="mb-3 position-relative">
               <InputGroup.Text id="basic-addon3">닉네임</InputGroup.Text>
               <Form.Control
-                aria-label="Username"
-                aria-describedby="basic-addon3"
-                disabled={!nicknameValid}
-                // value={userData?.nickname || ""}
-                style={{ backgroundColor: nicknameValid ? "white" : "#d1d1d1" }}
+                disabled={!nicknameValid || nicknameChange}
+                style={{
+                  backgroundColor: nicknameValid ? "white" : "#d1d1d1",
+                }}
                 {...register("nickname")}
               />
               <ChangeButton
@@ -135,12 +173,7 @@ export default function UserProfileFix() {
               <InputGroup.Text id="basic-addon2">
                 <FontAwesomeIcon icon={faHome} />
               </InputGroup.Text>
-              <Form.Control
-                // value={userData?.homepage || "www.example.com"}
-                aria-label="Username"
-                aria-describedby="basic-addon2"
-                {...register("homepage")}
-              />
+              <Form.Control {...register("homepage")} />
             </InputGroup>
             <InputGroup>
               <InputGroup.Text>프로필 메시지</InputGroup.Text>
@@ -148,19 +181,21 @@ export default function UserProfileFix() {
                 style={{ minHeight: "10em" }}
                 as="textarea"
                 aria-label="With textarea"
-                // value={userData?.profile_message || ""}
                 {...register("profile_message")}
               />
             </InputGroup>
           </ProfileInfoForm>
           <br />
           <JustifyCenter style={{ gap: "1em" }}>
-            <Button type="submit">수정내용 변경</Button>
+            <Button disabled={!isDirty} type="submit">
+              수정내용 변경
+            </Button>
             <Button variant="outline-primary" onClick={() => navigate(-1)}>
               취소하기
             </Button>
           </JustifyCenter>
         </ProfileEditForm>
+        <DevTool control={control} />
       </ProfileBox>
     </MainContainer>
   );

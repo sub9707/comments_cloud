@@ -31,4 +31,5 @@ export type UpdateFormValue = {
   nickname: string;
   homepage: string;
   profile_message: string;
+  profile_Image: File;
 };

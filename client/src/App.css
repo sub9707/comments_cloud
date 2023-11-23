@@ -83,6 +83,7 @@ a:hover {
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
     rgba(60, 64, 67, 0.15) 0px 2px 6px 2px !important;
   --bs-btn-active-bg: #6f26fd !important;
+  --bs-btn-disabled-bg: rgb(135, 102, 252) !important;
 }
 .btn-primary:active {
   box-shadow: none !important;
