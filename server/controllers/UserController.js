@@ -180,6 +180,16 @@ class UserController {
       res.status(500).send("Internal Server Error:[유저 info Controller]");
     }
   };
+  static userFindById = async (req, res) => {
+    const userId = req.query.userId;
+    try {
+      const result = await userModel.findUserById(userId);
+      if (result) res.send(result);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error:[유저 find Controller]");
+    }
+  };
 
   static imageTest = async (req, res, next) => {
     const Img = req.file;

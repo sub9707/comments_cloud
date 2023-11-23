@@ -127,6 +127,21 @@ class UserModel {
       );
     });
   }
+  static async findUserById(userId) {
+    return new Promise((resolve) => {
+      db.query(
+        "SELECT * FROM users WHERE id = ?",
+        [userId],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
 }
 
 module.exports = UserModel;
