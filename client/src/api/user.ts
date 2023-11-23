@@ -63,3 +63,42 @@ export const getUserInfo = async (userId: string) => {
     throw new Error("사용자 정보 조회 오류: AXIOS");
   }
 };
+/**
+ * @method PUT
+ *  사용자 프로필 수정
+ */
+export const updateUserInfo = async (
+  userId: number,
+  formData: FormData,
+  props: any
+) => {
+  try {
+    const response = await axios.put(`/user?userId=${userId}`, formData, {
+      ...props,
+      headers: {
+        "Content-Type": "multipart/form-data",
+        ...props.headers,
+      },
+    });
+    console.log(response.data);
+  } catch (error) {
+    console.error(error);
+  }
+};
+/**
+ * @method GET
+ *  사용자 조회 ID
+ */
+/**
+ * @method GET
+ *  사용자 정보 조회
+ */
+export const userFindById = async (userId: string) => {
+  try {
+    const response = await axios.get(`/user/findById?userId=${userId}`);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    throw new Error("사용자 ID 조회 오류: AXIOS");
+  }
+};

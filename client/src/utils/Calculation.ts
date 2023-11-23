@@ -40,3 +40,17 @@ export function formatRelativeTime(dateString: string): string {
   // 한달 이후면 'N달 전' 형식으로 출력
   return `${monthsDifference}달 전`;
 }
+
+// 7일 이내인지 판단
+export const isInSevenDays = (nickDate: string) => {
+  const inputDate = new Date(nickDate);
+  const nowDate = new Date();
+
+  const inputTimestamp = inputDate.getTime();
+  const currentTimestamp = nowDate.getTime();
+
+  const timeDiff = currentTimestamp - inputTimestamp;
+  const sevenDaysms = 7 * 24 * 60 * 60 * 1000;
+
+  return timeDiff <= sevenDaysms;
+};

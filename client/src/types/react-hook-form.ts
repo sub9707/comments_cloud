@@ -25,3 +25,10 @@ export type NoticeWriteValues = {
   title: string;
   content: string;
 };
+
+export type UpdateFormValue = {
+  name: string;
+  nickname: string;
+  homepage: string;
+  profile_message: string;
+};

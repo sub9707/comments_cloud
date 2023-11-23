@@ -13,7 +13,9 @@ export type UserInfoType = {
   id: number;
   name: string;
   nickname: string;
+  nickname_change_date: string;
   profileImg: string;
   profile_message: string;
   registerDate: string;
+  homepage: string;
 };
