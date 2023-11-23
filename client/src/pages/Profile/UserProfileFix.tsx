@@ -10,7 +10,7 @@ import {
 import { PageHeader } from "../../styles/TextStyle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faWrench } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userStateType } from "../../store/Utils/User";
 import { useEffect, useMemo, useState } from "react";
 import { getUserInfo, updateUserInfo } from "../../api/user";
@@ -25,10 +25,12 @@ import Lottie from "lottie-react";
 import checkLottie from "../../utils/lotties/check.json";
 import { DevTool } from "@hookform/devtools";
 import { ErrorPrint } from "../../styles/LoginStyle";
+import { addMessage } from "../../store/Utils/Alert";
 
 export default function UserProfileFix() {
   const { userId } = useParams();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = useSelector((state: userStateType) => state.user.data);
   const [userData, setUserData] = useState<UserInfoType>();
   const [nicknameValid, setNicknameValid] = useState<boolean>(false);
@@ -93,6 +95,13 @@ export default function UserProfileFix() {
       console.error(error);
     } finally {
       navigate(`/user/${data?.id}`);
+      dispatch(
+        addMessage({
+          id: "unique_id",
+          text: "프로필이 수정되었습니다",
+          type: "success",
+        })
+      );
     }
   };
 

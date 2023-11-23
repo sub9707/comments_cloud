@@ -152,7 +152,6 @@ export const ProfileImgArea = styled.div`
   position: relative;
   width: 15em;
   height: 15em;
-  margin-top: 1.5em;
   display: flex;
   justify-content: center;
 `;
@@ -165,6 +164,7 @@ export const ProfileInfoForm = styled.div`
 
 export const ProfileCircle = styled.img`
   position: absolute;
+  bottom: 1em;
   width: 80%;
   height: 80%;
   border-radius: 50%;
@@ -202,7 +202,6 @@ export const ProfileInfoArea = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 1.5em;
 `;
 
 export const InfoText = styled.p`

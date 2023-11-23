@@ -40,7 +40,7 @@ export default function UserProfile() {
   return (
     <MainContainer>
       <JustifyBetween>
-        <PageHeader>프로필 [userID: #{userId}]</PageHeader>
+        <PageHeader>유저 프로필</PageHeader>
         {user?.id === parseInt(userId || "") && (
           <Button
             style={{ height: "2.5em", marginTop: "2em" }}
