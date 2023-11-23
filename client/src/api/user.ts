@@ -82,6 +82,7 @@ export const updateUserInfo = async (
     formData.append("nickname", props.nickname);
     formData.append("homepage", props.homepage);
     formData.append("profile_message", props.profile_message);
+    formData.append("curImageUrl", props.curImageUrl);
 
     const response = await axios.put(`/user?userId=${userId}`, formData, {
       headers: {

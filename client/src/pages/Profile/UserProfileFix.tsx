@@ -86,6 +86,7 @@ export default function UserProfileFix() {
         nickname: data?.nickname,
         profile_message: data?.profile_message,
         homepage: data?.homepage,
+        curImageUrl: userData?.profileImg || "",
       });
       console.log("result: ", response);
     } catch (error) {
@@ -111,6 +112,7 @@ export default function UserProfileFix() {
   useEffect(() => {
     reset(userData);
   }, [reset, userData]);
+
   return (
     <MainContainer>
       <PageHeader>프로필 수정</PageHeader>

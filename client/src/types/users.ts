@@ -24,5 +24,6 @@ export type UpdateUserInfoType = {
   nickname: string;
   profile_message: string;
   homepage: string;
+  curImageUrl: string;
   headers?: Record<string, string>;
 };
