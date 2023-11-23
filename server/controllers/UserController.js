@@ -92,19 +92,18 @@ class UserController {
       const { name, nickname, homepage, profile_message } = req.body;
       const Img = req.file;
       const newDate = new Date();
-
-      if (id) {
-        let results = await userModel.updateUser(
-          name,
-          nickname,
-          homepage,
-          profile_message,
-          Img.location,
-          newDate,
-          userId
-        );
-        if (results) res.send("유저정보 수정 성공! [Controller]");
-      }
+      console.log("body", JSON.stringify(req.body));
+      console.log("file" + req.file);
+      let results = await userModel.updateUser(
+        name,
+        nickname,
+        homepage,
+        profile_message,
+        Img.location,
+        newDate,
+        userId
+      );
+      if (results) res.send("유저정보 수정 성공! [Controller]");
     } catch (error) {
       console.error(error);
       res.status(500).send("Internal Server Error:[유저 수정 Controller]");

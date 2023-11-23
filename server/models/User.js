@@ -79,11 +79,7 @@ class UserModel {
         ],
         (error, result) => {
           if (!error) {
-            if (result.affectedRows > 0) {
-              resolve(true);
-            } else {
-              resolve(false);
-            }
+            resolve(result);
           } else {
             reject(error);
           }
