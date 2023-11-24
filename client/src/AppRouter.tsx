@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import LoginPage from "./pages/Login/LoginPage";
 import Logout from "./pages/Logout/Logout";
-import { isLoggedIn } from "./store/Utils/Cookie";
 import React, { Suspense } from "react";
 import GlobalModal from "./components/Modals/GlobalModal";
 import LoadingPage from "./pages/LoadingPage";
@@ -53,6 +52,7 @@ export default function AppRouter() {
       <Suspense fallback={loading}>
         <GlobalModal />
         <GlobalAlert />
+
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/logout" element={<Logout />} />

@@ -118,3 +118,12 @@ a:hover {
     transform: perspective(600px) rotateY(20deg);
   }
 }
+
+/*Chat-bot CSS*/
+.react-chatbot-kit-chat-container {
+  position: absolute !important;
+  bottom: 5em;
+  right: 1em;
+  width: 15% !important;
+  z-index: 999 !important;
+}

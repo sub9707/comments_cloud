@@ -60,7 +60,7 @@ function ActivityGraph(props: { userId: string }) {
         from={`${year}-01-01`}
         to={`${year}-12-31`}
         emptyColor="#eeeeee"
-        colors={["#61cdbb", "#97e3d5", "#e8c1a0", "#f47560"]}
+        colors={["#b8b4ee", "#9a93e9", "#453f9c", "#352f80"]}
         margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
         yearSpacing={40}
         monthBorderColor="#ffffff"

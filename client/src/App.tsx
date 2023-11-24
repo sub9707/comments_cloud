@@ -1,6 +1,7 @@
 import "./App.css";
 import AppRouter from "./AppRouter";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "react-chatbot-kit/build/main.css";
 
 function App() {
   return (
