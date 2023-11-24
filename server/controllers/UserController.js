@@ -94,12 +94,10 @@ class UserController {
         req.body;
       const Img = req.file;
       const newDate = new Date();
-      console.log("body", JSON.stringify(req.body));
       if (
         curImageUrl !==
         "https://trouble-shooting-dev.s3.ap-northeast-2.amazonaws.com/userProfile/1699423635934_Default_ProfileImg.png"
       ) {
-        console.log("deleted");
         const decodedUrl = decodeURIComponent(curImageUrl);
         const filename = decodedUrl.split("/").pop();
         const params = {
@@ -188,7 +186,14 @@ class UserController {
       res.status(500).send("Internal Server Error: User Login");
     }
   };
-
+  /**
+   * 유저 정보
+   *
+   * @param {request}
+   * @param {response}
+   * @method GET
+   *
+   */
   static getUserInfo = async (req, res) => {
     const userId = req.query.userId;
     try {
@@ -200,6 +205,14 @@ class UserController {
       res.status(500).send("Internal Server Error:[유저 info Controller]");
     }
   };
+  /**
+   * 유저 ID 검색
+   *
+   * @param {request}
+   * @param {response}
+   * @method GET
+   *
+   */
   static userFindById = async (req, res) => {
     const userId = req.query.userId;
     try {
@@ -210,11 +223,39 @@ class UserController {
       res.status(500).send("Internal Server Error:[유저 find Controller]");
     }
   };
-
-  static imageTest = async (req, res, next) => {
-    const Img = req.file;
-    console.log("s3 Image URL: ", Img.location);
-    res.json({ s3ImageUrl: Img.location });
+  /**
+   * 유저 노트정보
+   *
+   * @param {request}
+   * @param {response}
+   * @method GET
+   * 1. 총 작성 에러노트 수
+   * 2. 총 해결된 에러노트 수
+   * 3. 총 받은 추천 수
+   *  NOTE : 이후 경험치 로직을 위해 model 따로 작성할 것.
+   */
+  static getUserNoteData = async (req, res) => {
+    const userId = req.query.userId;
+    try {
+      const TotalNoteCount = await userModel.getTotalNoteCount(userId);
+      const TotalSolvedCount = await userModel.getTotalSolvedCount(userId);
+      const TotalLikedCount = await userModel.getTotalLikedCount(userId);
+      if (TotalNoteCount !== null && TotalSolvedCount !== null) {
+        res.send({
+          TotalNoteCount: TotalNoteCount.count,
+          TotalSolvedCount: TotalSolvedCount.count,
+          TotalLikedCount:
+            TotalLikedCount.likes === null ? 0 : TotalLikedCount.likes,
+        });
+      } else {
+        res
+          .status(500)
+          .send("Internal Server Error:[유저 Note DATA Controller]");
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error:[유저 Note DATA Controller]");
+    }
   };
 }
 

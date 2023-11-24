@@ -7,6 +7,7 @@ const { upload } = require("../config/s3");
 
 router.get("/", usercontroller.getUserInfo);
 router.put("/", upload.single("profileImg"), usercontroller.updateUser);
+router.get("/noteData", usercontroller.getUserNoteData);
 router.get("/findById", usercontroller.userFindById);
 router.post("/register", usercontroller.registerUser);
 router.delete(
@@ -21,7 +22,5 @@ router.delete(
   usercontroller.deleteUser
 );
 router.post("/login", usercontroller.loginUser);
-// router.post("/update", upload.single("userImg"), usercontroller.updateUser);
-router.post("/ImgTest", upload.single("testImg"), usercontroller.imageTest);
 
 module.exports = router;

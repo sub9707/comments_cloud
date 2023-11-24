@@ -138,6 +138,51 @@ class UserModel {
       );
     });
   }
+  static async getTotalNoteCount(userId) {
+    return new Promise((resolve) => {
+      db.query(
+        "SELECT COUNT(*) as count FROM error_contents WHERE writer_id = ?",
+        [userId],
+        (error, result) => {
+          if (!error) {
+            resolve(result[0]);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
+  static async getTotalSolvedCount(userId) {
+    return new Promise((resolve) => {
+      db.query(
+        "SELECT COUNT(*) as count FROM error_contents WHERE writer_id = ? AND error_solved = 1",
+        [userId],
+        (error, result) => {
+          if (!error) {
+            resolve(result[0]);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
+  static async getTotalLikedCount(userId) {
+    return new Promise((resolve) => {
+      db.query(
+        "SELECT SUM(likes) as likes FROM error_contents WHERE writer_id = ?",
+        [userId],
+        (error, result) => {
+          if (!error) {
+            resolve(result[0]);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
 }
 
 module.exports = UserModel;
