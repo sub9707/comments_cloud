@@ -8,12 +8,13 @@ import {
   ProfileImgArea,
   ProfileInfoArea,
 } from "../../styles/PageContainer";
-import { getUserInfo } from "../../api/user";
-import { UserInfoType } from "../../types/users";
+import { getUserInfo, getUserNoteData } from "../../api/user";
+import { UserInfoType, noteCountData } from "../../types/users";
 
 function ProfileInfo(props: { userId: string }) {
   const { userId } = props;
   const [userInfo, setUserInfo] = useState<UserInfoType>();
+  const [noteCountData, setNoteCountData] = useState<noteCountData>();
 
   const fetchUserData = async (userId: string) => {
     try {
@@ -23,10 +24,22 @@ function ProfileInfo(props: { userId: string }) {
       console.log(error);
     }
   };
+  const getfetchNoteData = async () => {
+    try {
+      const result = await getUserNoteData(userId || "");
+      console.log(result);
+      setNoteCountData(result);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     fetchUserData(userId);
+    getfetchNoteData();
   }, [userId]);
+
+  console.log(noteCountData);
   return (
     <>
       <ProfileImgArea>
@@ -53,9 +66,9 @@ function ProfileInfo(props: { userId: string }) {
             }}
           />
         </OverlayTrigger>
-        <InfoText>총 에러노트 수: 000</InfoText>
-        <InfoText>해결된 에러 수: 000</InfoText>
-        <InfoText>총 받은 추천 수: 000</InfoText>
+        <InfoText>총 에러노트 수: {noteCountData?.TotalNoteCount}</InfoText>
+        <InfoText>해결된 에러 수: {noteCountData?.TotalSolvedCount}</InfoText>
+        <InfoText>총 받은 추천 수: {noteCountData?.TotalLikedCount}</InfoText>
         <InfoText>{userInfo?.registerDate} 가입</InfoText>
         <br />
         <MessageArea>{userInfo?.profile_message}</MessageArea>

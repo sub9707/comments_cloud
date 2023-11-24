@@ -20,6 +20,7 @@ import { useEffect } from "react";
 export default function UserProfile() {
   const { userId } = useParams();
   const user = useSelector((state: userStateType) => state.user.data);
+
   const navigate = useNavigate();
   const userFind = async () => {
     try {
@@ -34,6 +35,7 @@ export default function UserProfile() {
       console.error(error);
     }
   };
+
   useEffect(() => {
     userFind();
   }, []);

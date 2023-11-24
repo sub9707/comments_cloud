@@ -90,7 +90,6 @@ export default function UserProfileFix() {
         homepage: data?.homepage,
         curImageUrl: userData?.profileImg || "",
       });
-      console.log("result: ", response);
     } catch (error) {
       console.error(error);
     } finally {
@@ -105,12 +104,6 @@ export default function UserProfileFix() {
     }
   };
 
-  const handleNicknameChange = () => {
-    event?.preventDefault();
-    if (nicknameChange === false) {
-      setNicknameChange(true);
-    }
-  };
   useEffect(() => {
     if (parseInt(userId || "") !== user?.id) {
       navigate(`/user/edit/${user?.id}`);
@@ -165,33 +158,12 @@ export default function UserProfileFix() {
             <InputGroup className="mb-3 position-relative">
               <InputGroup.Text id="basic-addon3">닉네임</InputGroup.Text>
               <Form.Control
-                disabled={!nicknameValid || nicknameChange}
                 style={{
                   backgroundColor: nicknameValid ? "white" : "#d1d1d1",
                 }}
                 {...register("nickname")}
               />
-              <ChangeButton
-                disabled={!nicknameValid}
-                onClick={() => handleNicknameChange()}>
-                {nicknameChange ? (
-                  <Lottie
-                    animationData={checkLottie}
-                    loop={false}
-                    style={{
-                      position: "absolute",
-                      bottom: "-0.4em",
-                      width: "80%",
-                    }}
-                  />
-                ) : (
-                  "변경"
-                )}
-              </ChangeButton>
             </InputGroup>
-            <p>
-              닉네임은 <strong>7일 주기</strong>로 변경이 가능합니다.
-            </p>
 
             <InputGroup className="mb-3">
               <InputGroup.Text id="basic-addon2">
@@ -231,13 +203,4 @@ const ProfileEditForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const ChangeButton = styled.button`
-  width: 4em;
-  height: 2.4em;
-  position: absolute;
-  right: -4.5em;
-  border: 1px solid #d1d1d1;
-  border-radius: 0 10px 10px 10px;
 `;

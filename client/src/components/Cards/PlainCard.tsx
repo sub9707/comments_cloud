@@ -1,5 +1,5 @@
 import Card from "react-bootstrap/Card";
-import { CardDataType } from "types/Components-type";
+import { CardDataType } from "../../types/Components-type";
 
 export default function PlainCard(props: CardDataType) {
   const { title, content } = props;

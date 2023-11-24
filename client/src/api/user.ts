@@ -97,13 +97,10 @@ export const updateUserInfo = async (
     console.error(error);
   }
 };
+
 /**
  * @method GET
  *  사용자 조회 ID
- */
-/**
- * @method GET
- *  사용자 정보 조회
  */
 export const userFindById = async (userId: string) => {
   try {
@@ -112,5 +109,19 @@ export const userFindById = async (userId: string) => {
   } catch (err) {
     console.error(err);
     throw new Error("사용자 ID 조회 오류: AXIOS");
+  }
+};
+
+/**
+ * @method GET
+ *  사용자 노트 정보 조회
+ */
+export const getUserNoteData = async (userId: string) => {
+  try {
+    const response = await axios.get(`/user/noteData?userId=${userId}`);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    throw new Error("사용자 노트 정보 조회 오류: AXIOS");
   }
 };

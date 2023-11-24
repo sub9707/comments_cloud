@@ -27,3 +27,8 @@ export type UpdateUserInfoType = {
   curImageUrl: string;
   headers?: Record<string, string>;
 };
+export type noteCountData = {
+  TotalNoteCount: number;
+  TotalSolvedCount: number;
+  TotalLikedCount: number;
+};
