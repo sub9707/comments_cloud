@@ -257,6 +257,23 @@ class UserController {
       res.status(500).send("Internal Server Error:[유저 Note DATA Controller]");
     }
   };
+  /**
+   * 유저 노트 일자별 개수 조회
+   *
+   * @param {request}
+   * @param {response}
+   * @method GET
+   *
+   **/
+  static getNoteCalendar = async (req, res) => {
+    const userId = req.query.userId;
+    try {
+      const calandarData = await userModel.getCalendarData(userId);
+      res.send(calandarData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 }
 
 module.exports = UserController;

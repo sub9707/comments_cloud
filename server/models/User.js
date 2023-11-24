@@ -183,6 +183,22 @@ class UserModel {
       );
     });
   }
+  static async getCalendarData(userId) {
+    return new Promise((resolve) => {
+      // NOTE: date: 날짜, value: count 합으로 작성
+      db.query(
+        "SELECT DATE_FORMAT(STR_TO_DATE(write_date, '%Y.%m.%d'), '%Y-%m-%d') AS day, COUNT(*) AS value FROM error_contents WHERE writer_id = ? GROUP BY DATE_FORMAT(STR_TO_DATE(write_date, '%Y.%m.%d'), '%Y-%m-%d') ORDER BY DATE_FORMAT(STR_TO_DATE(write_date, '%Y.%m.%d'), '%Y-%m-%d')",
+        [userId],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
 }
 
 module.exports = UserModel;
