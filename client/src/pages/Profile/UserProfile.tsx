@@ -58,7 +58,7 @@ export default function UserProfile() {
         </ProfileLeft>
         <ProfileRight>
           <HeaderFourth>노트 작성 추이</HeaderFourth>
-          <ActivityGraph />
+          <ActivityGraph userId={userId || ""} />
           <br />
           <HeaderFourth>최근 작성 노트</HeaderFourth>
           <RecentErrors />

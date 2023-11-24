@@ -27,7 +27,6 @@ function ProfileInfo(props: { userId: string }) {
   const getfetchNoteData = async () => {
     try {
       const result = await getUserNoteData(userId || "");
-      console.log(result);
       setNoteCountData(result);
     } catch (error) {
       console.error(error);

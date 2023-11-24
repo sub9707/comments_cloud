@@ -1,17 +1,59 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ResponsiveCalendar } from "@nivo/calendar";
-import data from "./calendarTempData.json";
 import { JustifyStart } from "../../styles/FlexBoxStlye";
 import styled from "styled-components";
+import { getCalendarData } from "../../api/user";
 
-function ActivityGraph() {
-  const [year, setYear] = useState<number>(2015);
+type CalendarData = {
+  day: string;
+  value: number;
+};
+function ActivityGraph(props: { userId: string }) {
+  const [data, setCalendarData] = useState<CalendarData[]>([]);
+  const [year, setYear] = useState<number>(new Date().getFullYear());
+  const [years, setYears] = useState<number[]>([]);
+
+  const getYearsArray = (data: CalendarData[]) => {
+    if (data.length > 1) {
+      const startYear = new Date(data[0].day).getFullYear();
+      const endYear = new Date(data[data.length - 1].day).getFullYear();
+      return startYear === endYear
+        ? [startYear]
+        : Array.from(
+            { length: endYear - startYear + 1 },
+            (_, index) => startYear + index
+          );
+    } else if (data.length === 1) {
+      return [new Date(data[0].day).getFullYear()];
+    } else {
+      return [];
+    }
+  };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await getCalendarData(props.userId);
+        setCalendarData(response);
+        setYears(getYearsArray(response));
+      } catch (err) {
+        console.error(err);
+        throw new Error("사용자 노트 달력 조회 오류: AXIOS");
+      }
+    })();
+  }, []);
+  console.log(years);
   return (
     <div style={{ width: "100%", height: "20vh" }}>
       <JustifyStart>
-        <YearButton onClick={() => setYear(2015)}>2015 &nbsp;</YearButton>
-        <YearButton onClick={() => setYear(2016)}>2016 &nbsp;</YearButton>
-        <YearButton onClick={() => setYear(2017)}>2017 &nbsp;</YearButton>
+        {years.map((y) => (
+          <YearButton
+            style={{ fontWeight: y === year ? 800 : 500 }}
+            key={y}
+            onClick={() => setYear(y)}>
+            {y}
+          </YearButton>
+        ))}
       </JustifyStart>
       <ResponsiveCalendar
         data={data}
@@ -19,7 +61,7 @@ function ActivityGraph() {
         to={`${year}-12-31`}
         emptyColor="#eeeeee"
         colors={["#61cdbb", "#97e3d5", "#e8c1a0", "#f47560"]}
-        // margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
+        margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
         yearSpacing={40}
         monthBorderColor="#ffffff"
         dayBorderWidth={2}
