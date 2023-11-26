@@ -153,3 +153,17 @@ export const getRecentData = async (userId: string) => {
     throw new Error("사용자 최근 노트 조회 오류: AXIOS");
   }
 };
+/**
+ * @method GET
+ *  사용자 최근 좋아요 순 노트 목록
+ *
+ */
+export const getLikedData = async (userId: string) => {
+  try {
+    const response = await axios.get(`/user/likedNote?userId=${userId}`);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    throw new Error("사용자 최근 좋아요 순 노트 조회 오류: AXIOS");
+  }
+};

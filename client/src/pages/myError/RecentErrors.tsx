@@ -7,7 +7,7 @@ import EmptyCarouselCard from "../../components/UserProfile/EmptyCarouselCard";
 import { userStateType } from "../../store/Utils/User";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getRecentData } from "../../api/user";
+import { getLikedData, getRecentData } from "../../api/user";
 import { recentErrorType } from "../../types/users";
 
 function RecentErrors() {
@@ -27,6 +27,16 @@ function RecentErrors() {
       }
     })();
   }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       const data = await getLikedData(userId || "");
+  //       console.log(data);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   })();
+  // }, []);
 
   return (
     <div
