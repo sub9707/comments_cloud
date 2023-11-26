@@ -9,12 +9,28 @@ const ActionProvider = ({ createChatBotMessage, setState, children }: any) => {
       messages: [...prev.messages, botMessage],
     }));
   };
+
+  const handleBug = () => {
+    const botMessage = createChatBotMessage(
+      "서비스 이용 중 버그가 발생하셨나요?",
+      {
+        widget: "bugButton",
+      }
+    );
+
+    setState((prev: any) => ({
+      ...prev,
+      messages: [...prev.messages, botMessage],
+    }));
+  };
+
   return (
     <div>
       {React.Children.map(children, (child) => {
         return React.cloneElement(child, {
           actions: {
             handleHello,
+            handleBug,
           },
         });
       })}

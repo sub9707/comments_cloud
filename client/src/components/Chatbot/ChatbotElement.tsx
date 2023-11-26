@@ -17,6 +17,8 @@ function ChatbotElement() {
           config={config}
           messageParser={MessageParser}
           actionProvider={ActionProvider}
+          headerText="문의하기"
+          placeholderText="메시지를 입력해주세요."
         />
       ) : null}
 

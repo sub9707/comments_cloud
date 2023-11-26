@@ -1,16 +1,23 @@
+import React from "react";
 import { createChatBotMessage } from "react-chatbot-kit";
 
-const botName = "ExcitementBot";
+const botName = "문의하기";
 
 const config = {
-  initialMessages: [createChatBotMessage(`Hi! I'm ${botName}`, {})],
+  initialMessages: [
+    createChatBotMessage(
+      `반갑습니다!
+      다음의 문의 메뉴를 이용해주세요.`,
+      {}
+    ),
+  ],
   botName: botName,
   customStyles: {
     botMessageBox: {
-      backgroundColor: "#376B7E",
+      backgroundColor: "#381ab0",
     },
     chatButton: {
-      backgroundColor: "#5ccc9d",
+      backgroundColor: "#5c62cc",
     },
   },
 };
