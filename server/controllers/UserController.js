@@ -274,6 +274,23 @@ class UserController {
       console.error(error);
     }
   };
+  /**
+   * 유저 노트 최근 5개
+   *
+   * @param {request}
+   * @param {response}
+   * @method GET
+   *
+   **/
+  static getRecentNotes = async (req, res) => {
+    const userId = req.query.userId;
+    try {
+      const data = await userModel.getRecentNotes(userId);
+      res.send(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 }
 
 module.exports = UserController;

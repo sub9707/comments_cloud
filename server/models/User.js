@@ -199,6 +199,21 @@ class UserModel {
       );
     });
   }
+  static async getRecentNotes(userId) {
+    return new Promise((resolve) => {
+      db.query(
+        "SELECT * FROM error_contents WHERE writer_id = ? AND publicCheck = 1 ORDER BY write_date DESC LIMIT 5",
+        [userId],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
 }
 
 module.exports = UserModel;
