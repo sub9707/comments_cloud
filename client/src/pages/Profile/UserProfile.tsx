@@ -39,6 +39,7 @@ export default function UserProfile() {
   useEffect(() => {
     userFind();
   }, []);
+
   return (
     <MainContainer>
       <JustifyBetween>

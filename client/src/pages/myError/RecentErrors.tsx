@@ -1,29 +1,33 @@
 import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ItemsCarousel from "react-items-carousel";
 import CarouselCard from "../../components/UserProfile/CarouselCard";
 import EmptyCarouselCard from "../../components/UserProfile/EmptyCarouselCard";
 import { userStateType } from "../../store/Utils/User";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { getRecentData } from "../../api/user";
+import { recentErrorType } from "../../types/users";
 
 function RecentErrors() {
   const { userId } = useParams();
   const user = useSelector((state: userStateType) => state.user.data);
-  const chevronWidth = 40;
   const [activeItemIndex, setActiveItemIndex] = useState(0);
-  const buttonStyle = {
-    width: "2em",
-    height: "2em",
-    borderRadius: "1em",
-    background: "rgba(255, 255, 255, 0.1)",
-    backdropFilter: "blur(1px)",
-    border: "1px solid rgba(255, 255, 255, 1)",
-    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-    WebkitBackdropFilter: " blur(1px)",
-    color: "grey",
-  };
+  const [recentErrorData, setRecentData] = useState<recentErrorType[]>([]);
+  const chevronWidth = 40;
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const data = await getRecentData(userId || "");
+        setRecentData(data);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, []);
+
   return (
     <div
       style={{
@@ -44,14 +48,24 @@ function RecentErrors() {
         chevronWidth={chevronWidth}>
         {parseInt(userId || "") === user?.id && <EmptyCarouselCard />}
 
-        <CarouselCard />
-        <CarouselCard />
-        <CarouselCard />
-        <CarouselCard />
-        <CarouselCard />
+        {recentErrorData.map((data, _idx) => (
+          <CarouselCard {...data} key={_idx} />
+        ))}
       </ItemsCarousel>
     </div>
   );
 }
 
 export default RecentErrors;
+
+const buttonStyle = {
+  width: "2em",
+  height: "2em",
+  borderRadius: "1em",
+  background: "rgba(255, 255, 255, 0.1)",
+  backdropFilter: "blur(1px)",
+  border: "1px solid rgba(255, 255, 255, 1)",
+  boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+  WebkitBackdropFilter: " blur(1px)",
+  color: "grey",
+};

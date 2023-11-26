@@ -17,7 +17,6 @@ export default function PageLayout() {
     <PageContainer>
       {user?.rule === "관리자" && <AdminButton />}
       <ChatbotElement />
-
       <PageActualWrapper>
         <PageAreaDesign>
           <NavMenu />

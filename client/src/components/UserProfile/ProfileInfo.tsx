@@ -38,7 +38,6 @@ function ProfileInfo(props: { userId: string }) {
     getfetchNoteData();
   }, [userId]);
 
-  console.log(noteCountData);
   return (
     <>
       <ProfileImgArea>

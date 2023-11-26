@@ -139,3 +139,17 @@ export const getCalendarData = async (userId: string) => {
     throw new Error("사용자 노트 달력 조회 오류: AXIOS");
   }
 };
+/**
+ * @method GET
+ *  사용자 최근 노트 목록
+ *
+ */
+export const getRecentData = async (userId: string) => {
+  try {
+    const response = await axios.get(`/user/recentNote?userId=${userId}`);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    throw new Error("사용자 최근 노트 조회 오류: AXIOS");
+  }
+};

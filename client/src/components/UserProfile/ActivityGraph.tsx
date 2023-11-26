@@ -42,7 +42,6 @@ function ActivityGraph(props: { userId: string }) {
       }
     })();
   }, []);
-  console.log(years);
   return (
     <div style={{ width: "100%", height: "20vh" }}>
       <JustifyStart>

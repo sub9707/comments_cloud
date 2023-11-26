@@ -32,3 +32,12 @@ export type noteCountData = {
   TotalSolvedCount: number;
   TotalLikedCount: number;
 };
+export type recentErrorType = {
+  title: string;
+  error_solved: boolean;
+  id: number;
+  likes: number;
+  views: number;
+  write_date: string;
+  tags: string[];
+};
