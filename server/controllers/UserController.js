@@ -291,6 +291,23 @@ class UserController {
       console.error(error);
     }
   };
+  /**
+   * 유저 노트 좋아요 순 5개
+   *
+   * @param {request}
+   * @param {response}
+   * @method GET
+   *
+   **/
+  static getLikedNotes = async (req, res) => {
+    const userId = req.query.userId;
+    try {
+      const data = await userModel.getLikedNotes(userId);
+      res.send(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 }
 
 module.exports = UserController;
