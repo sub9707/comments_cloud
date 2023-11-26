@@ -39,5 +39,5 @@ export type recentErrorType = {
   likes: number;
   views: number;
   write_date: string;
-  tags: string[];
+  tags: string;
 };

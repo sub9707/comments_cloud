@@ -3,25 +3,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import ItemsCarousel from "react-items-carousel";
 import CarouselCard from "../../components/UserProfile/CarouselCard";
-import EmptyCarouselCard from "../../components/UserProfile/EmptyCarouselCard";
 import { userStateType } from "../../store/Utils/User";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getRecentData } from "../../api/user";
+import { getLikedData } from "../../api/user";
 import { recentErrorType } from "../../types/users";
 
-function RecentErrors() {
+function LikedErrors() {
   const { userId } = useParams();
   const user = useSelector((state: userStateType) => state.user.data);
   const [activeItemIndex, setActiveItemIndex] = useState(0);
-  const [recentErrorData, setRecentData] = useState<recentErrorType[]>([]);
+  const [likedErrorData, setLikedData] = useState<recentErrorType[]>([]);
   const chevronWidth = 40;
 
   useEffect(() => {
     (async () => {
       try {
-        const data = await getRecentData(userId || "");
-        setRecentData(data);
+        const data = await getLikedData(userId || "");
+        setLikedData(data);
       } catch (error) {
         console.error(error);
       }
@@ -46,9 +45,7 @@ function RecentErrors() {
         }
         outsideChevron={false}
         chevronWidth={chevronWidth}>
-        {parseInt(userId || "") === user?.id && <EmptyCarouselCard />}
-
-        {recentErrorData.map((data, _idx) => (
+        {likedErrorData.map((data, _idx) => (
           <CarouselCard {...data} key={_idx} />
         ))}
       </ItemsCarousel>
@@ -56,7 +53,7 @@ function RecentErrors() {
   );
 }
 
-export default RecentErrors;
+export default LikedErrors;
 
 const buttonStyle = {
   width: "2em",

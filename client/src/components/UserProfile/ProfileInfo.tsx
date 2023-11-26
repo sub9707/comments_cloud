@@ -69,7 +69,11 @@ function ProfileInfo(props: { userId: string }) {
         <InfoText>총 받은 추천 수: {noteCountData?.TotalLikedCount}</InfoText>
         <InfoText>{userInfo?.registerDate} 가입</InfoText>
         <br />
-        <MessageArea>{userInfo?.profile_message}</MessageArea>
+        <MessageArea>
+          {userInfo?.profile_message
+            ? "프로필 메시지를 입력해주세요."
+            : userInfo?.profile_message}
+        </MessageArea>
       </ProfileInfoArea>{" "}
     </>
   );

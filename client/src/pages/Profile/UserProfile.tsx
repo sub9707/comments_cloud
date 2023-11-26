@@ -16,6 +16,7 @@ import { userStateType } from "../../store/Utils/User";
 import { useSelector } from "react-redux";
 import { userFindById } from "../../api/user";
 import { useEffect } from "react";
+import LikedErrors from "../myError/LikedErrors";
 
 export default function UserProfile() {
   const { userId } = useParams();
@@ -65,7 +66,7 @@ export default function UserProfile() {
           <RecentErrors />
           <br />
           <HeaderFourth>인기 작성 노트</HeaderFourth>
-          <RecentErrors />
+          <LikedErrors />
         </ProfileRight>
       </ProfileBox>
     </MainContainer>
