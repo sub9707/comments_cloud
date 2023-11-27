@@ -8,7 +8,11 @@ import PublicBadge from "../Badges/PublicTag";
 import LoadButton from "../CustomButtons/DataLoadButton";
 import { useDispatch, useSelector } from "react-redux";
 import { MyErrorTablePropType } from "../../types/TableTypes";
-import { getMyErrorCount, getMyErrors } from "../../api/ErrorBoard";
+import {
+  getMyErrorCount,
+  getMyErrors,
+  postErrorViews,
+} from "../../api/ErrorBoard";
 import { setMyErrorData } from "../../store/Modal/MyErrorModal";
 import { openModal } from "../../store/Modal/Modal";
 import PopoverCard from "../Cards/PopoverCard";
@@ -84,7 +88,13 @@ function MyErrorTable() {
     }
   };
 
-  const handleModalOpen = (board: MyErrorTablePropType) => {
+  const handleModalOpen = async (board: MyErrorTablePropType) => {
+    console.log("opeend");
+    try {
+      await postErrorViews(board?.id);
+    } catch (error) {
+      console.error(error);
+    }
     dispatch(setMyErrorData(board));
     dispatch(openModal({ modalType: "MyErrorModal", isOpen: true }));
   };

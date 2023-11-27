@@ -191,3 +191,16 @@ export const postReplyCancelLike = async (replyId: number, userId: number) => {
     console.log(err);
   }
 };
+
+/**
+ * @method POST
+ *  게시글 조회수
+ */
+export const postErrorViews = async (boardId: number) => {
+  try {
+    const result = await axios.post(`/error/view?boardId=${boardId}`);
+    return result.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
