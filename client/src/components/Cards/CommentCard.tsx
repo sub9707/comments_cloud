@@ -163,9 +163,10 @@ export default function CommentCard() {
   }, [data, replies, setReplyLiked]);
 
   useEffect(() => {
+    console.log(1);
     setInputValue(replies?.map((reply) => reply.content));
-  }, [replies]);
-
+  }, []);
+  console.log(replies);
   return (
     <>
       {replies?.map((reply, _idx) => (

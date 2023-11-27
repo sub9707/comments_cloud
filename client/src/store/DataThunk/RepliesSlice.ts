@@ -11,9 +11,11 @@ const initialState: ReplyData[] = [];
 export const fetchReplies = createAsyncThunk(
   "replies/fetchReplies",
   async ({ boardId, offset }: { boardId: number; offset: number }) => {
+    console.log("in");
     const response = await axios.get(
       `/error/errorlist/replies?boardId=${boardId}&offset=${offset}`
     );
+    console.log("done: " + response.data);
     return response.data;
   }
 );

@@ -154,6 +154,7 @@ class ErrorsModel {
         [boardId, parseInt(offset, 10)],
         (error, result) => {
           if (!error) {
+            console.log(result);
             resolve(result);
           } else {
             resolve(error);
@@ -377,7 +378,6 @@ class ErrorsModel {
     });
   }
   static async postViews(boardId) {
-    console.log(boardId);
     return new Promise((resolve) => {
       db.query(
         "UPDATE error_contents SET views = views + 1 where id = ?",

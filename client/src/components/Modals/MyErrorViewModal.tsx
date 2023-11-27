@@ -31,9 +31,11 @@ import {
 import { AnyAction } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { ErrorReplyType } from "../../types/BoardTypes";
+import { userStateType } from "../../store/Utils/User";
 
 export default function MyErrorView() {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const user = useSelector((state: userStateType) => state.user.data);
   const { data } = useSelector((state: RootState) => state.myError);
   const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>();
   const [toggleSharePop, setToggleSharePop] = useState<boolean>(false);
@@ -57,7 +59,7 @@ export default function MyErrorView() {
         const props: ErrorReplyType = {
           content: replyWrite,
           content_id: data?.id,
-          writer_id: 2,
+          writer_id: user?.id,
         };
         dispatch(addReply(props));
         alert("댓글이 등록되었습니다.");
@@ -74,7 +76,9 @@ export default function MyErrorView() {
   };
 
   useEffect(() => {
-    if (data) dispatch(fetchReplies({ boardId: data?.id, offset: 0 }));
+    if (data) {
+      dispatch(fetchReplies({ boardId: data?.id, offset: 0 }));
+    }
   }, [dispatch, data]);
 
   const scrollToTop = () => {

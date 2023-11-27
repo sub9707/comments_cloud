@@ -22,6 +22,7 @@ import LoadingPage from "../../pages/LoadingPage";
 import { userStateType } from "../../store/Utils/User";
 import { RootState } from "../../store";
 import { FlexColumn, JustifyCenter } from "../../styles/FlexBoxStlye";
+import { fetchReplies } from "../../store/DataThunk/RepliesSlice";
 
 function MyErrorTable() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -89,7 +90,6 @@ function MyErrorTable() {
   };
 
   const handleModalOpen = async (board: MyErrorTablePropType) => {
-    console.log("opeend");
     try {
       await postErrorViews(board?.id);
     } catch (error) {
