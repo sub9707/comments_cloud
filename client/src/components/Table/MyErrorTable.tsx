@@ -159,7 +159,7 @@ function MyErrorTable() {
                     <ErrorTableData>{board?.write_date}</ErrorTableData>
                     <ErrorTableData>
                       <OverlayTrigger
-                        trigger="hover"
+                        trigger={["hover", "hover"]}
                         overlay={PopoverCard({
                           headerText: "태그 정보",
                           bodyText: `${concatTagData(board?.tags)}`,
