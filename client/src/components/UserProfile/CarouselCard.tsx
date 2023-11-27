@@ -1,11 +1,24 @@
 import { Card } from "react-bootstrap";
 import { recentErrorType } from "../../types/users";
 import { useNavigate } from "react-router-dom";
-import { JustifyBetween } from "../../styles/FlexBoxStlye";
+import { JustifyBetween, JustifyEnd } from "../../styles/FlexBoxStlye";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { useRef, useState } from "react";
+import SolvedBadge from "../Badges/SolvedTag";
+
+interface CardTitleStyleProps extends React.CSSProperties {
+  height: string;
+  width: string;
+  overflow: "hidden";
+  textOverflow: "ellipsis";
+  display: "-webkit-box" | "-moz-box";
+  WebkitLineClamp: number;
+  WebkitBoxOrient: "vertical";
+  MozBoxOrient: "vertical";
+  MozBoxLineClamp: number;
+}
 
 function CarouselCard(props: recentErrorType) {
   const { title, error_solved, id, likes, views, write_date, tags } = props;
@@ -45,8 +58,14 @@ function CarouselCard(props: recentErrorType) {
         paddingInline: "0.5em",
       }}>
       <Card className="text-center" style={CardBodyStyle}>
-        <Card.Body style={{ paddingBottom: "0.5em" }}>
-          <Card.Title>{title}</Card.Title>
+        <JustifyEnd style={{ paddingTop: "0.5em", paddingRight: "0.5em" }}>
+          <SolvedBadge solved={error_solved ? "해결" : "미해결"} />
+        </JustifyEnd>
+
+        <Card.Body style={{ paddingBottom: "0.5em", paddingTop: "0.5em" }}>
+          <Card.Title className="text-underline-hover" style={CardTitleStyle}>
+            {title}
+          </Card.Title>
           <TagWrapper
             ref={tagWrapperRef}
             onMouseDown={handleMouseDown}
@@ -57,6 +76,9 @@ function CarouselCard(props: recentErrorType) {
               <TagBadge key={_idx}>{tag}</TagBadge>
             ))}
           </TagWrapper>
+          <Card.Text style={{ opacity: 0.7 }}>
+            {write_date.substring(0, write_date.length - 5)}
+          </Card.Text>
         </Card.Body>
         <Card.Footer className="text-muted">
           <JustifyBetween>
@@ -80,7 +102,23 @@ function CarouselCard(props: recentErrorType) {
 
 export default CarouselCard;
 
+const CardTitleStyle: CardTitleStyleProps = {
+  wordBreak: "break-all",
+  textAlign: "start",
+  height: "3.5em",
+  width: "100%",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
+  display: "-webkit-box",
+  WebkitLineClamp: 3,
+  WebkitBoxOrient: "vertical",
+  MozBoxOrient: "vertical",
+  MozBoxLineClamp: 3,
+  cursor: "pointer",
+};
+
 const CardBodyStyle = {
+  height: "15em",
   background:
     "linear-gradient(90deg, #dfe5eb 0%, rgba(255,255,255,1) 10%, rgba(255,255,255,1) 80%, rgba(207,215,223,1) 100%)",
   borderRadius: "16px",
@@ -99,6 +137,7 @@ const TagWrapper = styled.div`
   align-items: center;
   overflow-x: scroll;
   overflow-y: hidden;
+  margin-bottom: 0.2em;
   gap: 0.3em;
   &::-webkit-scrollbar {
     display: none;
