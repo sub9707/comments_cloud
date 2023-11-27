@@ -53,7 +53,6 @@ class ErrorsModel {
       }
 
       query += " LIMIT 12 OFFSET ?";
-      console.log(query);
       db.query(query, [userId, offset], (error, result) => {
         if (!error) {
           resolve(result);
@@ -367,6 +366,22 @@ class ErrorsModel {
       db.query(
         "DELETE FROM error_reply_likes WHERE user_id = ?",
         [userId],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
+  static async postViews(boardId) {
+    console.log(boardId);
+    return new Promise((resolve) => {
+      db.query(
+        "UPDATE error_contents SET views = views + 1 where id = ?",
+        [boardId],
         (error, result) => {
           if (!error) {
             resolve(result);

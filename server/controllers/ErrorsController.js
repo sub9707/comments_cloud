@@ -137,6 +137,28 @@ class ErrorsController {
     }
   };
   /**
+   * 특정 게시물 조회
+   *
+   * @param {request}
+   * @param {response}
+   * @method POST
+   *
+   */
+  static postViewCount = async (req, res) => {
+    try {
+      const boardId = req.query.boardId;
+      if (!boardId) {
+        return res.status(400).send("boardId가 존재하지 않습니다.");
+      }
+      let result = await ErrorsModel.postViews(boardId);
+      if (result) res.send("게시글 View + 1 [Controller]]");
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error:[게시물 조회수 Controller]");
+    }
+  };
+
+  /**
    * 특정 게시물 댓글목록
    *
    * @param {request}
