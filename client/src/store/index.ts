@@ -6,6 +6,7 @@ import noticeReducer from "./Modal/NoticeModal";
 import alertReducer from "./Utils/Alert";
 import myErrorReducer from "./Modal/MyErrorModal";
 import ReplyDataSlice from "./DataThunk/RepliesSlice";
+import MySearchSlice from "./DataThunk/MySearchSlice";
 import myErrorFilterReducer from "./Toggle/MyErrorFilter";
 import storage from "redux-persist/lib/storage";
 import {
@@ -28,6 +29,7 @@ const reducers = combineReducers({
   alert: alertReducer,
   myError: myErrorReducer,
   replies: ReplyDataSlice,
+  mySearch: MySearchSlice,
   myErrorFilter: myErrorFilterReducer,
 });
 

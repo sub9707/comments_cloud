@@ -23,3 +23,13 @@ export type CommentData = {
   write_date: string;
   nickname: string;
 };
+
+export type MyErrorSearchType = {
+  id: number;
+  title: string;
+  write_date: string;
+};
+export type MyErrorSearchDataType = {
+  data: MyErrorSearchType[];
+  count: number;
+};
