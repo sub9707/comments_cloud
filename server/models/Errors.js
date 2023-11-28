@@ -63,6 +63,23 @@ class ErrorsModel {
       });
     });
   }
+
+  static async getOneError(boardId) {
+    return new Promise((resolve) => {
+      db.query(
+        "SELECT * FROM error_contents WHERE id = ?",
+        [boardId],
+        (error, result) => {
+          if (!error) {
+            resolve(result[0]);
+          } else {
+            console.error("에러 발생:", error);
+            resolve(0);
+          }
+        }
+      );
+    });
+  }
   static async getUserErrorsCount(userId) {
     return new Promise((resolve) => {
       db.query(

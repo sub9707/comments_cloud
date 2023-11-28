@@ -3,6 +3,7 @@ const router = express.Router();
 const errorsController = require("../controllers/ErrorsController");
 
 router.get("/", errorsController.getUserErrors);
+router.get("/board", errorsController.getBoardError);
 router.delete("/", errorsController.deleteError);
 
 router.post("/write", errorsController.writeError);

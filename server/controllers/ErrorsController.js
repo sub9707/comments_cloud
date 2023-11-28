@@ -21,6 +21,25 @@ class ErrorsController {
     }
   };
   /**
+   * 한 에러게시물 가져오기
+   *
+   * @param {request}
+   * @param {response}
+   * @method GET
+   *
+   * @returns {Board}
+   */
+  static getBoardError = async (req, res) => {
+    const boardId = req.query.boardId;
+    try {
+      let results = await ErrorsModel.getOneError(boardId);
+      if (results) res.send(results);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+    }
+  };
+  /**
    * 특정 사용자 에러게시물 가져오기
    *
    * @param {request}
