@@ -9,6 +9,7 @@ router.delete("/", errorsController.deleteError);
 router.post("/write", errorsController.writeError);
 router.get("/count", errorsController.getUserErrorsCount);
 router.post("/view", errorsController.postViewCount);
+router.get("/myError", errorsController.getMySearchData);
 router.get("/errorlist", errorsController.getAllErrors);
 router.get("/errorlist/replies", errorsController.getErrorsReplies);
 router.post("/errorlist/replies", errorsController.writeReply);

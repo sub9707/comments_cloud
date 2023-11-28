@@ -517,6 +517,27 @@ class ErrorsController {
       console.error(error);
     }
   };
+  /**
+   * 에러 검색 결과 + 개수
+   *
+   * @param {request}
+   * @param {response}
+   * @method GET
+   *
+   * @returns {array}
+   */
+  static getMySearchData = async (req, res) => {
+    const search = req.query.search;
+    const offset = req.query.offset;
+    const userId = req.query.userId;
+    try {
+      let results = await ErrorsModel.getMySearchData(search, +offset, userId);
+      if (results) res.send(results);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+    }
+  };
 }
 
 module.exports = ErrorsController;

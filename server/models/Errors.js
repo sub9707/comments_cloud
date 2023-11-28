@@ -409,5 +409,52 @@ class ErrorsModel {
       );
     });
   }
+  static async getMySearchData(search, offset, userId) {
+    return new Promise((resolve) => {
+      // Original query to fetch data
+      const dataQuery = `
+        SELECT *
+        FROM error_contents
+        WHERE writer_id = ? 
+          AND (title LIKE ? OR title = ?)
+        LIMIT 10 OFFSET ?;
+      `;
+
+      const countQuery = `
+        SELECT COUNT(*) as total
+        FROM error_contents
+        WHERE writer_id = ? 
+          AND (title LIKE ? OR title = ?);
+      `;
+
+      db.query(
+        dataQuery,
+        [userId, `%${search}%`, search, parseInt(offset, 10)],
+        (error, result) => {
+          if (error) {
+            resolve(error);
+            return;
+          }
+          // 쿼리문 입력
+          db.query(
+            countQuery,
+            [userId, `%${search}%`, search],
+            (countError, countResult) => {
+              if (countError) {
+                resolve(countError);
+                return;
+              }
+              // response data
+              const responseData = {
+                data: result,
+                count: countResult[0].total,
+              };
+              resolve(responseData);
+            }
+          );
+        }
+      );
+    });
+  }
 }
 module.exports = ErrorsModel;
