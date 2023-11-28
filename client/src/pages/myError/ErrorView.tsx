@@ -2,9 +2,8 @@ import { useParams } from "react-router-dom";
 import { MainContainer } from "../../styles/PageContainer";
 import { useEffect } from "react";
 import { getBoardError } from "../../api/ErrorBoard";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setMyErrorData } from "../../store/Modal/MyErrorModal";
-import { RootState } from "../../store";
 import {
   CommentArea,
   ContentInfoWrapper,

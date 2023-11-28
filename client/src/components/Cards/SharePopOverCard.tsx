@@ -1,10 +1,11 @@
 import { faClone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dispatch, SetStateAction, useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { addMessage } from "../../store/Utils/Alert";
 import { CloseButton } from "react-bootstrap";
+import { RootState } from "../../store";
 
 type propstype = {
   setisopen: Dispatch<SetStateAction<boolean>>;
@@ -13,6 +14,7 @@ type propstype = {
 export default function SharePopOver(props: propstype) {
   const inputRef = useRef(null);
   const dispatch = useDispatch();
+  const { data } = useSelector((state: RootState) => state.myError);
   const handleCopyToClipboard = () => {
     if (inputRef.current) {
       navigator.clipboard.writeText(
@@ -40,7 +42,7 @@ export default function SharePopOver(props: propstype) {
         <ShareInput
           ref={inputRef}
           type="text"
-          value={"www.example.coooooooooooooooooooooom"}
+          value={`localhost:5173:/myError/${data?.id}`}
           readOnly
         />
         <FontAwesomeIcon
