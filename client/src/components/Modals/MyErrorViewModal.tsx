@@ -11,9 +11,7 @@ import {
   faCalendarDays,
   faCaretDown,
   faCaretUp,
-  faEye,
   faShareFromSquare,
-  faThumbsUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { formatRelativeTime } from "../../utils/Calculation";
 import DOMPurify from "dompurify";
@@ -38,11 +36,9 @@ import {
   CommentSubmitBtn,
   CommentSubmitBtnGroup,
   ContentInfoLeft,
-  ContentInfoRight,
   ContentInfoWrapper,
   ContentViewArea,
   ControlInfo,
-  SubHeader,
   SubTitleHeader,
   TitleHeader,
 } from "../../styles/ModalStyle/ErrorModalView";
@@ -53,7 +49,7 @@ export default function MyErrorView() {
   const { data } = useSelector((state: RootState) => state.myError);
   const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>();
   const [toggleSharePop, setToggleSharePop] = useState<boolean>(false);
-  const [toggleComment, setToggleComments] = useState<boolean>(true);
+  // const [toggleComment, setToggleComments] = useState<boolean>(true);
   const [replyWrite, setReplyWrite] = useState<string>("");
   const sections = [
     { title: "에러 상황", content: data?.error_state },
@@ -152,15 +148,6 @@ export default function MyErrorView() {
             {toggleSharePop && <SharePopOver setisopen={setToggleSharePop} />}
           </ControlInfo>
         </ContentInfoLeft>
-        <ContentInfoRight>
-          <p>
-            <FontAwesomeIcon icon={faEye} />
-            &nbsp;{data?.views}
-          </p>
-          <p>
-            <FontAwesomeIcon icon={faThumbsUp} /> &nbsp;{data?.likes}
-          </p>
-        </ContentInfoRight>
       </ContentInfoWrapper>
       <DottedDivision />
       {/*본문 HTML 컨텐츠 영역*/}
@@ -177,15 +164,14 @@ export default function MyErrorView() {
       <br />
       {/*댓글 영역*/}
       <DottedDivision />
-      <div style={{ display: "flex", justifyContent: "space-between" }}>
+      {/* <JustifyBetween>
         <SubHeader>댓글({replies?.length})</SubHeader>
-
         <p
           style={{ marginTop: "0.5em", cursor: "pointer" }}
           onClick={() => setToggleComments(!toggleComment)}>
           {toggleComment ? "접기" : "펼치기"}
         </p>
-      </div>
+      </JustifyBetween> */}
       <AddCommentArea>
         <CommentInput value={replyWrite} onChange={handleInputChange} />
         <CommentSubmitBtnGroup>
@@ -206,13 +192,13 @@ export default function MyErrorView() {
       </AddCommentArea>
       <br />
       {/*댓글 목록*/}
-      {toggleComment && (
-        <>
-          <CommentArea>
-            <CommentCard />
-          </CommentArea>
-        </>
-      )}
+      {/* {toggleComment && ( */}
+      <>
+        <CommentArea>
+          <CommentCard />
+        </CommentArea>
+      </>
+      {/* )} */}
       <br />
     </ModalContainer>
   );

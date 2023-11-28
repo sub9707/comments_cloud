@@ -8,7 +8,11 @@ import { closeModal } from "../../store/Modal/Modal";
 import CommentReplyCard from "./CommentReplyCard";
 import { addMessage } from "../../store/Utils/Alert";
 import React, { ChangeEvent, useState, useEffect } from "react";
-import { updateReply, deleteReply } from "../../store/DataThunk/RepliesSlice";
+import {
+  updateReply,
+  deleteReply,
+  fetchReplies,
+} from "../../store/DataThunk/RepliesSlice";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import {
@@ -161,6 +165,12 @@ export default function CommentCard() {
     const likesArray = replies.map((reply) => reply.likes || 0);
     setReplyLikes(likesArray);
   }, [data, replies, setReplyLiked]);
+
+  useEffect(() => {
+    if (data) {
+      dispatch(fetchReplies({ boardId: data?.id, offset: 0 }));
+    }
+  }, [dispatch, data]);
 
   useEffect(() => {
     setInputValue(replies?.map((reply) => reply.content));
