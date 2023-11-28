@@ -40,6 +40,7 @@ const MyError = React.lazy(() => import("./pages/myError/MyErrorPage"));
 const ErrorWrite = React.lazy(() => import("./pages/myError/ErrorWrite"));
 const MyErrorSearch = React.lazy(() => import("./pages/myError/MyErrorSearch"));
 const MyErrorEdit = React.lazy(() => import("./pages/myError/MyErrorEdit"));
+const MyErrorView = React.lazy(() => import("./pages/myError/ErrorView"));
 // UserProfile
 const UserProfileFixPage = React.lazy(
   () => import("./pages/Profile/UserProfileFix")
@@ -65,6 +66,7 @@ export default function AppRouter() {
               <Route index element={<MyError />} />
               <Route path="search" element={<MyErrorSearch />} />
               <Route path="edit" element={<MyErrorEdit />} />
+              <Route path=":boardId" element={<MyErrorView />} />
             </Route>
             <Route path="myError" element={<MyError />} />
             <Route path="ErrorWrite" element={<ErrorWrite />} />

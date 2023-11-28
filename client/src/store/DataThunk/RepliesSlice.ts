@@ -11,11 +11,9 @@ const initialState: ReplyData[] = [];
 export const fetchReplies = createAsyncThunk(
   "replies/fetchReplies",
   async ({ boardId, offset }: { boardId: number; offset: number }) => {
-    console.log("in");
     const response = await axios.get(
       `/error/errorlist/replies?boardId=${boardId}&offset=${offset}`
     );
-    console.log("done: " + response.data);
     return response.data;
   }
 );
@@ -97,7 +95,6 @@ const repliesSlice = createSlice({
       })
       .addCase(addReply.fulfilled, (state, action) => {
         const { data } = action.payload;
-        console.log(data);
         return [...state, { ...data, nickname: "방금 작성한 댓글", likes: 0 }];
       })
       .addCase(updateReply.fulfilled, (state, action) => {
