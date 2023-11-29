@@ -28,6 +28,7 @@ export type MyErrorSearchType = {
   id: number;
   title: string;
   write_date: string;
+  views: number;
 };
 export type MyErrorSearchDataType = {
   data: MyErrorSearchType[];

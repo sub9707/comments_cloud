@@ -1,18 +1,23 @@
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 import styled from "styled-components";
+import { MyErrorSearchType } from "../../types/BoardTypes";
+import { useNavigate } from "react-router-dom";
 
-function ResultCompOne() {
+function ResultCompOne(props: MyErrorSearchType) {
+  const { id, title, write_date, views } = props;
+  const navigate = useNavigate();
   return (
     <ResultOne>
-      <ResultTitle className="text-underline-hover">
-        123121231212312
+      <ResultTitle
+        className="text-underline-hover"
+        onClick={() => navigate(`/myError/${id}`)}>
+        {title}
       </ResultTitle>
-      <ResultDate>2000.00.00</ResultDate>
+      <ResultDate>{write_date}</ResultDate>
       <ResultViews>
         <FontAwesomeIcon icon={faEye} style={{ marginRight: "0.5em" }} />
-        123
+        {views}
       </ResultViews>
     </ResultOne>
   );

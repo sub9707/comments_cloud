@@ -1,11 +1,15 @@
 import styled from "styled-components";
 import ResultCompOne from "./ResultCompOne";
+import { RootState } from "../../store";
+import { useSelector } from "react-redux";
 
 function SearchResult() {
+  const searchData = useSelector((state: RootState) => state.mySearch.data);
   return (
     <ResultBox>
-      <ResultCompOne />
-      <ResultCompOne />
+      {searchData.map((data, _idx) => (
+        <ResultCompOne {...data} key={_idx} />
+      ))}
     </ResultBox>
   );
 }
