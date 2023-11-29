@@ -7,6 +7,7 @@ router.get("/board", errorsController.getBoardError);
 router.delete("/", errorsController.deleteError);
 
 router.post("/write", errorsController.writeError);
+router.put("/edit", errorsController.editError);
 router.get("/count", errorsController.getUserErrorsCount);
 router.post("/view", errorsController.postViewCount);
 router.get("/myError", errorsController.getMySearchData);

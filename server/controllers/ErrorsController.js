@@ -134,6 +134,48 @@ class ErrorsController {
     }
   };
   /**
+   * 에러 게시물 수정
+   *
+   * @param {request}
+   * @param {response}
+   * @method PUT
+   *
+   */
+  static editError = async (req, res) => {
+    try {
+      const write_date = getTodayTimeFormat();
+      const {
+        title,
+        tags,
+        error_state,
+        error_cause,
+        error_process,
+        error_solved,
+        error_result,
+        publicCheck,
+        boardId,
+      } = req.body;
+      let results = await ErrorsModel.editError(
+        title,
+        tags,
+        error_state,
+        error_cause,
+        error_process,
+        error_solved,
+        error_result,
+        write_date,
+        publicCheck,
+        boardId
+      );
+      if (results) res.send("게시물 수정 성공! [ErrorsController]]");
+    } catch (error) {
+      console.error(error);
+      res
+        .status(500)
+        .send("Internal Server Error:[게시물 수정 ErrorsController]");
+    }
+  };
+  /**
    * 특정 게시물 삭제
    *
    * @param {request}

@@ -149,6 +149,43 @@ class ErrorsModel {
       );
     });
   }
+  static async editError(
+    title,
+    tags,
+    error_state,
+    error_cause,
+    error_process,
+    error_solved,
+    error_result,
+    write_date,
+    publicCheck,
+    boardId
+  ) {
+    return new Promise((resolve) => {
+      db.query(
+        "UPDATE error_contents SET title=?, tags=?, error_state=?, error_cause=?, error_process=?, error_solved=?, error_result=?, write_date=?, publicCheck=? WHERE id=?",
+        [
+          title,
+          JSON.stringify(tags),
+          error_state,
+          error_cause,
+          error_process,
+          error_solved,
+          error_result,
+          write_date,
+          publicCheck,
+          boardId,
+        ],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(false);
+          }
+        }
+      );
+    });
+  }
   static async deleteError(id) {
     return new Promise((resolve) => {
       db.query(
