@@ -18,7 +18,6 @@ import { AnyAction } from "redux";
 import {
   checkReplyCheck,
   getAllComments,
-  getCommentsCount,
   postReplyCancelLike,
   postReplyLike,
   writeComment,
@@ -80,8 +79,6 @@ export default function CommentCard() {
       );
     } catch (err) {
       console.error(err);
-    } finally {
-      // dispatch(fetchReplies({ boardId: id, offset: 0 }));
     }
   };
 
@@ -90,11 +87,6 @@ export default function CommentCard() {
     const result = await getAllComments(data?.id);
     setCommentsData(result);
     setviewComments(true);
-  };
-
-  const getCountFunc = async (contentId: number) => {
-    const result = await getCommentsCount(contentId);
-    setCommentsCount(result);
   };
 
   const submitCommentData = async () => {

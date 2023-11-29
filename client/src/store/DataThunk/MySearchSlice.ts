@@ -33,7 +33,7 @@ const mySearchSlice = createSlice({
   name: "mySearch",
   initialState,
   reducers: {
-    clearReplies: (state) => {
+    clearSearch: (state) => {
       return initialState;
     },
   },
@@ -45,5 +45,5 @@ const mySearchSlice = createSlice({
   },
 });
 
-export const { clearReplies } = mySearchSlice.actions;
+export const { clearSearch } = mySearchSlice.actions;
 export default mySearchSlice.reducer;

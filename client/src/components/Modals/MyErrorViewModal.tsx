@@ -26,7 +26,6 @@ import WriteCommentArea from "../MyError/WriteCommentArea";
 
 export default function MyErrorView() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const { data } = useSelector((state: RootState) => state.myError);
   const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>();
   const [toggleSharePop, setToggleSharePop] = useState<boolean>(false);
 
@@ -34,12 +33,6 @@ export default function MyErrorView() {
     if (e.target === e.currentTarget && toggleSharePop === true)
       setToggleSharePop(false);
   };
-
-  useEffect(() => {
-    if (data) {
-      dispatch(fetchReplies({ boardId: data?.id, offset: 0 }));
-    }
-  }, [dispatch, data]);
 
   const scrollToTop = () => {
     if (scrollRef.current) {

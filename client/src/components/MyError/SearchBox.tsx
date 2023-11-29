@@ -4,7 +4,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  clearReplies,
+  clearSearch,
   fetchSearchData,
 } from "../../store/DataThunk/MySearchSlice";
 import { userStateType } from "../../store/Utils/User";
@@ -35,7 +35,7 @@ function SearchBox() {
   };
 
   useEffect(() => {
-    dispatch(clearReplies());
+    dispatch(clearSearch());
   }, []);
 
   return (

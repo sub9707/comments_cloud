@@ -171,7 +171,6 @@ class ErrorsModel {
         [boardId, parseInt(offset, 10)],
         (error, result) => {
           if (!error) {
-            console.log(result);
             resolve(result);
           } else {
             resolve(error);

@@ -22,7 +22,6 @@ import LoadingPage from "../../pages/LoadingPage";
 import { userStateType } from "../../store/Utils/User";
 import { RootState } from "../../store";
 import { FlexColumn, JustifyCenter } from "../../styles/FlexBoxStlye";
-import { fetchReplies } from "../../store/DataThunk/RepliesSlice";
 
 function MyErrorTable() {
   const [loading, setLoading] = useState<boolean>(false);
