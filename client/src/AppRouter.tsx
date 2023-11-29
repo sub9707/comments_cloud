@@ -65,10 +65,9 @@ export default function AppRouter() {
             <Route path="myError">
               <Route index element={<MyError />} />
               <Route path="search" element={<MyErrorSearch />} />
-              <Route path="edit" element={<MyErrorEdit />} />
+              <Route path="edit/:boardId" element={<MyErrorEdit />} />
               <Route path=":boardId" element={<MyErrorView />} />
             </Route>
-            <Route path="myError" element={<MyError />} />
             <Route path="ErrorWrite" element={<ErrorWrite />} />
             <Route path="user">
               <Route path=":userId" element={<UserProfilePage />} />

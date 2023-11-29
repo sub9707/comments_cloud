@@ -10,7 +10,7 @@ export type RegisterFormValues = {
 };
 export type ErrorWriteFormValues = {
   title: string;
-  tagss: string[];
+  tags: string[];
   error_state: string;
   error_cause: string;
   error_process: string;

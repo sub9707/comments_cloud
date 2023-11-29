@@ -27,7 +27,6 @@ function MyErrorMenu() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const sortFilter = useSelector((state: RootState) => state.myErrorFilter);
-  const { data } = useSelector((state: RootState) => state.myError);
 
   const handleFilterClick = (sort: string) => {
     dispatch(setFilter(sort));

@@ -15,6 +15,19 @@ export const writeError = async (props: ErrorWriteFormValues) => {
   }
 };
 /**
+ * @method PUT
+ *  게시물 작성
+ */
+export const editError = async (props: ErrorWriteFormValues) => {
+  try {
+    const response = await axios.put("/error/edit", props);
+    return response.data;
+  } catch (error) {
+    console.error("개인 에러 등록 실패:", error);
+    throw error;
+  }
+};
+/**
  * @method GET
  *  개인 게시물 목록 불러오기
  */
