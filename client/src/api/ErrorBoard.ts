@@ -189,6 +189,20 @@ export const updateComment = async (commentId: number, content: string) => {
 
 /**
  * @method GET
+ *  게시글 좋아요 체크
+ */
+export const checkBoradCheck = async (boardId: number, userId: number) => {
+  try {
+    const result = await axios.get(
+      `/error/likeCheck?boardId=${boardId}&userId=${userId}`
+    );
+    return result.data.isLiked;
+  } catch (err) {
+    console.log(err);
+  }
+};
+/**
+ * @method GET
  *  댓글 좋아요 체크
  */
 export const checkReplyCheck = async (replyId: number, userId: number) => {
@@ -202,6 +216,34 @@ export const checkReplyCheck = async (replyId: number, userId: number) => {
   }
 };
 
+/**
+ * @method POST
+ *  게시글 좋아요
+ */
+export const postBoardLike = async (boardId: number, userId: number) => {
+  try {
+    const result = await axios.post(
+      `/error/like?boardId=${boardId}&userId=${userId}`
+    );
+    return result.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
+/**
+ * @method POST
+ *  게시글 좋아요 취소
+ */
+export const postBoardCancelLike = async (boardId: number, userId: number) => {
+  try {
+    const result = await axios.post(
+      `/error/cancelLike?boardId=${boardId}&userId=${userId}`
+    );
+    return result.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
 /**
  * @method POST
  *  댓글 좋아요

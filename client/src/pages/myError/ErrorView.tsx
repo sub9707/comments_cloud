@@ -14,6 +14,8 @@ import ContentsArea from "../../components/MyError/ContentsArea";
 import ErrorBoardTitle from "../../components/MyError/ErrorBoardTitle";
 import WriteCommentArea from "../../components/MyError/WriteCommentArea";
 import CommentCard from "../../components/Cards/CommentCard";
+import { JustifyCenter } from "../../styles/FlexBoxStlye";
+import LikeButton from "../../components/MyError/LikeButton";
 
 function ErrorView() {
   const { boardId } = useParams();
@@ -51,6 +53,9 @@ function ErrorView() {
       {/*본문 HTML 컨텐츠 영역*/}
       <ContentsArea />
       <br />
+      <JustifyCenter>
+        <LikeButton />
+      </JustifyCenter>
       {/*댓글 영역*/}
       <DottedDivision />
       <br />
