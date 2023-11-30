@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { MainContainer } from "../../styles/PageContainer";
 import { useEffect } from "react";
 import { getBoardError } from "../../api/ErrorBoard";
@@ -18,18 +18,24 @@ import CommentCard from "../../components/Cards/CommentCard";
 function ErrorView() {
   const { boardId } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const fetchData = async () => {
+    try {
+      if (boardId) {
+        const result = await getBoardError(+boardId);
+        if (result) dispatch(setMyErrorData(result));
+        else {
+          alert("존재하지 않는 게시글입니다.");
+          navigate(-1);
+        }
+      }
+    } catch (error) {
+      console.error("에러 발생:", error);
+    }
+  };
 
   useEffect(() => {
-    (async () => {
-      try {
-        if (boardId) {
-          const result = await getBoardError(+boardId);
-          dispatch(setMyErrorData(result));
-        }
-      } catch (error) {
-        console.error("에러 발생:", error);
-      }
-    })();
+    fetchData();
   }, []);
 
   return (

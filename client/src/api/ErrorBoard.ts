@@ -28,6 +28,19 @@ export const editError = async (props: ErrorWriteFormValues) => {
   }
 };
 /**
+ * @method DELETE
+ *  게시물 삭제
+ */
+export const deleteError = async (id: number) => {
+  try {
+    const response = await axios.delete(`/error?id=${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("개인 에러 삭제 실패:", error);
+    throw error;
+  }
+};
+/**
  * @method GET
  *  개인 게시물 목록 불러오기
  */

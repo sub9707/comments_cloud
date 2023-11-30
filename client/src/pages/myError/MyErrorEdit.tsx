@@ -52,7 +52,7 @@ function MyErrorSearch() {
     setValue,
     trigger,
     watch,
-    formState: { errors, isDirty, isValid },
+    // formState: { errors, isDirty, isValid },
   } = useForm<ErrorWriteFormValues>();
 
   const handleStateChange = (value: string) => {

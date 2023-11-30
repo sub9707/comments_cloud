@@ -65,6 +65,7 @@ a:hover {
 
 .text-underline-hover {
   text-decoration: none !important;
+  cursor: pointer;
 }
 
 .text-underline-hover:hover {
