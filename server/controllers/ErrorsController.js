@@ -34,6 +34,7 @@ class ErrorsController {
     try {
       let results = await ErrorsModel.getOneError(boardId);
       if (results) res.send(results);
+      else res.send(false);
     } catch (error) {
       console.error(error);
       res.status(500).send("Internal Server Error");
