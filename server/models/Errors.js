@@ -355,11 +355,56 @@ class ErrorsModel {
       );
     });
   }
+  static async checkUserBoardLiked(boardId, userId) {
+    return new Promise((resolve) => {
+      db.query(
+        "SELECT COUNT(*) AS count_likes FROM error_contents_likes WHERE board_id = ? AND user_id = ?",
+        [boardId, userId],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
   static async checkUserReplyLiked(replyId, userId) {
     return new Promise((resolve) => {
       db.query(
         "SELECT COUNT(*) AS count_likes FROM error_reply_likes WHERE reply_id = ? AND user_id = ?",
         [replyId, userId],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
+  static async postBoardLike(boardId) {
+    return new Promise((resolve) => {
+      db.query(
+        "UPDATE error_contents SET likes = likes + 1 WHERE id = ?",
+        [boardId],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
+  static async postBoardLikeUser(boardId, userId) {
+    return new Promise((resolve) => {
+      db.query(
+        "INSERT INTO error_contents_likes (board_id, user_id) VALUES (?, ?)",
+        [boardId, userId],
         (error, result) => {
           if (!error) {
             resolve(result);
@@ -400,6 +445,36 @@ class ErrorsModel {
       );
     });
   }
+  static async postBoardCancelLike(boardId) {
+    return new Promise((resolve) => {
+      db.query(
+        "UPDATE error_contents SET likes = likes - 1 WHERE id = ?",
+        [boardId],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
+  static async postBoardCancelLikeUser(boardId, userId) {
+    return new Promise((resolve) => {
+      db.query(
+        "DELETE FROM error_contents_likes WHERE user_id = ? and board_id = ?",
+        [userId, boardId],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
   static async postReplyCancelLike(replyId) {
     return new Promise((resolve) => {
       db.query(
@@ -415,11 +490,11 @@ class ErrorsModel {
       );
     });
   }
-  static async postReplyCancelLikeUser(userId) {
+  static async postReplyCancelLikeUser(replyId, userId) {
     return new Promise((resolve) => {
       db.query(
-        "DELETE FROM error_reply_likes WHERE user_id = ?",
-        [userId],
+        "DELETE FROM error_reply_likes WHERE user_id = ? and reply_id",
+        [userId, replyId],
         (error, result) => {
           if (!error) {
             resolve(result);

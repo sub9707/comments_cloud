@@ -483,6 +483,29 @@ class ErrorsController {
     }
   };
   /**
+   * 게시글 좋아요 체크
+   *
+   * @param {request}
+   * @param {response}
+   * @method GET
+   *
+   */
+  static getBoardLiked = async (req, res) => {
+    try {
+      const boardId = req.query.boardId;
+      const userId = req.query.userId;
+      if (!boardId || !userId) {
+        return res.status(400).send("id가 존재하지 않습니다.");
+      }
+      let result = await ErrorsModel.checkUserBoardLiked(boardId, userId);
+      const isLiked =
+        Array.isArray(result) && result.length > 0 && result[0].count_likes > 0;
+      res.send({ isLiked });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  /**
    * 댓글 좋아요 체크
    *
    * @param {request}
@@ -503,6 +526,62 @@ class ErrorsController {
       res.send({ isLiked });
     } catch (err) {
       console.error(err);
+    }
+  };
+  /**
+   * 게시글 좋아요 로직
+   *
+   * @param {request}
+   * @param {response}
+   * @method POST
+   *
+   */
+  static postBoardLike = async (req, res) => {
+    try {
+      const boardId = req.query.boardId;
+      const userId = req.query.userId;
+      if (!boardId || !userId) {
+        return res.status(400).send("id가 존재하지 않습니다.");
+      }
+      // like row + 1 적용
+      let resultLiked = await ErrorsModel.postBoardLike(boardId);
+      // like table 추가
+      let resultLikesPost = await ErrorsModel.postBoardLikeUser(
+        boardId,
+        userId
+      );
+      if (resultLiked && resultLikesPost)
+        res.send("댓글 좋아요 완료 [Controller]]");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  /**
+   * 게시글 좋아요 취소 로직
+   *
+   * @param {request}
+   * @param {response}
+   * @method POST
+   *
+   */
+  static postBoardCancelLike = async (req, res) => {
+    try {
+      const boardId = req.query.boardId;
+      const userId = req.query.userId;
+      if (!boardId || !userId) {
+        return res.status(400).send("id가 존재하지 않습니다.");
+      }
+      // like row - 1 적용
+      let resultCancelLiked = await ErrorsModel.postBoardCancelLike(boardId);
+      // like table 삭제
+      let resultCancelLikesPost = await ErrorsModel.postBoardCancelLikeUser(
+        boardId,
+        userId
+      );
+      if (resultCancelLiked && resultCancelLikesPost)
+        res.send("댓글 좋아요 취소 완료 [Controller]]");
+    } catch (error) {
+      console.error(error);
     }
   };
   /**
@@ -552,6 +631,7 @@ class ErrorsController {
       let resultCancelLiked = await ErrorsModel.postReplyCancelLike(replyId);
       // like table 삭제
       let resultCancelLikesPost = await ErrorsModel.postReplyCancelLikeUser(
+        replyId,
         userId
       );
       if (resultCancelLiked && resultCancelLikesPost)
