@@ -110,6 +110,9 @@ a:hover {
   box-shadow: none !important;
   background-color: rgb(35, 35, 78) !important;
 }
+.placeholder-glow {
+  margin: 0 !important;
+}
 /*Animations*/
 .rotate-animation {
   animation: rotateAnimation 3s infinite ease-in-out;

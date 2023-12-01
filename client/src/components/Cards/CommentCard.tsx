@@ -24,6 +24,7 @@ import {
 } from "../../api/ErrorBoard";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { RootState } from "../../store";
+import { userStateType } from "../../store/Utils/User";
 
 export default function CommentCard() {
   const [replyLiked, setReplyLiked] = useState<boolean[]>([]);
@@ -39,6 +40,8 @@ export default function CommentCard() {
   const { data } = useSelector((state: RootState) => state.myError);
   const [toggleUpdate, setToggleUpdate] = useState<number>(-1);
   const [inputValue, setInputValue] = useState<string[]>([]);
+  const user = useSelector((state: userStateType) => state.user.data);
+  const [userBlocked, setBlocked] = useState<boolean>(false);
 
   const handleProfileClick = () => {
     if (!data) return;
@@ -167,6 +170,15 @@ export default function CommentCard() {
   useEffect(() => {
     setInputValue(replies?.map((reply) => reply.content));
   }, []);
+
+  useEffect(() => {
+    if (!user || user?.id === 0) {
+      setBlocked(true);
+    }
+  }, [user]);
+
+  console.log(userBlocked);
+
   return (
     <>
       {replies?.map((reply, _idx) => (
@@ -198,19 +210,21 @@ export default function CommentCard() {
                   </InfoText>
                   <InfoText>{reply?.write_date}</InfoText>
                 </WriterWrapper>
-                <ControlWrapper>
-                  <InfoText onClick={() => handleUpdateToggle(_idx)}>
-                    {toggleUpdate !== _idx ? "수정" : "취소"}
-                  </InfoText>
-                  <InfoText
-                    onClick={
-                      toggleUpdate
-                        ? () => handleDeleteFunc(reply?.id)
-                        : () => handleUpdateFunc(reply?.id, _idx)
-                    }>
-                    {toggleUpdate !== _idx ? "삭제" : "완료"}
-                  </InfoText>
-                </ControlWrapper>
+                {user.id === reply.writer_id ? (
+                  <ControlWrapper>
+                    <InfoText onClick={() => handleUpdateToggle(_idx)}>
+                      {toggleUpdate !== _idx ? "수정" : "취소"}
+                    </InfoText>
+                    <InfoText
+                      onClick={
+                        toggleUpdate
+                          ? () => handleDeleteFunc(reply?.id)
+                          : () => handleUpdateFunc(reply?.id, _idx)
+                      }>
+                      {toggleUpdate !== _idx ? "삭제" : "완료"}
+                    </InfoText>
+                  </ControlWrapper>
+                ) : null}
               </CardInfoArea>
               {toggleUpdate === _idx && (
                 <CommentArea>
@@ -261,14 +275,23 @@ export default function CommentCard() {
                 <CommentReplyArea>
                   <InputGroup>
                     <Form.Control
+                      disabled={userBlocked}
                       value={commentInput}
                       onChange={(e) => setCommentInput(e.target.value)}
-                      placeholder="댓글 입력"
+                      placeholder={
+                        userBlocked
+                          ? "로그인 회원만 댓글 등록이 가능합니다."
+                          : "댓글 입력..."
+                      }
                     />
-                    <Button variant="primary" onClick={submitCommentData}>
+                    <Button
+                      disabled={userBlocked}
+                      variant="primary"
+                      onClick={submitCommentData}>
                       등록
                     </Button>
                     <Button
+                      disabled={true}
                       variant="outline-primary"
                       onClick={handleCancelComment}>
                       취소

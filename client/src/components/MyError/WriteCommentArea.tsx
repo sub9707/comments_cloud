@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   AddCommentArea,
   CommentInput,
@@ -18,6 +18,7 @@ function WriteCommentArea() {
   const user = useSelector((state: userStateType) => state.user.data);
   const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>();
   const [replyWrite, setReplyWrite] = useState<string>("");
+  const [userBlocked, setBlocked] = useState<boolean>(false);
   const handleInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setReplyWrite(e.target.value);
   };
@@ -37,13 +38,26 @@ function WriteCommentArea() {
       console.error(err);
     }
   };
+  useEffect(() => {
+    if (!user || user?.id === 0) {
+      setBlocked(true);
+    }
+  }, [user]);
   return (
     <AddCommentArea>
-      <CommentInput value={replyWrite} onChange={handleInputChange} />
+      <CommentInput
+        disabled={userBlocked}
+        value={replyWrite}
+        onChange={handleInputChange}
+        placeholder={
+          userBlocked ? "로그인 회원만 댓글 등록이 가능합니다." : "댓글 입력..."
+        }
+      />
       <CommentSubmitBtnGroup>
         <CommentSubmitBtn
           style={{ backgroundColor: "#8782d6", color: "white" }}
-          onClick={handleAddReply}>
+          onClick={handleAddReply}
+          disabled={userBlocked}>
           등록하기
         </CommentSubmitBtn>
         <CommentSubmitBtn
@@ -51,7 +65,8 @@ function WriteCommentArea() {
             backgroundColor: "#ffffff",
             border: "1px solid #8782d6",
             color: "#8782d6",
-          }}>
+          }}
+          disabled={userBlocked}>
           초기화
         </CommentSubmitBtn>
       </CommentSubmitBtnGroup>
