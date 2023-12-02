@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const errorsController = require("../controllers/ErrorsController");
 
+/**
+ * Route : /error
+ */
 router.get("/", errorsController.getUserErrors);
 router.delete("/", errorsController.deleteError);
 router.get("/board", errorsController.getBoardError);
@@ -14,6 +17,9 @@ router.get("/myError", errorsController.getMySearchData);
 router.post("/like", errorsController.postBoardLike);
 router.post("/cancelLike", errorsController.postBoardCancelLike);
 
+/**
+ * Route : /error/errorlist
+ */
 router.get("/errorlist", errorsController.getAllErrors);
 router.get("/errorlist/replies", errorsController.getErrorsReplies);
 router.post("/errorlist/replies", errorsController.writeReply);
@@ -27,6 +33,9 @@ router.post(
 router.get("/errorlist/replies/count", errorsController.getRepliesCount);
 router.get("/errorlist/replies/likeCheck", errorsController.getReplyLikeCheck);
 
+/**
+ * Route : /error/errorlist/comments
+ */
 router.get("/errorlist/comments/count", errorsController.getCommentsCount);
 router.get("/errorlist/comments", errorsController.getErrorsComments);
 router.post("/errorlist/comments", errorsController.writeComment);
