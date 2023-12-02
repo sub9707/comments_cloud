@@ -1,17 +1,28 @@
-import CommunityBoardCard from "../../components/Cards/CommunityBoardCard";
-import CommunityBoardCardPH from "../../components/Cards/CommunityBoardCardPH";
-import TempView from "../../components/Utils/TempView";
-import { JustifyCenter } from "../../styles/FlexBoxStlye";
+import BoardCardWrapper from "../../components/Board/BoardCardWrapper";
+import BoardPagination from "../../components/Board/BoardPagination";
+import ControlBox from "../../components/Board/ControlBox";
+import RankingBox from "../../components/Board/RankingBox";
+import { JustifyCenter, JustifyEnd } from "../../styles/FlexBoxStlye";
 import { MainContainer } from "../../styles/PageContainer";
 import { PageHeader } from "../../styles/TextStyle";
+import RankingTabs from "./RankingTabs";
 
 export default function BoardPage() {
   return (
     <MainContainer>
       <PageHeader>모두의 에러</PageHeader>
-      <JustifyCenter style={{ gap: "1em" }}>
-        <CommunityBoardCard />
-        <CommunityBoardCardPH />
+      <RankingTabs />
+      <RankingBox />
+      <br />
+      <JustifyEnd>
+        <ControlBox />
+      </JustifyEnd>
+      <br />
+      <BoardCardWrapper />
+      <br />
+      <br />
+      <JustifyCenter>
+        <BoardPagination />
       </JustifyCenter>
     </MainContainer>
   );
