@@ -11,6 +11,7 @@ export default function BoardPage() {
   return (
     <MainContainer>
       <PageHeader>모두의 에러</PageHeader>
+      <br />
       <RankingTabs />
       <RankingBox />
       <br />

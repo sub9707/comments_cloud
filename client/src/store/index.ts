@@ -8,7 +8,9 @@ import myErrorReducer from "./Modal/MyErrorModal";
 import ReplyDataSlice from "./DataThunk/RepliesSlice";
 import MySearchSlice from "./DataThunk/MySearchSlice";
 import myErrorFilterReducer from "./Toggle/MyErrorFilter";
+import pagination from "./Utils/Pagination";
 import storage from "redux-persist/lib/storage";
+
 import {
   FLUSH,
   PAUSE,
@@ -31,6 +33,7 @@ const reducers = combineReducers({
   replies: ReplyDataSlice,
   mySearch: MySearchSlice,
   myErrorFilter: myErrorFilterReducer,
+  pagination: pagination,
 });
 
 export type RootState = ReturnType<typeof reducers>;

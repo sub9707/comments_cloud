@@ -4,26 +4,37 @@ import CommunityBoardCard from "../Cards/CommunityBoardCard";
 import { JustifyCenter } from "../../styles/FlexBoxStlye";
 import { getAllBoards } from "../../api/boards";
 import { BoardFetchType } from "../../types/board";
+import { useDispatch, useSelector } from "react-redux";
+import { clearPagination, setTotalCount } from "../../store/Utils/Pagination";
+import { RootState } from "../../store";
 
 function BoardCardWrapper() {
   const [boardData, setBoardData] = useState<BoardFetchType[]>([]);
-  const fetchData = async () => {
+  const dispatch = useDispatch();
+  const { offset } = useSelector((state: RootState) => state.pagination);
+
+  const fetchData = async (offset: number) => {
     try {
-      const result = await getAllBoards(0);
-      setBoardData(result);
+      const result = await getAllBoards(offset);
+      setBoardData(result.data);
+      dispatch(setTotalCount(result.totalCount));
     } catch (error) {
       console.error(error);
     }
   };
+
   useEffect(() => {
-    fetchData();
+    dispatch(clearPagination());
   }, []);
 
-  console.log(boardData);
+  useEffect(() => {
+    fetchData(offset);
+  }, [offset]);
+
   return (
     <Container style={containerStyle}>
       {boardData.map((data, _idx) => (
-        <JustifyCenter>
+        <JustifyCenter key={_idx}>
           <CommunityBoardCard {...data} />
         </JustifyCenter>
       ))}
