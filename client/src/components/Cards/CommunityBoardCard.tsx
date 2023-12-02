@@ -3,19 +3,32 @@ import {
   BadgeWrapper,
   CardInfo,
   CardSubTitle,
+  CardTitle,
   CardWrapper,
   DateInfo,
 } from "../../styles/CardStyle";
-import { CardTitle } from "react-bootstrap";
+import { BoardFetchType } from "../../types/board";
+import { formatRelativeTime } from "../../utils/Calculation";
+import { useNavigate } from "react-router-dom";
+import SolvedBadge from "../Badges/SolvedTag";
+import { RemoveHtmlTags } from "../../utils/StringForm";
 
-function CommunityBoardCard() {
+function CommunityBoardCard(props: BoardFetchType) {
+  const navigate = useNavigate();
   return (
     <CardWrapper>
-      <CardTitle>Test Title Sample</CardTitle>
-      <CardSubTitle>Test SubTitle Sample is This.</CardSubTitle>
+      <CardTitle
+        className="text-underline-hover"
+        onClick={() => navigate(`/myError/${props.id}`)}>
+        {props.title}
+      </CardTitle>
+      <CardSubTitle>{RemoveHtmlTags(props.error_cause)}</CardSubTitle>
       <CardInfo>
         <BadgeWrapper></BadgeWrapper>
-        <DateInfo>2000.00.00</DateInfo>
+        <>
+          <SolvedBadge solved={props.error_solved ? "해결" : "미해결"} />
+          <DateInfo>{formatRelativeTime(props.write_date)}</DateInfo>
+        </>
       </CardInfo>
     </CardWrapper>
   );
