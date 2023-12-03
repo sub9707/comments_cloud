@@ -494,6 +494,7 @@ class ErrorsController {
     try {
       const boardId = req.query.boardId;
       const userId = req.query.userId;
+
       if (!boardId || !userId) {
         return res.status(400).send("id가 존재하지 않습니다.");
       }
@@ -540,6 +541,7 @@ class ErrorsController {
     try {
       const boardId = req.query.boardId;
       const userId = req.query.userId;
+      const liked_date = new Date();
       if (!boardId || !userId) {
         return res.status(400).send("id가 존재하지 않습니다.");
       }
@@ -548,7 +550,8 @@ class ErrorsController {
       // like table 추가
       let resultLikesPost = await ErrorsModel.postBoardLikeUser(
         boardId,
-        userId
+        userId,
+        liked_date
       );
       if (resultLiked && resultLikesPost)
         res.send("댓글 좋아요 완료 [Controller]]");

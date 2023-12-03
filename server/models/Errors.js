@@ -400,11 +400,11 @@ class ErrorsModel {
       );
     });
   }
-  static async postBoardLikeUser(boardId, userId) {
+  static async postBoardLikeUser(boardId, userId, liked_date) {
     return new Promise((resolve) => {
       db.query(
-        "INSERT INTO error_contents_likes (board_id, user_id) VALUES (?, ?)",
-        [boardId, userId],
+        "INSERT INTO error_contents_likes (board_id, user_id, like_date) VALUES (?, ?, ?)",
+        [boardId, userId, liked_date],
         (error, result) => {
           if (!error) {
             resolve(result);

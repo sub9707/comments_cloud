@@ -1,3 +1,4 @@
+const dateOffset = new Date().getTimezoneOffset() * 60000;
 // 날짜 포맷팅
 const getTodayFormat = () => {
   const today = new Date();
@@ -21,7 +22,43 @@ const getTodayTimeFormat = () => {
   return formattedDateTime;
 };
 
+const getStartAndEndOfWeek = () => {
+  // 오늘 날짜
+  const today = new Date();
+  const dayOfWeek = today.getDay();
+
+  const startOfWeek = new Date(today);
+  startOfWeek.setDate(today.getDate() - dayOfWeek);
+
+  const endOfWeek = new Date(today);
+  endOfWeek.setDate(today.getDate() + (6 - dayOfWeek));
+
+  // 날짜 포맷팅
+  const formattedStartOfWeek = startOfWeek.toISOString().split("T")[0];
+  const formattedEndOfWeek = endOfWeek.toISOString().split("T")[0];
+
+  return { startOfWeek: formattedStartOfWeek, endOfWeek: formattedEndOfWeek };
+};
+
+const getStartAndEndOfMonth = () => {
+  const today = new Date();
+
+  const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+  const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+
+  const formattedStartOfMonth = startOfMonth.toISOString().split("T")[0];
+  const formattedEndOfMonth = endOfMonth.toISOString().split("T")[0];
+
+  return {
+    startOfMonth: formattedStartOfMonth,
+    endOfMonth: formattedEndOfMonth,
+  };
+};
+
 module.exports = {
+  dateOffset,
   getTodayFormat,
   getTodayTimeFormat,
+  getStartAndEndOfWeek,
+  getStartAndEndOfMonth,
 };
