@@ -8,3 +8,9 @@ export type BoardFetchType = {
   error_solved: boolean;
   error_cause: string;
 };
+
+export type BoardRankType = {
+  id: number;
+  title: string;
+  like_date: string;
+};
