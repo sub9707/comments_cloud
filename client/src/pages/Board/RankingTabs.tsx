@@ -7,6 +7,7 @@ import {
   setWeekly,
   setMonthly,
 } from "../../store/Toggle/BoardRankTab";
+import styled from "styled-components";
 
 function RankingTabs() {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ function RankingTabs() {
       variant="tabs"
       defaultActiveKey="daily"
       className="w-50"
-      style={{ marginLeft: "5.2em" }}>
+      style={{ marginLeft: "5.2em", position: "relative" }}>
       <Nav.Item>
         <Nav.Link eventKey="daily" onClick={() => dispatch(setDaily())}>
           일간 인기 노트

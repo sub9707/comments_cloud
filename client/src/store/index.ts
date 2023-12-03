@@ -9,6 +9,7 @@ import ReplyDataSlice from "./DataThunk/RepliesSlice";
 import MySearchSlice from "./DataThunk/MySearchSlice";
 import myErrorFilterReducer from "./Toggle/MyErrorFilter";
 import pagination from "./Utils/Pagination";
+import RankToggle from "./Toggle/RankingToggle";
 import BoardRankTab from "./Toggle/BoardRankTab";
 import storage from "redux-persist/lib/storage";
 
@@ -36,6 +37,7 @@ const reducers = combineReducers({
   myErrorFilter: myErrorFilterReducer,
   pagination: pagination,
   BoardRankTab: BoardRankTab,
+  RankToggle: RankToggle,
 });
 
 export type RootState = ReturnType<typeof reducers>;

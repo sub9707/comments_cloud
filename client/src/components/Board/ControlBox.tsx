@@ -10,7 +10,7 @@ function ControlBox() {
   ];
 
   return (
-    <ButtonGroup>
+    <ButtonGroup style={{ marginRight: "5em" }}>
       {radios.map((radio, idx) => (
         <ToggleButton
           key={idx}
