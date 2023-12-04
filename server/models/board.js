@@ -39,7 +39,7 @@ class ErrorsModel {
       const today = new Date(Date.now() - dateOffset).toISOString();
       const formattedDate = today.split("T")[0];
       const query = `
-        SELECT ec.id, ec.title, ecl.like_date
+        SELECT ec.id, ec.title, ec.write_date
         FROM error_contents_likes ecl
         JOIN error_contents ec ON ecl.board_id = ec.id
         WHERE ecl.like_date LIKE CONCAT(?,'%')
@@ -59,7 +59,7 @@ class ErrorsModel {
     return new Promise((resolve) => {
       const { startOfWeek, endOfWeek } = getStartAndEndOfWeek();
       const query = `
-        SELECT ec.id, ec.title, ecl.like_date
+        SELECT ec.id, ec.title, ec.write_date
         FROM error_contents_likes ecl
         JOIN error_contents ec ON ecl.board_id = ec.id
         WHERE ecl.like_date BETWEEN ? AND ?
@@ -83,7 +83,7 @@ class ErrorsModel {
       const { startOfMonth, endOfMonth } = getStartAndEndOfMonth();
 
       const query = `
-        SELECT ec.id, ec.title, ecl.like_date
+        SELECT ec.id, ec.title, ec.write_date
         FROM error_contents_likes ecl
         JOIN error_contents ec ON ecl.board_id = ec.id
         WHERE ecl.like_date BETWEEN ? AND ?

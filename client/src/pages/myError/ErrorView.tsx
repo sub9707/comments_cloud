@@ -2,8 +2,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { MainContainer } from "../../styles/PageContainer";
 import { useEffect } from "react";
 import { getBoardError } from "../../api/ErrorBoard";
-import { useDispatch } from "react-redux";
-import { setMyErrorData } from "../../store/Modal/MyErrorModal";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  clearMyErrorData,
+  setMyErrorData,
+} from "../../store/Modal/MyErrorModal";
 import {
   CommentArea,
   ContentInfoWrapper,
@@ -16,9 +19,12 @@ import WriteCommentArea from "../../components/MyError/WriteCommentArea";
 import CommentCard from "../../components/Cards/CommentCard";
 import { JustifyCenter } from "../../styles/FlexBoxStlye";
 import LikeButton from "../../components/MyError/LikeButton";
+import { RootState } from "../../store";
 
 function ErrorView() {
   const { boardId } = useParams();
+  const dataState = useSelector((state: RootState) => state.myError);
+  const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const fetchData = async () => {
@@ -35,6 +41,19 @@ function ErrorView() {
       console.error("에러 발생:", error);
     }
   };
+
+  useEffect(() => {
+    if (!dataState) return;
+    if (
+      !dataState.data?.publicCheck &&
+      user.data.id !== dataState.data?.writer_id
+    ) {
+      alert("허가되지 않은 접근입니다.");
+      navigate(-1);
+      dispatch(clearMyErrorData());
+      return;
+    }
+  }, []);
 
   useEffect(() => {
     fetchData();

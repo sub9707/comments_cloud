@@ -12,5 +12,5 @@ export type BoardFetchType = {
 export type BoardRankType = {
   id: number;
   title: string;
-  like_date: string;
+  write_date: string;
 };

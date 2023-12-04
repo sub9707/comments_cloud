@@ -54,3 +54,16 @@ export const isInSevenDays = (nickDate: string) => {
 
   return timeDiff <= sevenDaysms;
 };
+
+// 24시간 이내인지 boolean
+export const isWithin24Hours = (date: string) => {
+  const targetDate = new Date(date);
+  const currentDate = new Date();
+
+  // 24시간 이내인지 확인함.
+  const timeDiff = currentDate.getTime() - targetDate.getTime();
+  const hoursDiff = timeDiff / (1000 * 3600);
+
+  // 24시간 이내라면 true, 그렇지 않으면 false 반환
+  return hoursDiff <= 24;
+};

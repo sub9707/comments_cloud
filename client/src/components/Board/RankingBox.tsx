@@ -13,13 +13,14 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { initRankToggle } from "../../store/Toggle/RankingToggle";
+import { isWithin24Hours } from "../../utils/Calculation";
 
 function RankingBox() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isShow = useSelector((state: RootState) => state.RankToggle);
-  const [rankData, setRankData] = useState<BoardRankType[]>([]);
   const tabState = useSelector((state: RootState) => state.BoardRankTab);
+  const [rankData, setRankData] = useState<BoardRankType[]>([]);
 
   const fetchRankData = async () => {
     if (tabState.daily) {
@@ -51,42 +52,44 @@ function RankingBox() {
 
   useEffect(() => {
     dispatch(initRankToggle());
-  });
-
-  console.log(rankData);
+  }, []);
 
   return (
     <JustifyCenter>
-      <RankBox>
-        <RankBoxLine>
-          {rankData.slice(0, 5).map((data, index) => (
-            <JustFlex>
-              <p
-                key={index}
-                className="text-underline-hover"
-                onClick={() => navigate(`/myError/${data?.id}`)}>
-                <strong>{index + 1}</strong>&nbsp;
-                {data?.title}
-              </p>
-              <NewIcon src="/images/new.png" alt="newIcon" />
-            </JustFlex>
-          ))}
-        </RankBoxLine>
-        <DivisionLine />
-        <RankBoxLine>
-          {rankData.slice(5, 10).map((data, index) => (
-            <JustFlex>
-              <p
-                key={index + 5}
-                className="text-underline-hover"
-                onClick={() => navigate(`/myError/${data?.id}`)}>
-                <strong>{index + 6}</strong>&nbsp;{data?.title}
-              </p>
-              <NewIcon src="/images/new.png" alt="newIcon" />
-            </JustFlex>
-          ))}
-        </RankBoxLine>
-      </RankBox>
+      {isShow.show ? (
+        <RankBox>
+          <RankBoxLine>
+            {rankData.slice(0, 5).map((data, index) => (
+              <JustFlex key={index}>
+                <p
+                  className="text-underline-hover"
+                  onClick={() => navigate(`/myError/${data?.id}`)}>
+                  <strong>{index + 1}</strong>&nbsp;
+                  {data?.title}
+                </p>
+                {isWithin24Hours(data?.write_date) ? (
+                  <NewIcon src="/images/new.png" alt="newIcon" />
+                ) : null}
+              </JustFlex>
+            ))}
+          </RankBoxLine>
+          <DivisionLine />
+          <RankBoxLine>
+            {rankData.slice(5, 10).map((data, index) => (
+              <JustFlex key={index + 5}>
+                <p
+                  className="text-underline-hover"
+                  onClick={() => navigate(`/myError/${data?.id}`)}>
+                  <strong>{index + 6}</strong>&nbsp;{data?.title}
+                </p>
+                {isWithin24Hours(data?.write_date) ? (
+                  <NewIcon src="/images/new.png" alt="newIcon" />
+                ) : null}
+              </JustFlex>
+            ))}
+          </RankBoxLine>
+        </RankBox>
+      ) : null}
     </JustifyCenter>
   );
 }
@@ -96,7 +99,7 @@ export default RankingBox;
 const RankBox = styled.div`
   width: 85%;
   height: 16vh;
-  background-color: #f0f0f0;
+  background-color: #f3f1ec;
   position: relative;
   display: flex;
   padding-block: 1em;
