@@ -33,7 +33,7 @@ const mySearchSlice = createSlice({
   name: "mySearch",
   initialState,
   reducers: {
-    clearSearch: (state) => {
+    clearSearch: () => {
       return initialState;
     },
   },

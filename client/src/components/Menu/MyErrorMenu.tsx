@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { JustifyCenter, JustifyEnd } from "../../styles/FlexBoxStlye";
-import { Button, Dropdown } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowUpWideShort,
@@ -81,7 +81,7 @@ function MyErrorMenu() {
                 type="checkbox"
                 id="solved"
                 checked={sortFilter?.solvedOnly}
-                onChange={(e) => handleCheckBoxClick("solvedOnly")}
+                onChange={() => handleCheckBoxClick("solvedOnly")}
               />
               <CheckBoxLabel htmlFor="solved">해결만 표시</CheckBoxLabel>
             </>
@@ -90,7 +90,7 @@ function MyErrorMenu() {
                 type="checkbox"
                 id="unsolved"
                 checked={sortFilter?.unsolvendOnly}
-                onChange={(e) => handleCheckBoxClick("unsolvendOnly")}
+                onChange={() => handleCheckBoxClick("unsolvendOnly")}
               />
               <CheckBoxLabel htmlFor="unsolved">미해결만 표시</CheckBoxLabel>
             </>
@@ -99,7 +99,7 @@ function MyErrorMenu() {
                 type="checkbox"
                 id="publicOnly"
                 checked={sortFilter?.publicOnly}
-                onChange={(e) => handleCheckBoxClick("publicOnly")}
+                onChange={() => handleCheckBoxClick("publicOnly")}
               />
               <CheckBoxLabel htmlFor="publicOnly">공개만 표시</CheckBoxLabel>
             </>

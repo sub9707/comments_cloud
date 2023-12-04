@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { BoardRankType } from "../../types/board";
 import {
@@ -10,8 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { JustFlex, JustifyCenter } from "../../styles/FlexBoxStlye";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { initRankToggle } from "../../store/Toggle/RankingToggle";
 import { isWithin24Hours } from "../../utils/Calculation";
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { TableCard, WidthMaxCenter } from "../../styles/PageContainer";
 import { OverlayTrigger, Table } from "react-bootstrap";
 import { ErrorTableData, ErrorTableHead } from "../../styles/TableStyle";

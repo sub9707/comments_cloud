@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { OverlayTrigger, ProgressBar, Tooltip } from "react-bootstrap";
 import LevelBadge from "../../components/Badges/LevelBadge";

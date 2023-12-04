@@ -10,7 +10,6 @@ import {
 import { userStateType } from "../../store/Utils/User";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
-import { error } from "console";
 
 function SearchBox() {
   const [searchValue, setSearchValue] = useState<string>("");

@@ -1,4 +1,3 @@
-import React from "react";
 import { MainContainer } from "../../styles/PageContainer";
 import { PageHeader } from "../../styles/TextStyle";
 import SearchBox from "../../components/MyError/SearchBox";

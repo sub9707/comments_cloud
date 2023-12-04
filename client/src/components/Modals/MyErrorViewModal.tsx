@@ -1,6 +1,6 @@
 import { ModalContainer } from "../../styles/ModalStyle/ModalStyle";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { useDispatch } from "react-redux";
+
 import {
   BottomButton,
   DottedDivision,
@@ -10,9 +10,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { CloseButton } from "react-bootstrap";
 import { closeModal } from "../../store/Modal/Modal";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import CommentCard from "../Cards/CommentCard";
-import { clearReplies, fetchReplies } from "../../store/DataThunk/RepliesSlice";
+import { clearReplies } from "../../store/DataThunk/RepliesSlice";
 import { AnyAction } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import {

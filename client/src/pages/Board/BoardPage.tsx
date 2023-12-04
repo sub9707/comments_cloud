@@ -3,11 +3,7 @@ import BoardPagination from "../../components/Board/BoardPagination";
 import BoardSearchBox from "../../components/Board/BoardSearchBox";
 import ControlBox from "../../components/Board/ControlBox";
 import RankingBox from "../../components/Board/RankingBox";
-import {
-  JustifyBetween,
-  JustifyCenter,
-  JustifyEnd,
-} from "../../styles/FlexBoxStlye";
+import { JustifyCenter, JustifyEnd } from "../../styles/FlexBoxStlye";
 import { MainContainer } from "../../styles/PageContainer";
 import { PageHeader } from "../../styles/TextStyle";
 import RankingTabs from "./RankingTabs";

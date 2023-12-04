@@ -81,7 +81,7 @@ const repliesSlice = createSlice({
   name: "replies",
   initialState,
   reducers: {
-    clearReplies: (state) => {
+    clearReplies: () => {
       return initialState;
     },
   },
@@ -90,6 +90,8 @@ const repliesSlice = createSlice({
       .addCase(fetchReplies.fulfilled, (state, action) => {
         return [...state, ...action.payload];
       })
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-ignore
       .addCase(fetchRepliesCount.fulfilled, (state, action) => {
         return action.payload;
       })

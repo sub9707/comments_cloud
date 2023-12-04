@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { MainContainer } from "../../styles/PageContainer";
 import { PageHeader } from "../../styles/TextStyle";
 import { useNavigate, useParams } from "react-router-dom";
@@ -48,7 +48,6 @@ function MyErrorSearch() {
     register,
     handleSubmit,
     control,
-    reset,
     setValue,
     trigger,
     watch,

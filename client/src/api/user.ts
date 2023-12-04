@@ -1,5 +1,3 @@
-// import { getCookieToken } from "../store/Cookie";
-import { UpdateFormValue } from "../types/react-hook-form";
 import { UpdateUserInfoType } from "../types/users";
 import axios from "./axios";
 

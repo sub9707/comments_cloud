@@ -1,7 +1,7 @@
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { CommentData, ReplyData } from "../../types/BoardTypes";
+import { CommentData } from "../../types/BoardTypes";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../store/Modal/Modal";
@@ -29,9 +29,7 @@ import { userStateType } from "../../store/Utils/User";
 export default function CommentCard() {
   const [replyLiked, setReplyLiked] = useState<boolean[]>([]);
   const [commentsData, setCommentsData] = useState<CommentData[]>([]);
-  const [commentsCount, setCommentsCount] = useState<number>(0);
   const [replyLikes, setReplyLikes] = useState<number[]>([]);
-  const [viewComments, setviewComments] = useState<boolean>(false);
   const [commentInput, setCommentInput] = useState<string>("");
   const [replyClickData, setReplyClickData] = useState<number>(-1);
   const navigate = useNavigate();
@@ -89,7 +87,6 @@ export default function CommentCard() {
     if (!data) return;
     const result = await getAllComments(data?.id);
     setCommentsData(result);
-    setviewComments(true);
   };
 
   const submitCommentData = async () => {
@@ -249,18 +246,6 @@ export default function CommentCard() {
                   onClick={() => setReplyClickData(_idx)}>
                   답글달기
                 </InfoText>
-                {commentsCount > 0 ? (
-                  <InfoText
-                    style={{
-                      marginLeft: "1em",
-                      marginTop: "1em",
-                      cursor: "pointer",
-                      display: viewComments ? "none" : "flex",
-                    }}
-                    onClick={handleViewReplies}>
-                    답글보기({commentsCount})
-                  </InfoText>
-                ) : null}
               </CommentContol>
               <CommentReplyArea>
                 {commentsData?.map((data, _idx) => (

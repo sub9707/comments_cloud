@@ -10,7 +10,6 @@ import { RootState } from "../../store";
 
 export default function AdminNoticePage() {
   const { isOpen } = useSelector((state: RootState) => state.modal);
-  const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<NoticeTablePropType[]>([]);
   const navigate = useNavigate();
   const handleWriteBtnClick = () => {
@@ -22,10 +21,8 @@ export default function AdminNoticePage() {
   // data Fetching
   const fetchData = async () => {
     try {
-      setLoading(true);
       const response = await axios.get("/notice/notices");
       setData(response.data);
-      setLoading(false);
     } catch (error) {
       console.log(error);
     }

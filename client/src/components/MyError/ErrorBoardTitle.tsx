@@ -1,4 +1,3 @@
-import React from "react";
 import { TitleHeader } from "../../styles/ModalStyle/ErrorModalView";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";

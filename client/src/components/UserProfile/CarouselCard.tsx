@@ -1,6 +1,5 @@
 import { Card } from "react-bootstrap";
 import { recentErrorType } from "../../types/users";
-import { useNavigate } from "react-router-dom";
 import { JustifyBetween, JustifyEnd } from "../../styles/FlexBoxStlye";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
@@ -21,9 +20,8 @@ interface CardTitleStyleProps extends React.CSSProperties {
 }
 
 function CarouselCard(props: recentErrorType) {
-  const { title, error_solved, id, likes, views, write_date, tags } = props;
+  const { title, error_solved, likes, views, write_date, tags } = props;
   const tagArray = JSON.parse(tags);
-  const navigate = useNavigate();
 
   const tagWrapperRef = useRef<HTMLDivElement | null>(null);
   const [isDragging, setIsDragging] = useState(false);

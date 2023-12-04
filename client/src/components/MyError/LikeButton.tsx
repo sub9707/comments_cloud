@@ -1,7 +1,7 @@
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as faHeartR } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";

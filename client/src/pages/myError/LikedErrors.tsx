@@ -1,17 +1,14 @@
 import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ItemsCarousel from "react-items-carousel";
 import CarouselCard from "../../components/UserProfile/CarouselCard";
-import { userStateType } from "../../store/Utils/User";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { getLikedData } from "../../api/user";
 import { recentErrorType } from "../../types/users";
 
 function LikedErrors() {
   const { userId } = useParams();
-  const user = useSelector((state: userStateType) => state.user.data);
   const [activeItemIndex, setActiveItemIndex] = useState(0);
   const [likedErrorData, setLikedData] = useState<recentErrorType[]>([]);
   const chevronWidth = 40;

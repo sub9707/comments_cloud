@@ -21,8 +21,6 @@ import { UserInfoType } from "../../types/users";
 import { useForm } from "react-hook-form";
 import { UpdateFormValue } from "../../types/react-hook-form";
 import { isInSevenDays } from "../../utils/Calculation";
-import Lottie from "lottie-react";
-import checkLottie from "../../utils/lotties/check.json";
 import { DevTool } from "@hookform/devtools";
 import { ErrorPrint } from "../../styles/LoginStyle";
 import { addMessage } from "../../store/Utils/Alert";
@@ -34,7 +32,6 @@ export default function UserProfileFix() {
   const user = useSelector((state: userStateType) => state.user.data);
   const [userData, setUserData] = useState<UserInfoType>();
   const [nicknameValid, setNicknameValid] = useState<boolean>(false);
-  const [nicknameChange, setNicknameChange] = useState<boolean>(false);
   const [imagePreview, setImagePreview] = useState<string>("");
   const {
     register,
@@ -42,7 +39,7 @@ export default function UserProfileFix() {
     control,
     reset,
     setValue,
-    formState: { errors, isDirty, isValid },
+    formState: { errors, isDirty },
   } = useForm<UpdateFormValue>({
     defaultValues: useMemo(
       () => ({
@@ -83,7 +80,7 @@ export default function UserProfileFix() {
 
   const handleSumbitClick = async (data: any) => {
     try {
-      const response = await updateUserInfo(data?.id, data?.profile_Image, {
+      await updateUserInfo(data?.id, data?.profile_Image, {
         name: data?.name,
         nickname: data?.nickname,
         profile_message: data?.profile_message,

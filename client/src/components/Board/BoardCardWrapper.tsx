@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import CommunityBoardCard from "../Cards/CommunityBoardCard";
 import { JustifyCenter } from "../../styles/FlexBoxStlye";

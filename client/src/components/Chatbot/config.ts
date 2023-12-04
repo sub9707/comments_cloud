@@ -1,4 +1,3 @@
-import React from "react";
 import { createChatBotMessage } from "react-chatbot-kit";
 
 const botName = "문의하기";
