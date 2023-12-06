@@ -56,6 +56,17 @@ class BoardController {
       res.status(500).send("Internal Server Error");
     }
   };
+  static getSearchBoards = async (req, res) => {
+    const search = req.query.search;
+    const offset = req.query.offset;
+    try {
+      let results = await BoardModel.getSearchBoard(search, +offset);
+      if (results) res.send(results);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+    }
+  };
 }
 
 module.exports = BoardController;

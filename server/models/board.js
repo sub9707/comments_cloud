@@ -101,5 +101,49 @@ class ErrorsModel {
       });
     });
   }
+  static async getSearchBoard(search, offset) {
+    return new Promise((resolve) => {
+      const dataQuery = `
+        SELECT *
+        FROM error_contents
+        WHERE title LIKE ? OR title = ?
+        LIMIT 6 OFFSET ?;
+      `;
+
+      const countQuery = `
+        SELECT COUNT(*) as total
+        FROM error_contents
+        WHERE title LIKE ? OR title = ?;
+      `;
+
+      db.query(
+        dataQuery,
+        [`%${search}%`, search, parseInt(offset, 10)],
+        (error, result) => {
+          if (error) {
+            resolve(error);
+            return;
+          }
+          // 쿼리문 입력
+          db.query(
+            countQuery,
+            [`%${search}%`, search],
+            (countError, countResult) => {
+              if (countError) {
+                resolve(countError);
+                return;
+              }
+              // response data
+              const responseData = {
+                data: result,
+                count: countResult[0].total,
+              };
+              resolve(responseData);
+            }
+          );
+        }
+      );
+    });
+  }
 }
 module.exports = ErrorsModel;
