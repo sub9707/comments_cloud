@@ -23,6 +23,8 @@ import ErrorBoardTitle from "../MyError/ErrorBoardTitle";
 import ContentControl from "../MyError/ContentControl";
 import ContentsArea from "../MyError/ContentsArea";
 import WriteCommentArea from "../MyError/WriteCommentArea";
+import { JustifyStart } from "../../styles/FlexBoxStlye";
+import TagsArea from "../MyError/TagsArea";
 
 export default function MyErrorView() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -72,6 +74,9 @@ export default function MyErrorView() {
       {/*본문 HTML 컨텐츠 영역*/}
       <ContentsArea />
       <br />
+      <JustifyStart>
+        <TagsArea />
+      </JustifyStart>
       {/*댓글 영역*/}
       <DottedDivision />
       <br />

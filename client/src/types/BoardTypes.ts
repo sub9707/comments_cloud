@@ -34,3 +34,17 @@ export type MyErrorSearchDataType = {
   data: MyErrorSearchType[];
   count: number;
 };
+
+export type BoardSearchType = {
+  id: number;
+  title: string;
+  error_cause: string;
+  error_solved: boolean;
+  write_date: string;
+  tags: string;
+};
+
+export type BoardSearchDataType = {
+  data: BoardSearchType[];
+  count: number;
+};

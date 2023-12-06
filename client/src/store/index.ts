@@ -11,6 +11,7 @@ import myErrorFilterReducer from "./Toggle/MyErrorFilter";
 import pagination from "./Utils/Pagination";
 import RankToggle from "./Toggle/RankingToggle";
 import BoardRankTab from "./Toggle/BoardRankTab";
+import boardSearch from "./DataThunk/BoardSearchSlice";
 import storage from "redux-persist/lib/storage";
 
 import {
@@ -34,6 +35,7 @@ const reducers = combineReducers({
   myError: myErrorReducer,
   replies: ReplyDataSlice,
   mySearch: MySearchSlice,
+  boardSearch: boardSearch,
   myErrorFilter: myErrorFilterReducer,
   pagination: pagination,
   BoardRankTab: BoardRankTab,

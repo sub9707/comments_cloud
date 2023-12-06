@@ -117,6 +117,11 @@ const RankBoxLine = styled.div`
     text-overflow: ellipsis;
     position: relative;
     padding-right: 0.2em;
+    strong {
+      padding-inline: 0.4em;
+      padding-block: 0.7em;
+      color: red;
+    }
   }
 `;
 const DivisionLine = styled.div`

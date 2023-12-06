@@ -17,14 +17,15 @@ import ContentsArea from "../../components/MyError/ContentsArea";
 import ErrorBoardTitle from "../../components/MyError/ErrorBoardTitle";
 import WriteCommentArea from "../../components/MyError/WriteCommentArea";
 import CommentCard from "../../components/Cards/CommentCard";
-import { JustifyCenter } from "../../styles/FlexBoxStlye";
+import { JustifyCenter, JustifyStart } from "../../styles/FlexBoxStlye";
 import LikeButton from "../../components/MyError/LikeButton";
 import { RootState } from "../../store";
+import TagsArea from "../../components/MyError/TagsArea";
 
 function ErrorView() {
   const { boardId } = useParams();
-  const dataState = useSelector((state: RootState) => state.myError);
-  const user = useSelector((state: RootState) => state.user);
+  // const dataState = useSelector((state: RootState) => state.myError);
+  // const user = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const fetchData = async () => {
@@ -42,18 +43,18 @@ function ErrorView() {
     }
   };
 
-  useEffect(() => {
-    if (!dataState) return;
-    if (
-      !dataState.data?.publicCheck &&
-      user.data.id !== dataState.data?.writer_id
-    ) {
-      alert("허가되지 않은 접근입니다.");
-      navigate(-1);
-      dispatch(clearMyErrorData());
-      return;
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!dataState) return;
+  //   if (
+  //     !dataState.data?.publicCheck &&
+  //     user.data.id !== dataState.data?.writer_id
+  //   ) {
+  //     alert("허가되지 않은 접근입니다.");
+  //     navigate(-1);
+  //     dispatch(clearMyErrorData());
+  //     return;
+  //   }
+  // }, []);
 
   useEffect(() => {
     fetchData();
@@ -75,6 +76,9 @@ function ErrorView() {
       <JustifyCenter>
         <LikeButton />
       </JustifyCenter>
+      <JustifyStart>
+        <TagsArea />
+      </JustifyStart>
       {/*댓글 영역*/}
       <DottedDivision />
       <br />
