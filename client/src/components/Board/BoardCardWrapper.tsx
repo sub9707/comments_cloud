@@ -7,6 +7,7 @@ import { BoardFetchType } from "../../types/board";
 import { useDispatch, useSelector } from "react-redux";
 import { clearPagination, setTotalCount } from "../../store/Utils/Pagination";
 import { RootState } from "../../store";
+import { clearReplies } from "../../store/DataThunk/RepliesSlice";
 
 function BoardCardWrapper() {
   const [boardData, setBoardData] = useState<BoardFetchType[]>([]);
@@ -25,6 +26,7 @@ function BoardCardWrapper() {
 
   useEffect(() => {
     dispatch(clearPagination());
+    dispatch(clearReplies());
   }, []);
 
   useEffect(() => {

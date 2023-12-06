@@ -2,7 +2,7 @@ export type BoardFetchType = {
   id: number;
   title: string;
   publicCheck: boolean;
-  tags: string[];
+  tags: string;
   views: number;
   write_date: string;
   error_solved: boolean;

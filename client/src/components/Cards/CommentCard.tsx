@@ -162,7 +162,7 @@ export default function CommentCard() {
     if (data) {
       dispatch(fetchReplies({ boardId: data?.id, offset: 0 }));
     }
-  }, [dispatch, data]);
+  }, [data]);
 
   useEffect(() => {
     setInputValue(replies?.map((reply) => reply.content));

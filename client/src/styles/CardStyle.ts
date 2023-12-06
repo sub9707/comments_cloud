@@ -48,7 +48,16 @@ export const CardInfo = styled.div`
 export const BadgeWrapper = styled.div`
   width: 70%;
   height: 90%;
-  border: 0.1px solid black;
+  display: flex;
+  align-items: center;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  margin-bottom: 0.2em;
+  gap: 0.3em;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  cursor: default;
 `;
 export const DateInfo = styled.p`
   color: grey;

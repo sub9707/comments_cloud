@@ -142,7 +142,7 @@ const TagWrapper = styled.div`
   }
   cursor: default;
 `;
-const TagBadge = styled.div`
+export const TagBadge = styled.div`
   width: auto;
   height: 70%;
   background-color: #514a64;
