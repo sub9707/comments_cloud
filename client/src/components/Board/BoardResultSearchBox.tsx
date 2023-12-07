@@ -10,12 +10,10 @@ import {
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { clearPagination } from "../../store/Utils/Pagination";
-import { useNavigate } from "react-router-dom";
 
-function BoardSearchBox() {
+function BoardResultSearchBox() {
   const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>();
   const [searchValue, setSearchValue] = useState<string>("");
-  const navigate = useNavigate();
 
   const handleClick = async () => {
     try {
@@ -23,13 +21,9 @@ function BoardSearchBox() {
       dispatch(setSearch(searchValue));
     } catch (error) {
       console.error(error);
-    } finally {
-      navigate(`/board/search`);
     }
   };
-  useEffect(() => {
-    dispatch(clearBoardSearch());
-  }, []);
+
   return (
     <InputGroup className="w-50">
       <Form.Control
@@ -44,4 +38,4 @@ function BoardSearchBox() {
   );
 }
 
-export default BoardSearchBox;
+export default BoardResultSearchBox;

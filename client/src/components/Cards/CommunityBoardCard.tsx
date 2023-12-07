@@ -56,9 +56,11 @@ function CommunityBoardCard(props: BoardFetchType) {
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           onMouseLeave={handleMouseLeave}>
-          {tagArray.map((tag: string, _idx: number) => (
-            <TagBadge key={_idx}>{tag}</TagBadge>
-          ))}
+          {tagArray
+            ? tagArray.map((tag: string, _idx: number) => (
+                <TagBadge key={_idx}>{tag}</TagBadge>
+              ))
+            : null}
         </BadgeWrapper>
         <>
           <SolvedBadge solved={props.error_solved ? "해결" : "미해결"} />

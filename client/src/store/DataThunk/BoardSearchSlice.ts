@@ -5,6 +5,7 @@ import { BoardSearchDataType } from "../../types/BoardTypes";
 const initialState: BoardSearchDataType = {
   data: [],
   count: 0,
+  search: "",
 };
 
 /**
@@ -17,6 +18,8 @@ export const fetchBoardSearchData = createAsyncThunk(
     const response = await axios.get(
       `/board/boardSearch?&search=${search}&offset=${offset}`
     );
+    console.log(response.data);
+
     return response.data;
   }
 );
@@ -25,17 +28,20 @@ const boardSearchSlice = createSlice({
   name: "boardSearch",
   initialState,
   reducers: {
-    clearSearch: () => {
+    clearBoardSearch: () => {
       return initialState;
+    },
+    setSearch: (state, action) => {
+      state.search = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchBoardSearchData.fulfilled, (state, action) => {
-      state.data = [...state.data, ...action.payload.data];
-      state.count = action.payload.total;
+      state.data = action.payload.data;
+      state.count = action.payload.count;
     });
   },
 });
 
-export const { clearSearch } = boardSearchSlice.actions;
+export const { clearBoardSearch, setSearch } = boardSearchSlice.actions;
 export default boardSearchSlice.reducer;

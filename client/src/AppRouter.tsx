@@ -25,7 +25,6 @@ const Unauthorized = React.lazy(
 // Main
 const MainComp = React.lazy(() => import("./pages/MainPage/MainPage"));
 const NoticePage = React.lazy(() => import("./pages/Notice/NoticePage"));
-const BoardPage = React.lazy(() => import("./pages/Board/BoardPage"));
 const Service = React.lazy(() => import("./pages/Service/ServicePage"));
 // Admin
 const AdminMain = React.lazy(() => import("./pages/Admin/AdminMainPage"));
@@ -46,6 +45,11 @@ const UserProfileFixPage = React.lazy(
   () => import("./pages/Profile/UserProfileFix")
 );
 const UserProfilePage = React.lazy(() => import("./pages/Profile/UserProfile"));
+// BoardPage
+const BoardPage = React.lazy(() => import("./pages/Board/BoardPage"));
+const BoardSearchPage = React.lazy(
+  () => import("./pages/Board/BoardSearchPage")
+);
 
 export default function AppRouter() {
   return (
@@ -61,7 +65,10 @@ export default function AppRouter() {
             <Route index element={<MainComp />} />
             <Route path="service" element={<Service />} />
             <Route path="notice" element={<NoticePage />} />
-            <Route path="board" element={<BoardPage />} />
+            <Route path="board">
+              <Route index element={<BoardPage />} />
+              <Route path="search" element={<BoardSearchPage />} />
+            </Route>
             <Route path="myError">
               <Route index element={<MyError />} />
               <Route path="search" element={<MyErrorSearch />} />
