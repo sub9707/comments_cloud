@@ -1,12 +1,9 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import {
-  clearBoardSearch,
-  setSearch,
-} from "../../store/DataThunk/BoardSearchSlice";
+import { setSearch } from "../../store/DataThunk/BoardSearchSlice";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import { clearPagination } from "../../store/Utils/Pagination";

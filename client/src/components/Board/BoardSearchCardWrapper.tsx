@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import CommunityBoardCard from "../Cards/CommunityBoardCard";
 import { JustifyCenter } from "../../styles/FlexBoxStlye";
-import { BoardFetchType } from "../../types/board";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { clearReplies } from "../../store/DataThunk/RepliesSlice";
