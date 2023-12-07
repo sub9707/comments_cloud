@@ -6,27 +6,37 @@ const {
 const db = require("../config/db");
 
 class ErrorsModel {
-  static async getAllBoards(offset) {
+  static async getAllBoards(offset, filter) {
     return new Promise((resolve) => {
+      let baseQuery = "SELECT * FROM error_contents WHERE publicCheck = 1";
+      let orderByClause = "ORDER BY write_date DESC, id ASC";
+
+      // Customize the query based on the filter
+      if (filter === "popular") {
+        orderByClause = "ORDER BY likes DESC, write_date DESC, id ASC";
+      } else if (filter === "view") {
+        orderByClause = "ORDER BY views DESC, write_date DESC, id ASC";
+      }
+
       // Fetch total count
       db.query(
-        "SELECT COUNT(*) as totalCount FROM error_contents WHERE publicCheck = 1",
+        `SELECT COUNT(*) as totalCount FROM (${baseQuery}) as filteredData`,
         (countError, countResult) => {
           if (countError) {
             resolve(countError);
             return;
           }
           const totalCount = countResult[0].totalCount;
-          // Fetch data
+
           db.query(
-            "SELECT * FROM error_contents WHERE publicCheck = 1 ORDER BY write_date DESC, id ASC LIMIT 6 OFFSET ?",
+            `${baseQuery} ${orderByClause} LIMIT 6 OFFSET ?`,
             [+offset],
             (error, result) => {
               if (!error) {
-                // Resolve with both data and total count
                 resolve({ data: result, totalCount });
               } else {
                 resolve(error);
+                console.error(error);
               }
             }
           );
@@ -34,6 +44,7 @@ class ErrorsModel {
       );
     });
   }
+
   static async getDailyRank() {
     return new Promise((resolve) => {
       const today = new Date(Date.now() - dateOffset).toISOString();

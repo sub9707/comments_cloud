@@ -3,7 +3,7 @@ const BoardController = require("../controllers/boardController");
 const router = express.Router();
 
 // RankBox
-// 최신순으로 offset 6개
+// offset : 6개
 router.get("/boardList", BoardController.getAllBoards);
 // Ranking
 // 일간 조회수 랭킹

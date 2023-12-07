@@ -2,7 +2,7 @@ const BoardModel = require("../models/board");
 
 class BoardController {
   /**
-   * 커뮤니티 게시물 최신순 가져오기
+   * 커뮤니티 게시물 가져오기
    *
    * @param {request: offset}
    * @param {response}
@@ -12,8 +12,9 @@ class BoardController {
    */
   static getAllBoards = async (req, res) => {
     const offset = req.query.offset;
+    const filter = req.query.filter;
     try {
-      let results = await BoardModel.getAllBoards(offset);
+      let results = await BoardModel.getAllBoards(offset, filter);
       if (results) res.send(results);
     } catch (error) {
       console.error(error);
