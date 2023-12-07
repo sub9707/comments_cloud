@@ -56,36 +56,42 @@ function RankingBox() {
     <JustifyCenter>
       {isShow.show ? (
         <RankBox>
-          <RankBoxLine>
-            {rankData.slice(0, 5).map((data, index) => (
-              <JustFlex key={index}>
-                <p
-                  className="text-underline-hover"
-                  onClick={() => navigate(`/myError/${data?.id}`)}>
-                  <strong>{index + 1}</strong>&nbsp;
-                  {data?.title}
-                </p>
-                {isWithin24Hours(data?.write_date) ? (
-                  <NewIcon src="/images/new.png" alt="newIcon" />
-                ) : null}
-              </JustFlex>
-            ))}
-          </RankBoxLine>
-          <DivisionLine />
-          <RankBoxLine>
-            {rankData.slice(5, 10).map((data, index) => (
-              <JustFlex key={index + 5}>
-                <p
-                  className="text-underline-hover"
-                  onClick={() => navigate(`/myError/${data?.id}`)}>
-                  <strong>{index + 6}</strong>&nbsp;{data?.title}
-                </p>
-                {isWithin24Hours(data?.write_date) ? (
-                  <NewIcon src="/images/new.png" alt="newIcon" />
-                ) : null}
-              </JustFlex>
-            ))}
-          </RankBoxLine>
+          {rankData.length > 0 ? (
+            <>
+              <RankBoxLine>
+                {rankData.slice(0, 5).map((data, index) => (
+                  <JustFlex key={index}>
+                    <p
+                      className="text-underline-hover"
+                      onClick={() => navigate(`/myError/${data?.id}`)}>
+                      <strong>{index + 1}</strong>&nbsp;
+                      {data?.title}
+                    </p>
+                    {isWithin24Hours(data?.write_date) ? (
+                      <NewIcon src="/images/new.png" alt="newIcon" />
+                    ) : null}
+                  </JustFlex>
+                ))}
+              </RankBoxLine>
+              <DivisionLine />
+              <RankBoxLine>
+                {rankData.slice(5, 10).map((data, index) => (
+                  <JustFlex key={index + 5}>
+                    <p
+                      className="text-underline-hover"
+                      onClick={() => navigate(`/myError/${data?.id}`)}>
+                      <strong>{index + 6}</strong>&nbsp;{data?.title}
+                    </p>
+                    {isWithin24Hours(data?.write_date) ? (
+                      <NewIcon src="/images/new.png" alt="newIcon" />
+                    ) : null}
+                  </JustFlex>
+                ))}
+              </RankBoxLine>
+            </>
+          ) : (
+            <NoDataText>랭킹 데이터가 없습니다.</NoDataText>
+          )}
         </RankBox>
       ) : null}
     </JustifyCenter>
@@ -137,4 +143,8 @@ const NewIcon = styled.img`
   height: 1em;
   margin-bottom: 0.1em;
   margin-left: 0.2em;
+`;
+
+const NoDataText = styled.p`
+  padding-inline: 2em;
 `;

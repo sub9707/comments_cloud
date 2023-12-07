@@ -13,10 +13,19 @@ function BoardCardWrapper() {
   const [boardData, setBoardData] = useState<BoardFetchType[]>([]);
   const dispatch = useDispatch();
   const { offset } = useSelector((state: RootState) => state.pagination);
+  const filter = useSelector((state: RootState) => state.boardFetchTab);
 
   const fetchData = async (offset: number) => {
     try {
-      const result = await getAllBoards(offset);
+      let selectedFilter: string = "";
+      if (filter.recent) {
+        selectedFilter = "recent";
+      } else if (filter.popular) {
+        selectedFilter = "popular";
+      } else if (filter.view) {
+        selectedFilter = "view";
+      }
+      const result = await getAllBoards(offset, selectedFilter);
       setBoardData(result.data);
       dispatch(setTotalCount(result.totalCount));
     } catch (error) {
@@ -31,7 +40,7 @@ function BoardCardWrapper() {
 
   useEffect(() => {
     fetchData(offset);
-  }, [offset]);
+  }, [offset, filter]);
 
   return (
     <Container style={containerStyle}>

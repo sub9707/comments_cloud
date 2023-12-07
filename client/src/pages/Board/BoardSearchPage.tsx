@@ -15,6 +15,7 @@ function BoardSearchPage() {
       <br />
       <SearchInfoArea />
       <br />
+      <br />
       <BoardSearchCardWrapper />
       <br />
       <JustifyCenter>

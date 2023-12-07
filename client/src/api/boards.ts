@@ -4,9 +4,11 @@ import axios from "./axios";
  * @method GET
  *  게시물 목록 불러오기
  */
-export const getAllBoards = async (offset: number) => {
+export const getAllBoards = async (offset: number, filter: string) => {
   try {
-    const response = await axios.get(`/board/boardList?offset=${offset}`);
+    const response = await axios.get(
+      `/board/boardList?offset=${offset}&filter=${filter}`
+    );
     return response.data;
   } catch (error) {
     console.error("게시물 목록 불러오기 실패:", error);

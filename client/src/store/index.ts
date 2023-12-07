@@ -12,6 +12,7 @@ import pagination from "./Utils/Pagination";
 import RankToggle from "./Toggle/RankingToggle";
 import BoardRankTab from "./Toggle/BoardRankTab";
 import boardSearch from "./DataThunk/BoardSearchSlice";
+import boardFetchSlice from "./Toggle/BoardFetchTab";
 import storage from "redux-persist/lib/storage";
 
 import {
@@ -40,6 +41,7 @@ const reducers = combineReducers({
   pagination: pagination,
   BoardRankTab: BoardRankTab,
   RankToggle: RankToggle,
+  boardFetchTab: boardFetchSlice,
 });
 
 export type RootState = ReturnType<typeof reducers>;
