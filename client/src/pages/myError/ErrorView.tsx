@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { MainContainer } from "../../styles/PageContainer";
 import { useEffect } from "react";
 import { getBoardError } from "../../api/ErrorBoard";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setMyErrorData } from "../../store/Modal/MyErrorModal";
 import {
   CommentArea,
@@ -17,15 +17,26 @@ import CommentCard from "../../components/Cards/CommentCard";
 import { JustifyCenter, JustifyStart } from "../../styles/FlexBoxStlye";
 import LikeButton from "../../components/MyError/LikeButton";
 import TagsArea from "../../components/MyError/TagsArea";
+import { RootState } from "../../store";
 
 function ErrorView() {
   const { boardId } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = useSelector((state: RootState) => state.user.data);
+
   const fetchData = async () => {
     try {
       if (boardId) {
         const result = await getBoardError(+boardId);
+        const isPublic: boolean = result?.publicCheck;
+        console.log("공개? :" + isPublic);
+        const writer: number = result?.writer_id;
+        if (!isPublic && writer !== user?.id) {
+          alert("접근 권한이 없습니다.");
+          navigate(-1);
+          return;
+        }
         if (result) dispatch(setMyErrorData(result));
         else {
           alert("존재하지 않는 게시글입니다.");
@@ -38,8 +49,8 @@ function ErrorView() {
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (boardId) fetchData();
+  }, [boardId]);
 
   return (
     <MainContainer>
