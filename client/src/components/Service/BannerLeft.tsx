@@ -26,6 +26,7 @@ const BannerLeftBox = styled.div`
   flex-direction: column;
   justify-content: center;
   padding: 2em;
+  margin-left: 2em;
 `;
 
 const MainTitleH1 = styled.h1`
@@ -44,7 +45,7 @@ const ServiceButtonArea = styled.div`
   margin-top: 2em;
   align-items: center;
 `;
-const ServiceButton = styled.button`
+export const ServiceButton = styled.button`
   background-color: #7528f1;
   width: 7em;
   height: 2.5em;
