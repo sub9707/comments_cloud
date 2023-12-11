@@ -229,6 +229,30 @@ class UserModel {
       );
     });
   }
+  static async getLikedNoteList(userId, offset) {
+    const query = `
+    SELECT ec.id, ec.title, u.nickname
+    FROM error_contents ec
+    JOIN error_contents_likes ec_likes ON ec.id = ec_likes.board_id
+    JOIN users u ON ec.writer_id = u.id
+    WHERE ec_likes.user_id = ?
+    ORDER BY ec.id
+    LIMIT 15 OFFSET ?
+  `;
+    return new Promise((resolve) => {
+      db.query(query, [userId, offset], (error, result) => {
+        if (!error) {
+          const responseData = {
+            data: result,
+            totalCount: result.length > 0 ? result[0].totalCount : 0,
+          };
+          resolve(responseData);
+        } else {
+          resolve(error);
+        }
+      });
+    });
+  }
 }
 
 module.exports = UserModel;

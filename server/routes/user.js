@@ -11,6 +11,7 @@ router.get("/noteData", usercontroller.getUserNoteData);
 router.get("/calanderData", usercontroller.getNoteCalendar);
 router.get("/recentNote", usercontroller.getRecentNotes);
 router.get("/likedNote", usercontroller.getLikedNotes);
+router.get("/likedNoteList", usercontroller.getLikedNotesList);
 router.get("/findById", usercontroller.userFindById);
 router.post("/register", usercontroller.registerUser);
 router.delete(

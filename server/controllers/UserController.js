@@ -308,6 +308,24 @@ class UserController {
       console.error(error);
     }
   };
+  /**
+   * 유저 좋아요 누른 노트 리스트
+   *
+   * @param {request}
+   * @param {response}
+   * @method GET
+   *
+   **/
+  static getLikedNotesList = async (req, res) => {
+    const userId = req.query.userId;
+    const offset = req.query.offset;
+    try {
+      const data = await userModel.getLikedNoteList(userId, +offset);
+      res.send(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 }
 
 module.exports = UserController;
