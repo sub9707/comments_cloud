@@ -20,3 +20,9 @@ export type PaginationCompProps = {
 export type PublicBadgeType = {
   ispublic: string;
 };
+
+export type ServiceDataType = {
+  title: string;
+  subtitle: string;
+  list: string[];
+};

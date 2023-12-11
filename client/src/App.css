@@ -153,3 +153,16 @@ a:hover {
 .react-chatbot-kit-chat-bot-message {
   width: 90% !important;
 }
+/* motion framer style */
+
+/* Progress Bar */
+.bar {
+  position: fixed;
+  top: 5em;
+  width: 57%;
+  height: 1vh;
+  transform-origin: 0;
+  transform: translate3d(0, 0, 0);
+  background: rgb(65, 30, 161);
+  opacity: 0.8;
+}

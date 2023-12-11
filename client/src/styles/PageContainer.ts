@@ -209,3 +209,31 @@ export const InfoText = styled.p`
   color: #6f6f6f;
   line-height: 1em;
 `;
+
+export const IntroBanner = styled.div`
+  width: 100%;
+  height: 50vh;
+  display: flex;
+`;
+export const ServiceArea = styled.div`
+  width: 100%;
+  height: 18vh;
+  display: flex;
+  justify-content: center;
+  margin-top: 2em;
+`;
+export const MyErrorBanner = styled.div`
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  padding-inline: 8%;
+`;
+export const ContactArea = styled.div`
+  width: 100%;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin-top: 10em;
+  margin-bottom: 10em;
+`;

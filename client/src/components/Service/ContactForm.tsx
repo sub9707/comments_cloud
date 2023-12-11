@@ -8,8 +8,9 @@ import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { useDispatch } from "react-redux";
 import { addMessage } from "../../store/Utils/Alert";
+import { motion } from "framer-motion";
 
-function ContactForm() {
+function ContactForm(props: { onRef: React.RefObject<HTMLDivElement> }) {
   const [loading, setLoading] = useState<boolean>(false);
   const form = useRef<HTMLFormElement | null>(null);
   const dispatch = useDispatch();
@@ -48,7 +49,11 @@ function ContactForm() {
   };
 
   return (
-    <ContactBox>
+    <ContactBox
+      initial={{ opacity: 0, y: 60 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ root: props.onRef, once: true }}
+      transition={{ duration: "1", delay: 0.3 }}>
       <form ref={form} onSubmit={sendEmail}>
         <ContactTitle>Contact Us</ContactTitle>
         <br />
@@ -81,7 +86,7 @@ function ContactForm() {
 
 export default ContactForm;
 
-const ContactBox = styled.div`
+const ContactBox = styled(motion.div)`
   width: 55%;
   height: 50vh;
   border-radius: 10px;

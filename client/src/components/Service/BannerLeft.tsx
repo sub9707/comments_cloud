@@ -1,19 +1,35 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
 function BannerLeft() {
   return (
     <BannerLeftBox>
-      <MainTitleH1>Example Bold Title Text</MainTitleH1>
-      <SubTitleText>
-        Subtitle Text. Just Take any Texts in this Area. <br />I Guess This must
-        be two lines.
-      </SubTitleText>
-      <ServiceButtonArea>
-        <ServiceButton>Action</ServiceButton>
-        <ServiceInfoText>
-          111111111111111111111111111111111111111111111111111111
-        </ServiceInfoText>
-      </ServiceButtonArea>
+      <motion.div
+        initial={{ x: -40, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: "1" }}>
+        <MainTitleH1>Example Bold Title Text</MainTitleH1>
+      </motion.div>
+      <motion.div
+        initial={{ x: -40, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: "1", delay: 0.3 }}>
+        <SubTitleText>
+          Subtitle Text. Just Take any Texts in this Area. <br />I Guess This
+          must be two lines.
+        </SubTitleText>
+      </motion.div>
+      <motion.div
+        initial={{ x: -40, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: "1", delay: 0.5 }}>
+        <ServiceButtonArea>
+          <ServiceButton>Action</ServiceButton>
+          <ServiceInfoText>
+            111111111111111111111111111111111111111111111111111111
+          </ServiceInfoText>
+        </ServiceButtonArea>
+      </motion.div>
     </BannerLeftBox>
   );
 }
