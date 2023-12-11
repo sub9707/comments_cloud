@@ -19,7 +19,7 @@ function BannerRight() {
 export default BannerRight;
 
 const BannerRightBox = styled.div`
-  width: 100%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;

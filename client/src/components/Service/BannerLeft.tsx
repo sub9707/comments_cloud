@@ -1,22 +1,28 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { isLoggedIn } from "../../store/Utils/Cookie";
 
 function BannerLeft() {
+  const navigate = useNavigate();
+  const isLogIn = isLoggedIn();
   return (
     <BannerLeftBox>
       <motion.div
         initial={{ x: -40, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: "1" }}>
-        <MainTitleH1>Example Bold Title Text</MainTitleH1>
+        <MainTitleH1>
+          바로 쓰고 관리하는 <br /> 내 손안의 에러노트
+        </MainTitleH1>
       </motion.div>
       <motion.div
         initial={{ x: -40, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: "1", delay: 0.3 }}>
         <SubTitleText>
-          Subtitle Text. Just Take any Texts in this Area. <br />I Guess This
-          must be two lines.
+          트러블슈터는 개발 중 발생한 에러와 오류들을 상황-원인-과정-결과로
+          분류하여 작성하고, 이를 관리-공유할 수 있는 웹서비스입니다.
         </SubTitleText>
       </motion.div>
       <motion.div
@@ -24,9 +30,12 @@ function BannerLeft() {
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: "1", delay: 0.5 }}>
         <ServiceButtonArea>
-          <ServiceButton>Action</ServiceButton>
+          <ServiceButton
+            onClick={() => navigate(isLogIn ? `/myError` : `/login`)}>
+            시작하기
+          </ServiceButton>
           <ServiceInfoText>
-            111111111111111111111111111111111111111111111111111111
+            로그인하여 계정을 생성하고 <br /> 나만의 노트를 시작하세요!
           </ServiceInfoText>
         </ServiceButtonArea>
       </motion.div>
@@ -71,7 +80,7 @@ export const ServiceButton = styled.button`
 const ServiceInfoText = styled.p`
   width: 21em;
   height: 3em;
-  font-size: 1em;
+  font-size: 0.9em;
   word-wrap: break-word;
   margin: 0;
   margin-left: 1em;

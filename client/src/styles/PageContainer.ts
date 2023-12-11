@@ -1,6 +1,7 @@
+import { motion } from "framer-motion";
 import styled from "styled-components";
 
-export const PageContainer = styled.div`
+export const PageContainer = styled(motion.div)`
   position: relative;
   margin: 0;
   width: 100%;

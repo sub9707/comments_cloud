@@ -26,3 +26,8 @@ export type ServiceDataType = {
   subtitle: string;
   list: string[];
 };
+export type ServiceInfoDataType = {
+  title: string;
+  subtitle: string;
+  delay: number;
+};

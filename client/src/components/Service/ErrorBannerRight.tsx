@@ -1,8 +1,10 @@
+import { Variants, motion } from "framer-motion";
 import styled from "styled-components";
-import { motion, Variants } from "framer-motion";
 
 function ErrorBannerRight(
-  props: { onRef: React.RefObject<HTMLDivElement> } & { reversed: boolean }
+  props: { onRef: React.RefObject<HTMLDivElement> } & { reversed: boolean } & {
+    imgSrc: string;
+  }
 ) {
   const cardVariants: Variants = {
     offscreen: {
@@ -25,7 +27,7 @@ function ErrorBannerRight(
       whileInView="onscreen"
       variants={cardVariants}
       viewport={{ root: props.onRef, once: true }}>
-      <RightImage src="/images/Sample.png" />
+      <RightImage src={props.imgSrc} alt="infoGIF" />
     </ErrorBannerImgBox>
   );
 }

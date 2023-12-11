@@ -2,21 +2,21 @@ import { faCompass } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+import { ServiceInfoDataType } from "../../types/Components-type";
 
-function ServiceInfoOne() {
+function ServiceInfoOne(props: ServiceInfoDataType) {
+  const { title, subtitle, delay } = props;
   return (
     <ServiceBox>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: "1", delay: 1.3 }}>
+        transition={{ duration: "1", delay: delay }}>
         <TitleWrapper>
           <FontAwesomeIcon icon={faCompass} size="xl" />
-          <ServiceTitle>Text Sample</ServiceTitle>
+          <ServiceTitle>{title}</ServiceTitle>
         </TitleWrapper>
-        <ContentText>
-          Text Sample. This must be the texts of the subtitle or content Texts.
-        </ContentText>
+        <ContentText>{subtitle}</ContentText>
       </motion.div>
     </ServiceBox>
   );
@@ -24,20 +24,20 @@ function ServiceInfoOne() {
 
 export default ServiceInfoOne;
 
-export const ServiceBox = styled.div`
+const ServiceBox = styled.div`
   width: 30%;
   padding: 2em;
-  color: #6940bb;
+  color: #4d46ad;
 `;
-export const TitleWrapper = styled.div`
+const TitleWrapper = styled.div`
   display: flex;
   gap: 0.8em;
 `;
-export const ServiceTitle = styled.h3`
+const ServiceTitle = styled.h3`
   font-size: 1.3em;
   font-family: ONE-Mobile-Title;
 `;
-export const ContentText = styled.p`
+const ContentText = styled.p`
   font-size: 0.8em;
   font-family: ONE-Mobile-Title;
   margin-top: 1em;

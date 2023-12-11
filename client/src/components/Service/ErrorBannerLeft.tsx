@@ -11,11 +11,11 @@ function ErrorBannerLeft(
 
   const cardVariants: Variants = {
     offscreen: {
-      x: reversed ? 300 : -300,
+      x: reversed ? 200 : -300,
       opacity: 0,
     },
     onscreen: {
-      x: 0,
+      x: reversed ? 50 : 0,
       opacity: 1,
       transition: {
         type: "spring",

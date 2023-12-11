@@ -9,15 +9,14 @@ import { PageHeader } from "../../styles/TextStyle";
 import BannerLeft from "../../components/Service/BannerLeft";
 import BannerRight from "../../components/Service/BannerRight";
 import ServiceInfoOne from "../../components/Service/ServiceInfoOne";
-import ServiceInfoTwo from "../../components/Service/ServiceInfoTwo";
-import ServiceInfoThree from "../../components/Service/ServiceInfoThree";
 import ErrorBannerLeft from "../../components/Service/ErrorBannerLeft";
 import ErrorBannerRight from "../../components/Service/ErrorBannerRight";
 import ContactForm from "../../components/Service/ContactForm";
 import ContactImage from "../../components/Service/ContactImage";
-import ServiceData from "./ServiceInfo.json";
+import ServiceData from "./ServiceBanner.json";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { useRef } from "react";
+import infoData from "./ServiceInfoBottom.json";
 
 export default function ServicePage() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -34,14 +33,12 @@ export default function ServicePage() {
       <br />
       <IntroBanner>
         <BannerLeft />
-        <motion.div>
-          <BannerRight />
-        </motion.div>
+        <BannerRight />
       </IntroBanner>
       <ServiceArea>
-        <ServiceInfoOne />
-        <ServiceInfoTwo />
-        <ServiceInfoThree />
+        {infoData.map((data, _idx) => (
+          <ServiceInfoOne {...data} />
+        ))}
       </ServiceArea>
       <br />
       <br />
@@ -53,12 +50,20 @@ export default function ServicePage() {
           reversed={false}
           onRef={containerRef}
         />
-        <ErrorBannerRight onRef={containerRef} reversed={false} />
+        <ErrorBannerRight
+          onRef={containerRef}
+          reversed={false}
+          imgSrc={"/images/gifSample.gif"}
+        />
       </MyErrorBanner>
       <br />
       <br />
       <MyErrorBanner>
-        <ErrorBannerRight reversed={true} onRef={containerRef} />
+        <ErrorBannerRight
+          reversed={true}
+          onRef={containerRef}
+          imgSrc={"/images/gifSample.gif"}
+        />
         <ErrorBannerLeft
           {...ServiceData[1]}
           reversed={true}
@@ -67,14 +72,17 @@ export default function ServicePage() {
       </MyErrorBanner>
       <br />
       <br />
-
       <MyErrorBanner>
         <ErrorBannerLeft
           {...ServiceData[2]}
           reversed={false}
           onRef={containerRef}
         />
-        <ErrorBannerRight onRef={containerRef} reversed={false} />
+        <ErrorBannerRight
+          onRef={containerRef}
+          reversed={false}
+          imgSrc={"/images/gifSample.gif"}
+        />
       </MyErrorBanner>
       <br />
       <br />
