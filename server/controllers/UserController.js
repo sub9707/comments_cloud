@@ -326,6 +326,40 @@ class UserController {
       console.error(error);
     }
   };
+  /**
+   * 유저 좋아요 누른 노트 리스트 공개 여부 체크
+   *
+   * @param {request}
+   * @param {response}
+   * @method GET
+   *
+   **/
+  static checkLikedListPublic = async (req, res) => {
+    const userId = req.query.userId;
+    try {
+      const data = await userModel.getLikedListPublic(userId);
+      res.send(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  /**
+   * 유저 좋아요 누른 노트 리스트 공개 여부 변경
+   *
+   * @param {request}
+   * @param {response}
+   * @method POST
+   *
+   **/
+  static changeLikedListPublic = async (req, res) => {
+    const userId = req.query.userId;
+    try {
+      const data = await userModel.changeLikedListPublic(userId);
+      res.send(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 }
 
 module.exports = UserController;

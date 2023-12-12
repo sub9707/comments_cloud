@@ -231,22 +231,52 @@ class UserModel {
   }
   static async getLikedNoteList(userId, offset) {
     const query = `
-    SELECT ec.id, ec.title, u.nickname
-    FROM error_contents ec
-    JOIN error_contents_likes ec_likes ON ec.id = ec_likes.board_id
+    SELECT ec.id, ec.title,ec.writer_id, u.nickname, ecl.like_date
+    FROM error_contents_likes ecl
+    JOIN error_contents ec ON ecl.board_id = ec.id
     JOIN users u ON ec.writer_id = u.id
-    WHERE ec_likes.user_id = ?
-    ORDER BY ec.id
-    LIMIT 15 OFFSET ?
+    WHERE ecl.user_id = ?
+    ORDER BY ecl.like_date DESC
+    LIMIT 10 OFFSET ?
   `;
     return new Promise((resolve) => {
       db.query(query, [userId, offset], (error, result) => {
         if (!error) {
           const responseData = {
             data: result,
-            totalCount: result.length > 0 ? result[0].totalCount : 0,
+            totalCount: result.length > 0 ? result.length : 0,
           };
           resolve(responseData);
+        } else {
+          resolve(error);
+        }
+      });
+    });
+  }
+  static async getLikedListPublic(userId) {
+    const query = `
+      SELECT liked_list_public FROM users WHERE id = ?
+    `;
+    return new Promise((resolve) => {
+      db.query(query, [userId], (error, result) => {
+        if (!error) {
+          resolve(result[0]);
+        } else {
+          resolve(error);
+        }
+      });
+    });
+  }
+  static async changeLikedListPublic(userId) {
+    const query = `
+      UPDATE users
+      SET liked_list_public = NOT liked_list_public
+      WHERE id = ?;
+    `;
+    return new Promise((resolve) => {
+      db.query(query, [userId], (error, result) => {
+        if (!error) {
+          resolve(result);
         } else {
           resolve(error);
         }
