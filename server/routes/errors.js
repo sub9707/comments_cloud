@@ -33,14 +33,4 @@ router.post(
 router.get("/errorlist/replies/count", errorsController.getRepliesCount);
 router.get("/errorlist/replies/likeCheck", errorsController.getReplyLikeCheck);
 
-/**
- * Route : /error/errorlist/comments
- */
-router.get("/errorlist/comments/count", errorsController.getCommentsCount);
-router.get("/errorlist/comments", errorsController.getErrorsComments);
-router.post("/errorlist/comments", errorsController.writeComment);
-router.put("/errorlist/comments", errorsController.updateComment);
-router.delete("/errorlist/comments", errorsController.deleteComment);
-router.delete("/errorlist/commentsall", errorsController.deleteCommentsAll);
-
 module.exports = router;
