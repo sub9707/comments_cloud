@@ -165,3 +165,31 @@ export const getLikedData = async (userId: string) => {
     throw new Error("사용자 최근 좋아요 순 노트 조회 오류: AXIOS");
   }
 };
+/**
+ * @method GET
+ *  좋아요 노트 공개 체크
+ *
+ */
+export const checkLikedListPublic = async (userId: string) => {
+  try {
+    const response = await axios.get(`/user/checkLikedPublic?userId=${userId}`);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    throw new Error("좋아요 노트 공개 체크: AXIOS");
+  }
+};
+/**
+ * @method PUT
+ *  좋아요 노트 공개 변경
+ *
+ */
+export const changeLikedListPublic = async (userId: string) => {
+  try {
+    const response = await axios.put(`/user/LikedPublic?userId=${userId}`);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    throw new Error("좋아요 노트 공개 변경: AXIOS");
+  }
+};

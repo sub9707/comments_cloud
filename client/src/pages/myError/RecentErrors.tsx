@@ -13,7 +13,7 @@ import { recentErrorType } from "../../types/users";
 function RecentErrors() {
   const { userId } = useParams();
   const user = useSelector((state: userStateType) => state.user.data);
-  const [activeItemIndex, setActiveItemIndex] = useState(0);
+  const [activeItemIndex, setActiveItemIndex] = useState<number>(0);
   const [recentErrorData, setRecentData] = useState<recentErrorType[]>([]);
   const chevronWidth = 40;
 
@@ -47,7 +47,6 @@ function RecentErrors() {
         outsideChevron={false}
         chevronWidth={chevronWidth}>
         {parseInt(userId || "") === user?.id && <EmptyCarouselCard />}
-
         {recentErrorData.map((data, _idx) => (
           <CarouselCard {...data} key={_idx} />
         ))}

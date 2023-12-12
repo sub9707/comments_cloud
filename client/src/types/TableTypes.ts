@@ -27,3 +27,16 @@ export type MyErrorTablePropType = {
 export type MyErrorTableProps = {
   data: MyErrorTablePropType[];
 };
+
+export type LikedBoardType = {
+  id: number;
+  title: string;
+  nickname: string;
+  like_date: string;
+  writer_id: number;
+};
+
+export type LikedBoardsListType = {
+  data: LikedBoardType[];
+  total_count: number;
+};

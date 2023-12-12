@@ -13,6 +13,7 @@ import RankToggle from "./Toggle/RankingToggle";
 import BoardRankTab from "./Toggle/BoardRankTab";
 import boardSearch from "./DataThunk/BoardSearchSlice";
 import boardFetchSlice from "./Toggle/BoardFetchTab";
+import LikedBoardListSlice from "./DataThunk/LikedListSlice";
 import storage from "redux-persist/lib/storage";
 
 import {
@@ -42,6 +43,7 @@ const reducers = combineReducers({
   BoardRankTab: BoardRankTab,
   RankToggle: RankToggle,
   boardFetchTab: boardFetchSlice,
+  LikedBoardListSlice,
 });
 
 export type RootState = ReturnType<typeof reducers>;
