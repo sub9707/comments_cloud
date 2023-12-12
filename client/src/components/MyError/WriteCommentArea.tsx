@@ -29,6 +29,7 @@ function WriteCommentArea() {
           content: replyWrite,
           content_id: data?.id,
           writer_id: user?.id,
+          profileImg: user?.profile_img,
         };
         dispatch(addReply(props));
         alert("댓글이 등록되었습니다.");

@@ -1,11 +1,9 @@
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { CommentData } from "../../types/BoardTypes";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../store/Modal/Modal";
-import CommentReplyCard from "./CommentReplyCard";
 import { addMessage } from "../../store/Utils/Alert";
 import React, { ChangeEvent, useState, useEffect } from "react";
 import {
@@ -17,21 +15,15 @@ import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import {
   checkReplyCheck,
-  getAllComments,
   postReplyCancelLike,
   postReplyLike,
-  writeComment,
 } from "../../api/ErrorBoard";
-import { Button, Form, InputGroup } from "react-bootstrap";
 import { RootState } from "../../store";
 import { userStateType } from "../../store/Utils/User";
 
 export default function CommentCard() {
   const [replyLiked, setReplyLiked] = useState<boolean[]>([]);
-  const [commentsData, setCommentsData] = useState<CommentData[]>([]);
   const [replyLikes, setReplyLikes] = useState<number[]>([]);
-  const [commentInput, setCommentInput] = useState<string>("");
-  const [replyClickData, setReplyClickData] = useState<number>(-1);
   const navigate = useNavigate();
   const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>();
   const replies = useSelector((state: RootState) => state.replies);
@@ -81,29 +73,6 @@ export default function CommentCard() {
     } catch (err) {
       console.error(err);
     }
-  };
-
-  const handleViewReplies = async () => {
-    if (!data) return;
-    const result = await getAllComments(data?.id);
-    setCommentsData(result);
-  };
-
-  const submitCommentData = async () => {
-    if (!data) return;
-    try {
-      await writeComment(data?.id, 3, commentInput);
-      alert("댓글이 등록되었습니다.");
-      setCommentInput("");
-    } catch (err) {
-      console.error(err);
-    } finally {
-      handleViewReplies();
-    }
-  };
-  const handleCancelComment = () => {
-    setCommentInput("");
-    setReplyClickData(-1);
   };
 
   const handleLikeClick = async (idx: number) => {
@@ -174,8 +143,6 @@ export default function CommentCard() {
     }
   }, [user]);
 
-  console.log(userBlocked);
-
   return (
     <>
       {replies?.map((reply, _idx) => (
@@ -235,55 +202,6 @@ export default function CommentCard() {
               {toggleUpdate !== _idx && (
                 <CommentArea>{reply?.content}</CommentArea>
               )}
-
-              <CommentContol>
-                <InfoText
-                  style={{
-                    marginLeft: "1em",
-                    marginTop: "1em",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => setReplyClickData(_idx)}>
-                  답글달기
-                </InfoText>
-              </CommentContol>
-              <CommentReplyArea>
-                {commentsData?.map((data, _idx) => (
-                  <CommentReplyCard
-                    key={_idx}
-                    {...data}
-                    handleViewReplies={handleViewReplies}
-                  />
-                ))}
-              </CommentReplyArea>
-              {_idx === replyClickData ? (
-                <CommentReplyArea>
-                  <InputGroup>
-                    <Form.Control
-                      disabled={userBlocked}
-                      value={commentInput}
-                      onChange={(e) => setCommentInput(e.target.value)}
-                      placeholder={
-                        userBlocked
-                          ? "로그인 회원만 댓글 등록이 가능합니다."
-                          : "댓글 입력..."
-                      }
-                    />
-                    <Button
-                      disabled={userBlocked}
-                      variant="primary"
-                      onClick={submitCommentData}>
-                      등록
-                    </Button>
-                    <Button
-                      disabled={true}
-                      variant="outline-primary"
-                      onClick={handleCancelComment}>
-                      취소
-                    </Button>
-                  </InputGroup>
-                </CommentReplyArea>
-              ) : null}
             </CardRight>
           </CardContainer>
         </React.Fragment>
@@ -372,16 +290,4 @@ const CommentArea = styled.div`
     outline: none;
     background-color: #fcfbf1;
   }
-`;
-const CommentContol = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const CommentReplyArea = styled.div`
-  width: 100%;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
 `;

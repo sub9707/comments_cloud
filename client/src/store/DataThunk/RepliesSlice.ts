@@ -45,7 +45,7 @@ export const addReply = createAsyncThunk(
           },
         }
       );
-      return response.data;
+      return { ...response.data, profileImg: props.profileImg };
     } catch (error: any) {
       console.error("답글 추가 중 오류 발생:", error);
       throw error;
@@ -96,8 +96,17 @@ const repliesSlice = createSlice({
         return action.payload;
       })
       .addCase(addReply.fulfilled, (state, action) => {
-        const { data } = action.payload;
-        return [...state, { ...data, nickname: "방금 작성한 댓글", likes: 0 }];
+        const { data, profileImg } = action.payload;
+        console.log(profileImg);
+        return [
+          ...state,
+          {
+            ...data,
+            nickname: "방금 작성한 댓글",
+            likes: 0,
+            profileImg,
+          },
+        ];
       })
       .addCase(updateReply.fulfilled, (state, action) => {
         const { data } = action.payload;

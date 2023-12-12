@@ -34,6 +34,7 @@ import {
 } from "../../types/react-hook-form";
 import { setUser } from "../../store/Utils/User";
 import SpinnerOne from "../../components/Utils/Spinner";
+import { addMessage } from "../../store/Utils/Alert";
 
 export default function LoginPage() {
   const {
@@ -55,13 +56,10 @@ export default function LoginPage() {
   const [registerError, setRegisterError] = useState<string>("");
 
   const onSubmitLogin: SubmitHandler<LoginFormValues> = async (data) => {
-    console.log("client data: ", data);
     try {
       setIsLoading(true);
       const result = await loginUser(data.email, data.password);
-      console.log(JSON.stringify(result));
       if (result) {
-        console.log("로그인 성공:", result.user);
         setRefreshToken(result.refreshToken);
         dispatch(SET_TOKEN(result.accessToken));
         dispatch(
@@ -70,6 +68,14 @@ export default function LoginPage() {
             email: result.user.email,
             id: result.userId,
             rule: result.user.rule,
+            profile_img: result.user.profileImg,
+          })
+        );
+        dispatch(
+          addMessage({
+            id: "unique_id",
+            text: `로그인 했습니다.`,
+            type: "info",
           })
         );
         navigate("/");
@@ -86,8 +92,7 @@ export default function LoginPage() {
   const onSubmitReg: SubmitHandler<RegisterFormValues> = async (data) => {
     try {
       setIsLoading(true);
-      const result = await registerUser(data.email, data.name, data.password);
-      console.log("회원가입 성공:", result);
+      await registerUser(data.email, data.name, data.password);
       setActiveForm("login");
       setRegisterError("");
       setIsLoading(false);
@@ -158,7 +163,7 @@ export default function LoginPage() {
                   onSubmit={handleSubmit(onSubmitLogin)}>
                   <Fieldsets>
                     <Legend>
-                      Please, enter your email and password for login.
+                      로그인을 위해 이메일과 비밀번호를 입력하세요.
                     </Legend>
                     <InputBlock>
                       <Label htmlFor="login-email">이메일</Label>

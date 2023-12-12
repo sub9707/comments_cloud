@@ -15,6 +15,7 @@ export type ErrorReplyType = {
   content: string;
   writer_id: number;
   content_id: number;
+  profileImg: string;
 };
 
 export type CommentData = {
