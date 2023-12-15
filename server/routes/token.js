@@ -36,7 +36,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.post("/token/refresh", async (req, res) => {
+router.post("/refresh", async (req, res) => {
   try {
     const { email, name } = req.body;
 
@@ -66,23 +66,6 @@ router.post("/token/refresh", async (req, res) => {
       message: "서버 에러",
     });
   }
-});
-
-router.get("/checkToken", verifyToken, (req, res) => {
-  console.log("checking...");
-
-  if (req.expiredToken) {
-    return res.status(req.code).json({
-      code: req.code,
-      message: "토큰이 만료되었습니다.",
-    });
-  }
-
-  return res.status(200).json({
-    code: 200,
-    message: "토큰이 유효합니다.",
-    decoded: req.decoded,
-  });
 });
 
 module.exports = router;

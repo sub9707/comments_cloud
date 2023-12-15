@@ -101,37 +101,43 @@ class ErrorsController {
    *
    */
   static writeError = async (req, res) => {
-    try {
-      const write_date = getTodayTimeFormat();
-      const {
-        title,
-        tags,
-        error_state,
-        error_cause,
-        error_process,
-        error_solved,
-        error_result,
-        writer_id,
-        publicCheck,
-      } = req.body;
-      let results = await ErrorsModel.writeError(
-        title,
-        tags,
-        error_state,
-        error_cause,
-        error_process,
-        error_solved,
-        error_result,
-        write_date,
-        writer_id,
-        publicCheck
-      );
-      if (results) res.send("게시물 등록 성공! [ErrorsController]]");
-    } catch (error) {
-      console.error(error);
-      res
-        .status(500)
-        .send("Internal Server Error:[게시물 등록 ErrorsController]");
+    const accessToken = req.headers.authorization;
+    const verify = verifyToken(accessToken);
+    if (verify.code === 200) {
+      try {
+        const write_date = getTodayTimeFormat();
+        const {
+          title,
+          tags,
+          error_state,
+          error_cause,
+          error_process,
+          error_solved,
+          error_result,
+          writer_id,
+          publicCheck,
+        } = req.body;
+        let results = await ErrorsModel.writeError(
+          title,
+          tags,
+          error_state,
+          error_cause,
+          error_process,
+          error_solved,
+          error_result,
+          write_date,
+          writer_id,
+          publicCheck
+        );
+        if (results) res.send("게시물 등록 성공! [ErrorsController]]");
+      } catch (error) {
+        console.error(error);
+        res
+          .status(500)
+          .send("Internal Server Error:[게시물 등록 ErrorsController]");
+      }
+    } else {
+      res.status(verify.code).send("토큰이 유효하지 않습니다.");
     }
   };
   /**
@@ -143,37 +149,44 @@ class ErrorsController {
    *
    */
   static editError = async (req, res) => {
-    try {
-      const write_date = getTodayTimeFormat();
-      const {
-        title,
-        tags,
-        error_state,
-        error_cause,
-        error_process,
-        error_solved,
-        error_result,
-        publicCheck,
-        boardId,
-      } = req.body;
-      let results = await ErrorsModel.editError(
-        title,
-        tags,
-        error_state,
-        error_cause,
-        error_process,
-        error_solved,
-        error_result,
-        write_date,
-        publicCheck,
-        boardId
-      );
-      if (results) res.send("게시물 수정 성공! [ErrorsController]]");
-    } catch (error) {
-      console.error(error);
-      res
-        .status(500)
-        .send("Internal Server Error:[게시물 수정 ErrorsController]");
+    const accessToken = req.headers.authorization;
+    const verify = verifyToken(accessToken);
+    if (verify.code === 200) {
+      try {
+        const write_date = getTodayTimeFormat();
+        const {
+          title,
+          tags,
+          error_state,
+          error_cause,
+          error_process,
+          error_solved,
+          error_result,
+          publicCheck,
+          boardId,
+        } = req.body;
+        let results = await ErrorsModel.editError(
+          title,
+          tags,
+          error_state,
+          error_cause,
+          error_process,
+          error_solved,
+          error_result,
+          write_date,
+          publicCheck,
+          boardId
+        );
+        if (results) res.send("게시물 수정 성공! [ErrorsController]]");
+      } catch (error) {
+        console.error(error);
+        res
+          .status(500)
+          .send("Internal Server Error:[게시물 수정 ErrorsController]");
+      }
+    } else {
+      res.status(verify.code);
+      res.send("토큰이 유효하지 않습니다.");
     }
   };
   /**
@@ -186,16 +199,24 @@ class ErrorsController {
    * @returns {array}
    */
   static deleteError = async (req, res) => {
-    try {
-      const id = req.query.id;
-      if (!id) {
-        return res.status(400).send("id가 존재하지 않습니다.");
+    const userId = req.query.userId;
+    const accessToken = req.headers.authorization;
+    const verify = verifyToken(accessToken);
+    if (verify.code === 200) {
+      try {
+        const id = req.query.id;
+        if (!id) {
+          return res.status(400).send("id가 존재하지 않습니다.");
+        }
+        let result = await ErrorsModel.deleteError(id);
+        if (result) res.send("에러 게시글 삭제 성공! [Controller]]");
+      } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error:[게시물 삭제 Controller]");
       }
-      let result = await ErrorsModel.deleteError(id);
-      if (result) res.send("에러 게시글 삭제 성공! [Controller]]");
-    } catch (error) {
-      console.error(error);
-      res.status(500).send("Internal Server Error:[게시물 삭제 Controller]");
+    } else {
+      res.status(verify.code);
+      res.send("토큰이 유효하지 않습니다.");
     }
   };
   /**
@@ -288,16 +309,24 @@ class ErrorsController {
    *
    */
   static deleteReply = async (req, res) => {
-    try {
-      const commentId = req.query.commentId;
-      if (!commentId) {
-        return res.status(400).send("id가 존재하지 않습니다.");
+    const userId = req.query.userId;
+    const accessToken = req.headers.authorization;
+    const verify = verifyToken(accessToken);
+    if (verify.code === 200) {
+      try {
+        const commentId = req.query.commentId;
+        if (!commentId) {
+          return res.status(400).send("id가 존재하지 않습니다.");
+        }
+        let result = await ErrorsModel.deleteReply(commentId);
+        if (result) res.send("게시글 댓글 삭제 성공! [Controller]]");
+      } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error:[게시물 삭제 Controller]");
       }
-      let result = await ErrorsModel.deleteReply(commentId);
-      if (result) res.send("게시글 댓글 삭제 성공! [Controller]]");
-    } catch (error) {
-      console.error(error);
-      res.status(500).send("Internal Server Error:[게시물 삭제 Controller]");
+    } else {
+      res.status(verify.code);
+      res.send("토큰이 유효하지 않습니다.");
     }
   };
   /**
@@ -309,21 +338,29 @@ class ErrorsController {
    *
    */
   static updateReply = async (req, res) => {
-    try {
-      const commentId = req.query.commentId;
-      const { content } = req.body;
-      let results = await ErrorsModel.updateReply(commentId, content);
-      if (results) {
-        res.json({
-          data: { content, commentId },
-          message: "댓글 수정 성공! [ErrorsController]]",
-        });
-      } else {
-        res.status(500).send("댓글 수정 실패!");
+    const userId = req.query.userId;
+    const accessToken = req.headers.authorization;
+    const verify = verifyToken(accessToken);
+    if (verify.code === 200) {
+      try {
+        const commentId = req.query.commentId;
+        const { content } = req.body;
+        let results = await ErrorsModel.updateReply(commentId, content);
+        if (results) {
+          res.json({
+            data: { content, commentId },
+            message: "댓글 수정 성공! [ErrorsController]]",
+          });
+        } else {
+          res.status(500).send("댓글 수정 실패!");
+        }
+      } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error:[게시물 삭제 Controller]");
       }
-    } catch (error) {
-      console.error(error);
-      res.status(500).send("Internal Server Error:[게시물 삭제 Controller]");
+    } else {
+      res.status(verify.code);
+      res.send("토큰이 유효하지 않습니다.");
     }
   };
 

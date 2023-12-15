@@ -3,6 +3,7 @@ const { s3 } = require("../config/s3");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { verifyToken } = require("../config/JWT_middleware");
 
 class UserController {
   /**
@@ -378,11 +379,18 @@ class UserController {
    **/
   static changeLikedListPublic = async (req, res) => {
     const userId = req.query.userId;
-    try {
-      const data = await userModel.changeLikedListPublic(userId);
-      res.send(data);
-    } catch (error) {
-      console.error(error);
+    const accessToken = req.headers.authorization;
+    const verify = verifyToken(accessToken);
+    if (verify.code === 200) {
+      try {
+        const data = await userModel.changeLikedListPublic(userId);
+        res.send(data);
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      res.status(verify.code);
+      res.send("토큰이 유효하지 않습니다.");
     }
   };
 }

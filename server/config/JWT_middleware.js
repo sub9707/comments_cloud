@@ -3,32 +3,29 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-exports.verifyToken = (req, res, next) => {
-  const token = req.headers.authorization;
-
+exports.verifyToken = (token) => {
   if (!token) {
-    return res.status(401).json({
+    return {
       code: 401,
       message: "토큰이 없습니다.",
-    });
+    };
   }
-
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET, {
-      expiresIn: "1h",
-    });
-
-    req.decoded = decoded;
-    return next();
+    jwt.verify(token, process.env.JWT_SECRET);
+    return {
+      code: 200,
+      message: "유효한 토큰입니다.",
+    };
   } catch (error) {
     if (error.name === "TokenExpiredError") {
-      req.expiredToken = true;
-      req.code = 419;
-      return next();
+      return {
+        code: 419,
+        message: "만료된 토큰입니다.",
+      };
     }
-    return res.status(401).json({
+    return {
       code: 401,
       message: "유효하지 않은 토큰입니다.",
-    });
+    };
   }
 };
