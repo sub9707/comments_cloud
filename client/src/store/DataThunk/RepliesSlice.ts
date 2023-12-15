@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { ErrorReplyType, ReplyData } from "../../types/BoardTypes";
-import axios from "../../api/axios";
+import { api } from "../../api/axios";
 
 const initialState: ReplyData[] = [];
 
@@ -11,7 +11,7 @@ const initialState: ReplyData[] = [];
 export const fetchReplies = createAsyncThunk(
   "replies/fetchReplies",
   async ({ boardId, offset }: { boardId: number; offset: number }) => {
-    const response = await axios.get(
+    const response = await api.get(
       `/error/errorlist/replies?boardId=${boardId}&offset=${offset}`
     );
     return response.data;
@@ -21,7 +21,7 @@ export const fetchReplies = createAsyncThunk(
 export const fetchRepliesCount = createAsyncThunk(
   "replies/fetchReplies/count",
   async (contentId: number) => {
-    const response = await axios.get(
+    const response = await api.get(
       `/errorlist/replies/count?contentId=${contentId}`
     );
     return response.data;
@@ -32,7 +32,7 @@ export const addReply = createAsyncThunk(
   "replies/addReply",
   async (props: ErrorReplyType) => {
     try {
-      const response = await axios.post(
+      const response = await api.post(
         "/error/errorlist/replies",
         {
           content: props.content,
@@ -56,7 +56,7 @@ export const addReply = createAsyncThunk(
 export const updateReply = createAsyncThunk(
   "replies/updateReply",
   async ({ replyId, content }: { replyId: number; content: string }) => {
-    const response = await axios.put(
+    const response = await api.put(
       `/error/errorlist/replies?commentId=${replyId}`,
       { content },
       {
@@ -72,7 +72,7 @@ export const updateReply = createAsyncThunk(
 export const deleteReply = createAsyncThunk(
   "replies/deleteReply",
   async (replyId: number) => {
-    await axios.delete(`/error/errorlist/replies?commentId=${replyId}`);
+    await api.delete(`/error/errorlist/replies?commentId=${replyId}`);
     return replyId;
   }
 );

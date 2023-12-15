@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { isLoggedIn } from "../../store/Utils/Cookie";
 import { useDispatch } from "react-redux";
 import { openModal } from "../../store/Modal/Modal";
+import { clearFilter } from "../../store/Toggle/MyErrorFilter";
 
 export default function MyErrorPage() {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ export default function MyErrorPage() {
       dispatch(openModal({ modalType: "NeedLoginModal", isOpen: true }));
       navigate("/");
     }
+    dispatch(clearFilter);
   }, []);
   return (
     <MainContainer>

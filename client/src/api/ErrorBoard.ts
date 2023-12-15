@@ -1,5 +1,5 @@
 import { ErrorWriteFormValues } from "../types/react-hook-form";
-import axios from "./axios";
+import { api } from "./axios";
 
 /**
  * @method POST
@@ -7,7 +7,7 @@ import axios from "./axios";
  */
 export const writeError = async (props: ErrorWriteFormValues) => {
   try {
-    const response = await axios.post("/error/write", props);
+    const response = await api.post("/error/write", props);
     return response.data;
   } catch (error) {
     console.error("개인 에러 등록 실패:", error);
@@ -20,7 +20,7 @@ export const writeError = async (props: ErrorWriteFormValues) => {
  */
 export const editError = async (props: ErrorWriteFormValues) => {
   try {
-    const response = await axios.put("/error/edit", props);
+    const response = await api.put("/error/edit", props);
     return response.data;
   } catch (error) {
     console.error("개인 에러 등록 실패:", error);
@@ -33,7 +33,7 @@ export const editError = async (props: ErrorWriteFormValues) => {
  */
 export const deleteError = async (id: number) => {
   try {
-    const response = await axios.delete(`/error?id=${id}`);
+    const response = await api.delete(`/error?id=${id}`);
     return response.data;
   } catch (error) {
     console.error("개인 에러 삭제 실패:", error);
@@ -54,7 +54,7 @@ export const getMyErrors = async (
   filter: string
 ) => {
   try {
-    const response = await axios.get(
+    const response = await api.get(
       `/error?userId=${userId}&offset=${offset}&publicOnly=${publicOnly}&solvedOnly=${solvedOnly}&privateOnly=${privateOnly}&unsolvedOnly=${unsolvedOnly}&filter=${filter}`
     );
     return response.data;
@@ -69,7 +69,7 @@ export const getMyErrors = async (
  */
 export const getBoardError = async (boardId: number) => {
   try {
-    const response = await axios.get(`/error/board?boardId=${boardId}`);
+    const response = await api.get(`/error/board?boardId=${boardId}`);
     return response.data;
   } catch (error) {
     console.error("개인 에러 불러오기 실패:", error);
@@ -82,7 +82,7 @@ export const getBoardError = async (boardId: number) => {
  */
 export const getMyErrorCount = async (userId: number) => {
   try {
-    const response = await axios.get(`/error/count?userId=${userId}`);
+    const response = await api.get(`/error/count?userId=${userId}`);
     return response.data;
   } catch (error) {
     console.error("개인 에러 개수 실패:", error);
@@ -96,7 +96,7 @@ export const getMyErrorCount = async (userId: number) => {
  */
 export const checkBoradCheck = async (boardId: number, userId: number) => {
   try {
-    const result = await axios.get(
+    const result = await api.get(
       `/error/likeCheck?boardId=${boardId}&userId=${userId}`
     );
     return result.data.isLiked;
@@ -110,7 +110,7 @@ export const checkBoradCheck = async (boardId: number, userId: number) => {
  */
 export const checkReplyCheck = async (replyId: number, userId: number) => {
   try {
-    const result = await axios.get(
+    const result = await api.get(
       `/error/errorlist/replies/likeCheck?replyId=${replyId}&userId=${userId}`
     );
     return result.data;
@@ -125,7 +125,7 @@ export const checkReplyCheck = async (replyId: number, userId: number) => {
  */
 export const postBoardLike = async (boardId: number, userId: number) => {
   try {
-    const result = await axios.post(
+    const result = await api.post(
       `/error/like?boardId=${boardId}&userId=${userId}`
     );
     return result.data;
@@ -139,7 +139,7 @@ export const postBoardLike = async (boardId: number, userId: number) => {
  */
 export const postBoardCancelLike = async (boardId: number, userId: number) => {
   try {
-    const result = await axios.post(
+    const result = await api.post(
       `/error/cancelLike?boardId=${boardId}&userId=${userId}`
     );
     return result.data;
@@ -153,7 +153,7 @@ export const postBoardCancelLike = async (boardId: number, userId: number) => {
  */
 export const postReplyLike = async (replyId: number, userId: number) => {
   try {
-    const result = await axios.post(
+    const result = await api.post(
       `/error/errorlist/replies/like?replyId=${replyId}&userId=${userId}`
     );
     return result.data;
@@ -167,7 +167,7 @@ export const postReplyLike = async (replyId: number, userId: number) => {
  */
 export const postReplyCancelLike = async (replyId: number, userId: number) => {
   try {
-    const result = await axios.post(
+    const result = await api.post(
       `/error/errorlist/replies/cancelLike?replyId=${replyId}&userId=${userId}`
     );
     return result.data;
@@ -182,7 +182,7 @@ export const postReplyCancelLike = async (replyId: number, userId: number) => {
  */
 export const postErrorViews = async (boardId: number) => {
   try {
-    const result = await axios.post(`/error/view?boardId=${boardId}`);
+    const result = await api.post(`/error/view?boardId=${boardId}`);
     return result.data;
   } catch (error) {
     console.log(error);

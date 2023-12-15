@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "..";
 
 export const TOKEN_TIME_OUT = 600 * 1000;
 
@@ -22,6 +23,11 @@ export const tokenSlice = createSlice({
     },
   },
 });
+
+export const selectAccessToken = (state: RootState) =>
+  state.authToken.accessToken;
+export const selectExpireTime = (state: RootState) =>
+  state.authToken.expireTime;
 
 export const { SET_TOKEN, DELETE_TOKEN } = tokenSlice.actions;
 

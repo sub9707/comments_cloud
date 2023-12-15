@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "../../api/axios";
+import { api } from "../../api/axios";
 import { MyErrorSearchDataType } from "../../types/BoardTypes";
 
 const initialState: MyErrorSearchDataType = {
@@ -22,7 +22,7 @@ export const fetchSearchData = createAsyncThunk(
     offset: number;
     userId: number;
   }) => {
-    const response = await axios.get(
+    const response = await api.get(
       `/error/myError?userId=${userId}&search=${search}&offset=${offset}`
     );
     return response.data;

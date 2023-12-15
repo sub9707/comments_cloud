@@ -31,7 +31,6 @@ export default function CommentCard() {
   const [toggleUpdate, setToggleUpdate] = useState<number>(-1);
   const [inputValue, setInputValue] = useState<string[]>([]);
   const user = useSelector((state: userStateType) => state.user.data);
-  const [userBlocked, setBlocked] = useState<boolean>(false);
 
   const handleProfileClick = () => {
     if (!data) return;
@@ -136,12 +135,6 @@ export default function CommentCard() {
   useEffect(() => {
     setInputValue(replies?.map((reply) => reply.content));
   }, []);
-
-  useEffect(() => {
-    if (!user || user?.id === 0) {
-      setBlocked(true);
-    }
-  }, [user]);
 
   return (
     <>

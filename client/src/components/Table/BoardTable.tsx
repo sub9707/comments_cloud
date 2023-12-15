@@ -6,7 +6,7 @@ export default function BoardTable(props: NoticeTableProps) {
   return (
     <>
       {props.data.map((data, _idx) => (
-        <Accordion alwaysOpen style={{ width: "100%" }}>
+        <Accordion alwaysOpen style={{ width: "100%" }} key={_idx}>
           <Accordion.Item eventKey={_idx.toString()}>
             <Accordion.Header>{data?.title}</Accordion.Header>
             <Accordion.Body>

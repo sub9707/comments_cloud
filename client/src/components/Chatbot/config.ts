@@ -6,7 +6,7 @@ const config = {
   initialMessages: [
     createChatBotMessage(
       `반갑습니다!
-      다음의 문의 메뉴를 이용해주세요.`,
+      챗봇 기능은 개발 중입니다.`,
       {}
     ),
   ],

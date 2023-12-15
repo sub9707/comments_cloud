@@ -3,6 +3,7 @@ export type UserData = {
   name: string;
   email: string;
   registerDate: string;
+  last_login: string;
 };
 export type UserTableProps = {
   data: UserData[];
@@ -18,6 +19,7 @@ export type UserInfoType = {
   profile_message: string;
   registerDate: string;
   homepage: string;
+  last_login: string;
 };
 export type UpdateUserInfoType = {
   name: string;

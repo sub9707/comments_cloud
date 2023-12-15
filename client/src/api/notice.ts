@@ -1,4 +1,4 @@
-import axios from "./axios";
+import { api } from "./axios";
 
 /**
  * @method POST
@@ -6,13 +6,13 @@ import axios from "./axios";
  */
 export const writeNotice = async (title: string, content: string) => {
   try {
-    const response = await axios.post("/notice/write", {
+    const response = await api.post("/notice/write", {
       title: title,
       content: content,
     });
     return response.data;
   } catch (error) {
-    console.error("공지 등록 실패:", error);
+    console.error("공지 load 실패:", error);
     throw error;
   }
 };
@@ -23,7 +23,7 @@ export const writeNotice = async (title: string, content: string) => {
  */
 export const deleteNotice = async (id: number) => {
   try {
-    const response = await axios.delete(`/notice?id=${id}`);
+    const response = await api.delete(`/notice?id=${id}`);
     return response.data;
   } catch (error) {
     console.error("공지 삭제 실패:", error);

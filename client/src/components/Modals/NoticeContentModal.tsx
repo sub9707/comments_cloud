@@ -24,8 +24,7 @@ export default function NoticeContentModal() {
   const handleDeleteNotice = async (id: number) => {
     try {
       setIsLoading(true);
-      const response = await deleteNotice(id);
-      console.log(response);
+      await deleteNotice(id);
       setIsLoading(false);
       dispatch(closeModal());
       dispatch(clearData());

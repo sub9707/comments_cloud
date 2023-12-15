@@ -3,7 +3,7 @@ import { ContentBox, MainContainer } from "../../styles/PageContainer";
 import { PageHeader } from "../../styles/TextStyle";
 import { useEffect, useState } from "react";
 import { NoticeTablePropType } from "../../types/TableTypes";
-import axios from "../../api/axios";
+import { api } from "../../api/axios";
 import LoadingPage from "../LoadingPage";
 
 export default function NoticePage() {
@@ -14,7 +14,7 @@ export default function NoticePage() {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("/notice/notices");
+      const response = await api.get("/notice/notices");
       setData(response.data);
       setLoading(false);
     } catch (error) {

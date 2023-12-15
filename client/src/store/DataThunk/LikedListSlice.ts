@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "../../api/axios";
+import { api } from "../../api/axios";
 import { LikedBoardsListType } from "../../types/TableTypes";
 
 const initialState: LikedBoardsListType = {
@@ -13,7 +13,7 @@ const initialState: LikedBoardsListType = {
 export const fetchLikedList = createAsyncThunk(
   "board/likedBoardsList",
   async ({ userId, offset }: { userId: number; offset: number }) => {
-    const response = await axios.get(
+    const response = await api.get(
       `/user/likedNoteList?userId=${userId}&offset=${offset}`
     );
     return response.data;

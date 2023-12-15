@@ -1,15 +1,5 @@
 import { UpdateUserInfoType } from "../types/users";
-import axios from "./axios";
-
-// const access_token = getCookieToken();
-// const refresh_token = getCookieToken();
-
-// // JWT Interceptor
-// axios.interceptors.request.use(function (config) {
-//   config.headers.common["Authorization"] = access_token;
-//   config.headers.common["Refresh-Token"] = refresh_token;
-//   return config;
-// });
+import { api } from "./axios";
 
 /**
  * @method POST
@@ -19,7 +9,7 @@ const registerUser = async (email: string, name: string, password: string) => {
   const today = new Date();
   const registerDate = `${today.getFullYear()}.${today.getMonth()}.${today.getDay()}`;
   try {
-    const response = await axios.post("/user/register", {
+    const response = await api.post("/user/register", {
       name: name,
       email: email,
       password: password,
@@ -40,7 +30,7 @@ export default registerUser;
  */
 export const loginUser = async (email: string, password: string) => {
   const data = { email, password };
-  const response = await axios.post(`/user/login`, data);
+  const response = await api.post(`/user/login`, data);
   if (response.status === 200) {
     return response.data;
   } else if (response.status === 401) {
@@ -56,11 +46,24 @@ export const loginUser = async (email: string, password: string) => {
  */
 export const getUserInfo = async (userId: string) => {
   try {
-    const response = await axios.get(`/user?userId=${userId}`);
+    const response = await api.get(`/user?userId=${userId}`);
     return response.data;
   } catch (err) {
     console.error(err);
-    throw new Error("사용자 정보 조회 오류: AXIOS");
+    throw new Error("사용자 정보 조회 오류: api");
+  }
+};
+/**
+ * @method DELETE
+ *  사용자 삭제
+ */
+export const deleteUser = async (userId: number) => {
+  try {
+    const response = await api.delete(`/user?userId=${userId}`);
+    return response.data;
+  } catch (err) {
+    console.error(err);
+    throw new Error("사용자 정보 조회 오류: api");
   }
 };
 /**
@@ -74,7 +77,9 @@ export const updateUserInfo = async (
 ) => {
   try {
     const formData = new FormData();
-    formData.append("profileImg", profileImage);
+    if (profileImage) {
+      formData.append("profileImg", profileImage);
+    }
 
     formData.append("name", props.name);
     formData.append("nickname", props.nickname);
@@ -82,7 +87,7 @@ export const updateUserInfo = async (
     formData.append("profile_message", props.profile_message);
     formData.append("curImageUrl", props.curImageUrl);
 
-    const response = await axios.put(`/user?userId=${userId}`, formData, {
+    const response = await api.put(`/user?userId=${userId}`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         ...props.headers,
@@ -102,11 +107,11 @@ export const updateUserInfo = async (
  */
 export const userFindById = async (userId: string) => {
   try {
-    const response = await axios.get(`/user/findById?userId=${userId}`);
+    const response = await api.get(`/user/findById?userId=${userId}`);
     return response.data;
   } catch (err) {
     console.error(err);
-    throw new Error("사용자 ID 조회 오류: AXIOS");
+    throw new Error("사용자 ID 조회 오류: api");
   }
 };
 
@@ -116,11 +121,11 @@ export const userFindById = async (userId: string) => {
  */
 export const getUserNoteData = async (userId: string) => {
   try {
-    const response = await axios.get(`/user/noteData?userId=${userId}`);
+    const response = await api.get(`/user/noteData?userId=${userId}`);
     return response.data;
   } catch (err) {
     console.error(err);
-    throw new Error("사용자 노트 정보 조회 오류: AXIOS");
+    throw new Error("사용자 노트 정보 조회 오류: api");
   }
 };
 /**
@@ -130,11 +135,11 @@ export const getUserNoteData = async (userId: string) => {
  */
 export const getCalendarData = async (userId: string) => {
   try {
-    const response = await axios.get(`/user/calanderData?userId=${userId}`);
+    const response = await api.get(`/user/calanderData?userId=${userId}`);
     return response.data;
   } catch (err) {
     console.error(err);
-    throw new Error("사용자 노트 달력 조회 오류: AXIOS");
+    throw new Error("사용자 노트 달력 조회 오류: api");
   }
 };
 /**
@@ -144,11 +149,11 @@ export const getCalendarData = async (userId: string) => {
  */
 export const getRecentData = async (userId: string) => {
   try {
-    const response = await axios.get(`/user/recentNote?userId=${userId}`);
+    const response = await api.get(`/user/recentNote?userId=${userId}`);
     return response.data;
   } catch (err) {
     console.error(err);
-    throw new Error("사용자 최근 노트 조회 오류: AXIOS");
+    throw new Error("사용자 최근 노트 조회 오류: api");
   }
 };
 /**
@@ -158,11 +163,11 @@ export const getRecentData = async (userId: string) => {
  */
 export const getLikedData = async (userId: string) => {
   try {
-    const response = await axios.get(`/user/likedNote?userId=${userId}`);
+    const response = await api.get(`/user/likedNote?userId=${userId}`);
     return response.data;
   } catch (err) {
     console.error(err);
-    throw new Error("사용자 최근 좋아요 순 노트 조회 오류: AXIOS");
+    throw new Error("사용자 최근 좋아요 순 노트 조회 오류: api");
   }
 };
 /**
@@ -172,11 +177,11 @@ export const getLikedData = async (userId: string) => {
  */
 export const checkLikedListPublic = async (userId: string) => {
   try {
-    const response = await axios.get(`/user/checkLikedPublic?userId=${userId}`);
+    const response = await api.get(`/user/checkLikedPublic?userId=${userId}`);
     return response.data;
   } catch (err) {
     console.error(err);
-    throw new Error("좋아요 노트 공개 체크: AXIOS");
+    throw new Error("좋아요 노트 공개 체크: api");
   }
 };
 /**
@@ -186,10 +191,10 @@ export const checkLikedListPublic = async (userId: string) => {
  */
 export const changeLikedListPublic = async (userId: string) => {
   try {
-    const response = await axios.put(`/user/LikedPublic?userId=${userId}`);
+    const response = await api.put(`/user/LikedPublic?userId=${userId}`);
     return response.data;
   } catch (err) {
     console.error(err);
-    throw new Error("좋아요 노트 공개 변경: AXIOS");
+    throw new Error("좋아요 노트 공개 변경: api");
   }
 };

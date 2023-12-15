@@ -12,6 +12,6 @@ export const ModalContainer = styled.div`
   }
 `;
 export const ModalContent = styled.div`
-  height: 60vh;
+  height: auto;
   margin-block: 2em;
 `;

@@ -17,7 +17,7 @@ import { setMyErrorData } from "../../store/Modal/MyErrorModal";
 import { openModal } from "../../store/Modal/Modal";
 import PopoverCard from "../Cards/PopoverCard";
 import { faTags } from "@fortawesome/free-solid-svg-icons";
-import axios from "../../api/axios";
+import { api } from "../../api/axios";
 import LoadingPage from "../../pages/LoadingPage";
 import { userStateType } from "../../store/Utils/User";
 import { RootState } from "../../store";
@@ -60,7 +60,7 @@ function MyErrorTable() {
   const LoadData = async () => {
     try {
       setPlusLoading(true);
-      const response = await axios.get(
+      const response = await api.get(
         `/error?userId=1&offset=${offset}&publicOnly=${sortFilter.publicOnly}&privateOnly=${sortFilter.privateOnly}&solvedOnly=${sortFilter.solvedOnly}&unsolvedOnly=${sortFilter.unsolvendOnly}&filter=${sortFilter.filter}`
       );
       if (response.data.length === 0) {

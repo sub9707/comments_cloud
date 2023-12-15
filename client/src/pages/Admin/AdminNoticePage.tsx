@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import AdminBoardTable from "../../components/Table/AdminBoardTable";
 import { useEffect, useState } from "react";
 import { NoticeTablePropType } from "../../types/TableTypes";
-import axios from "../../api/axios";
+import { api } from "../../api/axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 
@@ -21,7 +21,7 @@ export default function AdminNoticePage() {
   // data Fetching
   const fetchData = async () => {
     try {
-      const response = await axios.get("/notice/notices");
+      const response = await api.get("/notice/notices");
       setData(response.data);
     } catch (error) {
       console.log(error);

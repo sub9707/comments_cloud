@@ -1,7 +1,17 @@
+import { useDispatch } from "react-redux";
 import { Table } from "../../styles/TableStyle";
 import { UserTableProps } from "../../types/users";
+import { openModal } from "../../store/Modal/Modal";
+import { setUserModal } from "../../store/Modal/AdminUserModal";
+import { getUserInfo } from "../../api/user";
 
 export default function UserTable(props: UserTableProps) {
+  const dispatch = useDispatch();
+  const handleOpenModal = async (userId: number) => {
+    const userData = await getUserInfo(userId.toString());
+    dispatch(setUserModal(userData[0]));
+    dispatch(openModal({ modalType: "AdminUserModal", isOpen: true }));
+  };
   return (
     <Table>
       <tbody>
@@ -19,17 +29,25 @@ export default function UserTable(props: UserTableProps) {
             <td style={{ textAlign: "center" }} data-th="권한">
               {user?.id}
             </td>
-            <td style={{ textAlign: "center" }} data-th="Email">
+            <td
+              className="text-underline-hover"
+              style={{ textAlign: "center" }}
+              onClick={() => handleOpenModal(user?.id)}
+              data-th="Email">
               {user?.email}
             </td>
-            <td style={{ textAlign: "center" }} data-th="이름">
+            <td
+              className="text-underline-hover"
+              onClick={() => handleOpenModal(user?.id)}
+              style={{ textAlign: "center" }}
+              data-th="이름">
               {user?.name}
             </td>
             <td style={{ textAlign: "center" }} data-th="가입일자">
               {user?.registerDate}
             </td>
             <td style={{ textAlign: "center" }} data-th="최근 로그인">
-              06/25/2016
+              {user?.last_login ? user?.last_login : "정보 없음"}
             </td>
           </tr>
         ))}

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "../../api/axios";
+import { api } from "../../api/axios";
 import { BoardSearchDataType } from "../../types/BoardTypes";
 
 const initialState: BoardSearchDataType = {
@@ -15,7 +15,7 @@ const initialState: BoardSearchDataType = {
 export const fetchBoardSearchData = createAsyncThunk(
   "board/fetchSearchData",
   async ({ search, offset }: { search: string; offset: number }) => {
-    const response = await axios.get(
+    const response = await api.get(
       `/board/boardSearch?&search=${search}&offset=${offset}`
     );
     console.log(response.data);

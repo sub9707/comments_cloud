@@ -88,6 +88,7 @@ a:hover {
   --bs-pagination-active-border-color: rgb(114, 114, 114) !important;
   --bs-pagination-focus-color: black !important;
   --bs-pagination-hover-color: rgb(60, 60, 136) !important;
+  z-index: 0;
 }
 
 /*Button Bootstrap CSS*/

@@ -1,4 +1,4 @@
-import axios from "./axios";
+import { api } from "./axios";
 
 /**
  * @method GET
@@ -6,7 +6,7 @@ import axios from "./axios";
  */
 export const getAllBoards = async (offset: number, filter: string) => {
   try {
-    const response = await axios.get(
+    const response = await api.get(
       `/board/boardList?offset=${offset}&filter=${filter}`
     );
     return response.data;
@@ -21,7 +21,7 @@ export const getAllBoards = async (offset: number, filter: string) => {
  */
 export const getDailyRanks = async () => {
   try {
-    const response = await axios.get(`/board/ranking/daily`);
+    const response = await api.get(`/board/ranking/daily`);
     return response.data;
   } catch (error) {
     console.error("게시물 랭킹(Daily) 실패:", error);
@@ -34,7 +34,7 @@ export const getDailyRanks = async () => {
  */
 export const getWeeklyRanks = async () => {
   try {
-    const response = await axios.get(`/board/ranking/weekly`);
+    const response = await api.get(`/board/ranking/weekly`);
     return response.data;
   } catch (error) {
     console.error("게시물 랭킹(weekly) 실패:", error);
@@ -47,7 +47,7 @@ export const getWeeklyRanks = async () => {
  */
 export const getMonthlyRanks = async () => {
   try {
-    const response = await axios.get(`/board/ranking/monthly`);
+    const response = await api.get(`/board/ranking/monthly`);
     return response.data;
   } catch (error) {
     console.error("게시물 랭킹(monthly) 실패:", error);

@@ -14,6 +14,7 @@ import BoardRankTab from "./Toggle/BoardRankTab";
 import boardSearch from "./DataThunk/BoardSearchSlice";
 import boardFetchSlice from "./Toggle/BoardFetchTab";
 import LikedBoardListSlice from "./DataThunk/LikedListSlice";
+import adminUserModalSlice from "./Modal/AdminUserModal";
 import storage from "redux-persist/lib/storage";
 
 import {
@@ -44,6 +45,7 @@ const reducers = combineReducers({
   RankToggle: RankToggle,
   boardFetchTab: boardFetchSlice,
   LikedBoardListSlice,
+  adminUserModalSlice,
 });
 
 export type RootState = ReturnType<typeof reducers>;
@@ -51,7 +53,7 @@ export type RootState = ReturnType<typeof reducers>;
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["user"],
+  whitelist: ["user", "authToken"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);

@@ -3,8 +3,10 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { userStateType } from "../../store/Utils/User";
 
 const UserBox = styled.p`
   min-width: 10%;
@@ -16,6 +18,7 @@ const UserBox = styled.p`
 `;
 
 export default function AdminNav() {
+  const user = useSelector((state: userStateType) => state.user.data);
   return (
     <Navbar expand="lg" className="bg-body-tertiary" data-bs-theme="dark">
       <Container>
@@ -55,7 +58,7 @@ export default function AdminNav() {
               style={{ marginRight: "1em", marginTop: "0.3em" }}>
               관리자
             </Badge>
-            이름
+            {user.name}님
           </UserBox>
         </Navbar.Collapse>
       </Container>

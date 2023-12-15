@@ -2,7 +2,7 @@ import { PageBox, PageHeader, PageWrapper } from "../../styles/AdminPageStyle";
 import UserTable from "../../components/Table/UserTable";
 import PaginationComp from "../../components/Utils/Pagination";
 import { useEffect, useState } from "react";
-import axios from "../../api/axios";
+import { api } from "../../api/axios";
 import { UserData } from "../../types/users";
 import { Spinner } from "react-bootstrap";
 
@@ -23,7 +23,7 @@ export default function AdminUserPage() {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("/users");
+      const response = await api.get("/users");
       setData(response.data);
       setLoading(false);
     } catch (error) {
