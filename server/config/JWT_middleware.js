@@ -1,17 +1,30 @@
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 exports.verifyToken = (req, res, next) => {
-  // 인증 완료
+  const token = req.headers.authorization;
+
+  if (!token) {
+    return res.status(401).json({
+      code: 401,
+      message: "토큰이 없습니다.",
+    });
+  }
+
   try {
-    req.decoded = jwt.verify(req.headers.authorization, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET, {
+      expiresIn: "1h",
+    });
+
+    req.decoded = decoded;
     return next();
   } catch (error) {
-    // 인증 실패
-    if (error.name === "TokenExpireError") {
-      return res.status(419).json({
-        code: 419,
-        message: "토큰이 만료되었습니다.",
-      });
+    if (error.name === "TokenExpiredError") {
+      req.expiredToken = true;
+      req.code = 419;
+      return next();
     }
     return res.status(401).json({
       code: 401,

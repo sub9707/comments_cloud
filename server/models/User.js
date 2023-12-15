@@ -48,9 +48,9 @@ class UserModel {
     });
   }
 
-  static async deleteUser(id) {
+  static async deleteUser(userId) {
     return new Promise((resolve) => {
-      db.query("delete from users where id=?", [id], (error, result) => {
+      db.query("delete from users where id=?", [userId], (error, result) => {
         if (!error) resolve(result);
         else resolve(error);
       });
@@ -87,8 +87,8 @@ class UserModel {
       );
     });
   }
-  static async authenticateUser(email, password) {
-    return new Promise((resolve) => {
+  static async authenticateUser(email, password, currentTime) {
+    return new Promise((resolve, reject) => {
       db.query(
         "SELECT * FROM users WHERE email = ?",
         [email],
@@ -97,7 +97,17 @@ class UserModel {
             const user = result[0];
             const passwordMatch = await bcrypt.compare(password, user.password);
             if (passwordMatch) {
-              resolve(user);
+              db.query(
+                "UPDATE users SET last_login = ? WHERE email = ?",
+                [currentTime, email],
+                (updateError, updateResult) => {
+                  if (!updateError) {
+                    resolve(user);
+                  } else {
+                    reject(updateError);
+                  }
+                }
+              );
             } else {
               resolve(error);
             }
@@ -108,10 +118,11 @@ class UserModel {
       );
     });
   }
+
   static async getUserInfoById(userId) {
     return new Promise((resolve) => {
       db.query(
-        "SELECT id, name, email, registerDate, rule, profileImg, profile_message, nickname, nickname_change_date, homepage FROM users WHERE id = ?",
+        "SELECT id, name, email, registerDate, rule, profileImg, profile_message, nickname, nickname_change_date, homepage, last_login FROM users WHERE id = ?",
         [userId],
         (error, result) => {
           if (!error) {

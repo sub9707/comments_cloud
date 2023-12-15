@@ -64,16 +64,9 @@ class UserController {
    */
   static deleteUser = async (req, res) => {
     try {
-      const { id } = req.body;
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        res.json(errors.array());
-      }
-
-      if (id) {
-        let results = await userModel.deleteUser(id);
-        if (results) res.send("유저 삭제 성공! [Controller]");
-      }
+      const userId = req.query.userId;
+      let results = await userModel.deleteUser(userId);
+      if (results) res.send("유저 삭제 성공! [Controller]");
     } catch (error) {
       console.error(error);
       res.status(500).send("Internal Server Error:[유저 삭제 Controller]");
@@ -94,9 +87,11 @@ class UserController {
         req.body;
       const Img = req.file;
       const newDate = new Date();
+
       if (
         curImageUrl !==
-        "https://trouble-shooting-dev.s3.ap-northeast-2.amazonaws.com/userProfile/1699423635934_Default_ProfileImg.png"
+          "https://trouble-shooter.s3.ap-northeast-2.amazonaws.com/userProfile/Default_Images.png" &&
+        Img
       ) {
         const decodedUrl = decodeURIComponent(curImageUrl);
         const filename = decodedUrl.split("/").pop();
@@ -104,30 +99,55 @@ class UserController {
           Bucket: process.env.BUCKET_NAME,
           Key: `userProfile/${filename}`,
         };
-        s3.deleteObject(params, (err, data) => {
-          if (err) {
-            console.error(err);
-            res.status(500).send("Error deleting file from S3");
-            return;
-          }
-          console.log("File deleted successfully from S3");
+
+        await new Promise((resolve, reject) => {
+          s3.deleteObject(params, (err, data) => {
+            if (err) {
+              console.error(err);
+              reject("Error deleting file from S3");
+            } else {
+              console.log("File deleted successfully from S3");
+              resolve();
+            }
+          });
         });
       }
-      let results = await userModel.updateUser(
-        name,
-        nickname,
-        homepage,
-        profile_message,
-        Img.location,
-        newDate,
-        userId
-      );
-      if (results) res.send("유저정보 수정 성공! [Controller]");
+
+      let updatedImageUrl = Img ? Img.location : curImageUrl;
+
+      if (
+        curImageUrl == updatedImageUrl &&
+        curImageUrl !==
+          "https://trouble-shooter.s3.ap-northeast-2.amazonaws.com/userProfile/Default_Images.png"
+      ) {
+        await userModel.updateUser(
+          name,
+          nickname,
+          homepage,
+          profile_message,
+          curImageUrl,
+          newDate,
+          userId
+        );
+      } else {
+        await userModel.updateUser(
+          name,
+          nickname,
+          homepage,
+          profile_message,
+          updatedImageUrl,
+          newDate,
+          userId
+        );
+      }
+
+      res.send("유저정보 수정 성공! [Controller]");
     } catch (error) {
       console.error(error);
       res.status(500).send("Internal Server Error:[유저 수정 Controller]");
     }
   };
+
   /**
    * 유저 로그인
    *
@@ -139,7 +159,12 @@ class UserController {
   static loginUser = async (req, res) => {
     try {
       const { email, password } = req.body;
-      const user = await userModel.authenticateUser(email, password);
+      const currentTime = new Date();
+      const user = await userModel.authenticateUser(
+        email,
+        password,
+        currentTime
+      );
       if (user) {
         // 유저 정보 GET
         const userInfo = await userModel.getUserInfoByEmail(email);
