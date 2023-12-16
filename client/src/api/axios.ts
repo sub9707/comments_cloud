@@ -5,7 +5,7 @@ import {
   selectAccessToken,
   selectExpireTime,
 } from "../store/Utils/Auth";
-import { getCookieToken, removeCookieToken } from "../store/Utils/Cookie";
+import { getCookieToken } from "../store/Utils/Cookie";
 import {
   clearUser,
   selectUserEmail,
