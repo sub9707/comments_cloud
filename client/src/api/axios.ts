@@ -13,7 +13,9 @@ import {
 } from "../store/Utils/User";
 
 export const api = axios.create({
-  baseURL: "http://localhost:3001",
+  // baseURL: "http://localhost:3001",
+  baseURL:
+    "https://port-0-trouble-shooter-71t02clq3dokrn.sel4.cloudtype.app:3001",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
@@ -28,8 +30,6 @@ api.interceptors.request.use(
     const access_token = selectAccessToken(store.getState());
     const expiresIn = selectExpireTime(store.getState());
     const refreshToken = getCookieToken();
-
-    console.log("RT:" + refreshToken);
 
     // refresh Token 없음 or 만료
     if (!refreshToken) {
@@ -47,14 +47,14 @@ api.interceptors.request.use(
     // 토큰 유효
     if (nowDate <= expiresDate) return request;
 
-    console.log("토큰 맛감");
     // 만료 토큰 재발급
-    const result = await axios.post("http://localhost:3001/token/refresh", {
-      email: userEmail,
-      name: userName,
-    });
-    console.log(result);
-    console.log("Token 갱신완료");
+    const result = await axios.post(
+      "https://port-0-trouble-shooter-71t02clq3dokrn.sel4.cloudtype.app:3001",
+      {
+        email: userEmail,
+        name: userName,
+      }
+    );
 
     const authorizationHeader = access_token ? `Bearer ${access_token}` : "";
     request.headers["Authorization"] = authorizationHeader;
