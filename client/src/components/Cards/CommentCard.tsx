@@ -10,6 +10,7 @@ import {
   updateReply,
   deleteReply,
   fetchReplies,
+  clearReplies,
 } from "../../store/DataThunk/RepliesSlice";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
@@ -130,6 +131,10 @@ export default function CommentCard() {
     if (data) {
       dispatch(fetchReplies({ boardId: data?.id, offset: 0 }));
     }
+
+    return () => {
+      dispatch(clearReplies());
+    };
   }, [data]);
 
   useEffect(() => {
