@@ -30,7 +30,6 @@ export default function AdminNoticePage() {
 
   useEffect(() => {
     fetchData();
-    console.log("fetched");
   }, [isOpen]);
   return (
     <PageBox>

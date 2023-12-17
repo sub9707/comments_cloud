@@ -36,7 +36,6 @@ export default function AdminNoticeWrite() {
     try {
       setIsLoading(true);
       const result = await writeNotice(data.title, data.content);
-      console.log("공지 등록 성공:", result);
       setIsLoading(false);
       alert("공지가 등록되었습니다.");
       navigate("/admin/notice");

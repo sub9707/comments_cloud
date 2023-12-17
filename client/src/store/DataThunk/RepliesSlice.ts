@@ -97,7 +97,6 @@ const repliesSlice = createSlice({
       })
       .addCase(addReply.fulfilled, (state, action) => {
         const { data, profileImg } = action.payload;
-        console.log(profileImg);
         return [
           ...state,
           {
@@ -125,8 +124,6 @@ const repliesSlice = createSlice({
         const updatedState = state.filter((reply) => {
           return reply.id !== deletedReplyId;
         });
-
-        console.log("Updated State:", updatedState);
 
         state = updatedState;
         return state;

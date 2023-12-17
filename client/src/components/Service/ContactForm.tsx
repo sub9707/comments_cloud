@@ -19,7 +19,6 @@ function ContactForm(props: { onRef: React.RefObject<HTMLDivElement> }) {
     e.preventDefault();
     if (!form.current) return;
     setLoading(true);
-    console.log(import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "ss");
     emailjs
       .sendForm(
         import.meta.env.VITE_EMAILJS_SERVICE_ID || "",
@@ -37,7 +36,6 @@ function ContactForm(props: { onRef: React.RefObject<HTMLDivElement> }) {
             })
           );
           setLoading(false);
-          console.log(result.text);
         },
         (error) => {
           setLoading(false);

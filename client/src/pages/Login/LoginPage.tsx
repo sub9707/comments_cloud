@@ -83,7 +83,6 @@ export default function LoginPage() {
         console.log("로그인 실패:", result);
       }
     } catch (error: any) {
-      console.log("asd " + error.response.data);
       setLoginError(error.response.data);
     } finally {
       setIsLoading(false);

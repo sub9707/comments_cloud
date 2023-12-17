@@ -30,7 +30,6 @@ function ErrorView() {
       if (boardId) {
         const result = await getBoardError(+boardId);
         const isPublic: boolean = result?.publicCheck;
-        console.log("공개? :" + isPublic);
         const writer: number = result?.writer_id;
         if (!isPublic && writer !== user?.id) {
           alert("접근 권한이 없습니다.");
