@@ -14,8 +14,7 @@ import {
 
 export const api = axios.create({
   // baseURL: "http://localhost:3001",
-  baseURL:
-    "https://port-0-trouble-shooter-71t02clq3dokrn.sel4.cloudtype.app:3001",
+  baseURL: "https://port-0-trouble-shooter-71t02clq3dokrn.sel4.cloudtype.app",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
@@ -49,7 +48,7 @@ api.interceptors.request.use(
 
     // 만료 토큰 재발급
     const result = await axios.post(
-      "https://port-0-trouble-shooter-71t02clq3dokrn.sel4.cloudtype.app:3001",
+      "https://port-0-trouble-shooter-71t02clq3dokrn.sel4.cloudtype.app",
       {
         email: userEmail,
         name: userName,
