@@ -10,7 +10,9 @@ const db = mysql.createPool({
 });
 
 db.getConnection((err) => {
-  console.log("connected to db successfully..! running on" + host + ":" + port);
+  console.log(
+    "connected to db successfully..! running on" + process.env.MYSQL_HOST
+  );
   if (err) console.error(err);
 });
 
