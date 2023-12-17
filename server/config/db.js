@@ -6,11 +6,11 @@ const db = mysql.createPool({
   user: process.env.MYSQL_USER,
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE,
-  // port: 32277,
+  port: 32277,
 });
 
 db.getConnection((err) => {
-  console.log("connected to db successfully..!");
+  console.log("connected to db successfully..! running on" + host + ":" + port);
   if (err) console.error(err);
 });
 
