@@ -8,6 +8,7 @@ const noticeRouter = require("./routes/notice");
 const usercontroller = require("./controllers/UserController");
 const errorRouter = require("./routes/errors");
 const boardRouter = require("./routes/board");
+const adminRouter = require("./routes/admin");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -23,6 +24,7 @@ app.use("/token", tokenRouter);
 app.use("/notice", noticeRouter);
 app.use("/error", errorRouter);
 app.use("/board", boardRouter);
+app.use("/admin", adminRouter);
 
 app.listen(PORT, () => {
   console.log("Server is running on", PORT);
