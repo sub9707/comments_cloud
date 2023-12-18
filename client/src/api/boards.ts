@@ -17,6 +17,19 @@ export const getAllBoards = async (offset: number, filter: string) => {
 };
 /**
  * @method GET
+ *  게시물 목록 불러오기[admin]
+ */
+export const getEntireBoards = async () => {
+  try {
+    const response = await api.get(`/board/boardList/admin`);
+    return response.data;
+  } catch (error) {
+    console.error("게시물 목록 불러오기 실패:", error);
+    throw error;
+  }
+};
+/**
+ * @method GET
  *  게시물 랭킹 Daily 불러오기
  */
 export const getDailyRanks = async () => {

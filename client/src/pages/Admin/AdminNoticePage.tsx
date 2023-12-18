@@ -1,12 +1,12 @@
 import { Button } from "react-bootstrap";
 import { ButtonRight, PageBox, PageHeader } from "../../styles/AdminPageStyle";
 import { useNavigate } from "react-router-dom";
-import AdminBoardTable from "../../components/Table/AdminBoardTable";
 import { useEffect, useState } from "react";
 import { NoticeTablePropType } from "../../types/TableTypes";
 import { api } from "../../api/axios";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import AdminNoticeTable from "../../components/Table/AdminNoticeTable";
 
 export default function AdminNoticePage() {
   const { isOpen } = useSelector((state: RootState) => state.modal);
@@ -48,7 +48,7 @@ export default function AdminNoticePage() {
           공지글 작성
         </Button>
       </ButtonRight>
-      <AdminBoardTable data={data} />
+      <AdminNoticeTable data={data} />
     </PageBox>
   );
 }

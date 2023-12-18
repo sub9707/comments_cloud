@@ -11,6 +11,7 @@ import { useRef } from "react";
 import { clearReplies } from "../../store/DataThunk/RepliesSlice";
 import NeedLoginModal from "./NeedLoginModal";
 import AdminUserModal from "./AdminUserModal";
+import AdminBoardModal from "./AdminBoardModal";
 
 const MODAL_TYPES = {
   WriteModal: "WriteModal",
@@ -18,6 +19,7 @@ const MODAL_TYPES = {
   MyErrorModal: "MyErrorModal",
   NeedLoginModal: "NeedLoginModal",
   AdminUserModal: "AdminUserModal",
+  AdminBoardModal: "AdminBoardModal",
 };
 
 const MODAL_COMPONENTS = [
@@ -40,6 +42,10 @@ const MODAL_COMPONENTS = [
   {
     type: MODAL_TYPES.AdminUserModal,
     component: <AdminUserModal />,
+  },
+  {
+    type: MODAL_TYPES.AdminBoardModal,
+    component: <AdminBoardModal />,
   },
 ];
 

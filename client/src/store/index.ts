@@ -15,6 +15,7 @@ import boardSearch from "./DataThunk/BoardSearchSlice";
 import boardFetchSlice from "./Toggle/BoardFetchTab";
 import LikedBoardListSlice from "./DataThunk/LikedListSlice";
 import adminUserModalSlice from "./Modal/AdminUserModal";
+import adminBoardModalSlice from "./Modal/AdminBoardModal";
 import storage from "redux-persist/lib/storage";
 
 import {
@@ -46,6 +47,7 @@ const reducers = combineReducers({
   boardFetchTab: boardFetchSlice,
   LikedBoardListSlice,
   adminUserModalSlice,
+  adminBoardModalSlice,
 });
 
 export type RootState = ReturnType<typeof reducers>;

@@ -18,6 +18,7 @@
     "@hookform/error-message": "^2.0.1",
     "@nivo/calendar": "^0.84.0",
     "@nivo/core": "^0.84.0",
+    "@nivo/line": "^0.84.0",
     "@reduxjs/toolkit": "^1.9.7",
     "@types/dompurify": "^3.0.5",
     "axios": "^1.5.1",

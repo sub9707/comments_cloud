@@ -1,39 +1,37 @@
-import { useDispatch } from "react-redux";
 import { Table } from "../../styles/TableStyle";
-import { NoticeTableProps } from "../../types/TableTypes";
+import { BoardInfoFetchType } from "../../types/board";
+import { useDispatch } from "react-redux";
 import { openModal } from "../../store/Modal/Modal";
-import { setData } from "../../store/Modal/NoticeModal";
+import { setBoardModal } from "../../store/Modal/AdminBoardModal";
 
-export default function AdminBoardTable(props: NoticeTableProps) {
+function AdminBoardTable(props: { data: BoardInfoFetchType[] }) {
+  const { data } = props;
   const dispatch = useDispatch();
-  const handleOpenModal = (id: number, title: string, content: string) => {
-    dispatch(setData({ id: id, title: title, content: content }));
-    dispatch(openModal({ modalType: "NoticeModal", isOpen: true }));
+  const handleOpenInfo = (board: BoardInfoFetchType) => {
+    dispatch(setBoardModal(board));
+    dispatch(openModal({ modalType: "AdminBoardModal", isOpen: true }));
   };
   return (
     <Table style={{ marginTop: "2em" }}>
       <tbody>
         <tr>
-          <th style={{ width: "5%", textAlign: "center" }}>#</th>
-          <th style={{ width: "70%", textAlign: "center" }}>제목</th>
-          <th style={{ width: "25%", textAlign: "center" }}>작성일자</th>
+          <th style={{ width: "5%", textAlign: "center" }}>BID</th>
+          <th style={{ width: "80%", textAlign: "center" }}>제목</th>
+          <th style={{ width: "15%", textAlign: "center" }}>작성일자</th>
         </tr>
-
-        {props.data.map((notice, _idx) => (
+        {data.map((board, _idx) => (
           <tr key={_idx}>
             <td style={{ textAlign: "center" }} data-th="#">
-              {_idx + 1}
+              {board?.id}
             </td>
             <td
               style={{ textAlign: "center", cursor: "pointer" }}
               data-th="제목"
-              onClick={() =>
-                handleOpenModal(notice?.id, notice?.title, notice?.content)
-              }>
-              {notice?.title}
+              onClick={() => handleOpenInfo(board)}>
+              {board?.title}
             </td>
             <td style={{ textAlign: "center" }} data-th="작성일자">
-              {notice?.createDate}
+              {board?.write_date}
             </td>
           </tr>
         ))}
@@ -41,3 +39,5 @@ export default function AdminBoardTable(props: NoticeTableProps) {
     </Table>
   );
 }
+
+export default AdminBoardTable;
