@@ -1,4 +1,5 @@
 const BoardModel = require("../models/board");
+const { verifyToken } = require("../config/JWT_middleware");
 
 class BoardController {
   /**
@@ -15,6 +16,24 @@ class BoardController {
     const filter = req.query.filter;
     try {
       let results = await BoardModel.getAllBoards(offset, filter);
+      if (results) res.send(results);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+    }
+  };
+  /**
+   * 커뮤니티 게시물 가져오기[admin]
+   *
+   * @param {request: offset}
+   * @param {response}
+   * @method GET
+   *
+   * @returns {array}
+   */
+  static getEntireBoards = async (req, res) => {
+    try {
+      let results = await BoardModel.getEntireBoards();
       if (results) res.send(results);
     } catch (error) {
       console.error(error);

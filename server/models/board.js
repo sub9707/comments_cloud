@@ -45,6 +45,20 @@ class ErrorsModel {
     });
   }
 
+  static async getEntireBoards() {
+    return new Promise((resolve) => {
+      const query = `
+        SELECT * from error_contents ORDER BY write_date DESC;
+      `;
+      db.query(query, [], (error, result) => {
+        if (!error) {
+          resolve(result);
+        } else {
+          resolve(error);
+        }
+      });
+    });
+  }
   static async getDailyRank() {
     return new Promise((resolve) => {
       const today = new Date(Date.now() - dateOffset).toISOString();

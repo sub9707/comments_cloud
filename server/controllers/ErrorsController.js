@@ -1,4 +1,5 @@
 const { getTodayTimeFormat } = require("../config/Calculation");
+const { verifyToken } = require("../config/JWT_middleware");
 const ErrorsModel = require("../models/Errors");
 
 class ErrorsController {

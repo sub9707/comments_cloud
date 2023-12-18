@@ -1,10 +1,11 @@
 const express = require("express");
-const BoardController = require("../controllers/boardController");
 const router = express.Router();
+const BoardController = require("../controllers/boardController");
 
 // RankBox
 // offset : 6개
 router.get("/boardList", BoardController.getAllBoards);
+router.get("/boardList/admin", BoardController.getEntireBoards);
 // Ranking
 // 일간 조회수 랭킹
 router.get("/ranking/daily", BoardController.getDailyRank);

@@ -4,19 +4,21 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 exports.verifyToken = (token) => {
-  if (!token) {
+  const coreToken = token.split(" ")[1];
+  if (!coreToken) {
     return {
       code: 401,
       message: "토큰이 없습니다.",
     };
   }
   try {
-    jwt.verify(token, process.env.JWT_SECRET);
+    jwt.verify(coreToken, process.env.JWT_SECRET);
     return {
       code: 200,
       message: "유효한 토큰입니다.",
     };
   } catch (error) {
+    console.log(error.name);
     if (error.name === "TokenExpiredError") {
       return {
         code: 419,
