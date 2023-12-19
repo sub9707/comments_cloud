@@ -32,7 +32,9 @@ api.interceptors.request.use(
     const refreshToken = getCookieToken();
     const userPersist = localStorage.getItem("persist:root");
     const authTokenPersist = JSON.parse(userPersist || "");
+    console.log(authTokenPersist.authToken);
     console.log(authTokenPersist.authToken.accessToken);
+    console.log(JSON.parse(authTokenPersist.authToken).accessToken);
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
