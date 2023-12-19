@@ -27,19 +27,11 @@ api.interceptors.request.use(
   async (request) => {
     const userName = selectUserName(store.getState());
     const userEmail = selectUserEmail(store.getState());
-    const access_token_Data = selectAccessToken(store.getState());
     const expiresIn = selectExpireTime(store.getState());
     const refreshToken = getCookieToken();
     const userPersist = localStorage.getItem("persist:root");
     const authTokenPersist = JSON.parse(userPersist || "");
-    console.log(authTokenPersist.authToken);
-    console.log(authTokenPersist.authToken.accessToken);
-    console.log(JSON.parse(authTokenPersist.authToken).accessToken);
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    const access_token = access_token_Data?.data.accessToken;
-    console.log("2" + authTokenPersist.accessToken);
+    const access_token = JSON.parse(authTokenPersist.authToken).accessToken;
     // refresh Token 없음 or 만료
     if (!refreshToken) {
       store.dispatch(DELETE_TOKEN());
