@@ -21,6 +21,14 @@ let corsOptions = {
 
 app.use(cors(corsOptions));
 
+app.use((req, res, next) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://comments-cloud.vercel.app"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  next();
+});
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use("/user", userRouter);
