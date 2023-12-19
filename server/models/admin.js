@@ -121,8 +121,10 @@ class AdminModel {
   static async getUserGraphData() {
     return new Promise((promiseResolve, promiseReject) => {
       const query = `
-      SELECT DATE_FORMAT(registerDate, '%Y-%m-%d') AS x, COUNT(*) AS y
-      FROM users GROUP BY DATE_FORMAT(registerDate, '%Y-%m-%d') ORDER BY DATE_FORMAT(registerDate, '%Y-%m-%d');
+        SELECT DATE_FORMAT(registerDate, '%Y-%m') AS x, COUNT(*) AS y
+        FROM users 
+        GROUP BY DATE_FORMAT(registerDate, '%Y-%m') 
+        ORDER BY DATE_FORMAT(registerDate, '%Y-%m');
     `;
       db.query(query, [], (error, results) => {
         if (!error) {

@@ -201,6 +201,22 @@ class ErrorsModel {
       );
     });
   }
+  static async deleteAllReplies(id) {
+    return new Promise((resolve) => {
+      db.query(
+        "DELETE FROM error_content_comments WHERE content_id = ?",
+        [id],
+        (error, result) => {
+          if (!error) {
+            resolve(result);
+          } else {
+            console.error(error);
+            resolve(error);
+          }
+        }
+      );
+    });
+  }
   static async getErrorReplies(boardId, offset) {
     return new Promise((resolve) => {
       db.query(

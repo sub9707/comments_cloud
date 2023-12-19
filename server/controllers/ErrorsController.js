@@ -200,7 +200,6 @@ class ErrorsController {
    * @returns {array}
    */
   static deleteError = async (req, res) => {
-    const userId = req.query.userId;
     const accessToken = req.headers.authorization;
     const verify = verifyToken(accessToken);
     if (verify.code === 200) {
@@ -210,7 +209,9 @@ class ErrorsController {
           return res.status(400).send("id가 존재하지 않습니다.");
         }
         let result = await ErrorsModel.deleteError(id);
-        if (result) res.send("에러 게시글 삭제 성공! [Controller]]");
+        let repliesResult = await ErrorsModel.deleteAllReplies(id);
+        if (result && repliesResult)
+          res.send("에러 게시글 삭제 성공! [Controller]]");
       } catch (error) {
         console.error(error);
         res.status(500).send("Internal Server Error:[게시물 삭제 Controller]");
