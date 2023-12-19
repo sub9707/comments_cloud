@@ -1,8 +1,11 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Card } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function EmptyCarouselCard() {
+  const navigate = useNavigate();
+
   const CardBodyStyle = {
     borderRadius: "16px",
     border: `3px dotted grey`,
@@ -25,7 +28,10 @@ function EmptyCarouselCard() {
         marginBlock: "1em",
         paddingInline: "0.5em",
       }}>
-      <Card className="text-center" style={CardBodyStyle}>
+      <Card
+        className="text-center"
+        style={CardBodyStyle}
+        onClick={() => navigate("/errorWrite")}>
         <Card.Body
           style={{
             display: "flex",

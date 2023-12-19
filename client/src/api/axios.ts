@@ -22,6 +22,8 @@ export const api = axios.create({
   },
 });
 
+api.defaults.withCredentials = true;
+
 // axios 요청 인터셉터 [refresh]
 api.interceptors.request.use(
   async (request) => {

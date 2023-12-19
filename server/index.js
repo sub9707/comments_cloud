@@ -14,7 +14,12 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 require("dotenv").config();
 
-app.use(cors());
+let corsOptions = {
+  origin: "*",
+  credential: true,
+};
+
+app.use(cors(corsOptions));
 
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
