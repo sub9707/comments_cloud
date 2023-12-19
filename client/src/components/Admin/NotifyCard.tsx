@@ -1,6 +1,7 @@
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRef } from "react";
 import { Card } from "react-bootstrap";
 import styled from "styled-components";
 
@@ -11,7 +12,14 @@ type cardPropsType = {
 };
 
 function NotifyCard(props: cardPropsType) {
+  const cardRef = useRef<any>(null);
   const { textData, subText, icons } = props;
+  const handleHover = () => {
+    if (cardRef.current) cardRef.current.style.setProperty("scale", "1.05");
+  };
+  const handleMouseOut = () => {
+    if (cardRef.current) cardRef.current.style.setProperty("scale", "1");
+  };
   return (
     <Card
       style={{
@@ -19,7 +27,12 @@ function NotifyCard(props: cardPropsType) {
         height: "90%",
         display: "flex",
         justifyContent: "center",
-      }}>
+        transition: "all 0.2s ease-out",
+        cursor: "pointer",
+      }}
+      ref={cardRef}
+      onMouseOver={handleHover}
+      onMouseOut={handleMouseOut}>
       <Card.Body
         style={{
           display: "flex",

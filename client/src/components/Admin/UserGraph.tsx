@@ -18,9 +18,10 @@ function UserGraph(props: graphpropsType) {
           type: "linear",
           min: 0,
           max: "auto",
-          stacked: false,
+          stacked: true,
+          reverse: false,
         }}
-        yFormat=" >-.2f"
+        yFormat={(value) => `${value}명`}
         curve="cardinal"
         axisLeft={{
           tickSize: 5,
@@ -29,6 +30,7 @@ function UserGraph(props: graphpropsType) {
           legend: `${props.legendName}`,
           legendOffset: -40,
           legendPosition: "middle",
+          tickValues: 1,
         }}
         enableGridX={false}
         pointSize={10}
@@ -37,6 +39,7 @@ function UserGraph(props: graphpropsType) {
         pointBorderColor={{ from: "serieColor" }}
         pointLabelYOffset={-12}
         useMesh={true}
+        colors={`${props?.graphdata[0]?.color}`}
       />
     </GraphContainer>
   );
