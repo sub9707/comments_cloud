@@ -93,6 +93,13 @@ export default function LoginPage() {
       setIsLoading(true);
       await registerUser(data.email, data.name, data.password);
       setActiveForm("login");
+      dispatch(
+        addMessage({
+          id: "unique_id",
+          text: `회원가입 성공!`,
+          type: "success",
+        })
+      );
       setRegisterError("");
       setIsLoading(false);
     } catch (error: any) {
