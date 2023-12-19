@@ -25,13 +25,13 @@ export const api = axios.create({
 // axios 요청 인터셉터 [refresh]
 api.interceptors.request.use(
   async (request) => {
-    const userName = selectUserName(store.getState());
-    const userEmail = selectUserEmail(store.getState());
-    const expiresIn = selectExpireTime(store.getState());
     const refreshToken = getCookieToken();
     const userPersist = localStorage.getItem("persist:root");
     const authTokenPersist = JSON.parse(userPersist || "");
+    const userName = JSON.parse(authTokenPersist.user).data.name;
+    const userEmail = JSON.parse(authTokenPersist.user).data.email;
     const access_token = JSON.parse(authTokenPersist.authToken).accessToken;
+    const expiresIn = JSON.parse(authTokenPersist.authToken).expireTime;
     // refresh Token 없음 or 만료
     if (!refreshToken) {
       console.log(1);
