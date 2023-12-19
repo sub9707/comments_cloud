@@ -34,15 +34,17 @@ api.interceptors.request.use(
     const access_token = JSON.parse(authTokenPersist.authToken).accessToken;
     // refresh Token 없음 or 만료
     if (!refreshToken) {
+      console.log(1);
       store.dispatch(DELETE_TOKEN());
       await persistor.purge();
       store.dispatch(clearUser());
     }
     // access 토큰 없음
     if (expiresIn === null) {
+      console.log(2);
       return request;
     }
-
+    console.log(3);
     const nowDate = new Date();
     const expiresDate = new Date(expiresIn);
     // 토큰 유효
