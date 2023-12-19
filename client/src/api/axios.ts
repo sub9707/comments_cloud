@@ -30,11 +30,13 @@ api.interceptors.request.use(
     const access_token_Data = selectAccessToken(store.getState());
     const expiresIn = selectExpireTime(store.getState());
     const refreshToken = getCookieToken();
+    const userPersist = localStorage.getItem("persist:root");
+    const authTokenPersist = JSON.parse(userPersist || "");
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const access_token = access_token_Data?.data.accessToken;
-    console.log("1" + access_token_Data);
-    console.log("2" + access_token);
+    console.log("2" + authTokenPersist.accessToken);
     // refresh Token 없음 or 만료
     if (!refreshToken) {
       store.dispatch(DELETE_TOKEN());
