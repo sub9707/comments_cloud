@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { NoticeTablePropType } from "../../types/TableTypes";
 import { api } from "../../api/axios";
 import LoadingPage from "../LoadingPage";
+import axios from "axios";
 
 export default function NoticePage() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -14,7 +15,7 @@ export default function NoticePage() {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await api.get("/notice/notices");
+      const response = await axios.get("/notice/notices");
       setData(response.data);
       setLoading(false);
     } catch (error) {
