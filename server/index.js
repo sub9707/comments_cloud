@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3001;
 require("dotenv").config();
 
 const corsOptions = {
-  origin: "https://comments-cloud-dqlhu8js6-sub9707.vercel.app",
+  origin: "https://comments-cloud-sub9707.vercel.app",
   credentials: true,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   optionsSuccessStatus: 204,
