@@ -32,13 +32,14 @@ class NoticeController {
   static writeNotice = async (req, res) => {
     try {
       const createDate = getTodayFormat();
-      const { title, content, imgUrls } = req.body;
+      const { title, content } = req.body;
+      const file = req.file;
 
       let results = await NoticeModel.writeNotice(
         title,
         content,
         createDate,
-        imgUrls
+        file ? [file.path] : []
       );
       if (results) res.send("공지 등록 성공! [Controller]]");
     } catch (error) {

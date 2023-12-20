@@ -8,15 +8,18 @@ class NoticeModel {
       });
     });
   }
-  static async writeNotice(title, content, createDate, imgUrls) {
+  static async writeNotice(title, content, createDate, file) {
     return new Promise((resolve) => {
       db.query(
         "insert into notice (title, content, createDate, img_url) values(?,?,?,?)",
-        [title, content, createDate, imgUrls],
+        [title, content, createDate, file],
         (error, result) => {
           if (!error) {
-            resolve(true);
-          } else resolve(false);
+            resolve(result);
+          } else {
+            console.error(error);
+            resolve(error);
+          }
         }
       );
     });
