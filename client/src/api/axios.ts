@@ -19,8 +19,6 @@ export const api = axios.create({
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
-    "Access-Control-Allow-Credentials": true,
-    "Access-Control-Allow-Origin": `https://port-0-trouble-shooter-71t02clq3dokrn.sel4.cloudtype.app`,
   },
 });
 
