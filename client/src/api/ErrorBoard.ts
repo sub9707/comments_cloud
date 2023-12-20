@@ -20,7 +20,7 @@ export const writeError = async (props: ErrorWriteFormValues) => {
  */
 export const editError = async (props: ErrorWriteFormValues) => {
   try {
-    const response = await api.put("/api/error/edit", props);
+    const response = await api.put("/error/edit", props);
     return response.data;
   } catch (error) {
     console.error("개인 에러 등록 실패:", error);

@@ -6,7 +6,7 @@ import axios from "axios";
  */
 export const checkToken = async (token: string) => {
   try {
-    const response = await axios.get("/api/token/checkToken", {
+    const response = await axios.get("/token/checkToken", {
       headers: {
         Authorization: token,
       },

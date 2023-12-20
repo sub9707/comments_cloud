@@ -15,12 +15,11 @@ import {
 
 export const api = axios.create({
   // baseURL: "http://localhost:3001/",
-  baseURL: "/",
+  baseURL: "/api",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
   },
-  withCredentials: true,
 });
 
 api.defaults.withCredentials = true;

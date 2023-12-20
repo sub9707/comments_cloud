@@ -6,7 +6,7 @@ import { api } from "./axios";
  */
 export const writeNotice = async (title: string, content: string) => {
   try {
-    const response = await api.post("/api/notice/write", {
+    const response = await api.post("/notice/write", {
       title: title,
       content: content,
     });

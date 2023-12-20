@@ -23,7 +23,7 @@ export default function AdminUserPage() {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await api.get("/api/users");
+      const response = await api.get("/users");
       setData(response.data);
       setLoading(false);
     } catch (error) {

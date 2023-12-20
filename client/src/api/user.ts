@@ -9,7 +9,7 @@ const registerUser = async (email: string, name: string, password: string) => {
   const today = new Date();
   const registerDate = `${today.getFullYear()}.${today.getMonth()}.${today.getDay()}`;
   try {
-    const response = await api.post("/api/user/register", {
+    const response = await api.post("/user/register", {
       name: name,
       email: email,
       password: password,
