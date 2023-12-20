@@ -30,7 +30,7 @@ export default registerUser;
  */
 export const loginUser = async (email: string, password: string) => {
   const data = { email, password };
-  const response = await api.post("/user/login`, data);
+  const response = await api.post(`/user/login`, data);
   if (response.status === 200) {
     return response.data;
   } else if (response.status === 401) {
@@ -46,7 +46,7 @@ export const loginUser = async (email: string, password: string) => {
  */
 export const getUserInfo = async (userId: string) => {
   try {
-    const response = await api.get("/user?userId=${userId}`);
+    const response = await api.get(`/user?userId=${userId}`);
     return response.data;
   } catch (err) {
     console.error(err);
@@ -59,7 +59,7 @@ export const getUserInfo = async (userId: string) => {
  */
 export const deleteUser = async (userId: number) => {
   try {
-    const response = await api.delete("/user?userId=${userId}`);
+    const response = await api.delete(`/user?userId=${userId}`);
     return response.data;
   } catch (err) {
     console.error(err);
@@ -87,7 +87,7 @@ export const updateUserInfo = async (
     formData.append("profile_message", props.profile_message);
     formData.append("curImageUrl", props.curImageUrl);
 
-    const response = await api.put("/user?userId=${userId}`, formData, {
+    const response = await api.put(`/user?userId=${userId}`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         ...props.headers,
@@ -106,7 +106,7 @@ export const updateUserInfo = async (
  */
 export const userFindById = async (userId: string) => {
   try {
-    const response = await api.get("/user/findById?userId=${userId}`);
+    const response = await api.get(`/user/findById?userId=${userId}`);
     return response.data;
   } catch (err) {
     console.error(err);
@@ -120,7 +120,7 @@ export const userFindById = async (userId: string) => {
  */
 export const getUserNoteData = async (userId: string) => {
   try {
-    const response = await api.get("/user/noteData?userId=${userId}`);
+    const response = await api.get(`/user/noteData?userId=${userId}`);
     return response.data;
   } catch (err) {
     console.error(err);
@@ -134,7 +134,7 @@ export const getUserNoteData = async (userId: string) => {
  */
 export const getCalendarData = async (userId: string) => {
   try {
-    const response = await api.get("/user/calanderData?userId=${userId}`);
+    const response = await api.get(`/user/calanderData?userId=${userId}`);
     return response.data;
   } catch (err) {
     console.error(err);
@@ -148,7 +148,7 @@ export const getCalendarData = async (userId: string) => {
  */
 export const getRecentData = async (userId: string) => {
   try {
-    const response = await api.get("/user/recentNote?userId=${userId}`);
+    const response = await api.get(`/user/recentNote?userId=${userId}`);
     return response.data;
   } catch (err) {
     console.error(err);
@@ -162,7 +162,7 @@ export const getRecentData = async (userId: string) => {
  */
 export const getLikedData = async (userId: string) => {
   try {
-    const response = await api.get("/user/likedNote?userId=${userId}`);
+    const response = await api.get(`/user/likedNote?userId=${userId}`);
     return response.data;
   } catch (err) {
     console.error(err);
@@ -192,7 +192,7 @@ export const checkLikedListPublic = async (userId: string) => {
  */
 export const changeLikedListPublic = async (userId: string) => {
   try {
-    const response = await api.put("/user/LikedPublic?userId=${userId}`);
+    const response = await api.put(`/user/LikedPublic?userId=${userId}`);
     return response.data;
   } catch (err) {
     console.error(err);

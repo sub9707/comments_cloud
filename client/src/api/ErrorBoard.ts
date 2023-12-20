@@ -33,7 +33,7 @@ export const editError = async (props: ErrorWriteFormValues) => {
  */
 export const deleteError = async (id: number) => {
   try {
-    const response = await api.delete("/error?id=${id}`);
+    const response = await api.delete(`/error?id=${id}`);
     return response.data;
   } catch (error) {
     console.error("개인 에러 삭제 실패:", error);
@@ -69,7 +69,7 @@ export const getMyErrors = async (
  */
 export const getBoardError = async (boardId: number) => {
   try {
-    const response = await api.get("/error/board?boardId=${boardId}`);
+    const response = await api.get(`/error/board?boardId=${boardId}`);
     return response.data;
   } catch (error) {
     console.error("개인 에러 불러오기 실패:", error);
@@ -82,7 +82,7 @@ export const getBoardError = async (boardId: number) => {
  */
 export const getMyErrorCount = async (userId: number) => {
   try {
-    const response = await api.get("/error/count?userId=${userId}`);
+    const response = await api.get(`/error/count?userId=${userId}`);
     return response.data;
   } catch (error) {
     console.error("개인 에러 개수 실패:", error);
@@ -182,7 +182,7 @@ export const postReplyCancelLike = async (replyId: number, userId: number) => {
  */
 export const postErrorViews = async (boardId: number) => {
   try {
-    const result = await api.post("/error/view?boardId=${boardId}`);
+    const result = await api.post(`/error/view?boardId=${boardId}`);
     return result.data;
   } catch (error) {
     console.log(error);

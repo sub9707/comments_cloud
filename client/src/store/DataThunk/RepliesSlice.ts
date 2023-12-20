@@ -72,7 +72,7 @@ export const updateReply = createAsyncThunk(
 export const deleteReply = createAsyncThunk(
   "replies/deleteReply",
   async (replyId: number) => {
-    await api.delete("/error/errorlist/replies?commentId=${replyId}`);
+    await api.delete(`/error/errorlist/replies?commentId=${replyId}`);
     return replyId;
   }
 );
