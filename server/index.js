@@ -20,7 +20,9 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
+app.use((req, res) => {
+  res.header("Access-Control-Allow-Origin", "*");
+});
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
 app.use("/user", userRouter);
