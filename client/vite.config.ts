@@ -6,8 +6,10 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://comments-cloud.vercel.app",
+        target:
+          "https://port-0-trouble-shooter-71t02clq3dokrn.sel4.cloudtype.app",
         changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },
