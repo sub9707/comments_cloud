@@ -1,10 +1,10 @@
 const express = require("express");
-const bodyparser = require("body-parser");
+const bodyParser = require("body-parser");
 const cors = require("cors");
 const userRouter = require("./routes/user");
 const tokenRouter = require("./routes/token");
 const noticeRouter = require("./routes/notice");
-const usercontroller = require("./controllers/UserController");
+const userController = require("./controllers/UserController");
 const errorRouter = require("./routes/errors");
 const boardRouter = require("./routes/board");
 const adminRouter = require("./routes/admin");
@@ -13,17 +13,20 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 require("dotenv").config();
 
-// const corsOptions = {
-//   origin: "https://comments-cloud-dqlhu8js6-sub9707.vercel.app",
-//   credentials: true,
-// };
+const corsOptions = {
+  origin: "https://comments-cloud-dqlhu8js6-sub9707.vercel.app",
+  credentials: true,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  optionsSuccessStatus: 204,
+  allowedHeaders: "Content-Type, Authorization",
+};
 
-app.use(cors());
+app.use(cors(corsOptions));
 
-app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/user", userRouter);
-app.get("/users", usercontroller.getalluser);
+app.get("/users", userController.getalluser);
 app.use("/token", tokenRouter);
 app.use("/notice", noticeRouter);
 app.use("/error", errorRouter);
