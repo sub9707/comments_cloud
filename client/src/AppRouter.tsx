@@ -7,7 +7,7 @@ import LoadingPage from "./pages/LoadingPage";
 import GlobalAlert from "./components/Modals/GlobalAlert";
 
 const loading = (
-  <div style={{ width: "100%", height: "100vh" }}>
+  <div style={{ width: "100%", height: "100vh", opacity: 0.5 }}>
     <LoadingPage />
   </div>
 );
