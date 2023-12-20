@@ -55,7 +55,7 @@ export const getMyErrors = async (
 ) => {
   try {
     const response = await api.get(
-      `/api/error?userId=${userId}&offset=${offset}&publicOnly=${publicOnly}&solvedOnly=${solvedOnly}&privateOnly=${privateOnly}&unsolvedOnly=${unsolvedOnly}&filter=${filter}`
+      `/error?userId=${userId}&offset=${offset}&publicOnly=${publicOnly}&solvedOnly=${solvedOnly}&privateOnly=${privateOnly}&unsolvedOnly=${unsolvedOnly}&filter=${filter}`
     );
     return response.data;
   } catch (error) {
@@ -97,7 +97,7 @@ export const getMyErrorCount = async (userId: number) => {
 export const checkBoradCheck = async (boardId: number, userId: number) => {
   try {
     const result = await api.get(
-      `/api/error/likeCheck?boardId=${boardId}&userId=${userId}`
+      `/error/likeCheck?boardId=${boardId}&userId=${userId}`
     );
     return result.data.isLiked;
   } catch (err) {
@@ -111,7 +111,7 @@ export const checkBoradCheck = async (boardId: number, userId: number) => {
 export const checkReplyCheck = async (replyId: number, userId: number) => {
   try {
     const result = await api.get(
-      `/api/error/errorlist/replies/likeCheck?replyId=${replyId}&userId=${userId}`
+      `/error/errorlist/replies/likeCheck?replyId=${replyId}&userId=${userId}`
     );
     return result.data;
   } catch (err) {
@@ -126,7 +126,7 @@ export const checkReplyCheck = async (replyId: number, userId: number) => {
 export const postBoardLike = async (boardId: number, userId: number) => {
   try {
     const result = await api.post(
-      `/api/error/like?boardId=${boardId}&userId=${userId}`
+      `/error/like?boardId=${boardId}&userId=${userId}`
     );
     return result.data;
   } catch (err) {
@@ -140,7 +140,7 @@ export const postBoardLike = async (boardId: number, userId: number) => {
 export const postBoardCancelLike = async (boardId: number, userId: number) => {
   try {
     const result = await api.post(
-      `/api/error/cancelLike?boardId=${boardId}&userId=${userId}`
+      `/error/cancelLike?boardId=${boardId}&userId=${userId}`
     );
     return result.data;
   } catch (err) {
@@ -154,7 +154,7 @@ export const postBoardCancelLike = async (boardId: number, userId: number) => {
 export const postReplyLike = async (replyId: number, userId: number) => {
   try {
     const result = await api.post(
-      `/api/error/errorlist/replies/like?replyId=${replyId}&userId=${userId}`
+      `/error/errorlist/replies/like?replyId=${replyId}&userId=${userId}`
     );
     return result.data;
   } catch (err) {
@@ -168,7 +168,7 @@ export const postReplyLike = async (replyId: number, userId: number) => {
 export const postReplyCancelLike = async (replyId: number, userId: number) => {
   try {
     const result = await api.post(
-      `/api/error/errorlist/replies/cancelLike?replyId=${replyId}&userId=${userId}`
+      `/error/errorlist/replies/cancelLike?replyId=${replyId}&userId=${userId}`
     );
     return result.data;
   } catch (err) {

@@ -176,9 +176,7 @@ export const getLikedData = async (userId: string) => {
  */
 export const checkLikedListPublic = async (userId: string) => {
   try {
-    const response = await api.get(
-      `/api/user/checkLikedPublic?userId=${userId}`
-    );
+    const response = await api.get(`/user/checkLikedPublic?userId=${userId}`);
     return response.data;
   } catch (err) {
     console.error(err);

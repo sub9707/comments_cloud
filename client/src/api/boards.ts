@@ -7,7 +7,7 @@ import { api } from "./axios";
 export const getAllBoards = async (offset: number, filter: string) => {
   try {
     const response = await api.get(
-      `/api/board/boardList?offset=${offset}&filter=${filter}`
+      `/board/boardList?offset=${offset}&filter=${filter}`
     );
     return response.data;
   } catch (error) {

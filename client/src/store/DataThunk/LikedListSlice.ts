@@ -14,7 +14,7 @@ export const fetchLikedList = createAsyncThunk(
   "board/likedBoardsList",
   async ({ userId, offset }: { userId: number; offset: number }) => {
     const response = await api.get(
-      `/api/user/likedNoteList?userId=${userId}&offset=${offset}`
+      `/user/likedNoteList?userId=${userId}&offset=${offset}`
     );
     return response.data;
   }

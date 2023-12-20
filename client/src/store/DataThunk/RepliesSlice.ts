@@ -12,7 +12,7 @@ export const fetchReplies = createAsyncThunk(
   "replies/fetchReplies",
   async ({ boardId, offset }: { boardId: number; offset: number }) => {
     const response = await api.get(
-      `/api/error/errorlist/replies?boardId=${boardId}&offset=${offset}`
+      `/error/errorlist/replies?boardId=${boardId}&offset=${offset}`
     );
     return response.data;
   }
@@ -22,7 +22,7 @@ export const fetchRepliesCount = createAsyncThunk(
   "replies/fetchReplies/count",
   async (contentId: number) => {
     const response = await api.get(
-      `/api/errorlist/replies/count?contentId=${contentId}`
+      `/errorlist/replies/count?contentId=${contentId}`
     );
     return response.data;
   }
@@ -33,7 +33,7 @@ export const addReply = createAsyncThunk(
   async (props: ErrorReplyType) => {
     try {
       const response = await api.post(
-        "/api/error/errorlist/replies",
+        "/error/errorlist/replies",
         {
           content: props.content,
           writer_id: props.writer_id,
@@ -57,7 +57,7 @@ export const updateReply = createAsyncThunk(
   "replies/updateReply",
   async ({ replyId, content }: { replyId: number; content: string }) => {
     const response = await api.put(
-      `/api/error/errorlist/replies?commentId=${replyId}`,
+      `/error/errorlist/replies?commentId=${replyId}`,
       { content },
       {
         headers: {

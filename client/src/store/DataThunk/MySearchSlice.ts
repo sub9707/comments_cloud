@@ -23,7 +23,7 @@ export const fetchSearchData = createAsyncThunk(
     userId: number;
   }) => {
     const response = await api.get(
-      `/api/error/myError?userId=${userId}&search=${search}&offset=${offset}`
+      `/error/myError?userId=${userId}&search=${search}&offset=${offset}`
     );
     return response.data;
   }

@@ -61,7 +61,7 @@ function MyErrorTable() {
     try {
       setPlusLoading(true);
       const response = await api.get(
-        `/api/error?userId=1&offset=${offset}&publicOnly=${sortFilter.publicOnly}&privateOnly=${sortFilter.privateOnly}&solvedOnly=${sortFilter.solvedOnly}&unsolvedOnly=${sortFilter.unsolvendOnly}&filter=${sortFilter.filter}`
+        `/error?userId=1&offset=${offset}&publicOnly=${sortFilter.publicOnly}&privateOnly=${sortFilter.privateOnly}&solvedOnly=${sortFilter.solvedOnly}&unsolvedOnly=${sortFilter.unsolvendOnly}&filter=${sortFilter.filter}`
       );
       if (response.data.length === 0) {
         setDataEnd(true);
