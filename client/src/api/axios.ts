@@ -5,7 +5,7 @@ import { store } from "../store";
 import { SET_TOKEN } from "../store/Utils/Auth";
 
 export const api = axios.create({
-  baseURL: "/api",
+  baseURL: "https://port-0-trouble-shooter-71t02clq3dokrn.sel4.cloudtype.app",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
