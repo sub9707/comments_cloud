@@ -12,7 +12,7 @@ export default defineConfig({
         rewrite: (path) => {
           console.log("Rewriting path:", path);
           const paths = path.replace(/^\/api/, "");
-          console.log("Rewrited path:", paths);
+          console.log("Rewriting path:", paths);
           return paths;
         },
       },
