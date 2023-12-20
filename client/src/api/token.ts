@@ -1,5 +1,5 @@
-import axios from "axios";
 import { getCookieToken } from "../store/Utils/Cookie";
+import { api } from "./axios";
 
 /**
  * @method POST
@@ -12,7 +12,7 @@ export const getRefreshedToken = async () => {
   const userEmail = JSON.parse(authTokenPersist.user).data.email;
   const refreshToken = getCookieToken();
   try {
-    const response = await axios.post("/token/refresh", {
+    const response = await api.post("/token/refresh", {
       refreshToken: `${refreshToken}`,
       email: userEmail,
       name: userName,
