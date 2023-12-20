@@ -32,8 +32,11 @@ import { useState } from "react";
 import { writeError } from "../../api/ErrorBoard";
 import { openModal } from "../../store/Modal/Modal";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { addMessage } from "../../store/Utils/Alert";
 
 export default function ErrorWrite() {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [tags, setTags] = useState<string[]>([]);
   const { register, handleSubmit, setValue, trigger } =
@@ -47,7 +50,14 @@ export default function ErrorWrite() {
     try {
       setIsLoading(true);
       const result = await writeError({ ...data, tags, writer_id: 1 });
-      console.log("게시글 등록 완료: ", result);
+      navigate(`/myError`);
+      dispatch(
+        addMessage({
+          id: "unique_id",
+          text: `로그인 했습니다.`,
+          type: "info",
+        })
+      );
       setIsLoading(false);
     } catch (error) {
       console.error(error);

@@ -24,6 +24,7 @@ export type ErrorWriteFormValues = {
 export type NoticeWriteValues = {
   title: string;
   content: string;
+  files: FileList;
 };
 
 export type UpdateFormValue = {

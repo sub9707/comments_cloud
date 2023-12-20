@@ -4,15 +4,12 @@ import { api } from "./axios";
  * @method POST
  *  공지사항 작성
  */
-export const writeNotice = async (title: string, content: string) => {
+export const writeNotice = async (formData: FormData) => {
   try {
-    const response = await api.post("/notice/write", {
-      title: title,
-      content: content,
-    });
+    const response = await api.post("/notice/write", formData);
     return response.data;
   } catch (error) {
-    console.error("공지 load 실패:", error);
+    console.error("공지 등록 실패:", error);
     throw error;
   }
 };

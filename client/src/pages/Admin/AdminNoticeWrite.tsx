@@ -18,7 +18,7 @@ import { useDispatch } from "react-redux";
 import { openModal } from "../../store/Modal/Modal";
 import { useForm } from "react-hook-form";
 import { NoticeWriteValues } from "../../types/react-hook-form";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { writeNotice } from "../../api/notice";
 
@@ -32,10 +32,18 @@ export default function AdminNoticeWrite() {
   const onEditorStateChange = (editorState: string) => {
     setValue("content", editorState);
   };
+
   const onSubmit = async (data: NoticeWriteValues) => {
     try {
       setIsLoading(true);
-      const result = await writeNotice(data.title, data.content);
+      const formData = new FormData();
+      if (data.files && data.files[0]) {
+        formData.append("file", data.files[0]);
+      }
+      formData.append("title", data.title);
+      formData.append("content", data.content);
+
+      await writeNotice(formData);
       setIsLoading(false);
       alert("공지가 등록되었습니다.");
       navigate("/admin/notice");
@@ -64,61 +72,61 @@ export default function AdminNoticeWrite() {
     <PageBox>
       <PageHeader>공지사항 작성</PageHeader>
       <PageWrapper>
-        {" "}
-        <Table>
-          <tbody>
-            <TableRow>
-              <LeftCell>
-                <Label>공지 제목</Label>
-              </LeftCell>
-              <RightCell>
-                <Input
-                  type="text"
-                  maxLength={100}
-                  {...register("title", { required: true })}
-                />
-              </RightCell>
-            </TableRow>
-            <TableRow>
-              <LeftCell>
-                <Label>공지 내용</Label>
-              </LeftCell>
-              <ContentCell>
-                <ReactQuill
-                  style={{ width: "100%", height: "60vh" }}
-                  modules={modules}
-                  value={editorContent}
-                  onChange={onEditorStateChange}
-                />
-              </ContentCell>
-            </TableRow>
-            <TableRow>
-              <LeftCell>
-                <Label>첨부파일</Label>
-              </LeftCell>
-              <RightCell>
-                <Input style={{ border: "none" }} type="file" multiple />
-              </RightCell>
-            </TableRow>
-          </tbody>
-        </Table>
-        <ButtonCenter>
-          <Button
-            variant="primary"
-            size="lg"
-            style={{ marginRight: "1em" }}
-            type="submit"
-            onClick={handleSubmit(onSubmit)}
-            disabled={isLoading}>
-            {isLoading ? "등록 중" : "게시글 등록"}
-          </Button>
-          <Button
-            variant="outline-primary"
-            size="lg"
-            onClick={handleWriteCancel}>
-            작성 취소
-          </Button>
-        </ButtonCenter>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Table>
+            <tbody>
+              <TableRow>
+                <LeftCell>
+                  <Label>공지 제목</Label>
+                </LeftCell>
+                <RightCell>
+                  <Input
+                    type="text"
+                    maxLength={100}
+                    {...register("title", { required: true })}
+                  />
+                </RightCell>
+              </TableRow>
+              <TableRow>
+                <LeftCell>
+                  <Label>공지 내용</Label>
+                </LeftCell>
+                <ContentCell>
+                  <ReactQuill
+                    style={{ width: "100%", height: "60vh" }}
+                    modules={modules}
+                    value={editorContent}
+                    onChange={onEditorStateChange}
+                  />
+                </ContentCell>
+              </TableRow>
+              <TableRow>
+                <LeftCell>
+                  <Label>첨부파일</Label>
+                </LeftCell>
+                <RightCell>
+                  <Input style={{ border: "none" }} type="file" multiple />
+                </RightCell>
+              </TableRow>
+            </tbody>
+          </Table>
+          <ButtonCenter>
+            <Button
+              variant="primary"
+              size="lg"
+              style={{ marginRight: "1em" }}
+              type="submit"
+              disabled={isLoading}>
+              {isLoading ? "등록 중" : "게시글 등록"}
+            </Button>
+            <Button
+              variant="outline-primary"
+              size="lg"
+              onClick={handleWriteCancel}>
+              작성 취소
+            </Button>
+          </ButtonCenter>
+        </form>
       </PageWrapper>
     </PageBox>
   );

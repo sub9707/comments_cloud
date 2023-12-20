@@ -8,7 +8,9 @@ export default function BoardTable(props: NoticeTableProps) {
       {props.data.map((data, _idx) => (
         <Accordion alwaysOpen style={{ width: "100%" }} key={_idx}>
           <Accordion.Item eventKey={_idx.toString()}>
-            <Accordion.Header>{data?.title}</Accordion.Header>
+            <Accordion.Header>
+              #{_idx} {data?.title}
+            </Accordion.Header>
             <Accordion.Body>
               <AccordionDate>작성일자 : {data?.createDate}</AccordionDate>
               <div dangerouslySetInnerHTML={{ __html: data?.content }} />
