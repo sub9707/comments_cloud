@@ -14,12 +14,12 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 require("dotenv").config();
 
-// let corsOptions = {
-//   origin: true,
-//   credentials: true,
-// };
-
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://comments-cloud.vercel.app",
+    credentials: true,
+  })
+);
 
 // app.use((req, res, next) => {
 //   res.setHeader(
