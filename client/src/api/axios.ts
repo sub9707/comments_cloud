@@ -15,7 +15,7 @@ import {
 
 export const api = axios.create({
   // baseURL: "http://localhost:3001/",
-  baseURL: "https://port-0-trouble-shooter-71t02clq3dokrn.sel4.cloudtype.app",
+  baseURL: "/api",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
