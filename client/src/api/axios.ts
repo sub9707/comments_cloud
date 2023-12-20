@@ -15,7 +15,7 @@ import {
 
 export const api = axios.create({
   // baseURL: "http://localhost:3001/",
-  baseURL: "/api",
+  // baseURL: "/api",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
