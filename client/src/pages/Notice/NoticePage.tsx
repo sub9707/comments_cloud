@@ -14,7 +14,7 @@ export default function NoticePage() {
   const fetchData = async () => {
     try {
       setLoading(true);
-      const response = await api.get("/notice/notices");
+      const response = await api.get("/api/notice/notices");
       setData(response.data);
       setLoading(false);
     } catch (error) {

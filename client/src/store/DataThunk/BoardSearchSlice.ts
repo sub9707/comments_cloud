@@ -16,7 +16,7 @@ export const fetchBoardSearchData = createAsyncThunk(
   "board/fetchSearchData",
   async ({ search, offset }: { search: string; offset: number }) => {
     const response = await api.get(
-      `/board/boardSearch?&search=${search}&offset=${offset}`
+      `/api/board/boardSearch?&search=${search}&offset=${offset}`
     );
 
     return response.data;

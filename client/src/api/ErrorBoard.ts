@@ -20,7 +20,7 @@ export const writeError = async (props: ErrorWriteFormValues) => {
  */
 export const editError = async (props: ErrorWriteFormValues) => {
   try {
-    const response = await api.put("/error/edit", props);
+    const response = await api.put("/api/error/edit", props);
     return response.data;
   } catch (error) {
     console.error("개인 에러 등록 실패:", error);
@@ -33,7 +33,7 @@ export const editError = async (props: ErrorWriteFormValues) => {
  */
 export const deleteError = async (id: number) => {
   try {
-    const response = await api.delete(`/error?id=${id}`);
+    const response = await api.delete(`/api/error?id=${id}`);
     return response.data;
   } catch (error) {
     console.error("개인 에러 삭제 실패:", error);
@@ -55,7 +55,7 @@ export const getMyErrors = async (
 ) => {
   try {
     const response = await api.get(
-      `/error?userId=${userId}&offset=${offset}&publicOnly=${publicOnly}&solvedOnly=${solvedOnly}&privateOnly=${privateOnly}&unsolvedOnly=${unsolvedOnly}&filter=${filter}`
+      `/api/error?userId=${userId}&offset=${offset}&publicOnly=${publicOnly}&solvedOnly=${solvedOnly}&privateOnly=${privateOnly}&unsolvedOnly=${unsolvedOnly}&filter=${filter}`
     );
     return response.data;
   } catch (error) {
@@ -69,7 +69,7 @@ export const getMyErrors = async (
  */
 export const getBoardError = async (boardId: number) => {
   try {
-    const response = await api.get(`/error/board?boardId=${boardId}`);
+    const response = await api.get(`/api/error/board?boardId=${boardId}`);
     return response.data;
   } catch (error) {
     console.error("개인 에러 불러오기 실패:", error);
@@ -82,7 +82,7 @@ export const getBoardError = async (boardId: number) => {
  */
 export const getMyErrorCount = async (userId: number) => {
   try {
-    const response = await api.get(`/error/count?userId=${userId}`);
+    const response = await api.get(`/api/error/count?userId=${userId}`);
     return response.data;
   } catch (error) {
     console.error("개인 에러 개수 실패:", error);
@@ -97,7 +97,7 @@ export const getMyErrorCount = async (userId: number) => {
 export const checkBoradCheck = async (boardId: number, userId: number) => {
   try {
     const result = await api.get(
-      `/error/likeCheck?boardId=${boardId}&userId=${userId}`
+      `/api/error/likeCheck?boardId=${boardId}&userId=${userId}`
     );
     return result.data.isLiked;
   } catch (err) {
@@ -111,7 +111,7 @@ export const checkBoradCheck = async (boardId: number, userId: number) => {
 export const checkReplyCheck = async (replyId: number, userId: number) => {
   try {
     const result = await api.get(
-      `/error/errorlist/replies/likeCheck?replyId=${replyId}&userId=${userId}`
+      `/api/error/errorlist/replies/likeCheck?replyId=${replyId}&userId=${userId}`
     );
     return result.data;
   } catch (err) {
@@ -126,7 +126,7 @@ export const checkReplyCheck = async (replyId: number, userId: number) => {
 export const postBoardLike = async (boardId: number, userId: number) => {
   try {
     const result = await api.post(
-      `/error/like?boardId=${boardId}&userId=${userId}`
+      `/api/error/like?boardId=${boardId}&userId=${userId}`
     );
     return result.data;
   } catch (err) {
@@ -140,7 +140,7 @@ export const postBoardLike = async (boardId: number, userId: number) => {
 export const postBoardCancelLike = async (boardId: number, userId: number) => {
   try {
     const result = await api.post(
-      `/error/cancelLike?boardId=${boardId}&userId=${userId}`
+      `/api/error/cancelLike?boardId=${boardId}&userId=${userId}`
     );
     return result.data;
   } catch (err) {
@@ -154,7 +154,7 @@ export const postBoardCancelLike = async (boardId: number, userId: number) => {
 export const postReplyLike = async (replyId: number, userId: number) => {
   try {
     const result = await api.post(
-      `/error/errorlist/replies/like?replyId=${replyId}&userId=${userId}`
+      `/api/error/errorlist/replies/like?replyId=${replyId}&userId=${userId}`
     );
     return result.data;
   } catch (err) {
@@ -168,7 +168,7 @@ export const postReplyLike = async (replyId: number, userId: number) => {
 export const postReplyCancelLike = async (replyId: number, userId: number) => {
   try {
     const result = await api.post(
-      `/error/errorlist/replies/cancelLike?replyId=${replyId}&userId=${userId}`
+      `/api/error/errorlist/replies/cancelLike?replyId=${replyId}&userId=${userId}`
     );
     return result.data;
   } catch (err) {
@@ -182,7 +182,7 @@ export const postReplyCancelLike = async (replyId: number, userId: number) => {
  */
 export const postErrorViews = async (boardId: number) => {
   try {
-    const result = await api.post(`/error/view?boardId=${boardId}`);
+    const result = await api.post(`/api/error/view?boardId=${boardId}`);
     return result.data;
   } catch (error) {
     console.log(error);

@@ -21,7 +21,7 @@ export default function AdminNoticePage() {
   // data Fetching
   const fetchData = async () => {
     try {
-      const response = await api.get("/notice/notices");
+      const response = await api.get("/api/notice/notices");
       setData(response.data);
     } catch (error) {
       console.log(error);

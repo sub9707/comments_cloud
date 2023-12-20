@@ -6,10 +6,10 @@ import { api } from "./axios";
  */
 export const getDashboardData = async () => {
   try {
-    const userCountData = await api.get("/admin/userCount");
-    const userLoginData = await api.get("/admin/userLogin");
-    const boardCount = await api.get("/admin/boardCount");
-    const repliesCount = await api.get("/admin/repliesCount");
+    const userCountData = await api.get("/api/admin/userCount");
+    const userLoginData = await api.get("/api/admin/userLogin");
+    const boardCount = await api.get("/api/admin/boardCount");
+    const repliesCount = await api.get("/api/admin/repliesCount");
 
     return {
       userCountData,
@@ -29,7 +29,7 @@ export const getDashboardData = async () => {
  */
 export const getUserGraphData = async () => {
   try {
-    const result = await api.get("/admin/userGraphData");
+    const result = await api.get("/api/admin/userGraphData");
     return result.data;
   } catch (error) {
     console.error("Error fetching dashboard user data:", error);
