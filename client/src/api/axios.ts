@@ -20,6 +20,7 @@ export const api = axios.create({
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
   },
+  withCredentials: true,
 });
 
 // axios 요청 인터셉터 [refresh]
