@@ -1,5 +1,4 @@
 const express = require("express");
-const mydb = require("./config/db");
 const bodyparser = require("body-parser");
 const cors = require("cors");
 const userRouter = require("./routes/user");
@@ -14,12 +13,12 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 require("dotenv").config();
 
-const corsOptions = {
-  origin: "https://comments-cloud-dqlhu8js6-sub9707.vercel.app",
-  credentials: true,
-};
+// const corsOptions = {
+//   origin: "https://comments-cloud-dqlhu8js6-sub9707.vercel.app",
+//   credentials: true,
+// };
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use(bodyparser.json());
 app.use(bodyparser.urlencoded({ extended: true }));
