@@ -37,10 +37,15 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/refresh", async (req, res) => {
+  const { email, name, refreshToken } = req.body;
   try {
-    const { email, name } = req.body;
-
     // 토큰 재발급
+    if (!verifyToken(refreshToken)) {
+      return res.status(401).json({
+        code: 401,
+        message: "유효하지 않은 refresh token입니다.",
+      });
+    }
     const newAccessToken = jwt.sign(
       {
         email,

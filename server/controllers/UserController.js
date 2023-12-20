@@ -379,18 +379,11 @@ class UserController {
    **/
   static changeLikedListPublic = async (req, res) => {
     const userId = req.query.userId;
-    const accessToken = req.headers.authorization;
-    const verify = verifyToken(accessToken);
-    if (verify.code === 200) {
-      try {
-        const data = await userModel.changeLikedListPublic(userId);
-        res.send(data);
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      res.status(verify.code);
-      res.send("토큰이 유효하지 않습니다.");
+    try {
+      const data = await userModel.changeLikedListPublic(userId);
+      res.send(data);
+    } catch (error) {
+      console.error(error);
     }
   };
 }

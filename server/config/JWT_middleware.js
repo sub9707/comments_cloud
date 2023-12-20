@@ -4,15 +4,14 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 exports.verifyToken = (token) => {
-  const coreToken = token.split(" ")[1];
-  if (!coreToken) {
+  if (!token) {
     return {
       code: 401,
       message: "토큰이 없습니다.",
     };
   }
   try {
-    jwt.verify(coreToken, process.env.JWT_SECRET);
+    jwt.verify(token, process.env.JWT_SECRET);
     return {
       code: 200,
       message: "유효한 토큰입니다.",
