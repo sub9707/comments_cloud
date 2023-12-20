@@ -14,29 +14,29 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 require("dotenv").config();
 
-app.use(
-  cors({
-    origin: "https://comments-cloud.vercel.app",
-    credentials: true,
-  })
-);
+const corsOptions = {
+  origin: "https://comments-cloud.vercel.app",
+  credentials: true,
+};
 
-// app.use((req, res, next) => {
-//   res.setHeader(
-//     "Access-Control-Allow-Origin",
-//     "https://comments-cloud.vercel.app"
-//   );
-//   res.setHeader("Access-Control-Allow-Credentials", "true");
-//   res.setHeader(
-//     "Access-Control-Allow-Methods",
-//     "GET, POST, PUT, DELETE, OPTIONS"
-//   );
-//   res.setHeader(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept"
-//   );
-//   next();
-// });
+app.use(cors(corsOptions));
+
+app.use((req, res, next) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://comments-cloud.vercel.app"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, OPTIONS"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 app.options("*", (req, res) => {
   res.header("Access-Control-Allow-Origin", "*");
