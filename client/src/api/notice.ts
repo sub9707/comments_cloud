@@ -23,7 +23,7 @@ export const writeNotice = async (title: string, content: string) => {
  */
 export const deleteNotice = async (id: number) => {
   try {
-    const response = await api.delete(`/api/notice?id=${id}`);
+    const response = await api.delete("/notice?id=${id}`);
     return response.data;
   } catch (error) {
     console.error("공지 삭제 실패:", error);
