@@ -1,15 +1,21 @@
 import axios from "axios";
+import { getCookieToken } from "../store/Utils/Cookie";
 
 /**
- * @method GET
- * Token 만료 체크
+ * @method POST
+ * 토큰 갱신
  */
-export const checkToken = async (token: string) => {
+export const getRefreshedToken = async () => {
+  const userPersist = localStorage.getItem("persist:root");
+  const authTokenPersist = JSON.parse(userPersist || "");
+  const userName = JSON.parse(authTokenPersist.user).data.name;
+  const userEmail = JSON.parse(authTokenPersist.user).data.email;
+  const refreshToken = getCookieToken();
   try {
-    const response = await axios.get("/token/checkToken", {
-      headers: {
-        Authorization: token,
-      },
+    const response = await axios.post("/token/refresh", {
+      refreshToken: `${refreshToken}`,
+      email: userEmail,
+      name: userName,
     });
     return response.data;
   } catch (error) {
