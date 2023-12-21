@@ -19,7 +19,7 @@ export default function BoardTable(props: NoticeTableProps) {
         a.download = `${fileName}`;
         document.body.appendChild(a);
         a.click();
-        setTimeout((_) => {
+        setTimeout((_: any) => {
           window.URL.revokeObjectURL(newUrl);
         }, 60000);
         a.remove();
