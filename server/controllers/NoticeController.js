@@ -33,14 +33,15 @@ class NoticeController {
     try {
       const createDate = getTodayFormat();
       const { title, content } = req.body;
-      const files = req.files;
-      const filePaths = files.map((file) => file.location);
+      const files = req.files || [];
+      const filesArray = Array.isArray(files) ? files : [files];
+      const filePaths = filesArray.map((file) => file.location);
 
       let results = await NoticeModel.writeNotice(
         title,
         content,
         createDate,
-        filePaths ? filePaths : []
+        filePaths
       );
       if (results) res.send("공지 등록 성공! [Controller]]");
     } catch (error) {
