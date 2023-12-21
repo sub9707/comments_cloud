@@ -7,7 +7,7 @@ const uploadMiddleware = upload("NoticeFiles");
 
 router.post(
   "/write",
-  uploadMiddleware.array("file", 1),
+  uploadMiddleware.array("file", 10),
   noticeController.writeNotice
 );
 router.delete("/", noticeController.deleteNotice);
