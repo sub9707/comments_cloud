@@ -13,7 +13,7 @@ class NoticeModel {
     return new Promise((resolve) => {
       db.query(
         "INSERT INTO notice (title, content, createDate, img_url) VALUES (?, ?, ?, ?)",
-        [title, content, createDate, file || null],
+        [title, content, createDate, file],
         (error, result) => {
           if (!error) {
             resolve(result);

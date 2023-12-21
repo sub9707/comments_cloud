@@ -36,12 +36,12 @@ class NoticeController {
       const files = req.files || [];
       const filePaths = files.map((file) => file.location);
       console.log("Files: " + filePaths);
-
+      const imgUrlsJson = JSON.stringify(filePaths);
       let results = await NoticeModel.writeNotice(
         title,
         content,
         createDate,
-        filePaths.length > 0 ? filePaths : null
+        imgUrlsJson
       );
       if (results) res.send("공지 등록 성공! [Controller]]");
     } catch (error) {
