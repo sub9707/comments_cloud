@@ -107,7 +107,12 @@ export default function AdminNoticeWrite() {
                   <Label>첨부파일</Label>
                 </LeftCell>
                 <RightCell>
-                  <Input style={{ border: "none" }} type="file" multiple />
+                  <Input
+                    style={{ border: "none" }}
+                    type="file"
+                    multiple
+                    {...register("files")}
+                  />
                 </RightCell>
               </TableRow>
             </tbody>
