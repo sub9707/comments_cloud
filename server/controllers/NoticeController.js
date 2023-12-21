@@ -1,5 +1,5 @@
 const NoticeModel = require("../models/Notices");
-const getTodayFormat = require("../config/Calculation");
+const { getTodayFormat } = require("../config/Calculation");
 const { verifyToken } = require("../config/JWT_middleware");
 
 class NoticeController {
