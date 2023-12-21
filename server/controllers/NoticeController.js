@@ -34,8 +34,7 @@ class NoticeController {
       const createDate = getTodayFormat();
       const { title, content } = req.body;
       const files = req.files || [];
-      const filesArray = Array.isArray(files) ? files : [files];
-      const filePaths = filesArray.map((file) => file.location);
+      const filePaths = files.map((file) => file.location);
       console.log("Files: " + filePaths);
 
       let results = await NoticeModel.writeNotice(
