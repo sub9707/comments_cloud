@@ -50,7 +50,7 @@ export default function AdminNoticeWrite() {
       const formData = new FormData();
       if (data.files && data.files.length > 0) {
         Array.from(data.files).forEach((file, index) => {
-          formData.append(`file${index + 1}`, file);
+          formData.append(`file`, file);
         });
       }
       formData.append("title", data.title);
