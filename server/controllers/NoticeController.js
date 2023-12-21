@@ -34,9 +34,11 @@ class NoticeController {
       const createDate = getTodayFormat();
       const { title, content } = req.body;
       const files = req.files || [];
-      const filePaths = files.map((file) => file.location);
-      console.log("Files: " + filePaths);
-      const imgUrlsJson = JSON.stringify(filePaths);
+      const fileData = files.map((file) => ({
+        fileName: file.originalname,
+        fileURL: file.location,
+      }));
+      const imgUrlsJson = JSON.stringify(fileData);
       let results = await NoticeModel.writeNotice(
         title,
         content,
