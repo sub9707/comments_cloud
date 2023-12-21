@@ -5,8 +5,14 @@ const { check } = require("express-validator");
 const { verifyToken } = require("../config/JWT_middleware");
 const { upload } = require("../config/s3");
 
+const uploadMiddleware = upload("profileImages");
+
 router.get("/", usercontroller.getUserInfo);
-router.put("/", upload.single("profileImg"), usercontroller.updateUser);
+router.put(
+  "/",
+  uploadMiddleware.single("profileImg"),
+  usercontroller.updateUser
+);
 router.delete("/", usercontroller.deleteUser);
 router.get("/noteData", usercontroller.getUserNoteData);
 router.get("/calanderData", usercontroller.getNoteCalendar);
