@@ -9,6 +9,7 @@ class NoticeModel {
     });
   }
   static async writeNotice(title, content, createDate, file) {
+    console.log("파일 체크: " + [file]);
     return new Promise((resolve) => {
       db.query(
         "INSERT INTO notice (title, content, createDate, img_url) VALUES (?, ?, ?, ?)",
