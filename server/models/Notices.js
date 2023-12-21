@@ -9,14 +9,10 @@ class NoticeModel {
     });
   }
   static async writeNotice(title, content, createDate, file) {
-    console.log("title: " + title);
-    console.log("content: " + content);
-    console.log("createDate: " + createDate);
-    console.log("file: " + file);
     return new Promise((resolve) => {
       db.query(
         "INSERT INTO notice (title, content, createDate, img_url) VALUES (?, ?, ?, ?)",
-        [title, content, createDate, file || null],
+        [title, content, createDate, [file] || null],
         (error, result) => {
           if (!error) {
             resolve(result);
