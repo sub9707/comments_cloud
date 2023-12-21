@@ -58,7 +58,7 @@ export default function AdminNoticeWrite() {
       await writeNotice(formData);
       setIsLoading(false);
       alert("공지가 등록되었습니다.");
-      navigate("/admin/notice");
+      // navigate("/admin/notice");
     } catch (error) {
       console.error("공지 등록 실패:", error);
       setIsLoading(false);
