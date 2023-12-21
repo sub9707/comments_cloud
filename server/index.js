@@ -15,11 +15,13 @@ require("dotenv").config();
 
 const corsOptions = {
   origin: "https://comments-cloud-dqlhu8js6-sub9707.vercel.app",
-  Credentials: true,
+  credentials: true,
   optionsSuccessStatus: 200,
 };
 
 app.use(cors(corsOptions));
+
+app.options("*", cors(corsOptions));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
