@@ -26,11 +26,20 @@ export default function AdminNoticeWrite() {
   const navigate = useNavigate();
   // use-hook-form Data 변수
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [multipleImages, setMultipleImages] = useState<string[]>([]);
   const { register, handleSubmit, setValue, watch } =
     useForm<NoticeWriteValues>();
   const editorContent = watch("content");
   const onEditorStateChange = (editorState: string) => {
     setValue("content", editorState);
+  };
+  const changeMultipleFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files) {
+      const imageArray = Array.from(e.target.files).map((file) =>
+        URL.createObjectURL(file)
+      );
+      setMultipleImages((prevImages) => prevImages.concat(imageArray));
+    }
   };
 
   const onSubmit = async (data: NoticeWriteValues) => {
@@ -45,6 +54,7 @@ export default function AdminNoticeWrite() {
       formData.append("title", data.title);
       formData.append("content", data.content);
 
+      console.log(formData);
       await writeNotice(formData);
       setIsLoading(false);
       alert("공지가 등록되었습니다.");
@@ -112,6 +122,7 @@ export default function AdminNoticeWrite() {
                     type="file"
                     multiple
                     {...register("files")}
+                    onChange={changeMultipleFiles}
                   />
                 </RightCell>
               </TableRow>

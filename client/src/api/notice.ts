@@ -6,7 +6,11 @@ import { api } from "./axios";
  */
 export const writeNotice = async (formData: FormData) => {
   try {
-    const response = await api.post("/notice/write", formData);
+    const response = await api.post("/notice/write", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("공지 등록 실패:", error);
