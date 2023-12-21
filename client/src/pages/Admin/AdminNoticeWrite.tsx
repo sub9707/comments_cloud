@@ -37,8 +37,10 @@ export default function AdminNoticeWrite() {
     try {
       setIsLoading(true);
       const formData = new FormData();
-      if (data.files && data.files[0]) {
-        formData.append("file", data.files[0]);
+      if (data.files && data.files.length > 0) {
+        Array.from(data.files).forEach((file, index) => {
+          formData.append(`file${index + 1}`, file);
+        });
       }
       formData.append("title", data.title);
       formData.append("content", data.content);
