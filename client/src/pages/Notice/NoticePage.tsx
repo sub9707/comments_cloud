@@ -26,7 +26,6 @@ export default function NoticePage() {
     fetchData();
   }, []);
 
-  console.log(data);
   return (
     <MainContainer>
       <PageHeader>공지사항</PageHeader>

@@ -9,6 +9,11 @@ export type NoticeTablePropType = {
 export type NoticeTableProps = {
   data: NoticeTablePropType[];
 };
+
+export type URLObjType = {
+  fileName: string;
+  fileURL: string;
+};
 export type MyErrorTablePropType = {
   id: number;
   title: string;

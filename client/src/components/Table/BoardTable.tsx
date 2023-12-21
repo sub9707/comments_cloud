@@ -1,12 +1,33 @@
 import { Accordion } from "react-bootstrap";
-import { NoticeTableProps } from "../../types/TableTypes";
-import { JustifyAround, JustifyBetween } from "../../styles/FlexBoxStlye";
+import { NoticeTableProps, URLObjType } from "../../types/TableTypes";
+import { JustifyBetween } from "../../styles/FlexBoxStlye";
 import { DottedDivision } from "../../styles/UtilityElements";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperclip } from "@fortawesome/free-solid-svg-icons";
+import { faFile, faPaperclip } from "@fortawesome/free-solid-svg-icons";
 
 export default function BoardTable(props: NoticeTableProps) {
+  const handleDownload = (url: string, fileName: string) => {
+    fetch(url, { method: "GET" })
+      .then((res) => {
+        return res.blob();
+      })
+      .then((blob) => {
+        const newUrl = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = newUrl;
+        a.download = `${fileName}`;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout((_) => {
+          window.URL.revokeObjectURL(newUrl);
+        }, 60000);
+        a.remove();
+      })
+      .catch((error: Error) => {
+        console.error("error: " + error);
+      });
+  };
   return (
     <>
       {props.data.map((data, _idx) => (
@@ -23,7 +44,7 @@ export default function BoardTable(props: NoticeTableProps) {
                 </p>
               </JustifyBetween>
             </Accordion.Header>
-            <Accordion.Body>
+            <Accordion.Body style={{ padding: "3em" }}>
               <div dangerouslySetInnerHTML={{ __html: data?.content }} />
               <br />
               <DottedDivision />
@@ -34,8 +55,20 @@ export default function BoardTable(props: NoticeTableProps) {
                 </AttatchHeader>
                 <AttatchFiles>
                   {JSON.parse(data?.img_url).map(
-                    (url: string, _idx: number) => (
-                      <p key={_idx}>{url}</p>
+                    (url: URLObjType, _idx: number) => (
+                      <p
+                        key={_idx}
+                        className="text-underline-hover"
+                        onClick={() =>
+                          handleDownload(url?.fileURL, url?.fileName)
+                        }>
+                        <FontAwesomeIcon
+                          icon={faFile}
+                          style={{ marginRight: "0.5em" }}
+                        />
+
+                        {url?.fileName}
+                      </p>
                     )
                   )}
                 </AttatchFiles>
