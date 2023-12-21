@@ -43,6 +43,7 @@ export default function AdminNoticeWrite() {
   };
 
   const onSubmit = async (data: NoticeWriteValues) => {
+    console.log(data);
     try {
       setIsLoading(true);
       const formData = new FormData();
@@ -79,6 +80,8 @@ export default function AdminNoticeWrite() {
       })
     );
   };
+
+  console.log(multipleImages);
 
   return (
     <PageBox>
