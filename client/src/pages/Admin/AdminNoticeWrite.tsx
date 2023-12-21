@@ -56,7 +56,7 @@ export default function AdminNoticeWrite() {
       formData.append("title", data.title);
       formData.append("content", data.content);
 
-      console.log("Formdata: " + formData);
+      console.log("Formdata: " + JSON.stringify(formData));
       await writeNotice(formData);
       setIsLoading(false);
       alert("공지가 등록되었습니다.");

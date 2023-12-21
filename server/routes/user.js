@@ -5,7 +5,7 @@ const { check } = require("express-validator");
 const { verifyToken } = require("../config/JWT_middleware");
 const { upload } = require("../config/s3");
 
-const uploadMiddleware = upload("profileImages");
+const uploadMiddleware = upload("userProfile");
 
 router.get("/", usercontroller.getUserInfo);
 router.put(
