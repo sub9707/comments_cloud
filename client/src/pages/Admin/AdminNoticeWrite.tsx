@@ -46,7 +46,7 @@ export default function AdminNoticeWrite() {
     console.log(data);
     console.log(data.files);
     try {
-      // setIsLoading(true);
+      setIsLoading(true);
       const formData = new FormData();
       if (data.files && data.files.length > 0) {
         Array.from(data.files).forEach((file, index) => {
@@ -57,10 +57,10 @@ export default function AdminNoticeWrite() {
       formData.append("content", data.content);
 
       console.log("Formdata: " + formData);
-      // await writeNotice(formData);
-      // setIsLoading(false);
+      await writeNotice(formData);
+      setIsLoading(false);
       alert("공지가 등록되었습니다.");
-      // navigate("/admin/notice");
+      navigate("/admin/notice");
     } catch (error) {
       console.error("공지 등록 실패:", error);
       setIsLoading(false);
