@@ -3,7 +3,7 @@ export type NoticeTablePropType = {
   title: string;
   content: string;
   createDate: string;
-  imgUrls: string[] | null;
+  img_url: string;
 };
 
 export type NoticeTableProps = {

@@ -25,6 +25,8 @@ export default function NoticePage() {
   useEffect(() => {
     fetchData();
   }, []);
+
+  console.log(data);
   return (
     <MainContainer>
       <PageHeader>공지사항</PageHeader>
