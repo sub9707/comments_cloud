@@ -7,10 +7,14 @@ function ErrorBoardTitle() {
   const { data } = useSelector((state: RootState) => state.myError);
   return (
     <TitleHeader>
-      <p>
-        #{data?.id}&nbsp;
-        {data?.title}
-      </p>
+      <OverlayTrigger
+        placement="top"
+        overlay={<Tooltip>{data?.title}</Tooltip>}>
+        <p>
+          #{data?.id}&nbsp;
+          {data?.title}
+        </p>
+      </OverlayTrigger>
       {data?.error_solved === 1 && (
         <OverlayTrigger
           placement="right"

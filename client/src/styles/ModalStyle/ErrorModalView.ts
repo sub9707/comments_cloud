@@ -6,9 +6,17 @@ export const TitleHeader = styled.div`
   margin-bottom: 0.5em;
   font-weight: 600;
   display: flex;
-  align-items: center;
+
   p {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-size: 2.3em;
+    width: 95%;
+    max-width: 100%;
+    margin: 0;
   }
   img {
     width: 3em;
