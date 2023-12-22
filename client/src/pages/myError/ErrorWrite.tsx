@@ -34,11 +34,14 @@ import { openModal } from "../../store/Modal/Modal";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addMessage } from "../../store/Utils/Alert";
+import { selectUserId } from "../../store/Utils/User";
+import { store } from "../../store";
 
 export default function ErrorWrite() {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [tags, setTags] = useState<string[]>([]);
+  const userId = selectUserId(store.getState());
   const { register, handleSubmit, setValue, trigger } =
     useForm<ErrorWriteFormValues>({
       mode: "onChange",
@@ -49,12 +52,12 @@ export default function ErrorWrite() {
     // 글 작성
     try {
       setIsLoading(true);
-      const result = await writeError({ ...data, tags, writer_id: 1 });
+      await writeError({ ...data, tags, writer_id: userId });
       navigate(`/myError`);
       dispatch(
         addMessage({
           id: "unique_id",
-          text: `로그인 했습니다.`,
+          text: `게시글을 등록했습니다.`,
           type: "info",
         })
       );

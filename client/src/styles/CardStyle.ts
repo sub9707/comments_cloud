@@ -24,7 +24,12 @@ export const CardTitle = styled.h4`
 
   font-weight: 600;
 `;
+export const CardBody = styled.div`
+  width: 100%;
+  display: flex;
+`;
 export const CardSubTitle = styled.p`
+  width: 80%;
   margin-bottom: 0;
   margin-top: 1em;
   color: grey;
@@ -33,10 +38,21 @@ export const CardSubTitle = styled.p`
   overflow: hidden;
   word-break: break-word;
   line-height: 1.2em;
-
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+`;
+export const CardNicKName = styled.div`
+  opacity: 0.7;
+  font-size: 0.9em;
+  margin: 0;
+  display: flex;
+  align-items: flex-end;
+  width: 20%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-break: break-word;
+  white-space: nowrap;
 `;
 export const CardInfo = styled.div`
   width: 100%;

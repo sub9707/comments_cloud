@@ -65,6 +65,8 @@ function ActivityGraph(props: { userId: string }) {
         monthBorderColor="#ffffff"
         dayBorderWidth={2}
         dayBorderColor="#ffffff"
+        maxValue="auto"
+        minValue={2}
         legends={[
           {
             anchor: "bottom-right",

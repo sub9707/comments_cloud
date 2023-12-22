@@ -1,15 +1,17 @@
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRef } from "react";
 import { Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 function EmptyCarouselCard() {
   const navigate = useNavigate();
-
+  const cardRef = useRef<HTMLDivElement>(null);
   const CardBodyStyle = {
     borderRadius: "16px",
-    border: `3px dotted grey`,
+    border: "none",
     height: "15em",
+    transition: "all 0.3s ease-out",
   };
   const plusIconStyle = {
     border: "2px solid grey",
@@ -19,6 +21,12 @@ function EmptyCarouselCard() {
     height: "1em",
     color: "grey",
     cursor: "pointer",
+  };
+  const handleMouseOver = () => {
+    if (cardRef.current) cardRef.current.style.border = `1px dotted grey`;
+  };
+  const handleMouseLeave = () => {
+    if (cardRef.current) cardRef.current.style.border = `none`;
   };
   return (
     <div
@@ -31,7 +39,10 @@ function EmptyCarouselCard() {
       <Card
         className="text-center"
         style={CardBodyStyle}
-        onClick={() => navigate("/errorWrite")}>
+        onClick={() => navigate("/errorWrite")}
+        ref={cardRef}
+        onMouseOver={handleMouseOver}
+        onMouseLeave={handleMouseLeave}>
         <Card.Body
           style={{
             display: "flex",

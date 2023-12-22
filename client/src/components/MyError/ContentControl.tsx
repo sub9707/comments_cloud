@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ContentInfoLeft,
   ContentInfoRight,
@@ -19,11 +19,13 @@ import { userStateType } from "../../store/Utils/User";
 import { useNavigate } from "react-router-dom";
 import { closeModal } from "../../store/Modal/Modal";
 import { deleteError } from "../../api/ErrorBoard";
+import { getUserInfo } from "../../api/user";
 
 function ContentControl() {
   const [toggleSharePop, setToggleSharePop] = useState<boolean>(false);
   const { data } = useSelector((state: RootState) => state.myError);
   const user = useSelector((state: userStateType) => state.user.data);
+  const [userName, setUserName] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleUpdateError = () => {
@@ -41,9 +43,30 @@ function ContentControl() {
       navigate(0);
     }
   };
+  const getUserName = async () => {
+    if (!data) return;
+    try {
+      const result = await getUserInfo(data?.writer_id.toString());
+      setUserName(result[0]?.nickname);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getUserName();
+  }, [data]);
   return (
     <>
       <ContentInfoLeft>
+        <p>
+          작성자:{" "}
+          <strong
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate(`/user/${data?.writer_id}`)}>
+            {userName}
+          </strong>
+        </p>
         <p>
           <FontAwesomeIcon icon={faCalendarDays} />
           &nbsp; {formatRelativeTime(data?.write_date || "")}
@@ -51,7 +74,6 @@ function ContentControl() {
         <p>{data?.publicCheck === 1 ? "공개" : "비공개"}</p>
         {data?.writer_id === user?.id ? (
           <>
-            {" "}
             <p className="text-underline-hover" onClick={handleUpdateError}>
               수정
             </p>

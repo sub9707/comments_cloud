@@ -1,6 +1,8 @@
 import {
   BadgeWrapper,
+  CardBody,
   CardInfo,
+  CardNicKName,
   CardSubTitle,
   CardTitle,
   CardWrapper,
@@ -11,8 +13,9 @@ import { formatRelativeTime } from "../../utils/Calculation";
 import { useNavigate } from "react-router-dom";
 import SolvedBadge from "../Badges/SolvedTag";
 import { RemoveHtmlTags } from "../../utils/StringForm";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { TagBadge } from "../UserProfile/CarouselCard";
+import { getUserInfo } from "../../api/user";
 
 function CommunityBoardCard(props: BoardFetchType) {
   const navigate = useNavigate();
@@ -20,6 +23,7 @@ function CommunityBoardCard(props: BoardFetchType) {
   const tagWrapperRef = useRef<HTMLDivElement | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
+  const [userName, setName] = useState("");
 
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -41,6 +45,20 @@ function CommunityBoardCard(props: BoardFetchType) {
   const handleMouseLeave = () => {
     setIsDragging(false);
   };
+
+  const getUserName = async () => {
+    try {
+      const result = await getUserInfo(props.writer_id.toString());
+      setName(result[0]?.nickname);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    getUserName();
+  }, []);
+
   return (
     <CardWrapper>
       <CardTitle
@@ -48,7 +66,10 @@ function CommunityBoardCard(props: BoardFetchType) {
         onClick={() => navigate(`/myError/${props.id}`)}>
         {props.title}
       </CardTitle>
-      <CardSubTitle>{RemoveHtmlTags(props.error_cause)}</CardSubTitle>
+      <CardBody>
+        <CardSubTitle>{RemoveHtmlTags(props.error_cause)}</CardSubTitle>
+        <CardNicKName>{userName}</CardNicKName>
+      </CardBody>
       <CardInfo>
         <BadgeWrapper
           ref={tagWrapperRef}

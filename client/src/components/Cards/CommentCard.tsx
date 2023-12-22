@@ -33,9 +33,9 @@ export default function CommentCard() {
   const [inputValue, setInputValue] = useState<string[]>([]);
   const user = useSelector((state: userStateType) => state.user.data);
 
-  const handleProfileClick = () => {
+  const handleProfileClick = (replyId: number) => {
     if (!data) return;
-    navigate(`/user/${data?.writer_id}`);
+    navigate(`/user/${replyId}`);
     dispatch(closeModal());
   };
 
@@ -166,7 +166,7 @@ export default function CommentCard() {
               <CardInfoArea>
                 <WriterWrapper>
                   <InfoText
-                    onClick={handleProfileClick}
+                    onClick={() => handleProfileClick(reply?.writer_id)}
                     style={{ cursor: "pointer" }}>
                     {reply?.nickname}
                   </InfoText>

@@ -74,6 +74,7 @@ function LikeButton() {
           style={{
             color: "grey",
             transition: "0.3s all ease-in-out",
+            cursor: "pointer",
           }}
           onClick={handleLikedClick}
         />

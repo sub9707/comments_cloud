@@ -40,6 +40,7 @@ export const userSlice = createSlice({
 });
 
 export const selectUserName = (state: userStateType) => state.user.data.name;
+export const selectUserId = (state: userStateType) => state.user.data.id;
 export const selectUserEmail = (state: userStateType) => state.user.data.email;
 
 export default userSlice.reducer;
