@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { MainContainer } from "../../styles/PageContainer";
 import { useEffect } from "react";
-import { getBoardError } from "../../api/ErrorBoard";
+import { getBoardError, postErrorViews } from "../../api/ErrorBoard";
 import { useDispatch, useSelector } from "react-redux";
 import { setMyErrorData } from "../../store/Modal/MyErrorModal";
 import {
@@ -49,6 +49,17 @@ function ErrorView() {
 
   useEffect(() => {
     if (boardId) fetchData();
+  }, [boardId]);
+
+  useEffect(() => {
+    if (!boardId) return;
+    (async () => {
+      try {
+        await postErrorViews(+boardId);
+      } catch (error) {
+        console.error(error);
+      }
+    })();
   }, [boardId]);
 
   return (
