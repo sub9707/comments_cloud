@@ -175,9 +175,11 @@ function MyErrorTable() {
                       />
                     </ErrorTableData>
                     <ErrorTableData>
-                      <PublicBadge
-                        ispublic={board?.publicCheck === 1 ? "true" : "false"}
-                      />
+                      <JustifyCenter>
+                        <PublicBadge
+                          ispublic={board?.publicCheck === 1 ? "true" : "false"}
+                        />
+                      </JustifyCenter>
                     </ErrorTableData>
                     <ErrorTableData>{board?.likes}</ErrorTableData>
                     <ErrorTableData>{board?.views}</ErrorTableData>

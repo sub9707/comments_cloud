@@ -38,7 +38,7 @@ function ContentControl() {
       console.error(error);
     } finally {
       dispatch(closeModal());
-      navigate(`/myError`);
+      navigate(0);
     }
   };
   return (
