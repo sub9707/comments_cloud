@@ -8,17 +8,20 @@ const db = require("../config/db");
 class ErrorsModel {
   static async getAllBoards(offset, filter) {
     return new Promise((resolve) => {
-      let baseQuery = "SELECT * FROM error_contents WHERE publicCheck = 1";
-      let orderByClause = "ORDER BY write_date DESC, id ASC";
+      let baseQuery =
+        "SELECT error_contents.*, users.nickname FROM error_contents LEFT JOIN users ON error_contents.writer_id = users.id WHERE error_contents.publicCheck = 1";
+      let orderByClause =
+        "ORDER BY error_contents.write_date DESC, error_contents.id ASC";
 
-      // Customize the query based on the filter
       if (filter === "popular") {
-        orderByClause = "ORDER BY likes DESC, write_date DESC, id ASC";
+        orderByClause =
+          "ORDER BY error_contents.likes DESC, error_contents.write_date DESC, error_contents.id ASC";
       } else if (filter === "view") {
-        orderByClause = "ORDER BY views DESC, write_date DESC, id ASC";
+        orderByClause =
+          "ORDER BY error_contents.views DESC, error_contents.write_date DESC, error_contents.id ASC";
       }
 
-      // Fetch total count
+      // 총 개수
       db.query(
         `SELECT COUNT(*) as totalCount FROM (${baseQuery}) as filteredData`,
         (countError, countResult) => {
