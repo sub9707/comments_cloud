@@ -59,7 +59,7 @@ export default function ServicePage() {
         <ErrorBannerRight
           onRef={containerRef}
           reversed={false}
-          imgSrc={"/images/gifSample.gif"}
+          imgSrc={"/images/MyError.gif"}
         />
       </MyErrorBanner>
       <br />
@@ -68,7 +68,7 @@ export default function ServicePage() {
         <ErrorBannerRight
           reversed={true}
           onRef={containerRef}
-          imgSrc={"/images/gifSample.gif"}
+          imgSrc={"/images/modoo.gif"}
         />
         <ErrorBannerLeft
           {...ServiceData[1]}
@@ -87,7 +87,7 @@ export default function ServicePage() {
         <ErrorBannerRight
           onRef={containerRef}
           reversed={false}
-          imgSrc={"/images/gifSample.gif"}
+          imgSrc={"/images/Profile.gif"}
         />
       </MyErrorBanner>
       <br />

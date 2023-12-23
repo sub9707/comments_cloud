@@ -2,6 +2,7 @@ import React from "react";
 import { ModalContainer } from "../../styles/ModalStyle/ModalStyle";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store";
+import { JustifyCenter } from "../../styles/FlexBoxStlye";
 
 function PictureModal() {
   const imgSrc = useSelector(
@@ -10,16 +11,17 @@ function PictureModal() {
   return (
     <ModalContainer
       style={{
-        minWidth: "40vw",
-        width: "auto",
-        minHeight: "50vh",
-        height: "auto",
+        width: "50vw",
+        // minHeight: "50vh",
+        height: "50vh",
       }}>
-      <img
-        style={{ width: "100%", height: "100%", objectFit: "contain" }}
-        src={imgSrc}
-        alt="확대사진"
-      />
+      <JustifyCenter>
+        <img
+          style={{ width: "100%", height: "100%", objectFit: "contain" }}
+          src={imgSrc}
+          alt="확대사진"
+        />
+      </JustifyCenter>
     </ModalContainer>
   );
 }

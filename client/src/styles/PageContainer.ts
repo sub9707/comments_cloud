@@ -228,6 +228,7 @@ export const MyErrorBanner = styled.div`
   height: 50vh;
   display: flex;
   padding-inline: 8%;
+  align-items: center;
 `;
 export const ContactArea = styled.div`
   width: 100%;
