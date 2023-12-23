@@ -7,6 +7,7 @@ export type UserData = {
 };
 export type UserTableProps = {
   data: UserData[];
+  searchTerm: string;
 };
 
 export type UserInfoType = {

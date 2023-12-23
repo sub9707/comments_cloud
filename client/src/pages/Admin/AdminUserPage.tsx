@@ -59,7 +59,7 @@ export default function AdminUserPage() {
           <Spinner animation="border" variant="secondary" />
         ) : (
           <>
-            <UserTable data={currentItems} />
+            <UserTable data={currentItems} searchTerm={searchTerm} />
             <br />
             <JustifyCenter>
               <InputGroup className="w-50">

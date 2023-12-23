@@ -7,10 +7,33 @@ import { getUserInfo } from "../../api/user";
 
 export default function UserTable(props: UserTableProps) {
   const dispatch = useDispatch();
+
   const handleOpenModal = async (userId: number) => {
     const userData = await getUserInfo(userId.toString());
     dispatch(setUserModal(userData[0]));
     dispatch(openModal({ modalType: "AdminUserModal", isOpen: true }));
+  };
+
+  // 검색어 강조
+  const highlightSearchTerm = (text: string) => {
+    if (!props.searchTerm.trim()) {
+      return <>{text}</>;
+    }
+
+    const regex = new RegExp(`(${props.searchTerm})`, "gi");
+    const parts = text.split(regex);
+
+    return parts.map((part, index) =>
+      regex.test(part) ? (
+        <span
+          key={index}
+          style={{ backgroundColor: "yellow", fontWeight: "bold" }}>
+          {part}
+        </span>
+      ) : (
+        <span key={index}>{part}</span>
+      )
+    );
   };
   return (
     <Table>
@@ -34,14 +57,14 @@ export default function UserTable(props: UserTableProps) {
               style={{ textAlign: "center" }}
               onClick={() => handleOpenModal(user?.id)}
               data-th="Email">
-              {user?.email}
+              {highlightSearchTerm(user?.email)}
             </td>
             <td
               className="text-underline-hover"
               onClick={() => handleOpenModal(user?.id)}
               style={{ textAlign: "center" }}
               data-th="이름">
-              {user?.name}
+              {highlightSearchTerm(user?.name)}
             </td>
             <td style={{ textAlign: "center" }} data-th="가입일자">
               {user?.registerDate}
