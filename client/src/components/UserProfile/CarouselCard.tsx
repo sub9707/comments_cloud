@@ -6,6 +6,7 @@ import { faEye, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { useRef, useState } from "react";
 import SolvedBadge from "../Badges/SolvedTag";
+import { useNavigate } from "react-router-dom";
 
 interface CardTitleStyleProps extends React.CSSProperties {
   height: string;
@@ -20,7 +21,8 @@ interface CardTitleStyleProps extends React.CSSProperties {
 }
 
 function CarouselCard(props: recentErrorType) {
-  const { title, error_solved, likes, views, write_date, tags } = props;
+  const naviate = useNavigate();
+  const { id, title, error_solved, likes, views, write_date, tags } = props;
   const tagArray = JSON.parse(tags);
 
   const tagWrapperRef = useRef<HTMLDivElement | null>(null);
@@ -61,7 +63,10 @@ function CarouselCard(props: recentErrorType) {
         </JustifyEnd>
 
         <Card.Body style={{ paddingBottom: "0.5em", paddingTop: "0.5em" }}>
-          <Card.Title className="text-underline-hover" style={CardTitleStyle}>
+          <Card.Title
+            className="text-underline-hover"
+            style={CardTitleStyle}
+            onClick={() => naviate(`/myError/${id}`)}>
             {title}
           </Card.Title>
           <TagWrapper
@@ -70,9 +75,11 @@ function CarouselCard(props: recentErrorType) {
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseLeave}>
-            {tagArray.map((tag: string, _idx: number) => (
-              <TagBadge key={_idx}>{tag}</TagBadge>
-            ))}
+            {tagArray
+              ? tagArray.map((tag: string, _idx: number) => (
+                  <TagBadge key={_idx}>{tag}</TagBadge>
+                ))
+              : null}
           </TagWrapper>
           <Card.Text style={{ opacity: 0.7 }}>
             {write_date.substring(0, write_date.length - 5)}

@@ -36,8 +36,6 @@ export default function AdminMainPage() {
         <br />
         <TitleHeader>월별 가입자 추세</TitleHeader>
         <UserGraph graphdata={userGraphData} legendName="가입자 (명)" />
-        <TitleHeader>월별 가입자 추세</TitleHeader>
-        <UserGraph graphdata={userGraphData} legendName="가입자 (명)" />
       </JustifyCenter>
     </PageBox>
   );

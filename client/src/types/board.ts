@@ -8,6 +8,7 @@ export type BoardFetchType = {
   error_solved: boolean;
   error_cause: string;
   writer_id: number;
+  nickname: string;
 };
 export type BoardInfoFetchType = {
   id: number;

@@ -15,9 +15,7 @@ function TagsArea() {
   return (
     <div style={{ display: "flex", flexWrap: "wrap" }}>
       태그:&nbsp;{" "}
-      {tags.map((tag, _idx) => (
-        <TagBox>#{tag}&nbsp;</TagBox>
-      ))}
+      {tags ? tags.map((tag, _idx) => <TagBox>#{tag}&nbsp;</TagBox>) : null}
     </div>
   );
 }
