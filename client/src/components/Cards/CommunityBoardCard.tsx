@@ -22,7 +22,6 @@ function CommunityBoardCard(props: BoardFetchType) {
   const tagWrapperRef = useRef<HTMLDivElement | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
-  const [userName, setName] = useState("");
 
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -54,7 +53,11 @@ function CommunityBoardCard(props: BoardFetchType) {
       </CardTitle>
       <CardBody>
         <CardSubTitle>{RemoveHtmlTags(props.error_cause)}</CardSubTitle>
-        {/* <CardNicKName>{userName}</CardNicKName> */}
+        <CardNicKName
+          className="text-underline-hover"
+          onClick={() => navigate(`/user/${props.writer_id}`)}>
+          {props.nickname}
+        </CardNicKName>
       </CardBody>
       <CardInfo>
         <BadgeWrapper
