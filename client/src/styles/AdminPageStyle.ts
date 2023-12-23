@@ -1,4 +1,7 @@
+import { Quill } from "react-quill";
 import styled from "styled-components";
+import { ImageResize } from "quill-image-resize-module-ts";
+Quill.register("modules/ImageResize", ImageResize);
 
 export const PageContainer = styled.div`
   margin: 0;
@@ -132,5 +135,9 @@ export const modules = {
         { indent: "+1" },
       ],
     ],
+  },
+  ImageResize: {
+    parchment: Quill.import("parchment"),
+    modules: ["Resize", "DisplaySize"],
   },
 };

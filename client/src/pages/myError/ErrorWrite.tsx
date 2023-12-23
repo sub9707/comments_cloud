@@ -146,7 +146,7 @@ export default function ErrorWrite() {
               </LeftCell>
               <ContentCell>
                 <ReactQuill
-                  style={{ width: "100%", height: "20vh" }}
+                  style={{ width: "100%", height: "40vh" }}
                   modules={modules}
                   onChange={handleStateChange}
                 />
@@ -158,7 +158,7 @@ export default function ErrorWrite() {
               </LeftCell>
               <ContentCell>
                 <ReactQuill
-                  style={{ width: "100%", height: "20vh" }}
+                  style={{ width: "100%", height: "40vh" }}
                   modules={modules}
                   onChange={handleCauseChange}
                 />
@@ -170,7 +170,7 @@ export default function ErrorWrite() {
               </LeftCell>
               <ContentCell>
                 <ReactQuill
-                  style={{ width: "100%", height: "20vh" }}
+                  style={{ width: "100%", height: "40vh" }}
                   modules={modules}
                   onChange={handleProcessChange}
                 />
@@ -182,7 +182,7 @@ export default function ErrorWrite() {
               </LeftCell>
               <ContentCell>
                 <ReactQuill
-                  style={{ width: "100%", height: "20vh" }}
+                  style={{ width: "100%", height: "40vh" }}
                   modules={modules}
                   onChange={handleResultChange}
                 />

@@ -29,6 +29,8 @@
     "http-proxy-middleware": "^2.0.6",
     "lottie-react": "^2.4.0",
     "moment": "^2.29.4",
+    "quill-image-resize": "^3.0.9",
+    "quill-image-resize-module-ts": "^3.0.3",
     "react": "^18.2.0",
     "react-bootstrap": "^2.9.0",
     "react-chatbot-kit": "^2.1.2",
