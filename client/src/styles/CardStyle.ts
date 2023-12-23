@@ -30,10 +30,11 @@ export const CardBody = styled.div`
 `;
 export const CardSubTitle = styled.p`
   width: 80%;
-  margin-bottom: 0;
+  margin-bottom: 0.5em;
   margin-top: 1em;
   color: grey;
-  height: 2.7em;
+  height: 2.4em;
+
   text-overflow: ellipsis;
   overflow: hidden;
   word-break: break-word;
