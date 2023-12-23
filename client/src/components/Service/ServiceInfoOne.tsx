@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { ServiceInfoDataType } from "../../types/Components-type";
 
 function ServiceInfoOne(props: ServiceInfoDataType) {
-  const { title, subtitle, delay } = props;
+  const { title, subtitle, delay, iconType } = props;
   return (
     <ServiceBox>
       <motion.div
@@ -13,7 +13,7 @@ function ServiceInfoOne(props: ServiceInfoDataType) {
         animate={{ opacity: 1 }}
         transition={{ duration: "1", delay: delay }}>
         <TitleWrapper>
-          <FontAwesomeIcon icon={faCompass} size="xl" />
+          <FontAwesomeIcon icon={iconType} size="xl" />
           <ServiceTitle>{title}</ServiceTitle>
         </TitleWrapper>
         <ContentText>{subtitle}</ContentText>

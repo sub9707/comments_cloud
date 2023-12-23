@@ -12,6 +12,7 @@ import { clearReplies } from "../../store/DataThunk/RepliesSlice";
 import NeedLoginModal from "./NeedLoginModal";
 import AdminUserModal from "./AdminUserModal";
 import AdminBoardModal from "./AdminBoardModal";
+import PictureModal from "./PictureModal";
 
 const MODAL_TYPES = {
   WriteModal: "WriteModal",
@@ -20,6 +21,7 @@ const MODAL_TYPES = {
   NeedLoginModal: "NeedLoginModal",
   AdminUserModal: "AdminUserModal",
   AdminBoardModal: "AdminBoardModal",
+  PictureModal: "PictureModal",
 };
 
 const MODAL_COMPONENTS = [
@@ -46,6 +48,10 @@ const MODAL_COMPONENTS = [
   {
     type: MODAL_TYPES.AdminBoardModal,
     component: <AdminBoardModal />,
+  },
+  {
+    type: MODAL_TYPES.PictureModal,
+    component: <PictureModal />,
   },
 ];
 

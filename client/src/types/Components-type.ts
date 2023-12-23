@@ -1,3 +1,5 @@
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+
 export type CardDataType = {
   title: string;
   content: string;
@@ -30,4 +32,5 @@ export type ServiceInfoDataType = {
   title: string;
   subtitle: string;
   delay: number;
+  iconType: IconProp;
 };

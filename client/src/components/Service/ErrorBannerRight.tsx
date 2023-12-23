@@ -1,11 +1,19 @@
 import { Variants, motion } from "framer-motion";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
+import { openModal } from "../../store/Modal/Modal";
+import { setPicture } from "../../store/Modal/PictureModal";
 
 function ErrorBannerRight(
   props: { onRef: React.RefObject<HTMLDivElement> } & { reversed: boolean } & {
     imgSrc: string;
   }
 ) {
+  const dispatch = useDispatch();
+  const handleClickPicture = () => {
+    dispatch(setPicture(props.imgSrc));
+    dispatch(openModal({ modalType: "PictureModal", isOpen: true }));
+  };
   const cardVariants: Variants = {
     offscreen: {
       x: props.reversed ? -300 : 300,
@@ -27,7 +35,12 @@ function ErrorBannerRight(
       whileInView="onscreen"
       variants={cardVariants}
       viewport={{ root: props.onRef, once: true }}>
-      <RightImage src={props.imgSrc} alt="infoGIF" />
+      <RightImage
+        onClick={handleClickPicture}
+        src={props.imgSrc}
+        style={{ cursor: "pointer" }}
+        alt="infoGIF"
+      />
     </ErrorBannerImgBox>
   );
 }
