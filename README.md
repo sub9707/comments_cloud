@@ -76,7 +76,7 @@ npm start
 
 ## Frontend
 
-<div style="display: flex; justify-content: center;">
+<div style="display: flex; justify-content: center;" align="center">
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white">
 <img src="https://img.shields.io/badge/typescript-3178C6?style=for-the-badge&logo=react&logoColor=white">
 <img src="https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=white">
@@ -89,7 +89,7 @@ npm start
 
 ## Backend
 
-<div style="display: flex; justify-content: center;">
+<div style="display: flex; justify-content: center;" align="center">
 <img src="https://img.shields.io/badge/amazons3-569A31?style=for-the-badge&logo=amazons3&logoColor=white">
 <img src="https://img.shields.io/badge/nodemon-76D04B?style=for-the-badge&logo=nodemon&logoColor=white">
 <img src="https://img.shields.io/badge/express-000000?style=for-the-badge&logo=express&logoColor=white">
