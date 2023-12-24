@@ -1,5 +1,10 @@
 const { getStartAndEndOfMonth, dateOffset } = require("../config/Calculation");
 const moment = require("moment");
+moment.locale("ko", {
+  week: {
+    dow: 1,
+  },
+});
 const db = require("../config/db");
 
 class ErrorsModel {
@@ -82,8 +87,14 @@ class ErrorsModel {
   }
   static async getWeeklyRank() {
     return new Promise((resolve) => {
-      const startOfWeek = moment().startOf("week").toDate();
-      const endOfWeek = moment().endOf("week").toDate();
+      const startOfWeek = moment()
+        .startOf("week")
+        .toDate()
+        .format("YYYY-MM-DD HH:mm:ss");
+      const endOfWeek = moment()
+        .endOf("week")
+        .toDate()
+        .format("YYYY-MM-DD HH:mm:ss");
       console.log("SWEEK: " + startOfWeek);
       console.log("EWEEK: " + endOfWeek);
       const query = `
