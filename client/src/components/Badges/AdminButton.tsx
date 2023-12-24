@@ -21,7 +21,7 @@ interface MenuItem {
 function AdminButton() {
   const navigate = useNavigate();
   const [onClickAdmin, setOnClickAdmin] = useState<boolean>(false);
-  const [hoverButton, setHoverButton] = useState([false, false, false, false]);
+  const [hoverbutton, setHoverButton] = useState([false, false, false, false]);
 
   const updateIndexToValue = (index: number, value: boolean) => {
     setHoverButton((prev) => [
@@ -86,11 +86,11 @@ function AdminButton() {
           onMouseOut={() => updateIndexToValue(index, false)}
           onClick={() => navigate(item.route)}>
           <FontAwesomeIcon
-            style={hoverButton[index] ? IconStyleHovered : IconStyle}
+            style={hoverbutton[index] ? IconStyleHovered : IconStyle}
             icon={item.icon}
             size="xl"
           />
-          <HiddenText hoverButton={hoverButton[index]}>{item.text}</HiddenText>
+          <HiddenText hoverbutton={hoverbutton[index]}>{item.text}</HiddenText>
         </MenuButton>
       ))}
     </ButtonWrapper>
@@ -114,10 +114,10 @@ const ButtonWrapper = styled.div`
   cursor: pointer;
 `;
 
-const HiddenText = styled.p<{ hoverButton: boolean }>`
+const HiddenText = styled.p<{ hoverbutton: boolean }>`
   position: absolute;
   font-size: 1em;
-  bottom: ${(props) => (props.hoverButton ? "-0.3vh" : "-4vh")};
+  bottom: ${(props) => (props.hoverbutton ? "-0.3vh" : "-4vh")};
   transition: all 0.3s ease-in-out;
 `;
 

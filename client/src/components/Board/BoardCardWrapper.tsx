@@ -42,8 +42,6 @@ function BoardCardWrapper() {
     fetchData(offset);
   }, [offset, filter]);
 
-  console.log(boardData);
-
   return (
     <Container style={containerStyle}>
       {boardData.map((data, _idx) => (

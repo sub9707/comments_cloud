@@ -43,8 +43,6 @@ export default function AdminNoticeWrite() {
   };
 
   const onSubmit = async (data: NoticeWriteValues) => {
-    console.log(data);
-    console.log(data.files);
     try {
       setIsLoading(true);
       const formData = new FormData();
@@ -56,7 +54,6 @@ export default function AdminNoticeWrite() {
       formData.append("title", data.title);
       formData.append("content", data.content);
 
-      console.log("Formdata: " + JSON.stringify(formData));
       await writeNotice(formData);
       setIsLoading(false);
       alert("공지가 등록되었습니다.");
@@ -81,8 +78,6 @@ export default function AdminNoticeWrite() {
       })
     );
   };
-
-  console.log(multipleImages);
 
   return (
     <PageBox>
