@@ -71,6 +71,7 @@ npm start
 | 백엔드 - Database 배포 | [CloudType](https://app.cloudtype.io/) |
 
 <br/>
+<br/>
 
 # 기술 스택
 
@@ -98,6 +99,32 @@ npm start
 <img src="https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=MariaDB&logoColor=white">
 </div>
 
-### 유저 기능
+<br/>
+<br/>
+<br/>
 
-### 공지사항
+# 화면구성
+
+| 로그인 & 회원가입                                       | 메인페이지                                             |
+| ------------------------------------------------------- | ------------------------------------------------------ |
+| <img src="./ReadME/login.png" width="300" height="200"> | <img src="./ReadME/main.png" width="300" height="200"> |
+
+| 서비스 소개                                               | 공지사항                                                 |
+| --------------------------------------------------------- | -------------------------------------------------------- |
+| <img src="./ReadME/service.png" width="300" height="200"> | <img src="./ReadME/notice.png" width="300" height="200"> |
+
+| 나의 에러노트                                             | 모두의 에러노트                                             |
+| --------------------------------------------------------- | ----------------------------------------------------------- |
+| <img src="./ReadME/myError.png" width="300" height="200"> | <img src="./ReadME/Community.png" width="300" height="200"> |
+
+| 에러 상세                                                   | 개인 프로필                                               |
+| ----------------------------------------------------------- | --------------------------------------------------------- |
+| <img src="./ReadME/ErrorView.png" width="300" height="200"> | <img src="./ReadME/Profile.png" width="300" height="200"> |
+
+| 관리자 메인                                                  | 관리자 유저관리                                             |
+| ------------------------------------------------------------ | ----------------------------------------------------------- |
+| <img src="./ReadME/NoticeMain.png" width="300" height="200"> | <img src="./ReadME/AdminUser.png" width="300" height="200"> |
+
+| 관리자 게시판 관리                                           | 관리자 공지관리                                               |
+| ------------------------------------------------------------ | ------------------------------------------------------------- |
+| <img src="./ReadME/AdminBoard.png" width="300" height="200"> | <img src="./ReadME/AdminNotice.png" width="300" height="200"> |
