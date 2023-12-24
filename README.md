@@ -51,18 +51,26 @@ npm start
 
 # 배포 정보
 
+<div style="display: flex; justify-content: center;" align="center">
+
 | 구분       | 주소                                                              |
 | ---------- | ----------------------------------------------------------------- |
 | 웹서비스   | https://comments-cloud.vercel.app/                                |
 | 프론트엔드 | https://comments-cloud-r2er1d4at-sub9707.vercel.app/              |
 | 백엔드     | https://port-0-trouble-shooter-71t02clq3dokrn.sel4.cloudtype.app/ |
 
+</div>
+
 ### 배포 방식
+
+<div style="display: flex; justify-content: center;" align="center">
 
 | 구분                   | 명칭                                   |
 | ---------------------- | -------------------------------------- |
 | 프론트엔드             | [Vercel](https://vercel.com/)          |
 | 백엔드 - Database 배포 | [CloudType](https://app.cloudtype.io/) |
+
+</div>
 
 <br/>
 <br/>
@@ -122,3 +130,7 @@ npm start
 | 관리자 게시판 관리                                           | 관리자 공지관리                                               |
 | ------------------------------------------------------------ | ------------------------------------------------------------- |
 | <img src="./ReadME/AdminBoard.png" width="370" height="270"> | <img src="./ReadME/AdminNotice.png" width="370" height="270"> |
+
+<br/>
+
+# 주요 기능
