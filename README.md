@@ -2,12 +2,6 @@
 
 <p align="center"><img src="./ReadME/Logo.png" height="300px" width="300px" ></p>
 
-<div align="center">
-
-[![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fsub9707%2Fcomments_cloud&count_bg=%23FF7906&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://hits.seeyoufarm.com)
-
-</div>
-
 ### 개인 에러 관리 + 공유 웹 서비스
 
 📌 프로젝트 기간 : 2023. 09 ~ 2023.12 (진행 중)<br />
