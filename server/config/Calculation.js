@@ -29,9 +29,11 @@ const getStartAndEndOfWeek = () => {
 
   const startOfWeek = new Date(today);
   startOfWeek.setDate(today.getDate() - dayOfWeek);
+  startOfWeek.setHours(0, 0, 0, 0);
 
   const endOfWeek = new Date(today);
   endOfWeek.setDate(today.getDate() + (6 - dayOfWeek));
+  endOfWeek.setHours(23, 59, 59, 999);
 
   // 날짜 포맷팅
   const formattedStartOfWeek = startOfWeek.toISOString().split("T")[0];
