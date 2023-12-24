@@ -87,14 +87,8 @@ class ErrorsModel {
   }
   static async getWeeklyRank() {
     return new Promise((resolve) => {
-      const startOfWeek = moment()
-        .startOf("week")
-        .toDate()
-        .format("YYYY-MM-DD HH:mm:ss");
-      const endOfWeek = moment()
-        .endOf("week")
-        .toDate()
-        .format("YYYY-MM-DD HH:mm:ss");
+      const startOfWeek = moment().startOf("week").toDate();
+      const endOfWeek = moment().endOf("week").toDate();
       console.log("SWEEK: " + startOfWeek);
       console.log("EWEEK: " + endOfWeek);
       const query = `
