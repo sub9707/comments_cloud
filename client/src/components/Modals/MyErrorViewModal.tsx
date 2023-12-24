@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { CloseButton } from "react-bootstrap";
 import { closeModal } from "../../store/Modal/Modal";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CommentCard from "../Cards/CommentCard";
 import { clearReplies } from "../../store/DataThunk/RepliesSlice";
 import { AnyAction } from "redux";
@@ -25,6 +25,7 @@ import ContentsArea from "../MyError/ContentsArea";
 import WriteCommentArea from "../MyError/WriteCommentArea";
 import { JustifyStart } from "../../styles/FlexBoxStlye";
 import TagsArea from "../MyError/TagsArea";
+import { clearMyErrorData } from "../../store/Modal/MyErrorModal";
 
 export default function MyErrorView() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -46,6 +47,11 @@ export default function MyErrorView() {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   };
+  useEffect(() => {
+    return () => {
+      dispatch(clearMyErrorData());
+    };
+  }, []);
 
   return (
     <ModalContainer onClick={handleToggleDefault} ref={scrollRef}>

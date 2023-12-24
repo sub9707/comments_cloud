@@ -92,6 +92,7 @@ export default function UserProfile() {
   };
 
   useEffect(() => {
+    dispatch(setOffset(0));
     userFind();
     dispatch(clearLikedList());
     checkListPublic();
