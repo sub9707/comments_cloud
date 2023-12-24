@@ -86,6 +86,8 @@ class ErrorsModel {
   static async getWeeklyRank() {
     return new Promise((resolve) => {
       const { startOfWeek, endOfWeek } = getStartAndEndOfWeek();
+      console.log("SWEEK: " + startOfWeek);
+      console.log("EWEEK: " + endOfWeek);
       const query = `
         SELECT ec.id, ec.title, ec.write_date
         FROM error_contents_likes ecl
@@ -98,6 +100,7 @@ class ErrorsModel {
 
       db.query(query, [startOfWeek, endOfWeek], (error, result) => {
         if (!error) {
+          console.log("결과: " + result);
           resolve(result);
         } else {
           resolve(error);
