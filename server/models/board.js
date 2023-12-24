@@ -1,5 +1,5 @@
 const { getStartAndEndOfMonth, dateOffset } = require("../config/Calculation");
-const { moment } = require("moment");
+const moment = require("moment");
 const db = require("../config/db");
 
 class ErrorsModel {
