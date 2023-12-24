@@ -89,8 +89,6 @@ class ErrorsModel {
     return new Promise((resolve) => {
       const startOfWeek = moment().startOf("week").toDate();
       const endOfWeek = moment().endOf("week").toDate();
-      console.log("SWEEK: " + startOfWeek);
-      console.log("EWEEK: " + endOfWeek);
       const query = `
         SELECT ec.id, ec.title, ec.write_date
         FROM error_contents_likes ecl
