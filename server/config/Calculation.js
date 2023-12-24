@@ -22,26 +22,6 @@ const getTodayTimeFormat = () => {
   return formattedDateTime;
 };
 
-const getStartAndEndOfWeek = () => {
-  // 오늘 날짜
-  const today = new Date();
-  const dayOfWeek = today.getDay();
-
-  const startOfWeek = new Date(today);
-  startOfWeek.setDate(today.getDate() - dayOfWeek);
-  startOfWeek.setHours(0, 0, 0, 0);
-
-  const endOfWeek = new Date(today);
-  endOfWeek.setDate(today.getDate() + (6 - dayOfWeek));
-  endOfWeek.setHours(23, 59, 59, 999);
-
-  // 날짜 포맷팅
-  const formattedStartOfWeek = startOfWeek.toISOString().split("T")[0];
-  const formattedEndOfWeek = endOfWeek.toISOString().split("T")[0];
-
-  return { startOfWeek: formattedStartOfWeek, endOfWeek: formattedEndOfWeek };
-};
-
 const getStartAndEndOfMonth = () => {
   const today = new Date();
 

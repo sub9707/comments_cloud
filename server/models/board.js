@@ -1,8 +1,5 @@
-const {
-  getStartAndEndOfMonth,
-  getStartAndEndOfWeek,
-  dateOffset,
-} = require("../config/Calculation");
+const { getStartAndEndOfMonth, dateOffset } = require("../config/Calculation");
+const { moment } = require("moment");
 const db = require("../config/db");
 
 class ErrorsModel {
@@ -85,7 +82,8 @@ class ErrorsModel {
   }
   static async getWeeklyRank() {
     return new Promise((resolve) => {
-      const { startOfWeek, endOfWeek } = getStartAndEndOfWeek();
+      const startOfWeek = moment().startOf("week").toDate();
+      const endOfWeek = moment().endOf("week").toDate();
       console.log("SWEEK: " + startOfWeek);
       console.log("EWEEK: " + endOfWeek);
       const query = `
