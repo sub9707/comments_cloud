@@ -12,7 +12,6 @@ function PictureModal() {
     <ModalContainer
       style={{
         width: "50vw",
-        // minHeight: "50vh",
         height: "50vh",
       }}>
       <JustifyCenter>

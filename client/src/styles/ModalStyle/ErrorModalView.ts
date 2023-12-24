@@ -54,7 +54,7 @@ export const ContentViewArea = styled.div`
   height: auto;
   background-color: #fffff9;
   box-shadow: rgb(114, 114, 114) 0px 0px 5px 2px inset;
-  padding: 1em;
+  padding: 2em;
 `;
 export const ControlInfo = styled.p`
   position: relative;

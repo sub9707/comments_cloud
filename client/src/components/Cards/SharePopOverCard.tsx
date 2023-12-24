@@ -42,7 +42,7 @@ export default function SharePopOver(props: propstype) {
         <ShareInput
           ref={inputRef}
           type="text"
-          value={`localhost:5173:/myError/${data?.id}`}
+          value={`https://comments-cloud.vercel.app/myError/${data?.id}`}
           readOnly
         />
         <FontAwesomeIcon

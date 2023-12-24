@@ -13,6 +13,7 @@ import NeedLoginModal from "./NeedLoginModal";
 import AdminUserModal from "./AdminUserModal";
 import AdminBoardModal from "./AdminBoardModal";
 import PictureModal from "./PictureModal";
+import { motion } from "framer-motion";
 
 const MODAL_TYPES = {
   WriteModal: "WriteModal",
@@ -80,7 +81,13 @@ export default function GlobalModal() {
   };
   return (
     <BlackBackground onClick={backgroundClick}>
-      <Container>
+      <Container
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          type: "spring",
+          duration: 0.5,
+        }}>
         <Modal.Dialog ref={scrollRef}>
           <Modal.Body>{renderModal()}</Modal.Body>
         </Modal.Dialog>
@@ -100,7 +107,7 @@ const BlackBackground = styled.div`
   align-items: center;
 `;
 
-const Container = styled.div`
+const Container = styled(motion.div)`
   width: auto;
   height: auto;
   background-color: white;
