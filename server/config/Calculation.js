@@ -41,6 +41,5 @@ module.exports = {
   dateOffset,
   getTodayFormat,
   getTodayTimeFormat,
-  getStartAndEndOfWeek,
   getStartAndEndOfMonth,
 };
