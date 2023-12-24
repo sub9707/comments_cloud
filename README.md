@@ -111,11 +111,11 @@ npm start
 
 | 서비스 소개                                               | 공지사항                                                 |
 | --------------------------------------------------------- | -------------------------------------------------------- |
-| <img src="./ReadME/service.png" width="370" height="270"> | <img src="./ReadME/notice.png" width="370" height="270"> |
+| <img src="./ReadME/Service.png" width="370" height="270"> | <img src="./ReadME/Notice.png" width="370" height="270"> |
 
 | 나의 에러노트                                             | 모두의 에러노트                                             |
 | --------------------------------------------------------- | ----------------------------------------------------------- |
-| <img src="./ReadME/myError.png" width="370" height="270"> | <img src="./ReadME/Community.png" width="370" height="270"> |
+| <img src="./ReadME/MyError.png" width="370" height="270"> | <img src="./ReadME/Community.png" width="370" height="270"> |
 
 | 에러 상세                                                   | 개인 프로필                                               |
 | ----------------------------------------------------------- | --------------------------------------------------------- |
