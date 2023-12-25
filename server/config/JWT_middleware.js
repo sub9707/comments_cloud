@@ -35,7 +35,6 @@ exports.verifyToken = (token) => {
 // 토큰 req 헤더 방식
 exports.auth = (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
-  console.log("token: " + token);
   try {
     req.decoded = jwt.verify(token, SECRET_KEY);
     return next();
