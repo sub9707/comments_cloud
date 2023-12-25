@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const BoardController = require("../controllers/boardController");
+const { auth } = require("../config/JWT_middleware");
 
 // RankBox
 // offset : 6개
 router.get("/boardList", BoardController.getAllBoards);
-router.get("/boardList/admin", BoardController.getEntireBoards);
+router.get("/boardList/admin", auth, BoardController.getEntireBoards);
 // Ranking
 // 일간 조회수 랭킹
 router.get("/ranking/daily", BoardController.getDailyRank);

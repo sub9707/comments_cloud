@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
+// 토큰 직접 전달 방식
 exports.verifyToken = (token) => {
   if (!token) {
     return {
@@ -28,5 +29,30 @@ exports.verifyToken = (token) => {
       code: 401,
       message: "유효하지 않은 토큰입니다.",
     };
+  }
+};
+
+// 토큰 req 헤더 방식
+exports.auth = (req, res, next) => {
+  const token = req.headers.authorization.split(" ")[1];
+  console.log("token: " + token);
+  try {
+    req.decoded = jwt.verify(token, SECRET_KEY);
+    return next();
+  } catch (error) {
+    // 유효시간이 초과
+    if (error.name === "TokenExpiredError") {
+      return res.status(419).json({
+        code: 419,
+        message: "토큰이 만료되었습니다.",
+      });
+    }
+    // 토큰의 비밀키 불일치
+    if (error.name === "JsonWebTokenError") {
+      return res.status(401).json({
+        code: 401,
+        message: "유효하지 않은 토큰입니다.",
+      });
+    }
   }
 };

@@ -3,7 +3,6 @@ const { s3 } = require("../config/s3");
 const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const { verifyToken } = require("../config/JWT_middleware");
 
 class UserController {
   /**

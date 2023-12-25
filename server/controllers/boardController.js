@@ -1,5 +1,4 @@
 const BoardModel = require("../models/board");
-const { verifyToken } = require("../config/JWT_middleware");
 
 class BoardController {
   /**
