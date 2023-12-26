@@ -46,7 +46,7 @@ function ProfileInfo(props: { userId: string }) {
       <ProfileInfoArea>
         <Nickname>{userInfo?.nickname}</Nickname>
         <LevelBadge level={5} />
-        <OverlayTrigger
+        {/* <OverlayTrigger
           placement="right"
           delay={{ show: 250, hide: 400 }}
           overlay={renderTooltip}>
@@ -63,7 +63,7 @@ function ProfileInfo(props: { userId: string }) {
                 "rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset",
             }}
           />
-        </OverlayTrigger>
+        </OverlayTrigger> */}
         <InfoText>총 에러노트 수: {noteCountData?.TotalNoteCount}</InfoText>
         <InfoText>해결된 에러 수: {noteCountData?.TotalSolvedCount}</InfoText>
         <InfoText>총 받은 추천 수: {noteCountData?.TotalLikedCount}</InfoText>
