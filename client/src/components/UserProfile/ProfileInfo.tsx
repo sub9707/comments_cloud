@@ -45,7 +45,7 @@ function ProfileInfo(props: { userId: string }) {
       </ProfileImgArea>
       <ProfileInfoArea>
         <Nickname>{userInfo?.nickname}</Nickname>
-        <LevelBadge level={5} />
+        {/* <LevelBadge level={5} /> */}
         {/* <OverlayTrigger
           placement="right"
           delay={{ show: 250, hide: 400 }}
