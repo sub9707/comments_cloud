@@ -71,8 +71,8 @@ export default function UserProfile() {
 
   const checkListPublic = async () => {
     if (!userId) return;
-
     const result = await checkLikedListPublic(userId || "");
+    setIsPublicList(result?.liked_list_public === 1 ? true : false);
     if (result?.liked_list_public) {
       try {
         await dispatch(fetchLikedList({ userId: +userId, offset }));
@@ -81,7 +81,6 @@ export default function UserProfile() {
         console.error(error);
       } finally {
         setHasMoreData(totalCount > offset);
-        setIsPublicList(result?.liked_list_public);
       }
     }
   };
@@ -142,10 +141,10 @@ export default function UserProfile() {
             <HeaderFourth>좋아요 누른 노트</HeaderFourth>
             {+(userId || "") === user?.id ? (
               <Form.Check
-                checked={isPublicList}
                 type="switch"
                 label="공개 설정"
                 onClick={handleTogglePublic}
+                checked={isPublicList}
               />
             ) : null}
           </JustifyBetween>

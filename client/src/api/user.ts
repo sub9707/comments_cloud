@@ -190,7 +190,9 @@ export const checkLikedListPublic = async (userId: string) => {
  */
 export const changeLikedListPublic = async (userId: string) => {
   try {
+    console.log("in");
     const response = await api.put(`/user/LikedPublic?userId=${userId}`);
+    console.log(response);
     return response.data;
   } catch (err) {
     console.error(err);

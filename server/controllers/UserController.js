@@ -378,6 +378,7 @@ class UserController {
    **/
   static changeLikedListPublic = async (req, res) => {
     const userId = req.query.userId;
+    console.log("I'm in" + userId);
     try {
       const data = await userModel.changeLikedListPublic(userId);
       res.send(data);
