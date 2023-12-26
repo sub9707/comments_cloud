@@ -34,12 +34,9 @@ exports.verifyToken = (token) => {
 
 // 토큰 req 헤더 방식
 exports.auth = (req, res, next) => {
-  console.log("this" + req.headers.authorization);
   const token = req.headers.authorization.split(" ")[1];
-  console.log("token:" + token);
   try {
-    req.decoded = jwt.verify(token, SECRET_KEY);
-    console.log(req.decoded);
+    req.decoded = jwt.verify(token, process.env.JWT_SECRET);
     return next();
   } catch (error) {
     // 유효시간이 초과
