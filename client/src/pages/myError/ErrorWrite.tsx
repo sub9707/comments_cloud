@@ -17,25 +17,25 @@ import {
   Table,
   TableRow,
   modules,
-} from "../../styles/AdminPageStyle";
-import { MainContainer } from "../../styles/PageContainer";
-import { PageHeader } from "../../styles/TextStyle";
-import TagInputs from "../../components/Table/TagInputs";
+} from "@styles/AdminPageStyle";
+import { MainContainer } from "@styles/PageContainer";
+import { PageHeader } from "@styles/TextStyle";
+import TagInputs from "@components/Table/TagInputs";
 import ReactQuill from "react-quill";
 import { useForm } from "react-hook-form";
-import { ErrorWriteFormValues } from "../../types/react-hook-form";
-import { SolvedArea } from "../../styles/TableStyle";
+import { ErrorWriteFormValues } from "@/types/react-hook-form";
+import { SolvedArea } from "@styles/TableStyle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
-import PopoverCard from "../../components/Cards/PopoverCard";
+import PopoverCard from "@components/Cards/PopoverCard";
 import { useState } from "react";
-import { writeError } from "../../api/ErrorBoard";
-import { openModal } from "../../store/Modal/Modal";
+import { writeError } from "@api/ErrorBoard";
+import { openModal } from "@/store/Modal/Modal";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { addMessage } from "../../store/Utils/Alert";
-import { selectUserId } from "../../store/Utils/User";
-import { store } from "../../store";
+import { addMessage } from "@/store/Utils/Alert";
+import { selectUserId } from "@/store/Utils/User";
+import { store } from "@/store";
 
 export default function ErrorWrite() {
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ export default function ErrorWrite() {
     useForm<ErrorWriteFormValues>({
       mode: "onChange",
     });
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // eslint-disable-next-line @/typescript-eslint/ban-ts-comment
   // @ts-ignore
   const submitHandler = async (data) => {
     // 글 작성

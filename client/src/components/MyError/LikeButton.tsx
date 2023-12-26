@@ -4,13 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { RootState } from "@/store";
 import {
   checkBoradCheck,
   postBoardCancelLike,
   postBoardLike,
-} from "../../api/ErrorBoard";
-import { userStateType } from "../../store/Utils/User";
+} from "@api/ErrorBoard";
+import { userStateType } from "@/store/Utils/User";
 
 function LikeButton() {
   const { data } = useSelector((state: RootState) => state.myError);

@@ -1,12 +1,12 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import AdminNav from "../../components/Admin/AdminNav";
+import AdminNav from "@components/Admin/AdminNav";
 import {
   Page1440Container,
   Page1920Container,
   PageContainer,
-} from "../../styles/AdminPageStyle";
+} from "@styles/AdminPageStyle";
 import { useSelector } from "react-redux";
-import { userStateType } from "../../store/Utils/User";
+import { userStateType } from "@/store/Utils/User";
 import { useEffect } from "react";
 
 export default function AdminPageLayout() {

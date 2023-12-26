@@ -1,7 +1,7 @@
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { MyErrorSearchType } from "../../types/BoardTypes";
+import { MyErrorSearchType } from "@/types/BoardTypes";
 import { useNavigate } from "react-router-dom";
 
 function ResultCompOne(props: MyErrorSearchType) {

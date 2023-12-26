@@ -1,6 +1,6 @@
 import { Card } from "react-bootstrap";
-import { recentErrorType } from "../../types/users";
-import { JustifyBetween, JustifyEnd } from "../../styles/FlexBoxStlye";
+import { recentErrorType } from "@/types/users";
+import { JustifyBetween, JustifyEnd } from "@styles/FlexBoxStlye";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";

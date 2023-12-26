@@ -1,11 +1,11 @@
-import { PageBox, PageHeader } from "../../styles/AdminPageStyle";
-import { JustifyCenter } from "../../styles/FlexBoxStlye";
-import CardComps from "../../components/Admin/CardComps";
+import { PageBox, PageHeader } from "@styles/AdminPageStyle";
+import { JustifyCenter } from "@styles/FlexBoxStlye";
+import CardComps from "@components/Admin/CardComps";
 import styled from "styled-components";
-import UserGraph from "../../components/Admin/UserGraph";
+import UserGraph from "@components/Admin/UserGraph";
 import { useEffect, useState } from "react";
-import { getUserGraphData } from "../../api/admin";
-import { userGraphDataType } from "../../types/admin";
+import { getUserGraphData } from "@api/admin";
+import { userGraphDataType } from "@/types/admin";
 
 export default function AdminMainPage() {
   const [userGraphData, setUserGraphData] = useState<userGraphDataType[]>([]);

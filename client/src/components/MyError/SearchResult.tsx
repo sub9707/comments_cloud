@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import ResultCompOne from "./ResultCompOne";
-import { RootState } from "../../store";
+import { RootState } from "@/store";
 import { useSelector } from "react-redux";
 
 function SearchResult() {

@@ -6,24 +6,24 @@ import {
   ProfileCircle,
   ProfileImgArea,
   ProfileInfoForm,
-} from "../../styles/PageContainer";
-import { PageHeader } from "../../styles/TextStyle";
+} from "@styles/PageContainer";
+import { PageHeader } from "@styles/TextStyle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faWrench } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { userStateType } from "../../store/Utils/User";
+import { userStateType } from "@/store/Utils/User";
 import { useEffect, useMemo, useState } from "react";
-import { getUserInfo, updateUserInfo } from "../../api/user";
+import { getUserInfo, updateUserInfo } from "@api/user";
 import styled from "styled-components";
 import { Button, Form, InputGroup } from "react-bootstrap";
-import { JustifyCenter } from "../../styles/FlexBoxStlye";
-import { UserInfoType } from "../../types/users";
+import { JustifyCenter } from "@styles/FlexBoxStlye";
+import { UserInfoType } from "@/types/users";
 import { useForm } from "react-hook-form";
-import { UpdateFormValue } from "../../types/react-hook-form";
-import { isInSevenDays } from "../../utils/Calculation";
+import { UpdateFormValue } from "@/types/react-hook-form";
+import { isInSevenDays } from "@utils/Calculation";
 import { DevTool } from "@hookform/devtools";
-import { ErrorPrint } from "../../styles/LoginStyle";
-import { addMessage } from "../../store/Utils/Alert";
+import { ErrorPrint } from "@styles/LoginStyle";
+import { addMessage } from "@/store/Utils/Alert";
 
 export default function UserProfileFix() {
   const { userId } = useParams();

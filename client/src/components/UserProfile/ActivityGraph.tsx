@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { ResponsiveCalendar } from "@nivo/calendar";
-import { JustifyStart } from "../../styles/FlexBoxStlye";
+import { JustifyStart } from "@styles/FlexBoxStlye";
 import styled from "styled-components";
-import { getCalendarData } from "../../api/user";
+import { getCalendarData } from "@api/user";
 
 type CalendarData = {
   day: string;

@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { RootState } from "@/store";
 import {
   ContentViewArea,
   SubTitleHeader,
-} from "../../styles/ModalStyle/ErrorModalView";
+} from "@styles/ModalStyle/ErrorModalView";
 import DOMPurify from "dompurify";
 
 function ContentsArea() {

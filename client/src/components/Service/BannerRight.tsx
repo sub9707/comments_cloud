@@ -1,6 +1,6 @@
 import Lottie from "lottie-react";
 import styled from "styled-components";
-import note from "../../utils/lotties/note.json";
+import note from "@utils/lotties/note.json";
 import { motion } from "framer-motion";
 
 function BannerRight() {

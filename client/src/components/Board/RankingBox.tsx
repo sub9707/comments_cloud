@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { BoardRankType } from "../../types/board";
-import {
-  getDailyRanks,
-  getMonthlyRanks,
-  getWeeklyRanks,
-} from "../../api/boards";
+import { BoardRankType } from "@/types/board";
+import { getDailyRanks, getMonthlyRanks, getWeeklyRanks } from "@api/boards";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
-import { JustFlex, JustifyCenter } from "../../styles/FlexBoxStlye";
+import { RootState } from "@/store";
+import { JustFlex, JustifyCenter } from "@styles/FlexBoxStlye";
 import { useNavigate } from "react-router-dom";
-import { initRankToggle } from "../../store/Toggle/RankingToggle";
-import { isWithin24Hours } from "../../utils/Calculation";
+import { initRankToggle } from "@/store/Toggle/RankingToggle";
+import { isWithin24Hours } from "@/utils/Calculation";
 
 function RankingBox() {
   const navigate = useNavigate();

@@ -1,9 +1,9 @@
 import { useDispatch } from "react-redux";
-import { Table } from "../../styles/TableStyle";
-import { UserTableProps } from "../../types/users";
-import { openModal } from "../../store/Modal/Modal";
-import { setUserModal } from "../../store/Modal/AdminUserModal";
-import { getUserInfo } from "../../api/user";
+import { Table } from "@styles/TableStyle";
+import { UserTableProps } from "@/types/users";
+import { openModal } from "@/store/Modal/Modal";
+import { setUserModal } from "@/store/Modal/AdminUserModal";
+import { getUserInfo } from "@api/user";
 
 export default function UserTable(props: UserTableProps) {
   const dispatch = useDispatch();

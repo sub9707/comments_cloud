@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { BoardInfoFetchType } from "../../types/board";
+import { BoardInfoFetchType } from "@/types/board";
 import { RootState } from "..";
 
 const initialState: BoardInfoFetchType = {

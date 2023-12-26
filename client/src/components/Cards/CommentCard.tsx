@@ -3,24 +3,24 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../store/Modal/Modal";
-import { addMessage } from "../../store/Utils/Alert";
+import { closeModal } from "@/store/Modal/Modal";
+import { addMessage } from "@/store/Utils/Alert";
 import React, { ChangeEvent, useState, useEffect } from "react";
 import {
   updateReply,
   deleteReply,
   fetchReplies,
   clearReplies,
-} from "../../store/DataThunk/RepliesSlice";
+} from "@/store/DataThunk/RepliesSlice";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import {
   checkReplyCheck,
   postReplyCancelLike,
   postReplyLike,
-} from "../../api/ErrorBoard";
-import { RootState } from "../../store";
-import { userStateType } from "../../store/Utils/User";
+} from "@api/ErrorBoard";
+import { RootState } from "@/store";
+import { userStateType } from "@/store/Utils/User";
 
 export default function CommentCard() {
   const [replyLiked, setReplyLiked] = useState<boolean[]>([]);

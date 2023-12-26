@@ -6,10 +6,10 @@ import {
   setDaily,
   setWeekly,
   setMonthly,
-} from "../../store/Toggle/BoardRankTab";
-import { setRankToggle } from "../../store/Toggle/RankingToggle";
+} from "@/store/Toggle/BoardRankTab";
+import { setRankToggle } from "@/store/Toggle/RankingToggle";
 import styled from "styled-components";
-import { RootState } from "../../store";
+import { RootState } from "@/store";
 
 function RankingTabs() {
   const dispatch = useDispatch();

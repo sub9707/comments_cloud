@@ -6,10 +6,10 @@ import { useDispatch } from "react-redux";
 import {
   clearBoardSearch,
   setSearch,
-} from "../../store/DataThunk/BoardSearchSlice";
+} from "@/store/DataThunk/BoardSearchSlice";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
-import { clearPagination } from "../../store/Utils/Pagination";
+import { clearPagination } from "@/store/Utils/Pagination";
 import { useNavigate } from "react-router-dom";
 
 function BoardSearchBox() {

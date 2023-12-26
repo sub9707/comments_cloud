@@ -3,11 +3,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Form, InputGroup } from "react-bootstrap";
 import styled from "styled-components";
 import { ServiceButton } from "./BannerLeft";
-import { JustifyCenter } from "../../styles/FlexBoxStlye";
+import { JustifyCenter } from "@styles/FlexBoxStlye";
 import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
 import { useDispatch } from "react-redux";
-import { addMessage } from "../../store/Utils/Alert";
+import { addMessage } from "@/store/Utils/Alert";
 import { motion } from "framer-motion";
 
 function ContactForm(props: { onRef: React.RefObject<HTMLDivElement> }) {

@@ -1,11 +1,11 @@
-import { PageBox, PageHeader, PageWrapper } from "../../styles/AdminPageStyle";
-import UserTable from "../../components/Table/UserTable";
-import PaginationComp from "../../components/Utils/Pagination";
+import { PageBox, PageHeader, PageWrapper } from "@styles/AdminPageStyle";
+import UserTable from "@components/Table/UserTable";
+import PaginationComp from "@components/Utils/Pagination";
 import { useEffect, useState } from "react";
-import { api } from "../../api/axios";
-import { UserData } from "../../types/users";
+import { api } from "@api/axios";
+import { UserData } from "@/types/users";
 import { Button, Form, InputGroup, Spinner } from "react-bootstrap";
-import { JustifyCenter } from "../../styles/FlexBoxStlye";
+import { JustifyCenter } from "@styles/FlexBoxStlye";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 

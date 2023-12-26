@@ -4,36 +4,36 @@ import {
   ProfileBox,
   ProfileLeft,
   ProfileRight,
-} from "../../styles/PageContainer";
-import { HeaderFourth, PageHeader } from "../../styles/TextStyle";
-import ProfileInfo from "../../components/UserProfile/ProfileInfo";
-import ActivityGraph from "../../components/UserProfile/ActivityGraph";
+} from "@styles/PageContainer";
+import { HeaderFourth, PageHeader } from "@styles/TextStyle";
+import ProfileInfo from "@components/UserProfile/ProfileInfo";
+import ActivityGraph from "@components/UserProfile/ActivityGraph";
 import RecentErrors from "../myError/RecentErrors";
 import {
   JustifyBetween,
   JustifyCenter,
   JustifyEnd,
-} from "../../styles/FlexBoxStlye";
+} from "@styles/FlexBoxStlye";
 import { Button, Form } from "react-bootstrap";
-import { userStateType } from "../../store/Utils/User";
+import { userStateType } from "@/store/Utils/User";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changeLikedListPublic,
   checkLikedListPublic,
   userFindById,
-} from "../../api/user";
+} from "@api/user";
 import { useEffect, useRef, useState } from "react";
 import LikedErrors from "../myError/LikedErrors";
-import LikedNoteList from "../../components/UserProfile/LikedNoteList";
+import LikedNoteList from "@components/UserProfile/LikedNoteList";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 import {
   clearLikedList,
   fetchLikedList,
-} from "../../store/DataThunk/LikedListSlice";
-import { RootState } from "../../store";
-import { setOffset } from "../../store/Utils/Pagination";
-import { addMessage } from "../../store/Utils/Alert";
+} from "@/store/DataThunk/LikedListSlice";
+import { RootState } from "@/store";
+import { setOffset } from "@/store/Utils/Pagination";
+import { addMessage } from "@/store/Utils/Alert";
 
 export default function UserProfile() {
   const { userId } = useParams();

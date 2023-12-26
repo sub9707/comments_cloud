@@ -1,4 +1,4 @@
-import { getCookieToken } from "../store/Utils/Cookie";
+import { getCookieToken } from "@/store/Utils/Cookie";
 import { api } from "./axios";
 
 /**

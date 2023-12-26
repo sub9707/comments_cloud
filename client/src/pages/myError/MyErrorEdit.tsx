@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { MainContainer } from "../../styles/PageContainer";
-import { PageHeader } from "../../styles/TextStyle";
+import { MainContainer } from "@styles/PageContainer";
+import { PageHeader } from "@styles/TextStyle";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   ButtonCenter,
@@ -14,7 +14,7 @@ import {
   Table,
   TableRow,
   modules,
-} from "../../styles/AdminPageStyle";
+} from "@styles/AdminPageStyle";
 import {
   Button,
   Form,
@@ -22,19 +22,19 @@ import {
   OverlayTrigger,
   Stack,
 } from "react-bootstrap";
-import { SolvedArea } from "../../styles/TableStyle";
-import PopoverCard from "../../components/Cards/PopoverCard";
+import { SolvedArea } from "@styles/TableStyle";
+import PopoverCard from "@components/Cards/PopoverCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleQuestion } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
-import { ErrorWriteFormValues } from "../../types/react-hook-form";
-import TagInputs from "../../components/Table/TagInputs";
+import { ErrorWriteFormValues } from "@/types/react-hook-form";
+import TagInputs from "@components/Table/TagInputs";
 import ReactQuill from "react-quill";
 import { DevTool } from "@hookform/devtools";
-import { editError, getBoardError } from "../../api/ErrorBoard";
+import { editError, getBoardError } from "@api/ErrorBoard";
 import { useDispatch, useSelector } from "react-redux";
-import { addMessage } from "../../store/Utils/Alert";
-import { userStateType } from "../../store/Utils/User";
+import { addMessage } from "@/store/Utils/Alert";
+import { userStateType } from "@/store/Utils/User";
 
 function MyErrorSearch() {
   const user = useSelector((state: userStateType) => state.user.data);

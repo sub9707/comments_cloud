@@ -1,10 +1,10 @@
-import BoardPagination from "../../components/Board/BoardPagination";
-import BoardResultSearchBox from "../../components/Board/BoardResultSearchBox";
-import BoardSearchCardWrapper from "../../components/Board/BoardSearchCardWrapper";
-import SearchInfoArea from "../../components/Board/SearchInfoArea";
-import { PageHeader } from "../../styles/AdminPageStyle";
-import { JustifyCenter } from "../../styles/FlexBoxStlye";
-import { MainContainer } from "../../styles/PageContainer";
+import BoardPagination from "@components/Board/BoardPagination";
+import BoardResultSearchBox from "@components/Board/BoardResultSearchBox";
+import BoardSearchCardWrapper from "@components/Board/BoardSearchCardWrapper";
+import SearchInfoArea from "@components/Board/SearchInfoArea";
+import { PageHeader } from "@styles/AdminPageStyle";
+import { JustifyCenter } from "@styles/FlexBoxStlye";
+import { MainContainer } from "@styles/PageContainer";
 
 function BoardSearchPage() {
   return (

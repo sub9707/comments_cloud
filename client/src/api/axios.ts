@@ -1,8 +1,8 @@
 import axios from "axios";
-import { getCookieToken } from "../store/Utils/Cookie";
+import { getCookieToken } from "@/store/Utils/Cookie";
 import { getRefreshedToken } from "./token";
-import { store } from "../store";
-import { SET_TOKEN } from "../store/Utils/Auth";
+import { store } from "@/store";
+import { SET_TOKEN } from "@/store/Utils/Auth";
 
 export const api = axios.create({
   baseURL: "https://port-0-trouble-shooter-71t02clq3dokrn.sel4.cloudtype.app",

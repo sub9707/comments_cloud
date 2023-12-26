@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ServiceDataType } from "../../types/Components-type";
+import { ServiceDataType } from "@/types/Components-type";
 import { motion, Variants } from "framer-motion";
 
 function ErrorBannerLeft(

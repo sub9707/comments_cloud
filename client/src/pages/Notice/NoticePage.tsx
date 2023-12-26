@@ -1,9 +1,9 @@
-import BoardTable from "../../components/Table/BoardTable";
-import { ContentBox, MainContainer } from "../../styles/PageContainer";
-import { PageHeader } from "../../styles/TextStyle";
+import BoardTable from "@components/Table/BoardTable";
+import { ContentBox, MainContainer } from "@styles/PageContainer";
+import { PageHeader } from "@styles/TextStyle";
 import { useEffect, useState } from "react";
-import { NoticeTablePropType } from "../../types/TableTypes";
-import { api } from "../../api/axios";
+import { NoticeTablePropType } from "@/types/TableTypes";
+import { api } from "@api/axios";
 import LoadingPage from "../LoadingPage";
 
 export default function NoticePage() {

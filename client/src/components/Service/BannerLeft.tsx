@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { isLoggedIn } from "../../store/Utils/Cookie";
+import { isLoggedIn } from "@/store/Utils/Cookie";
 
 function BannerLeft() {
   const navigate = useNavigate();

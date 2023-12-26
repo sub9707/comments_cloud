@@ -7,12 +7,12 @@ import {
   CardTitle,
   CardWrapper,
   DateInfo,
-} from "../../styles/CardStyle";
-import { BoardFetchType } from "../../types/board";
-import { formatRelativeTime } from "../../utils/Calculation";
+} from "@styles/CardStyle";
+import { BoardFetchType } from "@/types/board";
+import { formatRelativeTime } from "@utils/Calculation";
 import { useNavigate } from "react-router-dom";
 import SolvedBadge from "../Badges/SolvedTag";
-import { RemoveHtmlTags } from "../../utils/StringForm";
+import { RemoveHtmlTags } from "@utils/StringForm";
 import { useRef, useState } from "react";
 import { TagBadge } from "../UserProfile/CarouselCard";
 

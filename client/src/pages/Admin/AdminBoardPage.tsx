@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import AdminBoardTable from "../../components/Table/AdminBoardTable";
-import PaginationComp from "../../components/Utils/Pagination";
-import { PageBox, PageHeader, PageWrapper } from "../../styles/AdminPageStyle";
-import { BoardInfoFetchType } from "../../types/board";
-import { getEntireBoards } from "../../api/boards";
+import AdminBoardTable from "@components/Table/AdminBoardTable";
+import PaginationComp from "@components/Utils/Pagination";
+import { PageBox, PageHeader, PageWrapper } from "@styles/AdminPageStyle";
+import { BoardInfoFetchType } from "@/types/board";
+import { getEntireBoards } from "@api/boards";
 
 export default function AdminBoardPage() {
   const [data, setData] = useState<BoardInfoFetchType[]>([]);

@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { OverlayTrigger, ProgressBar, Tooltip } from "react-bootstrap";
-import LevelBadge from "../../components/Badges/LevelBadge";
+import LevelBadge from "@components/Badges/LevelBadge";
 import {
   InfoText,
   ProfileCircle,
   ProfileImgArea,
   ProfileInfoArea,
-} from "../../styles/PageContainer";
-import { getUserInfo, getUserNoteData } from "../../api/user";
-import { UserInfoType, noteCountData } from "../../types/users";
+} from "@styles/PageContainer";
+import { getUserInfo, getUserNoteData } from "@api/user";
+import { UserInfoType, noteCountData } from "@/types/users";
 
 function ProfileInfo(props: { userId: string }) {
   const { userId } = props;

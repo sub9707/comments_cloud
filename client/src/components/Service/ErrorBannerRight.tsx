@@ -1,8 +1,8 @@
 import { Variants, motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { openModal } from "../../store/Modal/Modal";
-import { setPicture } from "../../store/Modal/PictureModal";
+import { openModal } from "@/store/Modal/Modal";
+import { setPicture } from "@/store/Modal/PictureModal";
 
 function ErrorBannerRight(
   props: { onRef: React.RefObject<HTMLDivElement> } & { reversed: boolean } & {

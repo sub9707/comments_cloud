@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ResponsiveLine } from "@nivo/line";
-import { userGraphDataType } from "../../types/admin";
+import { userGraphDataType } from "@/types/admin";
 
 type graphpropsType = {
   graphdata: userGraphDataType[];

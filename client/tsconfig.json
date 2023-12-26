@@ -7,6 +7,17 @@
     "skipLibCheck": true,
     "types": ["node"],
     "typeRoots": ["./node_modules/@types", "./types"],
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@pages/*": ["src/pages/*"],
+      "@styles/*": ["src/styles/*"],
+      "@utils/*": ["src/utils/*"],
+      "@api/*": ["src/api/*"],
+      "@store/*": ["src/store/*"],
+      "@types/*": ["src/types/*"],
+      "@/*": ["src/*"]
+    },
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,

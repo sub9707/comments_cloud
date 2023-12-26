@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { ErrorReplyType, ReplyData } from "../../types/BoardTypes";
-import { api } from "../../api/axios";
+import { ErrorReplyType, ReplyData } from "@/types/BoardTypes";
+import { api } from "@api/axios";
 
 const initialState: ReplyData[] = [];
 
@@ -90,7 +90,7 @@ const repliesSlice = createSlice({
       .addCase(fetchReplies.fulfilled, (state, action) => {
         return [...state, ...action.payload];
       })
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // eslint-disable-next-line @/typescript-eslint/ban-ts-comment
       //@ts-ignore
       .addCase(fetchRepliesCount.fulfilled, (state, action) => {
         return action.payload;

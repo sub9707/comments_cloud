@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import NotifyCard from "./NotifyCard";
-import { getDashboardData } from "../../api/admin";
+import { getDashboardData } from "@api/admin";
 import {
   boardCountType,
   repliesCountType,
   userCountDataType,
   userLoginDataType,
-} from "../../types/admin";
+} from "@/types/admin";
 import {
   faArrowRightToBracket,
   faUsers,

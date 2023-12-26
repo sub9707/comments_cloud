@@ -2,7 +2,7 @@ import { faCompass } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { motion } from "framer-motion";
-import { ServiceInfoDataType } from "../../types/Components-type";
+import { ServiceInfoDataType } from "@/types/Components-type";
 
 function ServiceInfoOne(props: ServiceInfoDataType) {
   const { title, subtitle, delay, iconType } = props;

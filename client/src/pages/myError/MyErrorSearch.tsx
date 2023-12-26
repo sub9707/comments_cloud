@@ -1,8 +1,8 @@
-import { MainContainer } from "../../styles/PageContainer";
-import { PageHeader } from "../../styles/TextStyle";
-import SearchBox from "../../components/MyError/SearchBox";
-import { JustifyCenter } from "../../styles/FlexBoxStlye";
-import SearchResult from "../../components/MyError/SearchResult";
+import { MainContainer } from "@styles/PageContainer";
+import { PageHeader } from "@styles/TextStyle";
+import SearchBox from "@components/MyError/SearchBox";
+import { JustifyCenter } from "@styles/FlexBoxStlye";
+import SearchResult from "@components/MyError/SearchResult";
 
 function MyErrorSearch() {
   return (

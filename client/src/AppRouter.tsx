@@ -1,10 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/Login/LoginPage";
-import Logout from "./pages/Logout/Logout";
+import LoginPage from "@pages/Login/LoginPage";
+import Logout from "@pages/Logout/Logout";
 import React, { Suspense } from "react";
-import GlobalModal from "./components/Modals/GlobalModal";
-import LoadingPage from "./pages/LoadingPage";
-import GlobalAlert from "./components/Modals/GlobalAlert";
+import GlobalModal from "@components/Modals/GlobalModal";
+import LoadingPage from "@pages/LoadingPage";
+import GlobalAlert from "@components/Modals/GlobalAlert";
 
 const loading = (
   <div style={{ width: "100%", height: "100vh", opacity: 0.5 }}>
@@ -13,42 +13,40 @@ const loading = (
 );
 
 // Container
-const DefaultLayout = React.lazy(() => import("./pages/PageLayout"));
+const DefaultLayout = React.lazy(() => import("@pages/PageLayout"));
 const AdminPageLayout = React.lazy(
-  () => import("./pages/Admin/AdminPageLayout")
+  () => import("@pages/Admin/AdminPageLayout")
 );
 // Util Pages
-const PageNotFound = React.lazy(() => import("./pages/NotFoundPage"));
-const Unauthorized = React.lazy(
-  () => import("../src/components/Utils/Unauthorized")
-);
+const PageNotFound = React.lazy(() => import("@pages/NotFoundPage"));
+const Unauthorized = React.lazy(() => import("@components/Utils/Unauthorized"));
 // Main
-const MainComp = React.lazy(() => import("./pages/MainPage/MainPage"));
-const NoticePage = React.lazy(() => import("./pages/Notice/NoticePage"));
-const Service = React.lazy(() => import("./pages/Service/ServicePage"));
+const MainComp = React.lazy(() => import("@pages/MainPage/MainPage"));
+const NoticePage = React.lazy(() => import("@pages/Notice/NoticePage"));
+const Service = React.lazy(() => import("@pages/Service/ServicePage"));
 // Admin
-const AdminMain = React.lazy(() => import("./pages/Admin/AdminMainPage"));
-const AdminUser = React.lazy(() => import("./pages/Admin/AdminUserPage"));
-const AdminBoard = React.lazy(() => import("./pages/Admin/AdminBoardPage"));
-const AdminNotice = React.lazy(() => import("./pages/Admin/AdminNoticePage"));
+const AdminMain = React.lazy(() => import("@pages/Admin/AdminMainPage"));
+const AdminUser = React.lazy(() => import("@pages/Admin/AdminUserPage"));
+const AdminBoard = React.lazy(() => import("@pages/Admin/AdminBoardPage"));
+const AdminNotice = React.lazy(() => import("@pages/Admin/AdminNoticePage"));
 const AdminNoticeWrite = React.lazy(
-  () => import("./pages/Admin/AdminNoticeWrite")
+  () => import("@pages/Admin/AdminNoticeWrite")
 );
 // MyError
-const MyError = React.lazy(() => import("./pages/myError/MyErrorPage"));
-const ErrorWrite = React.lazy(() => import("./pages/myError/ErrorWrite"));
-const MyErrorSearch = React.lazy(() => import("./pages/myError/MyErrorSearch"));
-const MyErrorEdit = React.lazy(() => import("./pages/myError/MyErrorEdit"));
-const MyErrorView = React.lazy(() => import("./pages/myError/ErrorView"));
+const MyError = React.lazy(() => import("@pages/myError/MyErrorPage"));
+const ErrorWrite = React.lazy(() => import("@pages/myError/ErrorWrite"));
+const MyErrorSearch = React.lazy(() => import("@pages/myError/MyErrorSearch"));
+const MyErrorEdit = React.lazy(() => import("@pages/myError/MyErrorEdit"));
+const MyErrorView = React.lazy(() => import("@pages/myError/ErrorView"));
 // UserProfile
 const UserProfileFixPage = React.lazy(
-  () => import("./pages/Profile/UserProfileFix")
+  () => import("@pages/Profile/UserProfileFix")
 );
-const UserProfilePage = React.lazy(() => import("./pages/Profile/UserProfile"));
+const UserProfilePage = React.lazy(() => import("@pages/Profile/UserProfile"));
 // BoardPage
-const BoardPage = React.lazy(() => import("./pages/Board/BoardPage"));
+const BoardPage = React.lazy(() => import("@pages/Board/BoardPage"));
 const BoardSearchPage = React.lazy(
-  () => import("./pages/Board/BoardSearchPage")
+  () => import("@pages/Board/BoardSearchPage")
 );
 
 export default function AppRouter() {

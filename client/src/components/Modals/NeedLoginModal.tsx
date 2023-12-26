@@ -2,7 +2,7 @@ import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Modal } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { closeModal } from "../../store/Modal/Modal";
+import { closeModal } from "@/store/Modal/Modal";
 
 function NeedLoginModal() {
   const dispatch = useDispatch();

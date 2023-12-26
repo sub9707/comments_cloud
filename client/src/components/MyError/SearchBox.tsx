@@ -3,11 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState, useCallback } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  clearSearch,
-  fetchSearchData,
-} from "../../store/DataThunk/MySearchSlice";
-import { userStateType } from "../../store/Utils/User";
+import { clearSearch, fetchSearchData } from "@/store/DataThunk/MySearchSlice";
+import { userStateType } from "@/store/Utils/User";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
 

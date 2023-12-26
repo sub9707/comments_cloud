@@ -1,12 +1,12 @@
 import { Button } from "react-bootstrap";
-import { ButtonRight, PageBox, PageHeader } from "../../styles/AdminPageStyle";
+import { ButtonRight, PageBox, PageHeader } from "@styles/AdminPageStyle";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { NoticeTablePropType } from "../../types/TableTypes";
-import { api } from "../../api/axios";
+import { NoticeTablePropType } from "@/types/TableTypes";
+import { api } from "@api/axios";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
-import AdminNoticeTable from "../../components/Table/AdminNoticeTable";
+import { RootState } from "@/store";
+import AdminNoticeTable from "@components/Table/AdminNoticeTable";
 
 export default function AdminNoticePage() {
   const { isOpen } = useSelector((state: RootState) => state.modal);

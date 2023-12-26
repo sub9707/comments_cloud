@@ -4,14 +4,14 @@ import {
   CommentInput,
   CommentSubmitBtn,
   CommentSubmitBtnGroup,
-} from "../../styles/ModalStyle/ErrorModalView";
-import { RootState } from "../../store";
+} from "@styles/ModalStyle/ErrorModalView";
+import { RootState } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
-import { ErrorReplyType } from "../../types/BoardTypes";
-import { userStateType } from "../../store/Utils/User";
+import { ErrorReplyType } from "@/types/BoardTypes";
+import { userStateType } from "@/store/Utils/User";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
-import { addReply } from "../../store/DataThunk/RepliesSlice";
+import { addReply } from "@/store/DataThunk/RepliesSlice";
 
 function WriteCommentArea() {
   const { data } = useSelector((state: RootState) => state.myError);

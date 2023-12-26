@@ -3,7 +3,7 @@ import {
   ContentInfoLeft,
   ContentInfoRight,
   ControlInfo,
-} from "../../styles/ModalStyle/ErrorModalView";
+} from "@styles/ModalStyle/ErrorModalView";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCalendarDays,
@@ -11,15 +11,15 @@ import {
   faShareFromSquare,
   faThumbsUp,
 } from "@fortawesome/free-solid-svg-icons";
-import { formatRelativeTime } from "../../utils/Calculation";
+import { formatRelativeTime } from "@utils/Calculation";
 import SharePopOver from "../Cards/SharePopOverCard";
-import { RootState } from "../../store";
+import { RootState } from "@/store";
 import { useDispatch, useSelector } from "react-redux";
-import { userStateType } from "../../store/Utils/User";
+import { userStateType } from "@/store/Utils/User";
 import { useNavigate } from "react-router-dom";
-import { closeModal } from "../../store/Modal/Modal";
-import { deleteError } from "../../api/ErrorBoard";
-import { getUserInfo } from "../../api/user";
+import { closeModal } from "@/store/Modal/Modal";
+import { deleteError } from "@api/ErrorBoard";
+import { getUserInfo } from "@api/user";
 
 function ContentControl() {
   const [toggleSharePop, setToggleSharePop] = useState<boolean>(false);

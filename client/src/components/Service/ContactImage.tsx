@@ -1,5 +1,5 @@
 import Lottie from "lottie-react";
-import Contact from "../../utils/lotties/Contact.json";
+import Contact from "@utils/lotties/Contact.json";
 import styled from "styled-components";
 import { motion } from "framer-motion";
 

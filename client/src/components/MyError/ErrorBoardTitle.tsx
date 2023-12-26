@@ -1,6 +1,6 @@
-import { TitleHeader } from "../../styles/ModalStyle/ErrorModalView";
+import { TitleHeader } from "@styles/ModalStyle/ErrorModalView";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
+import { RootState } from "@/store";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
 
 function ErrorBoardTitle() {

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { api } from "../../api/axios";
-import { MyErrorSearchDataType } from "../../types/BoardTypes";
+import { api } from "@api/axios";
+import { MyErrorSearchDataType } from "@/types/BoardTypes";
 
 const initialState: MyErrorSearchDataType = {
   data: [],

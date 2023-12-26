@@ -11,16 +11,16 @@ import {
   Table,
   TableRow,
   modules,
-} from "../../styles/AdminPageStyle";
+} from "@styles/AdminPageStyle";
 import ReactQuill from "react-quill";
 import { Button } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { openModal } from "../../store/Modal/Modal";
+import { openModal } from "@/store/Modal/Modal";
 import { useForm } from "react-hook-form";
-import { NoticeWriteValues } from "../../types/react-hook-form";
+import { NoticeWriteValues } from "@/types/react-hook-form";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { writeNotice } from "../../api/notice";
+import { writeNotice } from "@api/notice";
 
 export default function AdminNoticeWrite() {
   const navigate = useNavigate();

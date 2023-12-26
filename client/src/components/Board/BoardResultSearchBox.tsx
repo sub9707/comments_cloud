@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { Button, Form, InputGroup } from "react-bootstrap";
 import { useDispatch } from "react-redux";
-import { setSearch } from "../../store/DataThunk/BoardSearchSlice";
+import { setSearch } from "@/store/DataThunk/BoardSearchSlice";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
-import { clearPagination } from "../../store/Utils/Pagination";
+import { clearPagination } from "@/store/Utils/Pagination";
 
 function BoardResultSearchBox() {
   const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>();

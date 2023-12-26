@@ -1,17 +1,17 @@
-import { ContentBox, MainContainer } from "../../styles/PageContainer";
-import { PageHeader } from "../../styles/TextStyle";
+import { ContentBox, MainContainer } from "@styles/PageContainer";
+import { PageHeader } from "@styles/TextStyle";
 
 import "react-toastify/dist/ReactToastify.css";
-import MyErrorTable from "../../components/Table/MyErrorTable";
-import MyErrorMenu from "../../components/Menu/MyErrorMenu";
-import { JustifyBetween } from "../../styles/FlexBoxStlye";
+import MyErrorTable from "@components/Table/MyErrorTable";
+import MyErrorMenu from "@components/Menu/MyErrorMenu";
+import { JustifyBetween } from "@styles/FlexBoxStlye";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { isLoggedIn } from "../../store/Utils/Cookie";
+import { isLoggedIn } from "@/store/Utils/Cookie";
 import { useDispatch } from "react-redux";
-import { openModal } from "../../store/Modal/Modal";
-import { clearFilter } from "../../store/Toggle/MyErrorFilter";
+import { openModal } from "@/store/Modal/Modal";
+import { clearFilter } from "@/store/Toggle/MyErrorFilter";
 
 export default function MyErrorPage() {
   const navigate = useNavigate();

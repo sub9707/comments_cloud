@@ -2,13 +2,13 @@ import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import ItemsCarousel from "react-items-carousel";
-import CarouselCard from "../../components/UserProfile/CarouselCard";
-import EmptyCarouselCard from "../../components/UserProfile/EmptyCarouselCard";
-import { userStateType } from "../../store/Utils/User";
+import CarouselCard from "@components/UserProfile/CarouselCard";
+import EmptyCarouselCard from "@components/UserProfile/EmptyCarouselCard";
+import { userStateType } from "@/store/Utils/User";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getRecentData } from "../../api/user";
-import { recentErrorType } from "../../types/users";
+import { getRecentData } from "@api/user";
+import { recentErrorType } from "@/types/users";
 
 function RecentErrors() {
   const { userId } = useParams();

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { MyErrorTablePropType } from "../../types/TableTypes";
+import { MyErrorTablePropType } from "@/types/TableTypes";
 
 type MyErrorModalState = {
   data: MyErrorTablePropType | null;

@@ -1,31 +1,31 @@
-import { ModalContainer } from "../../styles/ModalStyle/ModalStyle";
+import { ModalContainer } from "@styles/ModalStyle/ModalStyle";
 import { useDispatch } from "react-redux";
 
 import {
   BottomButton,
   DottedDivision,
   TopButton,
-} from "../../styles/UtilityElements";
+} from "@styles/UtilityElements";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { CloseButton } from "react-bootstrap";
-import { closeModal } from "../../store/Modal/Modal";
+import { closeModal } from "@/store/Modal/Modal";
 import React, { useEffect, useRef, useState } from "react";
 import CommentCard from "../Cards/CommentCard";
-import { clearReplies } from "../../store/DataThunk/RepliesSlice";
+import { clearReplies } from "@/store/DataThunk/RepliesSlice";
 import { AnyAction } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import {
   CommentArea,
   ContentInfoWrapper,
-} from "../../styles/ModalStyle/ErrorModalView";
+} from "@styles/ModalStyle/ErrorModalView";
 import ErrorBoardTitle from "../MyError/ErrorBoardTitle";
 import ContentControl from "../MyError/ContentControl";
 import ContentsArea from "../MyError/ContentsArea";
 import WriteCommentArea from "../MyError/WriteCommentArea";
-import { JustifyStart } from "../../styles/FlexBoxStlye";
+import { JustifyStart } from "@styles/FlexBoxStlye";
 import TagsArea from "../MyError/TagsArea";
-import { clearMyErrorData } from "../../store/Modal/MyErrorModal";
+import { clearMyErrorData } from "@/store/Modal/MyErrorModal";
 
 export default function MyErrorView() {
   const scrollRef = useRef<HTMLDivElement>(null);

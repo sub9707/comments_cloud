@@ -1,8 +1,8 @@
-import { Table } from "../../styles/TableStyle";
-import { BoardInfoFetchType } from "../../types/board";
+import { Table } from "@styles/TableStyle";
+import { BoardInfoFetchType } from "@/types/board";
 import { useDispatch } from "react-redux";
-import { openModal } from "../../store/Modal/Modal";
-import { setBoardModal } from "../../store/Modal/AdminBoardModal";
+import { openModal } from "@/store/Modal/Modal";
+import { setBoardModal } from "@/store/Modal/AdminBoardModal";
 
 function AdminBoardTable(props: { data: BoardInfoFetchType[] }) {
   const { data } = props;

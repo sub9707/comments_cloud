@@ -1,23 +1,23 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { MainContainer } from "../../styles/PageContainer";
+import { MainContainer } from "@styles/PageContainer";
 import { useEffect } from "react";
-import { getBoardError, postErrorViews } from "../../api/ErrorBoard";
+import { getBoardError, postErrorViews } from "@api/ErrorBoard";
 import { useDispatch, useSelector } from "react-redux";
-import { setMyErrorData } from "../../store/Modal/MyErrorModal";
+import { setMyErrorData } from "@/store/Modal/MyErrorModal";
 import {
   CommentArea,
   ContentInfoWrapper,
-} from "../../styles/ModalStyle/ErrorModalView";
-import ContentControl from "../../components/MyError/ContentControl";
-import { DottedDivision } from "../../styles/UtilityElements";
-import ContentsArea from "../../components/MyError/ContentsArea";
-import ErrorBoardTitle from "../../components/MyError/ErrorBoardTitle";
-import WriteCommentArea from "../../components/MyError/WriteCommentArea";
-import CommentCard from "../../components/Cards/CommentCard";
-import { JustifyCenter, JustifyStart } from "../../styles/FlexBoxStlye";
-import LikeButton from "../../components/MyError/LikeButton";
-import TagsArea from "../../components/MyError/TagsArea";
-import { RootState } from "../../store";
+} from "@styles/ModalStyle/ErrorModalView";
+import ContentControl from "@components/MyError/ContentControl";
+import { DottedDivision } from "@styles/UtilityElements";
+import ContentsArea from "@components/MyError/ContentsArea";
+import ErrorBoardTitle from "@components/MyError/ErrorBoardTitle";
+import WriteCommentArea from "@components/MyError/WriteCommentArea";
+import CommentCard from "@components/Cards/CommentCard";
+import { JustifyCenter, JustifyStart } from "@styles/FlexBoxStlye";
+import LikeButton from "@components/MyError/LikeButton";
+import TagsArea from "@components/MyError/TagsArea";
+import { RootState } from "@/store";
 
 function ErrorView() {
   const { boardId } = useParams();

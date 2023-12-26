@@ -1,8 +1,8 @@
 import { Col, Row } from "react-bootstrap";
 import styled from "styled-components";
-import ImageCard from "../../components/Cards/ImgCard";
+import ImageCard from "@components/Cards/ImgCard";
 import { useState, useEffect } from "react";
-import PlainCard from "../../components/Cards/PlainCard";
+import PlainCard from "@components/Cards/PlainCard";
 
 const MainContainer = styled.div`
   width: 100%;

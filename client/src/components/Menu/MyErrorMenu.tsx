@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { JustifyCenter, JustifyEnd } from "../../styles/FlexBoxStlye";
+import { JustifyCenter, JustifyEnd } from "@styles/FlexBoxStlye";
 import { Dropdown } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -15,13 +15,13 @@ import {
   setPublic,
   setSolved,
   setUnsolved,
-} from "../../store/Toggle/MyErrorFilter";
-import { RootState } from "../../store";
+} from "@/store/Toggle/MyErrorFilter";
+import { RootState } from "@/store";
 import {
   CheckBoxInput,
   CheckBoxLabel,
   FilterButton,
-} from "../../styles/UtilityElements";
+} from "@styles/UtilityElements";
 
 function MyErrorMenu() {
   const navigate = useNavigate();

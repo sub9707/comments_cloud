@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
-import { formatRelativeTime } from "../../utils/Calculation";
+import { RootState } from "@/store";
+import { formatRelativeTime } from "@utils/Calculation";
 import { useNavigate } from "react-router-dom";
 
 function LikedNoteList() {

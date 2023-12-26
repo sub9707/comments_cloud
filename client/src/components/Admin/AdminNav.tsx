@@ -6,7 +6,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { userStateType } from "../../store/Utils/User";
+import { userStateType } from "@/store/Utils/User";
 
 const UserBox = styled.p`
   min-width: 10%;

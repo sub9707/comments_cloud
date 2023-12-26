@@ -3,9 +3,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dispatch, SetStateAction, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import { addMessage } from "../../store/Utils/Alert";
+import { addMessage } from "@/store/Utils/Alert";
 import { CloseButton } from "react-bootstrap";
-import { RootState } from "../../store";
+import { RootState } from "@/store";
 
 type propstype = {
   setisopen: Dispatch<SetStateAction<boolean>>;

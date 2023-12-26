@@ -1,4 +1,4 @@
-import { ErrorWriteFormValues } from "../types/react-hook-form";
+import { ErrorWriteFormValues } from "@/types/react-hook-form";
 import { api } from "./axios";
 
 /**

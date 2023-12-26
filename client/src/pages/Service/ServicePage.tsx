@@ -4,15 +4,15 @@ import {
   MainContainer,
   MyErrorBanner,
   ServiceArea,
-} from "../../styles/PageContainer";
-import { PageHeader } from "../../styles/TextStyle";
-import BannerLeft from "../../components/Service/BannerLeft";
-import BannerRight from "../../components/Service/BannerRight";
-import ServiceInfoOne from "../../components/Service/ServiceInfoOne";
-import ErrorBannerLeft from "../../components/Service/ErrorBannerLeft";
-import ErrorBannerRight from "../../components/Service/ErrorBannerRight";
-import ContactForm from "../../components/Service/ContactForm";
-import ContactImage from "../../components/Service/ContactImage";
+} from "@styles/PageContainer";
+import { PageHeader } from "@styles/TextStyle";
+import BannerLeft from "@components/Service/BannerLeft";
+import BannerRight from "@components/Service/BannerRight";
+import ServiceInfoOne from "@components/Service/ServiceInfoOne";
+import ErrorBannerLeft from "@components/Service/ErrorBannerLeft";
+import ErrorBannerRight from "@components/Service/ErrorBannerRight";
+import ContactForm from "@components/Service/ContactForm";
+import ContactImage from "@components/Service/ContactImage";
 import ServiceData from "./ServiceBanner.json";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { useRef } from "react";

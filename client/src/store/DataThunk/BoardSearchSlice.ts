@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { api } from "../../api/axios";
-import { BoardSearchDataType } from "../../types/BoardTypes";
+import { api } from "@api/axios";
+import { BoardSearchDataType } from "@/types/BoardTypes";
 
 const initialState: BoardSearchDataType = {
   data: [],

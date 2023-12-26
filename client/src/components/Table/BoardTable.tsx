@@ -1,7 +1,7 @@
 import { Accordion } from "react-bootstrap";
-import { NoticeTableProps, URLObjType } from "../../types/TableTypes";
-import { JustifyBetween } from "../../styles/FlexBoxStlye";
-import { DottedDivision } from "../../styles/UtilityElements";
+import { NoticeTableProps, URLObjType } from "@/types/TableTypes";
+import { JustifyBetween } from "@styles/FlexBoxStlye";
+import { DottedDivision } from "@styles/UtilityElements";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile, faPaperclip } from "@fortawesome/free-solid-svg-icons";

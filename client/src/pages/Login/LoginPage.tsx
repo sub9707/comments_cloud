@@ -3,7 +3,7 @@ import {
   LoginPageContainer,
   PageActualWrapper,
   PageContainer,
-} from "../../styles/PageContainer";
+} from "@styles/PageContainer";
 import {
   ErrorPrint,
   Fieldsets,
@@ -21,20 +21,17 @@ import {
   SignupButton,
   Switcher,
   Underline,
-} from "../../styles/LoginStyle";
-import registerUser, { loginUser } from "../../api/user";
+} from "@styles/LoginStyle";
+import registerUser, { loginUser } from "@api/user";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { isLoggedIn, setRefreshToken } from "../../store/Utils/Cookie";
-import { SET_TOKEN } from "../../store/Utils/Auth";
+import { isLoggedIn, setRefreshToken } from "@/store/Utils/Cookie";
+import { SET_TOKEN } from "@/store/Utils/Auth";
 import { useForm, SubmitHandler } from "react-hook-form";
-import {
-  LoginFormValues,
-  RegisterFormValues,
-} from "../../types/react-hook-form";
-import { setUser } from "../../store/Utils/User";
-import SpinnerOne from "../../components/Utils/Spinner";
-import { addMessage } from "../../store/Utils/Alert";
+import { LoginFormValues, RegisterFormValues } from "@/types/react-hook-form";
+import { setUser } from "@/store/Utils/User";
+import SpinnerOne from "@components/Utils/Spinner";
+import { addMessage } from "@/store/Utils/Alert";
 
 export default function LoginPage() {
   const {

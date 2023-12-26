@@ -1,8 +1,8 @@
 import React from "react";
-import { ModalContainer } from "../../styles/ModalStyle/ModalStyle";
+import { ModalContainer } from "@styles/ModalStyle/ModalStyle";
 import { useSelector } from "react-redux";
-import { RootState } from "../../store";
-import { JustifyCenter } from "../../styles/FlexBoxStlye";
+import { RootState } from "@/store";
+import { JustifyCenter } from "@styles/FlexBoxStlye";
 
 function PictureModal() {
   const imgSrc = useSelector(

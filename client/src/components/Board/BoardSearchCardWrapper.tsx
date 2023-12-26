@@ -1,14 +1,14 @@
 import { useEffect } from "react";
 import { Container } from "react-bootstrap";
 import CommunityBoardCard from "../Cards/CommunityBoardCard";
-import { JustifyCenter } from "../../styles/FlexBoxStlye";
+import { JustifyCenter } from "@styles/FlexBoxStlye";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
-import { clearReplies } from "../../store/DataThunk/RepliesSlice";
-import { fetchBoardSearchData } from "../../store/DataThunk/BoardSearchSlice";
+import { RootState } from "@/store";
+import { clearReplies } from "@/store/DataThunk/RepliesSlice";
+import { fetchBoardSearchData } from "@/store/DataThunk/BoardSearchSlice";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
-import { setTotalCount } from "../../store/Utils/Pagination";
+import { setTotalCount } from "@/store/Utils/Pagination";
 
 function BoardSearchCardWrapper() {
   const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>();

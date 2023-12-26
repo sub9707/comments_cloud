@@ -6,7 +6,7 @@ import {
   ContentUl,
   Details,
   InputWrapper,
-} from "../../styles/tagInputStyle";
+} from "@styles/tagInputStyle";
 import { useState, KeyboardEvent, Dispatch, SetStateAction } from "react";
 import { faCircleXmark } from "@fortawesome/free-solid-svg-icons";
 

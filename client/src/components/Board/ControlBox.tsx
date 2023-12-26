@@ -6,7 +6,7 @@ import {
   setPopular,
   setRecent,
   setView,
-} from "../../store/Toggle/BoardFetchTab";
+} from "@/store/Toggle/BoardFetchTab";
 
 function ControlBox() {
   const dispatch = useDispatch();

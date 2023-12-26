@@ -1,11 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { closeModal } from "../../store/Modal/Modal";
-import { ButtonRight } from "../../styles/AdminPageStyle";
+import { closeModal } from "@/store/Modal/Modal";
+import { ButtonRight } from "@styles/AdminPageStyle";
 import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTriangleExclamation } from "@fortawesome/free-solid-svg-icons";
-import { RootState } from "../../store";
+import { RootState } from "@/store";
 
 export default function WriteModal() {
   const dispatch = useDispatch();

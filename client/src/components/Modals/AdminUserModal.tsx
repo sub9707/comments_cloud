@@ -1,15 +1,12 @@
 import { Button, Modal } from "react-bootstrap";
-import {
-  ModalContainer,
-  ModalContent,
-} from "../../styles/ModalStyle/ModalStyle";
+import { ModalContainer, ModalContent } from "@styles/ModalStyle/ModalStyle";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
-import { DottedDivision } from "../../styles/UtilityElements";
+import { RootState } from "@/store";
+import { DottedDivision } from "@styles/UtilityElements";
 import styled from "styled-components";
-import { JustFlex, JustifyCenter } from "../../styles/FlexBoxStlye";
-import { closeModal } from "../../store/Modal/Modal";
-import { deleteUser } from "../../api/user";
+import { JustFlex, JustifyCenter } from "@styles/FlexBoxStlye";
+import { closeModal } from "@/store/Modal/Modal";
+import { deleteUser } from "@api/user";
 import { useNavigate } from "react-router-dom";
 
 function AdminUserModal() {

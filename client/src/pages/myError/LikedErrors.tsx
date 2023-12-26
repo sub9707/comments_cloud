@@ -2,10 +2,10 @@ import { faCaretLeft, faCaretRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect, useState } from "react";
 import ItemsCarousel from "react-items-carousel";
-import CarouselCard from "../../components/UserProfile/CarouselCard";
+import CarouselCard from "@components/UserProfile/CarouselCard";
 import { useParams } from "react-router-dom";
-import { getLikedData } from "../../api/user";
-import { recentErrorType } from "../../types/users";
+import { getLikedData } from "@api/user";
+import { recentErrorType } from "@/types/users";
 
 function LikedErrors() {
   const { userId } = useParams();

@@ -1,18 +1,15 @@
 import { Button, Modal } from "react-bootstrap";
-import {
-  ModalContainer,
-  ModalContent,
-} from "../../styles/ModalStyle/ModalStyle";
+import { ModalContainer, ModalContent } from "@styles/ModalStyle/ModalStyle";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearBoardModal,
   selectBoardData,
-} from "../../store/Modal/AdminBoardModal";
+} from "@/store/Modal/AdminBoardModal";
 import styled from "styled-components";
-import { JustifyCenter, JustifyStart } from "../../styles/FlexBoxStlye";
-import { closeModal } from "../../store/Modal/Modal";
+import { JustifyCenter, JustifyStart } from "@styles/FlexBoxStlye";
+import { closeModal } from "@/store/Modal/Modal";
 import { useNavigate } from "react-router-dom";
-import { deleteError } from "../../api/ErrorBoard";
+import { deleteError } from "@api/ErrorBoard";
 
 function AdminBoardModal() {
   const boardData = useSelector(selectBoardData);

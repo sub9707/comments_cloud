@@ -1,4 +1,4 @@
-import { CardInfo, CardWrapper, DateInfo } from "../../styles/CardStyle";
+import { CardInfo, CardWrapper, DateInfo } from "@styles/CardStyle";
 import { CardTitle, Placeholder } from "react-bootstrap";
 
 function CommunityBoardCardPH() {

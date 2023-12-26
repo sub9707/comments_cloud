@@ -1,27 +1,23 @@
 import { useEffect, useState } from "react";
-import { TableCard, WidthMaxCenter } from "../../styles/PageContainer";
+import { TableCard, WidthMaxCenter } from "@styles/PageContainer";
 import { OverlayTrigger, Table } from "react-bootstrap";
-import { ErrorTableData, ErrorTableHead } from "../../styles/TableStyle";
+import { ErrorTableData, ErrorTableHead } from "@styles/TableStyle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import SolvedBadge from "../Badges/SolvedTag";
 import PublicBadge from "../Badges/PublicTag";
 import LoadButton from "../CustomButtons/DataLoadButton";
 import { useDispatch, useSelector } from "react-redux";
-import { MyErrorTablePropType } from "../../types/TableTypes";
-import {
-  getMyErrorCount,
-  getMyErrors,
-  postErrorViews,
-} from "../../api/ErrorBoard";
-import { setMyErrorData } from "../../store/Modal/MyErrorModal";
-import { openModal } from "../../store/Modal/Modal";
+import { MyErrorTablePropType } from "@/types/TableTypes";
+import { getMyErrorCount, getMyErrors, postErrorViews } from "@api/ErrorBoard";
+import { setMyErrorData } from "@/store/Modal/MyErrorModal";
+import { openModal } from "@/store/Modal/Modal";
 import PopoverCard from "../Cards/PopoverCard";
 import { faTags } from "@fortawesome/free-solid-svg-icons";
-import { api } from "../../api/axios";
-import LoadingPage from "../../pages/LoadingPage";
-import { userStateType } from "../../store/Utils/User";
-import { RootState } from "../../store";
-import { FlexColumn, JustifyCenter } from "../../styles/FlexBoxStlye";
+import { api } from "@api/axios";
+import LoadingPage from "@pages/LoadingPage";
+import { userStateType } from "@/store/Utils/User";
+import { RootState } from "@/store";
+import { FlexColumn, JustifyCenter } from "@styles/FlexBoxStlye";
 
 function MyErrorTable() {
   const [loading, setLoading] = useState<boolean>(false);

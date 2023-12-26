@@ -1,8 +1,8 @@
 import { Pagination } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
-import { RootState } from "../../store";
-import { setCurrentPage, setOffset } from "../../store/Utils/Pagination";
+import { RootState } from "@/store";
+import { setCurrentPage, setOffset } from "@/store/Utils/Pagination";
 
 function BoardPagination() {
   const dispatch = useDispatch();

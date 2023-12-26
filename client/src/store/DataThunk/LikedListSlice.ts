@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { api } from "../../api/axios";
-import { LikedBoardsListType } from "../../types/TableTypes";
+import { api } from "@api/axios";
+import { LikedBoardsListType } from "@/types/TableTypes";
 
 const initialState: LikedBoardsListType = {
   data: [],

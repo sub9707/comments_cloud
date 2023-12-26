@@ -3,10 +3,10 @@ import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { DELETE_TOKEN } from "../../store/Utils/Auth";
-import { removeCookieToken } from "../../store/Utils/Cookie";
-import { persistor } from "../../store";
-import { addMessage } from "../../store/Utils/Alert";
+import { DELETE_TOKEN } from "@/store/Utils/Auth";
+import { removeCookieToken } from "@/store/Utils/Cookie";
+import { persistor } from "@/store";
+import { addMessage } from "@/store/Utils/Alert";
 
 export default function Logout() {
   const dispatch = useDispatch();
