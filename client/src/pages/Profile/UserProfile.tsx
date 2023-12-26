@@ -40,7 +40,7 @@ export default function UserProfile() {
   const user = useSelector((state: userStateType) => state.user.data);
   const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>();
   const containerRef = useRef<HTMLDivElement>(null);
-  const [hasMoreData, setHasMoreData] = useState<boolean>(true);
+  const [hasMoreData, setHasMoreData] = useState<boolean>(false);
   const [isPublicList, setIsPublicList] = useState<boolean>(false);
   const offset = useSelector((state: RootState) => state.pagination.offset);
   const totalCount = useSelector(
@@ -66,13 +66,24 @@ export default function UserProfile() {
     setHasMoreData(totalCount > offset);
     if (!userId || !hasMoreData) return;
     await dispatch(fetchLikedList({ userId: +userId, offset }));
-    dispatch(setOffset(offset + 6));
+    dispatch(setOffset(offset + 10));
   };
 
   const checkListPublic = async () => {
+    if (!userId) return;
+
     const result = await checkLikedListPublic(userId || "");
-    if (result?.liked_list_public) clickFetchHandler();
-    setIsPublicList(result?.liked_list_public);
+    if (result?.liked_list_public) {
+      try {
+        await dispatch(fetchLikedList({ userId: +userId, offset }));
+        await dispatch(setOffset(offset + 10));
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setHasMoreData(totalCount > offset);
+        setIsPublicList(result?.liked_list_public);
+      }
+    }
   };
 
   const handleTogglePublic = async () => {
@@ -92,10 +103,12 @@ export default function UserProfile() {
   };
 
   useEffect(() => {
-    dispatch(setOffset(0));
     userFind();
-    dispatch(clearLikedList());
     checkListPublic();
+    return () => {
+      dispatch(setOffset(0));
+      dispatch(clearLikedList());
+    };
   }, []);
 
   return (
