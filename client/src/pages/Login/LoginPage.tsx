@@ -143,7 +143,9 @@ export default function LoginPage() {
       <PageActualWrapper>
         <LoginPageContainer>
           <FormsSection>
-            <SectionTitle>트러블노트 (개발중)</SectionTitle>
+            <SectionTitle>
+              <img src="/images/LogoInv.png" alt="로고" />
+            </SectionTitle>
             {/* 로그인 FORM */}
             <FormsWrapper>
               <FormWrapper
