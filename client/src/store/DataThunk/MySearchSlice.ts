@@ -5,6 +5,7 @@ import { MyErrorSearchDataType } from "@/types/BoardTypes";
 const initialState: MyErrorSearchDataType = {
   data: [],
   count: 0,
+  loading: false,
 };
 
 /**
@@ -38,9 +39,13 @@ const mySearchSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchSearchData.pending, (state, action) => {
+      state.loading = true;
+    });
     builder.addCase(fetchSearchData.fulfilled, (state, action) => {
       state.data = [...state.data, ...action.payload.data];
       state.count = action.payload.total;
+      state.loading = false;
     });
   },
 });

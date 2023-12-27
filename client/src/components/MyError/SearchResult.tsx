@@ -7,9 +7,9 @@ function SearchResult() {
   const searchData = useSelector((state: RootState) => state.mySearch.data);
   return (
     <ResultBox>
-      {searchData.map((data, _idx) => (
-        <ResultCompOne {...data} key={_idx} />
-      ))}
+      {searchData
+        ? searchData.map((data, _idx) => <ResultCompOne {...data} key={_idx} />)
+        : null}
     </ResultBox>
   );
 }

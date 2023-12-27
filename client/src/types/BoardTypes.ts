@@ -36,6 +36,7 @@ export type MyErrorSearchType = {
 export type MyErrorSearchDataType = {
   data: MyErrorSearchType[];
   count: number;
+  loading: boolean;
 };
 
 export type BoardSearchDataType = {

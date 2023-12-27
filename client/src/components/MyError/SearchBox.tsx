@@ -7,11 +7,13 @@ import { clearSearch, fetchSearchData } from "@/store/DataThunk/MySearchSlice";
 import { userStateType } from "@/store/Utils/User";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
+import { MyErrorSearchDataType } from "@/types/BoardTypes";
 
 function SearchBox() {
   const [searchValue, setSearchValue] = useState<string>("");
   const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>();
   const user = useSelector((state: userStateType) => state.user.data);
+  const loading = useSelector((state: MyErrorSearchDataType) => state.loading);
 
   const handleInputChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,7 +43,7 @@ function SearchBox() {
         value={searchValue}
         onChange={handleInputChange}
       />
-      <Button variant="primary" onClick={handleButtonClick}>
+      <Button variant="primary" onClick={handleButtonClick} disabled={loading}>
         <FontAwesomeIcon icon={faMagnifyingGlass} />
       </Button>
     </InputGroup>
