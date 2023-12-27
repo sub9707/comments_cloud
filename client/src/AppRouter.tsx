@@ -55,7 +55,6 @@ export default function AppRouter() {
       <Suspense fallback={loading}>
         <GlobalModal />
         <GlobalAlert />
-
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/logout" element={<Logout />} />
