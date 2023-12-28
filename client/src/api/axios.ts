@@ -1,8 +1,8 @@
 import axios from "axios";
-import { getCookieToken } from "@/store/Utils/Cookie";
+import { getCookieToken, removeCookieToken } from "@/store/Utils/Cookie";
 import { getRefreshedToken } from "./token";
-import { store } from "@/store";
-import { SET_TOKEN } from "@/store/Utils/Auth";
+import { persistor, store } from "@/store";
+import { DELETE_TOKEN, SET_TOKEN } from "@/store/Utils/Auth";
 
 export const api = axios.create({
   baseURL: import.meta.env.VITE_SERVER_URL,
@@ -20,7 +20,7 @@ const access_token = authTokenPersist
   : null;
 const refreshToken = getCookieToken();
 
-// axios 요청 인터셉터 [refresh]
+// axios 요청 인터셉터
 api.interceptors.request.use(
   function (config) {
     if (access_token) {
@@ -33,19 +33,29 @@ api.interceptors.request.use(
   }
 );
 
+// axios 응답 인터셉터
 api.interceptors.response.use(
   function (response) {
     return response;
   },
   async function (error) {
     const originalRequest = error.config;
+    // 토큰이 만료된 상태라면 새 토큰 발급
     if (
       error.reponse.status === 401 &&
       !originalRequest._retry &&
       access_token
     ) {
-      if (!refreshToken) return error;
+      // refreshToken이 없다면(만료) 로그아웃 후 에러 리턴
+      if (!refreshToken) {
+        store.dispatch(DELETE_TOKEN());
+        removeCookieToken();
+        await persistor.purge();
+        alert("토큰이 만료되었습니다. 로그인해주세요.");
+        return error;
+      }
       originalRequest._retry = true;
+      // refreshToken이 있다면 새 AccessToken 발급
       const newAccessToken = await getRefreshedToken();
       if (newAccessToken) {
         store.dispatch(SET_TOKEN(newAccessToken));

@@ -16,10 +16,11 @@ export default function UserTable(props: UserTableProps) {
 
   // 검색어 강조
   const highlightSearchTerm = (text: string) => {
+    // 검색어 없을 때
     if (!props.searchTerm.trim()) {
       return <>{text}</>;
     }
-
+    // 검색어 넘어올 때 수행
     const regex = new RegExp(`(${props.searchTerm})`, "gi");
     const parts = text.split(regex);
 
