@@ -16,4 +16,31 @@ export default defineConfig({
       { find: "@types", replacement: "/src/types" },
     ],
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ["react", "react-dom"],
+          reactRouter: ["react-router-dom"],
+          axios: ["axios"],
+          moment: ["moment"],
+          redux: ["redux", "react-redux", "redux-thunk"],
+          nivo: ["@nivo/calendar", "@nivo/core", "@nivo/line"],
+          quill: [
+            "quill-image-resize",
+            "quill-image-resize-module-ts",
+            "react-quill",
+          ],
+          fontAwesome: [
+            "@fortawesome/fontawesome-svg-core",
+            "@fortawesome/free-regular-svg-icons",
+            "@fortawesome/free-solid-svg-icons",
+            "@fortawesome/react-fontawesome",
+          ],
+          bootstrap: ["bootstrap"],
+          styledComponents: ["styled-components"],
+        },
+      },
+    },
+  },
 });

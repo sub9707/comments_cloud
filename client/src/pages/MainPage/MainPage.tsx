@@ -72,18 +72,18 @@ export default function MainPage() {
         <>
           <Row style={{ height: "50%" }}>
             <Col style={ColStyle}>
-              <ImageCard {...tempData[0]} ImgUrl="/images/Note.png" />
+              <ImageCard {...tempData[0]} ImgUrl="/images/Note.webp" />
             </Col>
             <Col style={ColStyle}>
-              <ImageCard {...tempData[1]} ImgUrl="/images/notice.png" />
+              <ImageCard {...tempData[1]} ImgUrl="/images/notice.webp" />
             </Col>
           </Row>
           <Row style={{ height: "50%" }}>
             <Col style={ColStyle}>
-              <ImageCard {...tempData[2]} ImgUrl="/images/MyError.png" />
+              <ImageCard {...tempData[2]} ImgUrl="/images/MyError.webp" />
             </Col>
             <Col style={ColStyle}>
-              <ImageCard {...tempData[3]} ImgUrl="/images/Board.png" />
+              <ImageCard {...tempData[3]} ImgUrl="/images/Board.webp" />
             </Col>
           </Row>
         </>

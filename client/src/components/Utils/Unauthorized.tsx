@@ -15,7 +15,7 @@ export default function Unauthorized() {
       }}>
       <img
         style={{ width: "40%", height: "80vh" }}
-        src="images/Unauthorized.png"
+        src="images/Unauthorized.webp"
         alt="대체이미지"
       />
       <div

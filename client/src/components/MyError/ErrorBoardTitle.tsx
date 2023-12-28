@@ -19,7 +19,7 @@ function ErrorBoardTitle() {
         <OverlayTrigger
           placement="right"
           overlay={<Tooltip>해결된 에러노트</Tooltip>}>
-          <img src="/images/success_badge.png" alt="해결 뱃지" />
+          <img src="/images/success_badge.webp" alt="해결 뱃지" />
         </OverlayTrigger>
       )}
     </TitleHeader>

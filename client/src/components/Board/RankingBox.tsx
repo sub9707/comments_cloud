@@ -64,7 +64,7 @@ function RankingBox() {
                       {data?.title}
                     </p>
                     {isWithin24Hours(data?.write_date) ? (
-                      <NewIcon src="/images/new.png" alt="newIcon" />
+                      <NewIcon src="/images/new.webp" alt="newIcon" />
                     ) : null}
                   </JustFlex>
                 ))}
@@ -79,7 +79,7 @@ function RankingBox() {
                       <strong>{index + 6}</strong>&nbsp;{data?.title}
                     </p>
                     {isWithin24Hours(data?.write_date) ? (
-                      <NewIcon src="/images/new.png" alt="newIcon" />
+                      <NewIcon src="/images/new.webp" alt="newIcon" />
                     ) : null}
                   </JustFlex>
                 ))}

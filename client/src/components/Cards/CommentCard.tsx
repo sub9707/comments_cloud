@@ -148,7 +148,7 @@ export default function CommentCard() {
           <CardContainer>
             <CardLeft>
               <CardProfile
-                src={reply?.profileImg || "/images/Default_ProfileImg.png"}
+                src={reply?.profileImg || "/images/Default_ProfileImg.webp"}
                 alt="프로필 Img"
               />
               <CommentLikes>

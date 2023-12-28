@@ -117,7 +117,7 @@ function MyErrorTable() {
           <JustifyCenter style={{ height: "70vh" }}>
             <FlexColumn style={{ alignItems: "center" }}>
               <img
-                src="/images/noData.png"
+                src="/images/noData.webp"
                 alt="noData"
                 style={{ width: "50%", height: "80%", objectFit: "contain" }}
               />

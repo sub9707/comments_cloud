@@ -144,7 +144,7 @@ export default function LoginPage() {
         <LoginPageContainer>
           <FormsSection>
             <SectionTitle>
-              <img src="/images/LogoInv.png" alt="로고" />
+              <img src="/images/LogoInv.webp" alt="로고" />
             </SectionTitle>
             {/* 로그인 FORM */}
             <FormsWrapper>
