@@ -65,7 +65,6 @@ class UserController {
   static getCheckPW = async (req, res) => {
     try {
       const { userId, password } = req.body;
-      console.log(userId + " " + password);
       const results = await userModel.checkPassword(userId, password);
       res.send(results);
     } catch (error) {
