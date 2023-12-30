@@ -1,9 +1,13 @@
 import { checkPassword } from "@api/user";
+import { setPasswordChecked } from "@/store/Utils/PasswordSet";
 import { JustifyCenter } from "@styles/FlexBoxStlye";
 import { MainContainer } from "@styles/PageContainer";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Button, ButtonGroup, Form, InputGroup } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { RootState } from "@store/index";
 
 function PasswordConfirm() {
   const [password, setPassword] = useState<string>("");
@@ -12,22 +16,24 @@ function PasswordConfirm() {
   const parsedUserPersist = JSON.parse(userPersist || "");
   const userData = JSON.parse(parsedUserPersist.user);
   const userId = userData.data.id;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
 
-  const passwordCheck = async () => {
+  const handleConfirmClick = async () => {
     try {
       const result = await checkPassword(userId, password);
-      console.log(result);
-      setIsValid(result);
+      setIsValid(!result);
+      if (result) {
+        dispatch(setPasswordChecked(true));
+        navigate(`/passwordChange`);
+      }
     } catch (error) {
       console.error(error);
     }
-  };
-  const handleConfirmClick = () => {
-    passwordCheck();
   };
 
   const handleCancelClick = () => {};
@@ -77,10 +83,12 @@ function PasswordConfirm() {
 }
 
 export default PasswordConfirm;
-
-const PWHeader = styled.h4`
+// eslint-disable-next-line react-refresh/only-export-components
+export const PWHeader = styled.h4`
   font-family: "LotteMartHappy";
 `;
-const PWForm = styled.form`
+// eslint-disable-next-line react-refresh/only-export-components
+export const PWForm = styled.form`
   margin-top: 5em;
+  width: 40%;
 `;

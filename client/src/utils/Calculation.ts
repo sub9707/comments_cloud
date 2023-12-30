@@ -67,3 +67,14 @@ export const isWithin24Hours = (date: string) => {
   // 24시간 이내라면 true, 그렇지 않으면 false 반환
   return hoursDiff <= 24;
 };
+
+export const validatePassword = (password: string) => {
+  const hasMinLength = password.length >= 10;
+
+  const hasTwoTypes =
+    /^(?=.*[a-z])(?=.*[A-Z])|(?=.*\d)(?=.*[a-zA-Z])|(?=.*[!@#$%^&*(),.?":{}|<>])/.test(
+      password
+    );
+
+  return hasMinLength && hasTwoTypes;
+};

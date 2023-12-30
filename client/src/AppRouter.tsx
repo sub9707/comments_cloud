@@ -11,11 +11,6 @@ import React, { Suspense } from "react";
 import GlobalModal from "@components/Modals/GlobalModal";
 import LoadingPage from "@pages/LoadingPage";
 import GlobalAlert from "@components/Modals/GlobalAlert";
-import { store } from "./store";
-
-const isPasswordAuthed = store.getState().PasswordCheckedSlice.Authenticated;
-
-console.log(isPasswordAuthed);
 
 const loading = (
   <div style={{ width: "100%", height: "100vh", opacity: 0.5 }}>
@@ -95,16 +90,7 @@ export default function AppRouter() {
               <Route path=":userId" element={<UserProfilePage />} />
               <Route path="edit/:userId" element={<UserProfileFixPage />} />
             </Route>
-            <Route
-              path="passwordChange"
-              element={
-                isPasswordAuthed ? (
-                  <PasswordChange />
-                ) : (
-                  <Navigate to="/passwordConfirm" />
-                )
-              }
-            />
+            <Route path="passwordChange" element={<PasswordChange />} />
             <Route path="passwordConfirm" element={<PasswordConfirm />} />
           </Route>
           // Admin Page

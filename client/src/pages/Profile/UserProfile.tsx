@@ -34,6 +34,7 @@ import {
 import { RootState } from "@/store";
 import { setOffset } from "@/store/Utils/Pagination";
 import { addMessage } from "@/store/Utils/Alert";
+import styled from "styled-components";
 
 export default function UserProfile() {
   const { userId } = useParams();
@@ -115,12 +116,19 @@ export default function UserProfile() {
       <JustifyBetween>
         <PageHeader>유저 프로필</PageHeader>
         {user?.id === parseInt(userId || "") && (
-          <Button
-            style={{ height: "2.5em", marginTop: "2em" }}
-            variant="outline-primary"
-            onClick={() => navigate(`/user/edit/${userId}`)}>
-            프로필 수정
-          </Button>
+          <ProfileEditBox>
+            <p
+              className="text-underline-hover"
+              onClick={() => navigate(`/passwordConfirm`)}>
+              비밀번호 변경
+            </p>
+            <Button
+              style={{ height: "2.5em", marginTop: "2em" }}
+              variant="outline-primary"
+              onClick={() => navigate(`/user/edit/${userId}`)}>
+              프로필 수정
+            </Button>
+          </ProfileEditBox>
         )}
       </JustifyBetween>
       <ProfileBox>
@@ -169,3 +177,14 @@ export default function UserProfile() {
     </MainContainer>
   );
 }
+
+const ProfileEditBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  p {
+    margin: 0;
+    margin-top: 2em;
+    opacity: 0.7;
+  }
+`;
