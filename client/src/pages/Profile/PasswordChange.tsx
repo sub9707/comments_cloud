@@ -9,7 +9,7 @@ import { Button, ButtonGroup, Form, InputGroup } from "react-bootstrap";
 import { JustifyCenter } from "@styles/FlexBoxStlye";
 import { validatePassword } from "@utils/Calculation";
 import { passwordChange } from "@api/user";
-import { addMessage } from "@store/Utils/Alert";
+import { addMessage } from "@/store/Utils/Alert";
 
 export default function PasswordChange() {
   const authenticated = useSelector(
