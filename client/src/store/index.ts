@@ -17,6 +17,7 @@ import LikedBoardListSlice from "./DataThunk/LikedListSlice";
 import adminUserModalSlice from "./Modal/AdminUserModal";
 import adminBoardModalSlice from "./Modal/AdminBoardModal";
 import pictureModalSlice from "./Modal/PictureModal";
+import PasswordCheckedSlice from "./Utils/PasswordSet";
 import storage from "redux-persist/lib/storage";
 
 import {
@@ -50,6 +51,7 @@ const reducers = combineReducers({
   adminUserModalSlice,
   adminBoardModalSlice,
   pictureModalSlice,
+  PasswordCheckedSlice,
 });
 
 export type RootState = ReturnType<typeof reducers>;

@@ -54,6 +54,20 @@ export const getUserInfo = async (userId: string) => {
   }
 };
 /**
+ * @method POST
+ *  사용자 비밀번호 확인
+ */
+export const checkPassword = async (userId: string, password: string) => {
+  const data = { userId, password };
+  try {
+    const response = await api.post(`/user/pwCheck`, data);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw new Error("사용자 비밀번호 확인");
+  }
+};
+/**
  * @method DELETE
  *  사용자 삭제
  */

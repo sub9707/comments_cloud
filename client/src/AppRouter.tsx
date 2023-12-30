@@ -1,10 +1,21 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Navigate,
+  Route,
+  Routes,
+  redirect,
+} from "react-router-dom";
 import LoginPage from "@pages/Login/LoginPage";
 import Logout from "@pages/Logout/Logout";
 import React, { Suspense } from "react";
 import GlobalModal from "@components/Modals/GlobalModal";
 import LoadingPage from "@pages/LoadingPage";
 import GlobalAlert from "@components/Modals/GlobalAlert";
+import { store } from "./store";
+
+const isPasswordAuthed = store.getState().PasswordCheckedSlice.Authenticated;
+
+console.log(isPasswordAuthed);
 
 const loading = (
   <div style={{ width: "100%", height: "100vh", opacity: 0.5 }}>
@@ -20,6 +31,13 @@ const AdminPageLayout = React.lazy(
 // Util Pages
 const PageNotFound = React.lazy(() => import("@pages/NotFoundPage"));
 const Unauthorized = React.lazy(() => import("@components/Utils/Unauthorized"));
+const PasswordConfirm = React.lazy(
+  () => import("@pages/Profile/PasswordConfirm")
+);
+const PasswordChange = React.lazy(
+  () => import("@pages/Profile/PasswordChange")
+);
+
 // Main
 const MainComp = React.lazy(() => import("@pages/MainPage/MainPage"));
 const NoticePage = React.lazy(() => import("@pages/Notice/NoticePage"));
@@ -77,6 +95,17 @@ export default function AppRouter() {
               <Route path=":userId" element={<UserProfilePage />} />
               <Route path="edit/:userId" element={<UserProfileFixPage />} />
             </Route>
+            <Route
+              path="passwordChange"
+              element={
+                isPasswordAuthed ? (
+                  <PasswordChange />
+                ) : (
+                  <Navigate to="/passwordConfirm" />
+                )
+              }
+            />
+            <Route path="passwordConfirm" element={<PasswordConfirm />} />
           </Route>
           // Admin Page
           <Route path="/admin" element={<AdminPageLayout />}>
