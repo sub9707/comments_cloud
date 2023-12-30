@@ -42,7 +42,7 @@ api.interceptors.response.use(
     const originalRequest = error.config;
     // 토큰이 만료된 상태라면 새 토큰 발급
     if (
-      error.reponse.status === 401 &&
+      error.reponse.status === 419 &&
       !originalRequest._retry &&
       access_token
     ) {
