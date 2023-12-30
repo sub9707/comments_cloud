@@ -55,6 +55,25 @@ class UserController {
     }
   };
   /**
+   * 유저 비밀번호 확인
+   *
+   * @param {request}
+   * @param {response}
+   * @method POST
+   *
+   */
+  static getCheckPW = async (req, res) => {
+    try {
+      const { userId, password } = req.body;
+
+      const results = await userModel.checkPassword(userId, password);
+      res.send(results);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error:[유저 등록 Controller]");
+    }
+  };
+  /**
    * 유저 데이터 삭제
    *
    * @param {request}

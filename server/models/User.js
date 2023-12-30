@@ -118,6 +118,34 @@ class UserModel {
       );
     });
   }
+  static async checkPassword(userId, password) {
+    return new Promise((resolve, reject) => {
+      db.query(
+        "SELECT * FROM users WHERE id = ?",
+        [userId],
+        async (error, result) => {
+          if (!error) {
+            if (result.length === 0) {
+              resolve(false);
+            } else {
+              const hashedPassword = result[0].password;
+              try {
+                const passwordMatch = await bcrypt.compare(
+                  password,
+                  hashedPassword
+                );
+                resolve(passwordMatch);
+              } catch (compareError) {
+                reject(compareError);
+              }
+            }
+          } else {
+            reject(error);
+          }
+        }
+      );
+    });
+  }
 
   static async getUserInfoById(userId) {
     return new Promise((resolve) => {
