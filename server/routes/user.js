@@ -23,6 +23,7 @@ router.put("/LikedPublic", auth, usercontroller.changeLikedListPublic);
 router.get("/findById", usercontroller.userFindById);
 router.post("/register", usercontroller.registerUser);
 router.post("/login", usercontroller.loginUser);
-router.post("/pwCheck", usercontroller.getCheckPW);
+router.post("/pwCheck", auth, usercontroller.getCheckPW);
+router.put("/pwChange", auth, usercontroller.passwordChange);
 
 module.exports = router;

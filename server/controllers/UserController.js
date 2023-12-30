@@ -70,7 +70,28 @@ class UserController {
       res.send(results);
     } catch (error) {
       console.error(error);
-      res.status(500).send("Internal Server Error:[유저 등록 Controller]");
+      res
+        .status(500)
+        .send("Internal Server Error:[비밀번호 유효검사 Controller]");
+    }
+  };
+  /**
+   * 유저 비밀번호 변경
+   *
+   * @param {request}
+   * @param {response}
+   * @method POST
+   *
+   */
+  static passwordChange = async (req, res) => {
+    try {
+      const { userId, password } = req.body;
+      const hashedPassword = await bcrypt.hash(password, 10);
+      const results = await userModel.passwordChange(userId, hashedPassword);
+      res.send(results);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("Internal Server Error:[비밀번호 변경 Controller]");
     }
   };
   /**

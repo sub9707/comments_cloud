@@ -146,6 +146,25 @@ class UserModel {
       );
     });
   }
+  static async passwordChange(userId, password) {
+    return new Promise((resolve, reject) => {
+      db.query(
+        "UPDATE users SET password = ? WHERE id = ?",
+        [password, userId],
+        async (error, result) => {
+          if (!error) {
+            if (result.affectedRows === 0) {
+              resolve(false);
+            } else {
+              resolve(true);
+            }
+          } else {
+            reject(error);
+          }
+        }
+      );
+    });
+  }
 
   static async getUserInfoById(userId) {
     return new Promise((resolve) => {
