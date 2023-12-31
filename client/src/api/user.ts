@@ -29,14 +29,23 @@ export default registerUser;
  *  사용자 로그인
  */
 export const loginUser = async (email: string, password: string) => {
-  const data = { email, password };
-  const response = await api.post(`/user/login`, data);
-  if (response.status === 200) {
-    return response.data;
-  } else if (response.status === 401) {
-    throw new Error("로그인 정보가 일치하지 않습니다.");
-  } else {
-    throw new Error("서버 오류");
+  try {
+    const data = { email, password };
+    const response = await api.post(`/user/login`, data);
+
+    if (response && response.status === 200 && response.data) {
+      return response.data;
+    } else {
+      console.error(response?.status, response?.data);
+      throw new Error(response?.data?.message || "서버 오류");
+    }
+  } catch (error: any) {
+    console.error(error);
+    if (error.response && error.response.data) {
+      throw new Error(error.response.data.message || "서버 오류");
+    } else {
+      throw new Error("서버 오류");
+    }
   }
 };
 

@@ -80,7 +80,7 @@ export default function LoginPage() {
         console.log("로그인 실패:", result);
       }
     } catch (error: any) {
-      setLoginError(error.response.data);
+      setLoginError("로그인 정보를 확인해주세요.");
     } finally {
       setIsLoading(false);
     }
