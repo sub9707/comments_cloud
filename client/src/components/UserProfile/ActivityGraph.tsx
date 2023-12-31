@@ -42,6 +42,7 @@ function ActivityGraph(props: { userId: string }) {
       }
     })();
   }, []);
+
   return (
     <div style={{ width: "100%", height: "20vh" }}>
       <JustifyStart>

@@ -74,7 +74,7 @@ export const checkPassword = async (userId: string, password: string) => {
 export const passwordChange = async (userId: string, password: string) => {
   const data = { userId, password };
   try {
-    const response = await api.put(`/user/pwCheck`, data);
+    const response = await api.put(`/user/pwChange`, data);
     return response.data;
   } catch (error) {
     console.error(error);
