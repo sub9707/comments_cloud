@@ -204,7 +204,7 @@ class UserController {
   static loginUser = async (req, res) => {
     try {
       const { email, password } = req.body;
-      console.log(getCurrentTime(new Date()));
+      console.log(new Date(new Date() + 9 * 60 * 60 * 1000));
       const currentTime = new Date();
       const user = await userModel.authenticateUser(
         email,

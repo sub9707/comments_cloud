@@ -1,9 +1,4 @@
 const moment = require("moment");
-moment.locale("ko", {
-  week: {
-    dow: 1,
-  },
-});
 
 const dateOffset = new Date().getTimezoneOffset() * 60000;
 // 날짜 포맷팅
@@ -42,12 +37,6 @@ const getStartAndEndOfMonth = () => {
     startOfMonth: formattedStartOfMonth,
     endOfMonth: formattedEndOfMonth,
   };
-};
-
-const getCurrentTime = (utc) => {
-  const kst = moment(utc, "YYYY-MM-DDTHH:mm:ssZ");
-  const result = kst["_d"];
-  return result;
 };
 
 module.exports = {
