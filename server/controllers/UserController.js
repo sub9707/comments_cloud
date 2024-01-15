@@ -199,7 +199,7 @@ class UserController {
   static loginUser = async (req, res) => {
     try {
       const { email, password } = req.body;
-      const currentTime = moment().format("YYYY-MM-DD");
+      const currentTime = new Date().toLocaleDateString();
       const user = await userModel.authenticateUser(
         email,
         password,

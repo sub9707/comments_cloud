@@ -7,7 +7,6 @@ const db = mysql.createPool({
   password: process.env.MYSQL_PASSWORD,
   database: process.env.MYSQL_DATABASE,
   port: 32277,
-  timezone: "+09:00",
 });
 
 db.getConnection((err) => {
