@@ -206,6 +206,7 @@ class UserController {
       const { email, password } = req.body;
       console.log(new Date(new Date() + 9 * 60 * 60 * 1000));
       const currentTime = new Date();
+
       const user = await userModel.authenticateUser(
         email,
         password,
