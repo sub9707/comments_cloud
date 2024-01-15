@@ -39,9 +39,19 @@ const getStartAndEndOfMonth = () => {
   };
 };
 
+const getCurrentTime = () => {
+  const utcNow = new Date();
+
+  const kOffset = 9 * 60;
+  const kNow = new Date(utcNow.getTime() + kOffset * 60000);
+
+  return kNow.toISOString();
+};
+
 module.exports = {
   dateOffset,
   getTodayFormat,
   getTodayTimeFormat,
   getStartAndEndOfMonth,
+  getCurrentTime,
 };

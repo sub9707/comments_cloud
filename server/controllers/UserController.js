@@ -204,19 +204,8 @@ class UserController {
   static loginUser = async (req, res) => {
     try {
       const { email, password } = req.body;
-      // UTC 현재 시간 가져오기
-      const utcNow = new Date();
 
-      // 한국 시간 오프셋 (UTC+9)
-      const koreaOffset = 9 * 60; // 분 단위로 계산
-
-      // 현재 시간에 오프셋을 더하여 한국 현지 시간으로 변환
-      const koreaNow = new Date(utcNow.getTime() + koreaOffset * 60000);
-
-      console.log("UTC 현재 시간: ", utcNow.toISOString());
-      console.log("한국 현지 시간: ", koreaNow.toISOString());
-
-      const currentTime = new Date();
+      const currentTime = getCurrentTime();
 
       const user = await userModel.authenticateUser(
         email,
