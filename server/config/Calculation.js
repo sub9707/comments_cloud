@@ -44,5 +44,4 @@ module.exports = {
   getTodayFormat,
   getTodayTimeFormat,
   getStartAndEndOfMonth,
-  getCurrentTime,
 };
