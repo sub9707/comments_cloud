@@ -1,6 +1,6 @@
 const userModel = require("../models/User");
 const { s3 } = require("../config/s3");
-const { validationResult } = require("express-validator");
+const { getCurrentTime } = require("../config/Calculation");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const moment = require("moment");
@@ -204,8 +204,7 @@ class UserController {
   static loginUser = async (req, res) => {
     try {
       const { email, password } = req.body;
-      const currentTime = moment().format();
-      console.log(currentTime);
+      console.log(getCurrentTime());
       const user = await userModel.authenticateUser(
         email,
         password,
