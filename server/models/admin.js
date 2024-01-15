@@ -39,7 +39,7 @@ class AdminModel {
       const query = `
         SELECT COUNT(*) AS loginCount
         FROM users
-        WHERE DATE(last_login) = CURDATE();
+        WHERE DATE_FORMAT(last_login, '%Y-%m-%d') = CURDATE();
       `;
       db.query(query, [], (error, result) => {
         if (!error) {
