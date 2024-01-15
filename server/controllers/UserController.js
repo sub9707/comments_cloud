@@ -4,6 +4,11 @@ const { validationResult } = require("express-validator");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const moment = require("moment");
+moment.locale("ko", {
+  week: {
+    dow: 1,
+  },
+});
 
 class UserController {
   /**
@@ -199,8 +204,8 @@ class UserController {
   static loginUser = async (req, res) => {
     try {
       const { email, password } = req.body;
-      const currentTime = new Date().toLocaleDateString();
-      console.log("Time: " + currentTime);
+      const currentTime = moment();
+      console.log(currentTime);
       const user = await userModel.authenticateUser(
         email,
         password,
