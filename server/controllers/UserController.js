@@ -200,7 +200,7 @@ class UserController {
     try {
       const { email, password } = req.body;
       const currentTime = new Date().toLocaleDateString();
-      console.log(currentTime);
+      console.log("Time: " + currentTime);
       const user = await userModel.authenticateUser(
         email,
         password,
