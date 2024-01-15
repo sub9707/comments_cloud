@@ -44,7 +44,7 @@ const getStartAndEndOfMonth = () => {
   };
 };
 
-const getCurrentTime = () => {
+const getCurrentTime = (utc) => {
   const kst = moment(utc, "YYYY-MM-DDTHH:mm:ssZ");
   const result = kst["_d"];
   return result;
