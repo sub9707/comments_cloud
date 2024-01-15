@@ -205,6 +205,7 @@ class UserController {
     try {
       const { email, password } = req.body;
       console.log(getCurrentTime(new Date()));
+      const currentTime = new Date();
       const user = await userModel.authenticateUser(
         email,
         password,
