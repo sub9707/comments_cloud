@@ -132,6 +132,40 @@ export default function LoginPage() {
     setActiveForm(form);
   };
 
+  const handleAdminLogin = async () => {
+    try {
+      setIsLoading(true);
+      const result = await loginUser("admin@admin", "eltpaqj12!@");
+      if (result) {
+        setRefreshToken(result.refreshToken);
+        dispatch(SET_TOKEN(result.accessToken));
+        dispatch(
+          setUser({
+            name: result.user.name,
+            email: result.user.email,
+            id: result.userId,
+            rule: result.user.rule,
+            profile_img: result.user.profileImg,
+          })
+        );
+        dispatch(
+          addMessage({
+            id: "unique_id",
+            text: `로그인 했습니다.`,
+            type: "info",
+          })
+        );
+        navigate("/");
+      } else {
+        console.log("로그인 실패:", result);
+      }
+    } catch (error: any) {
+      setLoginError("로그인 정보를 확인해주세요.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (isLoggedIn()) {
       navigate("/");
@@ -306,6 +340,7 @@ export default function LoginPage() {
               </FormWrapper>
             </FormsWrapper>
             <NoLogin onClick={() => navigate("/")}>로그인없이 이용하기</NoLogin>
+            <NoLogin onClick={handleAdminLogin}>테스트 계정 로그인</NoLogin>
           </FormsSection>
         </LoginPageContainer>
       </PageActualWrapper>
