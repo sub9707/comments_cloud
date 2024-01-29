@@ -16,6 +16,7 @@ export const api = axios.create({
 const userPersist = localStorage.getItem("persist:root");
 const authTokenPersist = JSON.parse(userPersist || "");
 const access_token = JSON.parse(authTokenPersist.authToken).accessToken;
+console.log(access_token);
 
 const refreshToken = getCookieToken();
 
@@ -23,11 +24,18 @@ const refreshToken = getCookieToken();
 api.interceptors.request.use(
   function (config) {
     if (access_token) {
+      console.log(
+        "Setting Authorization header with access token:",
+        access_token
+      );
       config.headers.Authorization = `Bearer ${access_token}`;
+    } else {
+      console.log("No access token found!");
     }
     return config;
   },
   function (error) {
+    console.error("Request interceptor error:", error);
     return Promise.reject(error);
   }
 );
