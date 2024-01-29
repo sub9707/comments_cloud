@@ -13,21 +13,15 @@ export const api = axios.create({
   withCredentials: true,
 });
 
-const userPersist = localStorage.getItem("persist:root");
-const authTokenPersist = JSON.parse(userPersist || "");
-const access_token = JSON.parse(authTokenPersist.authToken).accessToken;
-console.log(access_token);
-
 const refreshToken = getCookieToken();
 
 // axios 요청 인터셉터
 api.interceptors.request.use(
   function (config) {
+    const userPersist = localStorage.getItem("persist:root");
+    const authTokenPersist = JSON.parse(userPersist || "");
+    const access_token = JSON.parse(authTokenPersist.authToken).accessToken;
     if (access_token) {
-      console.log(
-        "Setting Authorization header with access token:",
-        access_token
-      );
       config.headers.Authorization = `Bearer ${access_token}`;
     } else {
       console.log("No access token found!");
@@ -46,7 +40,9 @@ api.interceptors.response.use(
     return response;
   },
   async function (error) {
-    console.log(error.response.status);
+    const userPersist = localStorage.getItem("persist:root");
+    const authTokenPersist = JSON.parse(userPersist || "");
+    const access_token = JSON.parse(authTokenPersist.authToken).accessToken;
     const originalRequest = error.config;
     // 토큰이 만료된 상태라면 새 토큰 발급
     if (
