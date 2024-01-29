@@ -38,10 +38,11 @@ api.interceptors.response.use(
     return response;
   },
   async function (error) {
+    console.log(error.response.status);
     const originalRequest = error.config;
     // 토큰이 만료된 상태라면 새 토큰 발급
     if (
-      error.reponse.status === 419 &&
+      error.response.status === 419 &&
       !originalRequest._retry &&
       access_token
     ) {
@@ -51,9 +52,10 @@ api.interceptors.response.use(
         removeCookieToken();
         await persistor.purge();
         alert("토큰이 만료되었습니다. 로그인해주세요.");
-        return error;
+        return Promise.reject(error);
       }
       originalRequest._retry = true;
+
       // refreshToken이 있다면 새 AccessToken 발급
       const newAccessToken = await getRefreshedToken();
       if (newAccessToken) {
