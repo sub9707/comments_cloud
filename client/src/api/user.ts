@@ -229,10 +229,19 @@ export const changeLikedListPublic = async (userId: string) => {
   try {
     console.log("in");
     const response = await api.put(`/user/LikedPublic?userId=${userId}`);
-    console.log(response);
     return response.data;
   } catch (err) {
     console.error(err);
     throw new Error("좋아요 노트 공개 변경: api");
   }
+};
+
+/**
+ * LikedList State는 좋아요 누른 게시글 데이터입니다.
+ */
+export const fetchLikedList = async (userId: string, offset: number) => {
+  const response = await api.get(
+    `/user/likedNoteList?userId=${userId}&offset=${offset}`
+  );
+  return response.data;
 };

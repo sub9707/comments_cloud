@@ -9,11 +9,7 @@ import { HeaderFourth, PageHeader } from "@styles/TextStyle";
 import ProfileInfo from "@components/UserProfile/ProfileInfo";
 import ActivityGraph from "@components/UserProfile/ActivityGraph";
 import RecentErrors from "../myError/RecentErrors";
-import {
-  JustifyBetween,
-  JustifyCenter,
-  JustifyEnd,
-} from "@styles/FlexBoxStlye";
+import { JustifyBetween, JustifyCenter } from "@styles/FlexBoxStlye";
 import { Button, Form } from "react-bootstrap";
 import { userStateType } from "@/store/Utils/User";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,10 +23,6 @@ import LikedErrors from "../myError/LikedErrors";
 import LikedNoteList from "@components/UserProfile/LikedNoteList";
 import { ThunkDispatch } from "redux-thunk";
 import { AnyAction } from "redux";
-import {
-  clearLikedList,
-  fetchLikedList,
-} from "@/store/DataThunk/LikedListSlice";
 import { RootState } from "@/store";
 import { setOffset } from "@/store/Utils/Pagination";
 import { addMessage } from "@/store/Utils/Alert";
@@ -41,12 +33,8 @@ export default function UserProfile() {
   const user = useSelector((state: userStateType) => state.user.data);
   const dispatch = useDispatch<ThunkDispatch<any, any, AnyAction>>();
   const containerRef = useRef<HTMLDivElement>(null);
-  const [hasMoreData, setHasMoreData] = useState<boolean>(false);
   const [isPublicList, setIsPublicList] = useState<boolean>(false);
   const offset = useSelector((state: RootState) => state.pagination.offset);
-  const totalCount = useSelector(
-    (state: RootState) => state.LikedBoardListSlice.total_count
-  );
   const navigate = useNavigate();
 
   const userFind = async () => {
@@ -63,25 +51,15 @@ export default function UserProfile() {
     }
   };
 
-  const clickFetchHandler = async () => {
-    setHasMoreData(totalCount > offset);
-    if (!userId || !hasMoreData) return;
-    await dispatch(fetchLikedList({ userId: +userId, offset }));
-    dispatch(setOffset(offset + 10));
-  };
-
   const checkListPublic = async () => {
     if (!userId) return;
     const result = await checkLikedListPublic(userId || "");
     setIsPublicList(result?.liked_list_public === 1 ? true : false);
     if (result?.liked_list_public) {
       try {
-        await dispatch(fetchLikedList({ userId: +userId, offset }));
         await dispatch(setOffset(offset + 10));
       } catch (error) {
         console.error(error);
-      } finally {
-        setHasMoreData(totalCount > offset);
       }
     }
   };
@@ -105,10 +83,6 @@ export default function UserProfile() {
   useEffect(() => {
     userFind();
     checkListPublic();
-    return () => {
-      dispatch(setOffset(0));
-      dispatch(clearLikedList());
-    };
   }, []);
 
   return (
@@ -160,13 +134,6 @@ export default function UserProfile() {
           {isPublicList ? (
             <>
               <LikedNoteList />
-              {hasMoreData ? (
-                <JustifyEnd
-                  className="text-underline-hover"
-                  onClick={clickFetchHandler}>
-                  노트 더보기
-                </JustifyEnd>
-              ) : null}
             </>
           ) : (
             <JustifyCenter>리스트가 비공개로 설정되었습니다.</JustifyCenter>

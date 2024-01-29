@@ -1,12 +1,37 @@
-import { useSelector } from "react-redux";
-import { RootState } from "@/store";
 import { formatRelativeTime } from "@utils/Calculation";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { fetchLikedList } from "@api/user";
+
+type LikedNoteListType = {
+  id: number;
+  title: string;
+  writer_id: string;
+  nickname: string;
+  like_date: string;
+};
 
 function LikedNoteList() {
-  const listData = useSelector(
-    (state: RootState) => state.LikedBoardListSlice.data
-  );
+  const [listData, setListData] = useState<LikedNoteListType[]>([]);
+  const { userId } = useParams();
+
+  const clickRouteHandler = (id: string) => {
+    navigate(`/user/${id}`);
+    navigate(0);
+  };
+
+  useEffect(() => {
+    const fetchListData = async () => {
+      const response = await fetchLikedList(userId!, 0);
+      const result = response.data;
+      setListData(result);
+    };
+    fetchListData();
+
+    return () => {
+      fetchListData();
+    };
+  }, []);
   const navigate = useNavigate();
   return (
     <table className="table table-sm text-center">
@@ -28,7 +53,7 @@ function LikedNoteList() {
               </td>
               <td
                 className="text-underline-hover"
-                onClick={() => navigate(`/user/${data?.writer_id}`)}>
+                onClick={() => clickRouteHandler(data?.writer_id)}>
                 {data?.nickname}
               </td>
               <td>{formatRelativeTime(data?.like_date)}</td>

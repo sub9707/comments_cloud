@@ -15,9 +15,8 @@ export const api = axios.create({
 
 const userPersist = localStorage.getItem("persist:root");
 const authTokenPersist = JSON.parse(userPersist || "");
-const access_token = authTokenPersist
-  ? JSON.parse(authTokenPersist.authToken).accessToken
-  : null;
+const access_token = JSON.parse(authTokenPersist.authToken).accessToken;
+
 const refreshToken = getCookieToken();
 
 // axios 요청 인터셉터

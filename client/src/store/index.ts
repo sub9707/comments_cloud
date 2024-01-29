@@ -13,7 +13,6 @@ import RankToggle from "./Toggle/RankingToggle";
 import BoardRankTab from "./Toggle/BoardRankTab";
 import boardSearch from "./DataThunk/BoardSearchSlice";
 import boardFetchSlice from "./Toggle/BoardFetchTab";
-import LikedBoardListSlice from "./DataThunk/LikedListSlice";
 import adminUserModalSlice from "./Modal/AdminUserModal";
 import adminBoardModalSlice from "./Modal/AdminBoardModal";
 import pictureModalSlice from "./Modal/PictureModal";
@@ -47,7 +46,6 @@ const reducers = combineReducers({
   BoardRankTab: BoardRankTab,
   RankToggle: RankToggle,
   boardFetchTab: boardFetchSlice,
-  LikedBoardListSlice,
   adminUserModalSlice,
   adminBoardModalSlice,
   pictureModalSlice,
