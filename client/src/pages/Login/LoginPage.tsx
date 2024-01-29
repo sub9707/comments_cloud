@@ -135,7 +135,7 @@ export default function LoginPage() {
   const handleAdminLogin = async () => {
     try {
       setIsLoading(true);
-      const result = await loginUser("admin@admin", "eltpaqj12!@");
+      const result = await loginUser("admin@admin", "adminadmin@314");
       if (result) {
         setRefreshToken(result.refreshToken);
         dispatch(SET_TOKEN(result.accessToken));
@@ -160,6 +160,7 @@ export default function LoginPage() {
         console.log("로그인 실패:", result);
       }
     } catch (error: any) {
+      console.log(error);
       setLoginError("로그인 정보를 확인해주세요.");
     } finally {
       setIsLoading(false);
