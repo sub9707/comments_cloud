@@ -40,7 +40,7 @@ exports.auth = (req, res, next) => {
       message: "토큰 정보가 없습니다",
     });
   }
-  console.log(req.headers.authorization);
+  console.log(JSON.stringify(req.headers.authorization));
   const token = req.headers.authorization.split(" ")[1];
   try {
     req.decoded = jwt.verify(token, process.env.JWT_SECRET);
