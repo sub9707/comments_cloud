@@ -71,8 +71,8 @@ function ProfileInfo(props: { userId: string }) {
         <br />
         <MessageArea>
           {userInfo?.profile_message
-            ? "프로필 메시지를 입력해주세요."
-            : userInfo?.profile_message}
+            ? userInfo?.profile_message
+            : "프로필 메시지를 입력해주세요."}
         </MessageArea>
       </ProfileInfoArea>{" "}
     </>
