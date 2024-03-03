@@ -3,6 +3,7 @@ import styled from "styled-components";
 import ImageCard from "@components/Cards/ImgCard";
 import { useState, useEffect } from "react";
 import PlainCard from "@components/Cards/PlainCard";
+import { getAccessToken } from "@api/token";
 
 const MainContainer = styled.div`
   width: 100%;

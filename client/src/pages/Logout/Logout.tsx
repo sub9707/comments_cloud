@@ -7,14 +7,15 @@ import { DELETE_TOKEN } from "@/store/Utils/Auth";
 import { removeCookieToken } from "@/store/Utils/Cookie";
 import { persistor } from "@/store";
 import { addMessage } from "@/store/Utils/Alert";
+import { deleteAccessToken } from "@api/token";
 
 export default function Logout() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   async function logout() {
-    dispatch(DELETE_TOKEN());
     removeCookieToken();
+    deleteAccessToken();
     await persistor.purge();
     dispatch(
       addMessage({

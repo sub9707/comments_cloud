@@ -32,6 +32,7 @@ import { LoginFormValues, RegisterFormValues } from "@/types/react-hook-form";
 import { setUser } from "@/store/Utils/User";
 import SpinnerOne from "@components/Utils/Spinner";
 import { addMessage } from "@/store/Utils/Alert";
+import { setAccessToken } from "@api/token";
 
 export default function LoginPage() {
   const {
@@ -57,8 +58,9 @@ export default function LoginPage() {
       setIsLoading(true);
       const result = await loginUser(data.email, data.password);
       if (result) {
+        console.log(result);
         setRefreshToken(result.refreshToken);
-        dispatch(SET_TOKEN(result.accessToken));
+        setAccessToken(result.accessToken);
         dispatch(
           setUser({
             name: result.user.name,
@@ -138,7 +140,7 @@ export default function LoginPage() {
       const result = await loginUser("admin@admin", "adminadmin@314");
       if (result) {
         setRefreshToken(result.refreshToken);
-        dispatch(SET_TOKEN(result.accessToken));
+        setAccessToken(result.accessToken);
         dispatch(
           setUser({
             name: result.user.name,
