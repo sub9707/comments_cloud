@@ -1,6 +1,13 @@
 import { getCookieToken } from "@/store/Utils/Cookie";
 import { api } from "./axios";
 
+type TokenType = {
+  code: 200 | 401 | 500;
+  message: string;
+  accessToken: string;
+  expiresIn: number;
+};
+
 /**
  * @method POST
  * 토큰 갱신
@@ -25,19 +32,17 @@ export const getRefreshedToken = async () => {
 };
 
 const TOKEN_KEY = "access_token";
-export const TOKEN_TIME_OUT = 15 * 60 * 1000;
 
-export const setAccessToken = (accessToken: string) => {
+export const setAccessToken = (token: TokenType) => {
   try {
     const currentTime = new Date().getTime();
-    const expiresIn = currentTime + TOKEN_TIME_OUT;
+    const expiresIn = currentTime + token.expiresIn;
 
     const tokenData = {
-      accessToken,
-      expireTime: TOKEN_TIME_OUT.toString(),
+      accessToken: token.accessToken,
+      expireTime: token.expiresIn.toString(),
       expiresIn,
     };
-
     localStorage.setItem(TOKEN_KEY, JSON.stringify(tokenData));
   } catch (error) {
     console.error("Access Token 저장 중 에러:", error);

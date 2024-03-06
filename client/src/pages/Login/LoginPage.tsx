@@ -140,7 +140,12 @@ export default function LoginPage() {
       const result = await loginUser("admin@admin", "adminadmin@314");
       if (result) {
         setRefreshToken(result.refreshToken);
-        setAccessToken(result.accessToken);
+        setAccessToken({
+          code: result.code,
+          message: result.message,
+          accessToken: result.accessToken,
+          expiresIn: 15 * 60 * 1000,
+        });
         dispatch(
           setUser({
             name: result.user.name,

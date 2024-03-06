@@ -57,7 +57,7 @@ router.post("/refresh", async (req, res) => {
         issuer: "Trouble_Shooter",
       }
     );
-    const expiresIn = 15 * 60;
+    const expiresIn = 15 * 60 * 1000;
     return res.json({
       code: 200,
       message: "토큰이 갱신되었습니다.",
