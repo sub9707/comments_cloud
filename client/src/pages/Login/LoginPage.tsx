@@ -26,13 +26,13 @@ import registerUser, { loginUser } from "@api/user";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { isLoggedIn, setRefreshToken } from "@/store/Utils/Cookie";
-import { SET_TOKEN } from "@/store/Utils/Auth";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { LoginFormValues, RegisterFormValues } from "@/types/react-hook-form";
 import { setUser } from "@/store/Utils/User";
 import SpinnerOne from "@components/Utils/Spinner";
 import { addMessage } from "@/store/Utils/Alert";
 import { setAccessToken } from "@api/token";
+import { validatePassword } from "@utils/StringForm";
 
 export default function LoginPage() {
   const {
@@ -40,7 +40,6 @@ export default function LoginPage() {
     handleSubmit,
     formState: { errors: loginErrors },
   } = useForm<LoginFormValues>();
-
   const {
     register: registerReg,
     handleSubmit: handleSubmitReg,
@@ -53,6 +52,7 @@ export default function LoginPage() {
   const [loginError, setLoginError] = useState<string>("");
   const [registerError, setRegisterError] = useState<string>("");
 
+  // 로그인 진행 SubmitHandler
   const onSubmitLogin: SubmitHandler<LoginFormValues> = async (data) => {
     try {
       setIsLoading(true);
@@ -60,7 +60,12 @@ export default function LoginPage() {
       if (result) {
         console.log(result);
         setRefreshToken(result.refreshToken);
-        setAccessToken(result.accessToken);
+        setAccessToken({
+          code: result.code,
+          message: result.message,
+          accessToken: result.accessToken,
+          expiresIn: 15 * 60 * 1000,
+        });
         dispatch(
           setUser({
             name: result.user.name,
@@ -87,6 +92,7 @@ export default function LoginPage() {
       setIsLoading(false);
     }
   };
+  // 회원가입 진행 SubmitHandler
   const onSubmitReg: SubmitHandler<RegisterFormValues> = async (data) => {
     try {
       setIsLoading(true);
@@ -112,15 +118,6 @@ export default function LoginPage() {
     }
   };
 
-  const validatePassword = (value: string) => {
-    const passwordRegex =
-      /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/;
-    return (
-      passwordRegex.test(value) ||
-      "영문자, 숫자, 특수문자를 모두 포함해야 합니다."
-    );
-  };
-
   const validatePasswordMatch = (value: string) =>
     value === getValues("password") || "비밀번호가 일치하지 않습니다.";
 
@@ -130,10 +127,12 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // 회원가입 로그인 FORM 전환
   const handleSwitchForm = (form: string) => {
     setActiveForm(form);
   };
 
+  // test 계정 로그인 handler
   const handleAdminLogin = async () => {
     try {
       setIsLoading(true);
